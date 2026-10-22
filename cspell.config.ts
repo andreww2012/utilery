@@ -15,7 +15,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'nanoid',
     'neotraverse',
   ],
-  misc: ['knipignore', 'rearg', 'GHSA'],
+  misc: ['knipignore', 'rearg', 'GHSA', 'unstub'],
   englishIshWords: [
     'arrayify',
     'combinators',

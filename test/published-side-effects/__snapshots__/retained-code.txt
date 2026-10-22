@@ -11,6 +11,18 @@ const globalThis_ = typeof globalThis === "object" && globalThis || typeof windo
 // node_modules/es-toolkit/dist/_internal/DOMException.mjs
 typeof globalThis_.DOMException !== "undefined" && globalThis_.DOMException;
 
+// node_modules/es-toolkit/dist/object/mapValues.mjs
+function mapValues(object, getNewValue) {
+	const result = {};
+	const keys = Object.keys(object);
+	for (let i = 0; i < keys.length; i++) {
+		const key = keys[i];
+		const value = object[key];
+		result[key] = getNewValue(value, key, object);
+	}
+	return result;
+}
+
 // node_modules/ts-extras/distribution/is-finite.mjs
 Number.isFinite;
 
@@ -1157,6 +1169,344 @@ function alignValue(value, precedingText) {
 
 // node_modules/neotraverse/dist/path-Bxt08XGL.mjs
 Array.isArray;
+
+// node_modules/es-toolkit/dist/server/colors/_internal/wrapAnsi.mjs
+function wrapAnsi(open, close, text) {
+	if (text.includes(close)) text = text.replaceAll(close, close + open);
+	return open + text + close;
+}
+
+// node_modules/es-toolkit/dist/server/colors/ansi256.mjs
+function ansi256$1(code) {
+	return (text) => wrapAnsi(`\x1b[38;5;${code}m`, "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/_internal/wrapAnsiBg.mjs
+function wrapAnsiBg(open, close, text) {
+	if (text.includes(close)) text = text.replaceAll(close, close + open);
+	if (text.includes("\n")) text = text.replaceAll(/\r?\n/g, (match) => close + match + open);
+	return open + text + close;
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgAnsi256.mjs
+function bgAnsi256$1(code) {
+	return (text) => wrapAnsiBg(`\x1b[48;5;${code}m`, "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgBlack.mjs
+function bgBlack(text) {
+	return wrapAnsiBg("\x1B[40m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgBlackBright.mjs
+function bgBlackBright(text) {
+	return wrapAnsiBg("\x1B[100m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgBlue.mjs
+function bgBlue(text) {
+	return wrapAnsiBg("\x1B[44m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgBlueBright.mjs
+function bgBlueBright(text) {
+	return wrapAnsiBg("\x1B[104m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgCyan.mjs
+function bgCyan(text) {
+	return wrapAnsiBg("\x1B[46m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgCyanBright.mjs
+function bgCyanBright(text) {
+	return wrapAnsiBg("\x1B[106m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgGreen.mjs
+function bgGreen(text) {
+	return wrapAnsiBg("\x1B[42m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgGreenBright.mjs
+function bgGreenBright(text) {
+	return wrapAnsiBg("\x1B[102m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/_internal/parseHex.mjs
+const BLACK = [
+	0,
+	0,
+	0
+];
+const HEX_COLOR_REGEX = /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/;
+function parseHex(hex) {
+	const raw = hex.startsWith("#") ? hex.slice(1) : hex;
+	if (!HEX_COLOR_REGEX.test(raw)) return BLACK;
+	const full = raw.length === 3 ? raw[0] + raw[0] + raw[1] + raw[1] + raw[2] + raw[2] : raw;
+	const colorValue = parseInt(full, 16);
+	return [
+		colorValue >> 16 & 255,
+		colorValue >> 8 & 255,
+		colorValue & 255
+	];
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgHex.mjs
+function bgHex$1(color) {
+	const [r, g, b] = parseHex(color);
+	return (text) => wrapAnsiBg(`\x1b[48;2;${r};${g};${b}m`, "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgMagenta.mjs
+function bgMagenta(text) {
+	return wrapAnsiBg("\x1B[45m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgMagentaBright.mjs
+function bgMagentaBright(text) {
+	return wrapAnsiBg("\x1B[105m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgRed.mjs
+function bgRed(text) {
+	return wrapAnsiBg("\x1B[41m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgRedBright.mjs
+function bgRedBright(text) {
+	return wrapAnsiBg("\x1B[101m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgRgb.mjs
+function bgRgb$1(r, g, b) {
+	return (text) => wrapAnsiBg(`\x1b[48;2;${r};${g};${b}m`, "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgWhite.mjs
+function bgWhite(text) {
+	return wrapAnsiBg("\x1B[47m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgWhiteBright.mjs
+function bgWhiteBright(text) {
+	return wrapAnsiBg("\x1B[107m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgYellow.mjs
+function bgYellow(text) {
+	return wrapAnsiBg("\x1B[43m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bgYellowBright.mjs
+function bgYellowBright(text) {
+	return wrapAnsiBg("\x1B[103m", "\x1B[49m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/black.mjs
+function black(text) {
+	return wrapAnsi("\x1B[30m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/blackBright.mjs
+function blackBright(text) {
+	return wrapAnsi("\x1B[90m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/blue.mjs
+function blue(text) {
+	return wrapAnsi("\x1B[34m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/blueBright.mjs
+function blueBright(text) {
+	return wrapAnsi("\x1B[94m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/bold.mjs
+function bold(text) {
+	return wrapAnsi("\x1B[1m", "\x1B[22m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/cyan.mjs
+function cyan(text) {
+	return wrapAnsi("\x1B[36m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/cyanBright.mjs
+function cyanBright(text) {
+	return wrapAnsi("\x1B[96m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/dim.mjs
+function dim(text) {
+	return wrapAnsi("\x1B[2m", "\x1B[22m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/gray.mjs
+const gray = blackBright;
+
+// node_modules/es-toolkit/dist/server/colors/green.mjs
+function green(text) {
+	return wrapAnsi("\x1B[32m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/greenBright.mjs
+function greenBright(text) {
+	return wrapAnsi("\x1B[92m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/hex.mjs
+function hex$1(color) {
+	const [r, g, b] = parseHex(color);
+	return (text) => wrapAnsi(`\x1b[38;2;${r};${g};${b}m`, "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/hidden.mjs
+function hidden(text) {
+	return wrapAnsi("\x1B[8m", "\x1B[28m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/inverse.mjs
+function inverse(text) {
+	return wrapAnsi("\x1B[7m", "\x1B[27m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/italic.mjs
+function italic(text) {
+	return wrapAnsi("\x1B[3m", "\x1B[23m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/magenta.mjs
+function magenta(text) {
+	return wrapAnsi("\x1B[35m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/magentaBright.mjs
+function magentaBright(text) {
+	return wrapAnsi("\x1B[95m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/red.mjs
+function red(text) {
+	return wrapAnsi("\x1B[31m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/redBright.mjs
+function redBright(text) {
+	return wrapAnsi("\x1B[91m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/reset.mjs
+function reset(text) {
+	return wrapAnsi("\x1B[0m", "\x1B[0m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/rgb.mjs
+function rgb$1(r, g, b) {
+	return (text) => wrapAnsi(`\x1b[38;2;${r};${g};${b}m`, "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/strikethrough.mjs
+function strikethrough(text) {
+	return wrapAnsi("\x1B[9m", "\x1B[29m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/underline.mjs
+function underline(text) {
+	return wrapAnsi("\x1B[4m", "\x1B[24m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/white.mjs
+function white(text) {
+	return wrapAnsi("\x1B[37m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/whiteBright.mjs
+function whiteBright(text) {
+	return wrapAnsi("\x1B[97m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/yellow.mjs
+function yellow(text) {
+	return wrapAnsi("\x1B[33m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/yellowBright.mjs
+function yellowBright(text) {
+	return wrapAnsi("\x1B[93m", "\x1B[39m", text);
+}
+
+// node_modules/es-toolkit/dist/server/colors/index.mjs
+const colors$1 = Object.freeze({
+	reset,
+	bold,
+	dim,
+	italic,
+	underline,
+	inverse,
+	hidden,
+	strikethrough,
+	black,
+	red,
+	green,
+	yellow,
+	blue,
+	magenta,
+	cyan,
+	white,
+	gray,
+	blackBright,
+	redBright,
+	greenBright,
+	yellowBright,
+	blueBright,
+	magentaBright,
+	cyanBright,
+	whiteBright,
+	bgBlack,
+	bgRed,
+	bgGreen,
+	bgYellow,
+	bgBlue,
+	bgMagenta,
+	bgCyan,
+	bgWhite,
+	bgBlackBright,
+	bgRedBright,
+	bgGreenBright,
+	bgYellowBright,
+	bgBlueBright,
+	bgMagentaBright,
+	bgCyanBright,
+	bgWhiteBright,
+	ansi256: ansi256$1,
+	bgAnsi256: bgAnsi256$1,
+	rgb: rgb$1,
+	bgRgb: bgRgb$1,
+	hex: hex$1,
+	bgHex: bgHex$1
+});
+
+// server/is-color-supported.mjs
+const isColorSupported = (stream = process.stdout) => {
+	const { FORCE_COLOR } = process.env;
+	return FORCE_COLOR == null ? stream.isTTY === true && stream.hasColors?.() === true : FORCE_COLOR !== "0" && FORCE_COLOR !== "false";
+};
+
+// server/colors.mjs
+const plainWhenUnsupported = (style) => (text) => isColorSupported() ? style(text) : text;
+const plainWhenUnsupportedFactory = (createStyle) => (...args) => plainWhenUnsupported(createStyle(...args));
+const { ansi256, bgAnsi256, rgb, bgRgb, hex, bgHex, ...styles } = colors$1;
+Object.freeze({
+	...mapValues(styles, plainWhenUnsupported),
+	ansi256: plainWhenUnsupportedFactory(ansi256),
+	bgAnsi256: plainWhenUnsupportedFactory(bgAnsi256),
+	rgb: plainWhenUnsupportedFactory(rgb),
+	bgRgb: plainWhenUnsupportedFactory(bgRgb),
+	hex: plainWhenUnsupportedFactory(hex),
+	bgHex: plainWhenUnsupportedFactory(bgHex)
+});
 
 // dom/closest-typed.mjs
 Object.assign((element, selector) => element.closest(selector), { as: (element, selector) => element.closest(selector) });
