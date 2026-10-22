@@ -62,6 +62,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `predicate` | Type guards and value predicates                        | ✅                 |
 | `regex`     | Type-safe `RegExp` and pattern escaping                 | ✅                 |
 | `runtime`   | Runtime environment detection                           | ✅                 |
+| `semver`    | Semantic version comparison and npm-style ranges        | ✅                 |
 | `server`    | Node-only helpers (filesystem, process, terminal)       | ❌                 |
 | `set`       | `Set` querying and transformation                       | ✅                 |
 | `string`    | String casing, splitting and affixing                   | ✅                 |
@@ -131,6 +132,7 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 | [`type-fest`](docs/packages/type-fest.md)                          | Type-only utility types (the `types` group / `unutils/types`)                                                                                                                            |
 | [`typed-query-selector`](docs/packages/typed-query-selector.md)    | Infers the element type from a CSS selector literal — the `dom` group / `unutils/dom`                                                                                                    |
 | [`uint8array-extras`](docs/packages/uint8array-extras.md)          | `Uint8Array` conversions, Base64 and hex — the `bytes` group / `unutils/bytes`                                                                                                           |
+| [`verkit`](docs/packages/verkit.md)                                | Semantic versions and npm-style ranges — the `semver` group / `unutils/semver`                                                                                                           |
 | [`yieldable-json`](docs/packages/yieldable-json.md)                | Non-blocking async JSON parse/stringify                                                                                                                                                  |
 
 <details>

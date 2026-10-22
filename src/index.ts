@@ -15,6 +15,7 @@ export * from './object/index.ts';
 export * from './predicate/index.ts';
 export * from './regex/index.ts';
 export * from './runtime/index.ts';
+export * from './semver/index.ts';
 export * from './set/index.ts';
 export * from './string/index.ts';
 export * from './traverse/index.ts';

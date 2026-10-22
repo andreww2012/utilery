@@ -2865,6 +2865,73 @@ new RegExp(`[${SEPARATORS.map(escapeChar).join("")}]`, "g");
 const regex = ((src, flags) => new RegExp(src, flags));
 Object.assign(regex, { as: regex });
 
+// node_modules/verkit/dist/comparison-CmVirWIW.mjs
+const LETTER_DASH_NUMBER = "[a-zA-Z0-9-]";
+const NUMERIC_IDENTIFIER = String.raw`0|[1-9]\d*`;
+const NUMERIC_IDENTIFIER_LOOSE = String.raw`\d+`;
+const NON_NUMERIC_IDENTIFIER = String.raw`\d*[a-zA-Z-]${LETTER_DASH_NUMBER}*`;
+const MAIN_VERSION = String.raw`(${NUMERIC_IDENTIFIER})\.(${NUMERIC_IDENTIFIER})\.(${NUMERIC_IDENTIFIER})`;
+const MAIN_VERSION_LOOSE = String.raw`(${NUMERIC_IDENTIFIER_LOOSE})\.(${NUMERIC_IDENTIFIER_LOOSE})\.(${NUMERIC_IDENTIFIER_LOOSE})`;
+const PRERELEASE_IDENTIFIER = `(?:${NON_NUMERIC_IDENTIFIER}|${NUMERIC_IDENTIFIER})`;
+const PRERELEASE_IDENTIFIER_LOOSE = `(?:${NON_NUMERIC_IDENTIFIER}|${NUMERIC_IDENTIFIER_LOOSE})`;
+const PRERELEASE = String.raw`(?:-(${PRERELEASE_IDENTIFIER}(?:\.${PRERELEASE_IDENTIFIER})*))`;
+const PRERELEASE_LOOSE = String.raw`(?:-?(${PRERELEASE_IDENTIFIER_LOOSE}(?:\.${PRERELEASE_IDENTIFIER_LOOSE})*))`;
+const BUILD_IDENTIFIER = `${LETTER_DASH_NUMBER}+`;
+const BUILD = String.raw`(?:\+(${BUILD_IDENTIFIER}(?:\.${BUILD_IDENTIFIER})*))`;
+const FULL_PLAIN = `v?${MAIN_VERSION}${PRERELEASE}?${BUILD}?`;
+const LOOSE_PLAIN = String.raw`[v=\s]*${MAIN_VERSION_LOOSE}${PRERELEASE_LOOSE}?${BUILD}?`;
+const GREATER_LESS_THAN = "((?:<|>)?=?)";
+const XRANGE_IDENTIFIER = String.raw`${NUMERIC_IDENTIFIER}|x|X|\*`;
+const XRANGE_IDENTIFIER_LOOSE = String.raw`${NUMERIC_IDENTIFIER_LOOSE}|x|X|\*`;
+const XRANGE_PLAIN = String.raw`[v=\s]*(${XRANGE_IDENTIFIER})(?:\.(${XRANGE_IDENTIFIER})(?:\.(${XRANGE_IDENTIFIER})(?:${PRERELEASE})?${BUILD}?)?)?`;
+const XRANGE_PLAIN_LOOSE = String.raw`[v=\s]*(${XRANGE_IDENTIFIER_LOOSE})(?:\.(${XRANGE_IDENTIFIER_LOOSE})(?:\.(${XRANGE_IDENTIFIER_LOOSE})(?:${PRERELEASE_LOOSE})?${BUILD}?)?)?`;
+const LONE_TILDE = "(?:~>?)";
+const LONE_CARET = String.raw`(?:\^)`;
+const COERCE_PLAIN = String.raw`(^|[^\d])(\d{1,${16}})(?:\.(\d{1,${16}}))?(?:\.(\d{1,${16}}))?`;
+const COERCE = String.raw`${COERCE_PLAIN}(?:$|[^\d])`;
+const COERCE_FULL = String.raw`${COERCE_PLAIN}(?:${PRERELEASE})?(?:${BUILD})?(?:$|[^\d])`;
+function makeSafeRegexSource(source) {
+	const replacements = [
+		[String.raw`\s`, 1],
+		[String.raw`\d`, 256],
+		[LETTER_DASH_NUMBER, 250]
+	];
+	for (const [token, maximum] of replacements) source = source.split(`${token}*`).join(`${token}{0,${maximum}}`).split(`${token}+`).join(`${token}{1,${maximum}}`);
+	return source;
+}
+function safeRegex(source, flags) {
+	return new RegExp(makeSafeRegexSource(source), flags);
+}
+safeRegex(`^${FULL_PLAIN}$`);
+safeRegex(`^${LOOSE_PLAIN}$`);
+
+// node_modules/verkit/dist/set-BGFWKKE8.mjs
+safeRegex(String.raw`^${GREATER_LESS_THAN}\s*(${FULL_PLAIN})$|^$`);
+safeRegex(String.raw`^${GREATER_LESS_THAN}\s*(${LOOSE_PLAIN})$|^$`);
+
+// node_modules/verkit/dist/range-C5wjdo9a.mjs
+new RegExp(BUILD, "g");
+safeRegex(BUILD);
+safeRegex(String.raw`^\s*(${XRANGE_PLAIN})\s+-\s+(${XRANGE_PLAIN})\s*$`);
+safeRegex(String.raw`^\s*(${XRANGE_PLAIN_LOOSE})\s+-\s+(${XRANGE_PLAIN_LOOSE})\s*$`);
+safeRegex(String.raw`(\s*)${GREATER_LESS_THAN}\s*(${LOOSE_PLAIN}|${XRANGE_PLAIN})`, "g");
+safeRegex(String.raw`(\s*)${LONE_TILDE}\s+`, "g");
+safeRegex(String.raw`(\s*)${LONE_CARET}\s+`, "g");
+safeRegex(`^${LONE_TILDE}${XRANGE_PLAIN}$`);
+safeRegex(`^${LONE_TILDE}${XRANGE_PLAIN_LOOSE}$`);
+safeRegex(`^${LONE_CARET}${XRANGE_PLAIN}$`);
+safeRegex(`^${LONE_CARET}${XRANGE_PLAIN_LOOSE}$`);
+safeRegex(String.raw`^${GREATER_LESS_THAN}\s*${XRANGE_PLAIN}$`);
+safeRegex(String.raw`^${GREATER_LESS_THAN}\s*${XRANGE_PLAIN_LOOSE}$`);
+safeRegex(String.raw`(<|>)?=?\s*\*`);
+safeRegex(String.raw`^${GREATER_LESS_THAN}\s*(${LOOSE_PLAIN})$|^$`);
+
+// node_modules/verkit/dist/version-Co1j9Tpq.mjs
+safeRegex(COERCE);
+safeRegex(COERCE_FULL);
+safeRegex(`^${PRERELEASE}$`);
+safeRegex(`^${PRERELEASE_LOOSE}$`);
+
 // node_modules/dedent/dist/dedent.mjs
 function ownKeys(object, enumerableOnly) {
 	var keys = Object.keys(object);
