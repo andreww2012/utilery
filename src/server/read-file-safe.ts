@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import {hasErrorCode} from '../_internal/has-error-code.ts';
+import {isNodeError} from './is-node-error.ts';
 
 /**
  * Reads a file, returning `null` instead of throwing when the file does not
@@ -31,7 +31,7 @@ export async function readFileSafe(
   asBinary = false,
 ): Promise<string | Buffer | null> {
   return await fs.readFile(filePath, asBinary ? null : 'utf8').catch((error: unknown) => {
-    if (hasErrorCode(error, 'ENOENT')) {
+    if (isNodeError(error, 'ENOENT')) {
       return null;
     }
 

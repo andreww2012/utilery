@@ -1,11 +1,11 @@
 import fs from 'node:fs/promises';
 import nodePath from 'node:path';
-import {hasErrorCode} from '../_internal/has-error-code.ts';
 import {arrayify} from '../array/arrayify.ts';
 import {sortBy} from '../array/sort-by.ts';
 import {withConcurrencyLimit} from '../async/with-concurrency-limit.ts';
 import {ensurePrefix} from '../string/ensure-prefix.ts';
 import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
+import {isNodeError} from './is-node-error.ts';
 import {readFileSafe} from './read-file-safe.ts';
 
 // Reading every file at once can run out of file descriptors in large directories
@@ -90,7 +90,7 @@ export async function readFilesInDirectorySafe(
   const entries = await fs
     .readdir(directoryPath, {withFileTypes: true, recursive})
     .catch((error: unknown) => {
-      if (hasErrorCode(error, 'ENOENT')) {
+      if (isNodeError(error, 'ENOENT')) {
         return null;
       }
 

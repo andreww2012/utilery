@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import {hasErrorCode} from '../_internal/has-error-code.ts';
+import {returnFalseIfMissing} from './_shared.ts';
 
 /**
  * Checks whether a file or directory exists at the given path.
@@ -24,10 +24,4 @@ export const pathExists = async (path: string) =>
   await fs
     .access(path)
     .then(() => true)
-    .catch((error: unknown) => {
-      if (hasErrorCode(error, 'ENOENT', 'ENOTDIR')) {
-        return false;
-      }
-
-      throw error;
-    });
+    .catch(returnFalseIfMissing);
