@@ -1,5 +1,6 @@
-import {type RandomInteger, randomInteger} from 'remeda';
+import type {RandomInteger} from 'remeda';
 import type {Subtract} from 'type-fest';
+import {randomInteger, resolveRandomArguments} from '../_internal/random-integer.ts';
 
 /**
  * Returns a pseudo-random integer in the **exclusive** range `[minimum, maximum)`.
@@ -11,11 +12,14 @@ import type {Subtract} from 'type-fest';
  * The upper bound is excluded, matching array indexing and the `nextInt(n)`
  * convention of Java/Go/Ruby. For an inclusive upper bound use `randomIntInclusive`.
  * Internally the exclusive `[a, b)` integer range is the inclusive `[a, b - 1]`
- * range (uses `Math.random`; not cryptographically secure). The range must be
- * non-empty (`maximum` greater than
+ * range. Uses `Math.random` (not cryptographically secure) unless another
+ * generator is passed, like a seeded one from `createSeededRandom`. The range
+ * must be non-empty (`maximum` greater than
  * `minimum`, or `maximum` greater than `0` for the single-argument form).
  * @param minimum - The inclusive lower bound. When called with a single argument this slot is the exclusive upper bound instead and the lower bound defaults to `0`.
  * @param maximum - The exclusive upper bound.
+ * @param options - Options.
+ * @param options.random - A function returning numbers from `0` to `1`, used instead of `Math.random`.
  * @returns A random integer within the exclusive range.
  * @example
  * randomIntExclusive(1, 4);
@@ -28,12 +32,21 @@ import type {Subtract} from 'type-fest';
 export function randomIntExclusive<Minimum extends number, Maximum extends number>(
   minimum: Minimum,
   maximum: Maximum,
+  options?: {random?: () => number},
 ): RandomInteger<Minimum, Subtract<Maximum, 1>>;
 export function randomIntExclusive<Maximum extends number>(
   maximum: Maximum,
+  options?: {random?: () => number},
 ): RandomInteger<0, Subtract<Maximum, 1>>;
-export function randomIntExclusive(minimumOrMaximum: number, maximum?: number) {
-  return maximum == null
-    ? randomInteger(0, minimumOrMaximum - 1)
-    : randomInteger(minimumOrMaximum, maximum - 1);
+export function randomIntExclusive(
+  minimumOrMaximum: number,
+  maximumOrOptions?: number | {random?: () => number},
+  options?: {random?: () => number},
+) {
+  const [minimum, maximum, getRandom] = resolveRandomArguments(
+    minimumOrMaximum,
+    maximumOrOptions,
+    options,
+  );
+  return randomInteger(minimum, maximum - 1, getRandom);
 }

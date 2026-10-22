@@ -34,4 +34,10 @@ describe('math/randomIntInclusive', () => {
 
     expect(randomIntInclusive(3)).toBe(3);
   });
+
+  it('uses the given generator', () => {
+    expect(randomIntInclusive(1, 6, {random: () => 0})).toBe(1);
+    expect(randomIntInclusive(1, 6, {random: () => 0.999})).toBe(6);
+    expect(randomIntInclusive(3, {random: () => 0.999})).toBe(3);
+  });
 });

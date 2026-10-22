@@ -34,4 +34,9 @@ describe('math/randomIntExclusive', () => {
 
     expect(randomIntExclusive(3)).toBe(2);
   });
+
+  it('uses the given generator', () => {
+    expect(randomIntExclusive(1, 4, {random: () => 0.999})).toBe(3);
+    expect(randomIntExclusive(3, {random: () => 0})).toBe(0);
+  });
 });

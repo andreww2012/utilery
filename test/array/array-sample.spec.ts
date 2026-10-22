@@ -1,4 +1,5 @@
 import {arraySample} from '../../src/array/array-sample.ts';
+import {createSeededRandom} from '../../src/math/create-seeded-random.ts';
 
 describe('array/arraySample', () => {
   describe('single element (no size)', () => {
@@ -80,5 +81,17 @@ describe('array/arraySample', () => {
     it('returns an empty array when sampling from an empty source', () => {
       expect(arraySample([], 3, {withReplacement: true})).toStrictEqual([]);
     });
+  });
+
+  it('uses the given generator', () => {
+    const array = [10, 20, 30, 40, 50];
+
+    expect(arraySample(array, {random: () => 0.99})).toBe(50);
+    expect(arraySample(array, 2, {random: createSeededRandom(1)})).toStrictEqual(
+      arraySample(array, 2, {random: createSeededRandom(1)}),
+    );
+    expect(arraySample(array, 3, {withReplacement: true, random: () => 0})).toStrictEqual([
+      10, 10, 10,
+    ]);
   });
 });
