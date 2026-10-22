@@ -6616,6 +6616,9 @@ for (const [locale, localeMap] of Object.entries(localeReplacements)) {
 	});
 }
 
+// node_modules/decode-uri-component/index.mjs
+new RegExp(`(%[a-f0-9]{2})+`, "gi");
+
 // node_modules/dedent/dist/dedent.mjs
 function ownKeys(object, enumerableOnly) {
 	var keys = Object.keys(object);
@@ -6724,6 +6727,140 @@ ansiRegex();
 
 // node_modules/string-width/index.mjs
 new Intl.Segmenter();
+
+// node_modules/split-string/index.mjs
+var require_split_string = __commonJSMin(((exports, module) => {
+	module.exports = (input, options = {}, fn) => {
+		if (typeof input !== "string") throw new TypeError("expected a string");
+		if (typeof options === "function") {
+			fn = options;
+			options = {};
+		}
+		let separator = options.separator || ".";
+		let ast = {
+			type: "root",
+			nodes: [],
+			stash: [""]
+		};
+		let stack = [ast];
+		let state = {
+			input,
+			separator,
+			stack
+		};
+		let string = input;
+		let value, node;
+		let i = -1;
+		state.bos = () => i === 0;
+		state.eos = () => i === string.length;
+		state.prev = () => string[i - 1];
+		state.next = () => string[i + 1];
+		let quotes = options.quotes || [];
+		let openers = options.brackets || {};
+		if (options.brackets === true) openers = {
+			"[": "]",
+			"(": ")",
+			"{": "}",
+			"<": ">"
+		};
+		if (options.quotes === true) quotes = [
+			"\"",
+			"'",
+			"`"
+		];
+		let closers = invert(openers);
+		let keep = options.keep || ((value) => value !== "\\");
+		const block = () => state.block = stack[stack.length - 1];
+		const peek = () => string[i + 1];
+		const next = () => string[++i];
+		const append = (value) => {
+			state.value = value;
+			if (value && keep(value, state) !== false) state.block.stash[state.block.stash.length - 1] += value;
+		};
+		const closeIndex = (value, startIdx) => {
+			let idx = string.indexOf(value, startIdx);
+			if (idx > -1 && string[idx - 1] === "\\") idx = closeIndex(value, idx + 1);
+			return idx;
+		};
+		for (; i < string.length - 1;) {
+			state.value = value = next();
+			state.index = i;
+			block();
+			if (value === "\\") {
+				if (peek() === "\\") append(value + next());
+				else {
+					append(value);
+					append(next());
+				}
+				continue;
+			}
+			if (quotes.includes(value)) {
+				let pos = i + 1;
+				let idx = closeIndex(value, pos);
+				if (idx > -1) {
+					append(value);
+					append(string.slice(pos, idx));
+					append(string[idx]);
+					i = idx;
+					continue;
+				}
+				append(value);
+				continue;
+			}
+			if (options.brackets !== false && openers[value]) {
+				node = {
+					type: "bracket",
+					nodes: []
+				};
+				node.stash = keep(value) !== false ? [value] : [""];
+				node.parent = state.block;
+				state.block.nodes.push(node);
+				stack.push(node);
+				continue;
+			}
+			if (options.brackets !== false && closers[value]) {
+				if (stack.length === 1) {
+					append(value);
+					continue;
+				}
+				append(value);
+				node = stack.pop();
+				block();
+				append(node.stash.join(""));
+				continue;
+			}
+			if (value === separator && state.block.type === "root") {
+				if (typeof fn === "function" && fn(state) === false) {
+					append(value);
+					continue;
+				}
+				state.block.stash.push("");
+				continue;
+			}
+			append(value);
+		}
+		node = stack.pop();
+		while (node !== ast) {
+			if (options.strict === true) {
+				let column = i - node.stash.length + 1;
+				throw new SyntaxError(`Unmatched: "${node.stash[0]}", at column ${column}`);
+			}
+			value = node.parent.stash.pop() + node.stash.join(".");
+			node.parent.stash = node.parent.stash.concat(value.split("."));
+			node = stack.pop();
+		}
+		return node.stash;
+	};
+	function invert(obj) {
+		let inverted = {};
+		for (const key of Object.keys(obj)) inverted[obj[key]] = key;
+		return inverted;
+	}
+}));
+require_split_string();
+
+// string/split-outside-quotes.mjs
+require_split_string();
 
 // node_modules/remeda/dist/words-Cr8hSj8M.mjs
 [...`	.
