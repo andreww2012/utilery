@@ -1,6 +1,7 @@
 export {type ColorFunction, colors} from './colors.ts';
 export {ExecError, exec} from './exec.ts';
 export {findUp, type FindUpOptions, findUpSync} from './find-up.ts';
+export {getAppPaths} from './get-app-paths.ts';
 export {isColorSupported} from './is-color-supported.ts';
 export {isDirectory, isDirectorySync} from './is-directory.ts';
 export {isFile, isFileSync} from './is-file.ts';
@@ -12,3 +13,4 @@ export {readFileSafe} from './read-file-safe.ts';
 export {readFilesInDirectorySafe} from './read-files-in-directory-safe.ts';
 export {readJsonFileSafe} from './read-json-file-safe.ts';
 export {styleText} from './style-text.ts';
+export {writeJsonFile, type WriteJsonFileOptions, writeJsonFileSync} from './write-json-file.ts';

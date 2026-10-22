@@ -233,6 +233,7 @@
     "dedent": "1.7.2",
     "destr": "2.0.5",
     "devalue": "6.0.2",
+    "env-paths": "4.0.0",
     "es-toolkit": "1.52.0",
     "escape-string-regexp": "5.0.0",
     "eslint": "10.12.0",
@@ -280,6 +281,7 @@
     "verkit": "0.5.0",
     "vitest": "5.0.3",
     "wrap-ansi": "10.0.2",
+    "write-json-file": "7.0.0",
     "yieldable-json": "2.1.0"
   },
   "engines": {

@@ -1,0 +1,90 @@
+Creates the exit handler on the first call of `onExit`, `load` or `unload` instead of on import.
+Creating it defines a property on `globalThis`, and importing `unutils/server` must not change
+globals: the package is bundled for `writeJsonFile` (through `write-file-atomic`), and our bundled
+modules evaluate it as soon as they are imported.
+
+diff --git a/dist/cjs/index.js b/dist/cjs/index.js
+index 797e6743fe48e3c7af581e45a24f52db1ec34f42..f84a6ad21fe608c12f1a01de66bd183e9795b245 100644
+--- a/dist/cjs/index.js
++++ b/dist/cjs/index.js
+@@ -249,31 +249,10 @@ class SignalExit extends SignalExitBase {
+ const process = globalThis.process;
+ // wrap so that we call the method on the actual handler, without
+ // exporting it directly.
+-_a = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback()), 
+-/**
+- * Called when the process is exiting, whether via signal, explicit
+- * exit, or running out of stuff to do.
+- *
+- * If the global process object is not suitable for instrumentation,
+- * then this will be a no-op.
+- *
+- * Returns a function that may be used to unload signal-exit.
+- */
+-exports.onExit = _a.onExit, 
+-/**
+- * Load the listeners.  Likely you never need to call this, unless
+- * doing a rather deep integration with signal-exit functionality.
+- * Mostly exposed for the benefit of testing.
+- *
+- * @internal
+- */
+-exports.load = _a.load, 
+-/**
+- * Unload the listeners.  Likely you never need to call this, unless
+- * doing a rather deep integration with signal-exit functionality.
+- * Mostly exposed for the benefit of testing.
+- *
+- * @internal
+- */
+-exports.unload = _a.unload;
++// Created on first use: the handler defines a property on `globalThis`, which must not happen on import
++let wrapped;
++const getWrapped = () => (wrapped ??= signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback()));
++exports.onExit = (cb, opts) => getWrapped().onExit(cb, opts);
++exports.load = () => getWrapped().load();
++exports.unload = () => getWrapped().unload();
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+diff --git a/dist/mjs/index.js b/dist/mjs/index.js
+index 4a78bad847d40736965b4dc94e9f7c94c0c62f4e..79f0217b7c505d2e9a3eb7c268c6a4e64f3a0dc4 100644
+--- a/dist/mjs/index.js
++++ b/dist/mjs/index.js
+@@ -245,31 +245,10 @@ class SignalExit extends SignalExitBase {
+ const process = globalThis.process;
+ // wrap so that we call the method on the actual handler, without
+ // exporting it directly.
+-export const { 
+-/**
+- * Called when the process is exiting, whether via signal, explicit
+- * exit, or running out of stuff to do.
+- *
+- * If the global process object is not suitable for instrumentation,
+- * then this will be a no-op.
+- *
+- * Returns a function that may be used to unload signal-exit.
+- */
+-onExit, 
+-/**
+- * Load the listeners.  Likely you never need to call this, unless
+- * doing a rather deep integration with signal-exit functionality.
+- * Mostly exposed for the benefit of testing.
+- *
+- * @internal
+- */
+-load, 
+-/**
+- * Unload the listeners.  Likely you never need to call this, unless
+- * doing a rather deep integration with signal-exit functionality.
+- * Mostly exposed for the benefit of testing.
+- *
+- * @internal
+- */
+-unload, } = signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback());
++// Created on first use: the handler defines a property on `globalThis`, which must not happen on import
++let wrapped;
++const getWrapped = () => (wrapped ??= signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback()));
++export const onExit = (cb, opts) => getWrapped().onExit(cb, opts);
++export const load = () => getWrapped().load();
++export const unload = () => getWrapped().unload();
+ //# sourceMappingURL=index.js.map

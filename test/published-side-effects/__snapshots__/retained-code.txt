@@ -1,8 +1,10 @@
+import { createRequire } from "node:module";
 import "node:path";
-import "node:process";
+import process$1 from "node:process";
 import fsPromises from "node:fs/promises";
 import "node:url";
 import fs from "node:fs";
+import os from "node:os";
 import "node:child_process";
 import "node:util";
 
@@ -123,6 +125,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 	value: mod,
 	enumerable: true
 }) : target, mod));
+var __require = (() => createRequire(import.meta.url))();
 
 // node_modules/picomatch/lib/constants.mjs
 var require_constants = __commonJSMin(((exports, module) => {
@@ -7396,6 +7399,29 @@ Object.freeze({
 	bgHex: plainWhenUnsupportedFactory(bgHex)
 });
 
+// node_modules/is-safe-filename/index.mjs
+Object.freeze([
+	"",
+	"   ",
+	".",
+	"..",
+	" .",
+	". ",
+	" ..",
+	".. ",
+	"../",
+	"../foo",
+	"foo/../bar",
+	"foo/bar",
+	"foo\\bar",
+	"foo\0bar"
+]);
+
+// node_modules/env-paths/index.mjs
+os.homedir();
+os.tmpdir();
+const { env } = process$1;
+
 // node_modules/path-type/index.mjs
 async function isType(fsStatType, statsMethodName, filePath) {
 	if (typeof filePath !== "string") throw new TypeError(`Expected a string, got ${typeof filePath}`);
@@ -7421,6 +7447,416 @@ isType.bind(void 0, "lstat", "isSymbolicLink");
 isTypeSync.bind(void 0, "statSync", "isFile");
 isTypeSync.bind(void 0, "statSync", "isDirectory");
 isTypeSync.bind(void 0, "lstatSync", "isSymbolicLink");
+
+// node_modules/imurmurhash/imurmurhash.mjs
+var require_imurmurhash = __commonJSMin(((exports, module) => {
+	(function() {
+		var cache;
+		function MurmurHash3(key, seed) {
+			var m = this instanceof MurmurHash3 ? this : cache;
+			m.reset(seed);
+			if (typeof key === "string" && key.length > 0) m.hash(key);
+			if (m !== this) return m;
+		}
+		MurmurHash3.prototype.hash = function(key) {
+			var h1, k1, i, top, len = key.length;
+			this.len += len;
+			k1 = this.k1;
+			i = 0;
+			switch (this.rem) {
+				case 0: k1 ^= len > i ? key.charCodeAt(i++) & 65535 : 0;
+				case 1: k1 ^= len > i ? (key.charCodeAt(i++) & 65535) << 8 : 0;
+				case 2: k1 ^= len > i ? (key.charCodeAt(i++) & 65535) << 16 : 0;
+				case 3:
+					k1 ^= len > i ? (key.charCodeAt(i) & 255) << 24 : 0;
+					k1 ^= len > i ? (key.charCodeAt(i++) & 65280) >> 8 : 0;
+			}
+			this.rem = len + this.rem & 3;
+			len -= this.rem;
+			if (len > 0) {
+				h1 = this.h1;
+				while (1) {
+					k1 = k1 * 11601 + (k1 & 65535) * 3432906752 & 4294967295;
+					k1 = k1 << 15 | k1 >>> 17;
+					k1 = k1 * 13715 + (k1 & 65535) * 461832192 & 4294967295;
+					h1 ^= k1;
+					h1 = h1 << 13 | h1 >>> 19;
+					h1 = h1 * 5 + 3864292196 & 4294967295;
+					if (i >= len) break;
+					k1 = key.charCodeAt(i++) & 65535 ^ (key.charCodeAt(i++) & 65535) << 8 ^ (key.charCodeAt(i++) & 65535) << 16;
+					top = key.charCodeAt(i++);
+					k1 ^= (top & 255) << 24 ^ (top & 65280) >> 8;
+				}
+				k1 = 0;
+				switch (this.rem) {
+					case 3: k1 ^= (key.charCodeAt(i + 2) & 65535) << 16;
+					case 2: k1 ^= (key.charCodeAt(i + 1) & 65535) << 8;
+					case 1: k1 ^= key.charCodeAt(i) & 65535;
+				}
+				this.h1 = h1;
+			}
+			this.k1 = k1;
+			return this;
+		};
+		MurmurHash3.prototype.result = function() {
+			var k1 = this.k1, h1 = this.h1;
+			if (k1 > 0) {
+				k1 = k1 * 11601 + (k1 & 65535) * 3432906752 & 4294967295;
+				k1 = k1 << 15 | k1 >>> 17;
+				k1 = k1 * 13715 + (k1 & 65535) * 461832192 & 4294967295;
+				h1 ^= k1;
+			}
+			h1 ^= this.len;
+			h1 ^= h1 >>> 16;
+			h1 = h1 * 51819 + (h1 & 65535) * 2246770688 & 4294967295;
+			h1 ^= h1 >>> 13;
+			h1 = h1 * 44597 + (h1 & 65535) * 3266445312 & 4294967295;
+			h1 ^= h1 >>> 16;
+			return h1 >>> 0;
+		};
+		MurmurHash3.prototype.reset = function(seed) {
+			this.h1 = typeof seed === "number" ? seed : 0;
+			this.rem = this.k1 = this.len = 0;
+			return this;
+		};
+		cache = new MurmurHash3();
+		if (typeof module != "undefined") module.exports = MurmurHash3;
+		else this.MurmurHash3 = MurmurHash3;
+	})();
+}));
+require_imurmurhash();
+
+// node_modules/signal-exit/dist/cjs/signals.mjs
+var require_signals = __commonJSMin(((exports) => {
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.signals = void 0;
+	exports.signals = [];
+	exports.signals.push("SIGHUP", "SIGINT", "SIGTERM");
+	if (process.platform !== "win32") exports.signals.push("SIGALRM", "SIGABRT", "SIGVTALRM", "SIGXCPU", "SIGXFSZ", "SIGUSR2", "SIGTRAP", "SIGSYS", "SIGQUIT", "SIGIOT");
+	if (process.platform === "linux") exports.signals.push("SIGIO", "SIGPOLL", "SIGPWR", "SIGSTKFLT");
+}));
+require_signals();
+
+// node_modules/signal-exit/dist/cjs/index.mjs
+var require_cjs = __commonJSMin(((exports) => {
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.unload = exports.load = exports.onExit = exports.signals = void 0;
+	const signals_js_1 = require_signals();
+	Object.defineProperty(exports, "signals", {
+		enumerable: true,
+		get: function() {
+			return signals_js_1.signals;
+		}
+	});
+	const processOk = (process) => !!process && typeof process === "object" && typeof process.removeListener === "function" && typeof process.emit === "function" && typeof process.reallyExit === "function" && typeof process.listeners === "function" && typeof process.kill === "function" && typeof process.pid === "number" && typeof process.on === "function";
+	const kExitEmitter = Symbol.for("signal-exit emitter");
+	const global = globalThis;
+	const ObjectDefineProperty = Object.defineProperty.bind(Object);
+	var Emitter = class {
+		emitted = {
+			afterExit: false,
+			exit: false
+		};
+		listeners = {
+			afterExit: [],
+			exit: []
+		};
+		count = 0;
+		id = Math.random();
+		constructor() {
+			if (global[kExitEmitter]) return global[kExitEmitter];
+			ObjectDefineProperty(global, kExitEmitter, {
+				value: this,
+				writable: false,
+				enumerable: false,
+				configurable: false
+			});
+		}
+		on(ev, fn) {
+			this.listeners[ev].push(fn);
+		}
+		removeListener(ev, fn) {
+			const list = this.listeners[ev];
+			const i = list.indexOf(fn);
+			if (i === -1) return;
+			if (i === 0 && list.length === 1) list.length = 0;
+			else list.splice(i, 1);
+		}
+		emit(ev, code, signal) {
+			if (this.emitted[ev]) return false;
+			this.emitted[ev] = true;
+			let ret = false;
+			for (const fn of this.listeners[ev]) ret = fn(code, signal) === true || ret;
+			if (ev === "exit") ret = this.emit("afterExit", code, signal) || ret;
+			return ret;
+		}
+	};
+	var SignalExitBase = class {};
+	const signalExitWrap = (handler) => {
+		return {
+			onExit(cb, opts) {
+				return handler.onExit(cb, opts);
+			},
+			load() {
+				return handler.load();
+			},
+			unload() {
+				return handler.unload();
+			}
+		};
+	};
+	var SignalExitFallback = class extends SignalExitBase {
+		onExit() {
+			return () => {};
+		}
+		load() {}
+		unload() {}
+	};
+	var SignalExit = class extends SignalExitBase {
+		#hupSig = process.platform === "win32" ? "SIGINT" : "SIGHUP";
+		#emitter = new Emitter();
+		#process;
+		#originalProcessEmit;
+		#originalProcessReallyExit;
+		#sigListeners = {};
+		#loaded = false;
+		constructor(process) {
+			super();
+			this.#process = process;
+			this.#sigListeners = {};
+			for (const sig of signals_js_1.signals) this.#sigListeners[sig] = () => {
+				const listeners = this.#process.listeners(sig);
+				let { count } = this.#emitter;
+				const p = process;
+				if (typeof p.__signal_exit_emitter__ === "object" && typeof p.__signal_exit_emitter__.count === "number") count += p.__signal_exit_emitter__.count;
+				if (listeners.length === count) {
+					this.unload();
+					const ret = this.#emitter.emit("exit", null, sig);
+					const s = sig === "SIGHUP" ? this.#hupSig : sig;
+					if (!ret) process.kill(process.pid, s);
+				}
+			};
+			this.#originalProcessReallyExit = process.reallyExit;
+			this.#originalProcessEmit = process.emit;
+		}
+		onExit(cb, opts) {
+			if (!processOk(this.#process)) return () => {};
+			if (this.#loaded === false) this.load();
+			const ev = opts?.alwaysLast ? "afterExit" : "exit";
+			this.#emitter.on(ev, cb);
+			return () => {
+				this.#emitter.removeListener(ev, cb);
+				if (this.#emitter.listeners["exit"].length === 0 && this.#emitter.listeners["afterExit"].length === 0) this.unload();
+			};
+		}
+		load() {
+			if (this.#loaded) return;
+			this.#loaded = true;
+			this.#emitter.count += 1;
+			for (const sig of signals_js_1.signals) try {
+				const fn = this.#sigListeners[sig];
+				if (fn) this.#process.on(sig, fn);
+			} catch (_) {}
+			this.#process.emit = (ev, ...a) => {
+				return this.#processEmit(ev, ...a);
+			};
+			this.#process.reallyExit = (code) => {
+				return this.#processReallyExit(code);
+			};
+		}
+		unload() {
+			if (!this.#loaded) return;
+			this.#loaded = false;
+			signals_js_1.signals.forEach((sig) => {
+				const listener = this.#sigListeners[sig];
+				if (!listener) throw new Error("Listener not defined for signal: " + sig);
+				try {
+					this.#process.removeListener(sig, listener);
+				} catch (_) {}
+			});
+			this.#process.emit = this.#originalProcessEmit;
+			this.#process.reallyExit = this.#originalProcessReallyExit;
+			this.#emitter.count -= 1;
+		}
+		#processReallyExit(code) {
+			if (!processOk(this.#process)) return 0;
+			this.#process.exitCode = code || 0;
+			this.#emitter.emit("exit", this.#process.exitCode, null);
+			return this.#originalProcessReallyExit.call(this.#process, this.#process.exitCode);
+		}
+		#processEmit(ev, ...args) {
+			const og = this.#originalProcessEmit;
+			if (ev === "exit" && processOk(this.#process)) {
+				if (typeof args[0] === "number") this.#process.exitCode = args[0];
+				const ret = og.call(this.#process, ev, ...args);
+				this.#emitter.emit("exit", this.#process.exitCode, null);
+				return ret;
+			} else return og.call(this.#process, ev, ...args);
+		}
+	};
+	const process = globalThis.process;
+	let wrapped;
+	const getWrapped = () => wrapped ??= signalExitWrap(processOk(process) ? new SignalExit(process) : new SignalExitFallback());
+	exports.onExit = (cb, opts) => getWrapped().onExit(cb, opts);
+	exports.load = () => getWrapped().load();
+	exports.unload = () => getWrapped().unload();
+}));
+require_cjs();
+
+// node_modules/write-file-atomic/lib/index.mjs
+var require_lib = __commonJSMin(((exports, module) => {
+	module.exports = writeFile;
+	module.exports.sync = writeFileSync;
+	module.exports._getTmpname = getTmpname;
+	module.exports._cleanupOnExit = cleanupOnExit;
+	const fs = __require("fs");
+	const MurmurHash3 = require_imurmurhash();
+	const { onExit } = require_cjs();
+	const path = __require("path");
+	const { promisify } = __require("util");
+	const activeFiles = {};
+	const threadId = (function getId() {
+		try {
+			return __require("worker_threads").threadId;
+		} catch (e) {
+			return 0;
+		}
+	})();
+	let invocations = 0;
+	function getTmpname(filename) {
+		return filename + "." + MurmurHash3(typeof __filename === "string" ? __filename : "write-file-atomic").hash(String(process.pid)).hash(String(threadId)).hash(String(++invocations)).result();
+	}
+	function cleanupOnExit(tmpfile) {
+		return () => {
+			try {
+				fs.unlinkSync(typeof tmpfile === "function" ? tmpfile() : tmpfile);
+			} catch {}
+		};
+	}
+	function serializeActiveFile(absoluteName) {
+		return new Promise((resolve) => {
+			if (!activeFiles[absoluteName]) activeFiles[absoluteName] = [];
+			activeFiles[absoluteName].push(resolve);
+			if (activeFiles[absoluteName].length === 1) resolve();
+		});
+	}
+	function isChownErrOk(err) {
+		if (err.code === "ENOSYS") return true;
+		if (!process.getuid || process.getuid() !== 0) {
+			if (err.code === "EINVAL" || err.code === "EPERM") return true;
+		}
+		return false;
+	}
+	async function writeFileAsync(filename, data, options = {}) {
+		if (typeof options === "string") options = { encoding: options };
+		let fd;
+		let tmpfile;
+		const removeOnExitHandler = onExit(cleanupOnExit(() => tmpfile));
+		const absoluteName = path.resolve(filename);
+		try {
+			await serializeActiveFile(absoluteName);
+			const truename = await promisify(fs.realpath)(filename).catch(() => filename);
+			tmpfile = getTmpname(truename);
+			if (!options.mode || !options.chown) {
+				const stats = await promisify(fs.stat)(truename).catch(() => {});
+				if (stats) {
+					if (options.mode == null) options.mode = stats.mode;
+					if (options.chown == null && process.getuid) options.chown = {
+						uid: stats.uid,
+						gid: stats.gid
+					};
+				}
+			}
+			fd = await promisify(fs.open)(tmpfile, "w", options.mode);
+			if (options.tmpfileCreated) await options.tmpfileCreated(tmpfile);
+			if (ArrayBuffer.isView(data)) await promisify(fs.write)(fd, data, 0, data.length, 0);
+			else if (data != null) await promisify(fs.write)(fd, String(data), 0, String(options.encoding || "utf8"));
+			if (options.fsync !== false) await promisify(fs.fsync)(fd);
+			await promisify(fs.close)(fd);
+			fd = null;
+			if (options.chown) await promisify(fs.chown)(tmpfile, options.chown.uid, options.chown.gid).catch((err) => {
+				if (!isChownErrOk(err)) throw err;
+			});
+			if (options.mode) await promisify(fs.chmod)(tmpfile, options.mode).catch((err) => {
+				if (!isChownErrOk(err)) throw err;
+			});
+			await promisify(fs.rename)(tmpfile, truename);
+		} finally {
+			if (fd) await promisify(fs.close)(fd).catch(() => {});
+			removeOnExitHandler();
+			await promisify(fs.unlink)(tmpfile).catch(() => {});
+			activeFiles[absoluteName].shift();
+			if (activeFiles[absoluteName].length > 0) activeFiles[absoluteName][0]();
+			else delete activeFiles[absoluteName];
+		}
+	}
+	async function writeFile(filename, data, options, callback) {
+		if (options instanceof Function) {
+			callback = options;
+			options = {};
+		}
+		const promise = writeFileAsync(filename, data, options);
+		if (callback) try {
+			const result = await promise;
+			return callback(result);
+		} catch (err) {
+			return callback(err);
+		}
+		return promise;
+	}
+	function writeFileSync(filename, data, options) {
+		if (typeof options === "string") options = { encoding: options };
+		else if (!options) options = {};
+		try {
+			filename = fs.realpathSync(filename);
+		} catch (ex) {}
+		const tmpfile = getTmpname(filename);
+		if (!options.mode || !options.chown) try {
+			const stats = fs.statSync(filename);
+			options = Object.assign({}, options);
+			if (!options.mode) options.mode = stats.mode;
+			if (!options.chown && process.getuid) options.chown = {
+				uid: stats.uid,
+				gid: stats.gid
+			};
+		} catch (ex) {}
+		let fd;
+		const cleanup = cleanupOnExit(tmpfile);
+		const removeOnExitHandler = onExit(cleanup);
+		let threw = true;
+		try {
+			fd = fs.openSync(tmpfile, "w", options.mode || 438);
+			if (options.tmpfileCreated) options.tmpfileCreated(tmpfile);
+			if (ArrayBuffer.isView(data)) fs.writeSync(fd, data, 0, data.length, 0);
+			else if (data != null) fs.writeSync(fd, String(data), 0, String(options.encoding || "utf8"));
+			if (options.fsync !== false) fs.fsyncSync(fd);
+			fs.closeSync(fd);
+			fd = null;
+			if (options.chown) try {
+				fs.chownSync(tmpfile, options.chown.uid, options.chown.gid);
+			} catch (err) {
+				if (!isChownErrOk(err)) throw err;
+			}
+			if (options.mode) try {
+				fs.chmodSync(tmpfile, options.mode);
+			} catch (err) {
+				if (!isChownErrOk(err)) throw err;
+			}
+			fs.renameSync(tmpfile, filename);
+			threw = false;
+		} finally {
+			if (fd) try {
+				fs.closeSync(fd);
+			} catch (ex) {}
+			removeOnExitHandler();
+			if (threw) cleanup();
+		}
+	}
+}));
+require_lib();
+
+// node_modules/write-json-file/index.mjs
+require_lib();
 
 // dom/closest-typed.mjs
 Object.assign((element, selector) => element.closest(selector), { as: (element, selector) => element.closest(selector) });

@@ -187,6 +187,8 @@ patchedDependencies:
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
   remeda: e5e9cb0ab98af1439c69c33c8c0eb3417e8516a7ee031dff8616649f6126164c
+  signal-exit: 1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd
+  write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
   yieldable-json: 99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88
 
 importers:
@@ -292,6 +294,9 @@ importers:
       devalue:
         specifier: 6.0.2
         version: 6.0.2
+      env-paths:
+        specifier: 4.0.0
+        version: 4.0.0
       es-toolkit:
         specifier: 1.52.0
         version: 1.52.0
@@ -433,6 +438,9 @@ importers:
       wrap-ansi:
         specifier: 10.0.2
         version: 10.0.2
+      write-json-file:
+        specifier: 7.0.0
+        version: 7.0.0
       yieldable-json:
         specifier: 2.1.0
         version: 2.1.0(patch_hash=99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88)
@@ -5340,6 +5348,10 @@ packages:
     resolution: {integrity: sha512-e0VyvkVTwVYViNovRkZ9aodhxVlyoMn7eJhVUPxZ+eK9P/7CBkxvvsBOHqFPEH416726W8tLXXXjKwqgTErrCQ==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
 
+  sort-keys@6.0.1:
+    resolution: {integrity: sha512-w7xWRu8U9MneKNna8ptG194jp9PLtbd/Rl6gwrmbK4yUeKbE66a64rHgl0iKTBBDr/hpanx7zMGP1Qo8MRkc/w==}
+    engines: {node: '>=20'}
+
   sort-object-keys@2.1.0:
     resolution: {integrity: sha512-SOiEnthkJKPv2L6ec6HMwhUcN0/lppkeYuN1x63PbyPRrgSPIuBJCiYxYyvWRTtjMlOi14vQUCGUJqS6PLVm8g==}
 
@@ -5869,9 +5881,17 @@ packages:
     resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==}
     engines: {node: '>=18'}
 
+  write-file-atomic@6.0.0:
+    resolution: {integrity: sha512-GmqrO8WJ1NuzJ2DrziEI2o57jKAVIQNf8a18W3nCYU3H7PNWqCCVTeH6/NQE93CIllIgQS98rrmVkYgTX9fFJQ==}
+    engines: {node: ^18.17.0 || >=20.5.0}
+
   write-file-atomic@7.0.1:
     resolution: {integrity: sha512-OTIk8iR8/aCRWBqvxrzxR0hgxWpnYBblY1S5hDWBQfk/VFmJwzmJgQFN3WsoUKHISv2eAwe+PpbUzyL1CKTLXg==}
     engines: {node: ^20.17.0 || >=22.9.0}
+
+  write-json-file@7.0.0:
+    resolution: {integrity: sha512-rj8As6LkachKauGxvZkFzCEd6hIRTi9FKtCNKOa4SaH5vPOiACbGcmPUEJXgkhTHwzNsYmcSbD3C9a6whBfyOg==}
+    engines: {node: '>=20'}
 
   ws@8.22.0:
     resolution: {integrity: sha512-Ydggc987+RO0AnWtZ/7Wq9FtNvcrL1b/RO0ud9mWjUPgDrsAAwQSF51sm2hm1XofbU/4jkpGEsLFsZZxU+1DOg==}
@@ -6732,7 +6752,7 @@ snapshots:
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
-      signal-exit: 4.1.0
+      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
     optionalDependencies:
       '@types/node': 22.20.5
 
@@ -6744,7 +6764,7 @@ snapshots:
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
-      signal-exit: 4.1.0
+      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
     optionalDependencies:
       '@types/node': 22.20.5
 
@@ -9159,7 +9179,7 @@ snapshots:
   foreground-child@3.3.1:
     dependencies:
       cross-spawn: 7.0.6
-      signal-exit: 4.1.0
+      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
 
   format@0.2.2: {}
 
@@ -10781,7 +10801,7 @@ snapshots:
 
   shell-quote@1.12.0: {}
 
-  signal-exit@4.1.0: {}
+  signal-exit@4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd): {}
 
   sigstore@4.1.1(supports-color@9.4.0):
     dependencies:
@@ -10820,6 +10840,10 @@ snapshots:
     dependencies:
       ip-address: 10.7.3
       smart-buffer: 4.2.0
+
+  sort-keys@6.0.1:
+    dependencies:
+      is-plain-obj: 4.1.0
 
   sort-object-keys@2.1.0: {}
 
@@ -11356,9 +11380,21 @@ snapshots:
       string-width: 7.2.0
       strip-ansi: 7.2.0
 
+  write-file-atomic@6.0.0(patch_hash=91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25):
+    dependencies:
+      imurmurhash: 0.1.4
+      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+
   write-file-atomic@7.0.1:
     dependencies:
-      signal-exit: 4.1.0
+      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+
+  write-json-file@7.0.0:
+    dependencies:
+      detect-indent: 7.0.2
+      is-plain-obj: 4.1.0
+      sort-keys: 6.0.1
+      write-file-atomic: 6.0.0(patch_hash=91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25)
 
   ws@8.22.0: {}
 

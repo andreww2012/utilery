@@ -17,7 +17,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'sindresorhus',
     'tusbar',
   ],
-  misc: ['knipignore', 'rearg', 'GHSA', 'unstub', 'nocase'],
+  misc: ['knipignore', 'rearg', 'GHSA', 'unstub', 'nocase', 'LOCALAPPDATA'],
   englishIshWords: [
     'arrayify',
     'combinators',
