@@ -1,5 +1,5 @@
-import fs from 'node:fs/promises';
-import {returnFalseIfMissing} from './_shared.ts';
+import fs from 'node:fs';
+import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
 
 /**
  * Checks whether a file or directory exists at the given path.
@@ -21,7 +21,24 @@ import {returnFalseIfMissing} from './_shared.ts';
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name -- the well-known name of this check, as in `fs-extra`
 export const pathExists = async (path: string) =>
-  await fs
+  await fs.promises
     .access(path)
     .then(() => true)
     .catch(returnFalseIfMissing);
+
+/**
+ * Synchronous version of `pathExists`. Unlike the native `fs.existsSync`,
+ * rethrows errors other than a missing path (like permission denied) instead
+ * of returning `false` for them.
+ * @param path - The path to check.
+ * @returns `true` if something exists at the path, otherwise `false`.
+ * @example
+ * pathExistsSync('package.json');
+ * // true
+ */
+// eslint-disable-next-line unicorn/consistent-boolean-name -- the well-known name of this check, as in `fs.existsSync`
+export const pathExistsSync = (path: string) =>
+  falseIfMissingSync(() => {
+    fs.accessSync(path);
+    return true;
+  });

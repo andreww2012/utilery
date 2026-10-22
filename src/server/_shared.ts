@@ -8,3 +8,12 @@ export const returnFalseIfMissing = (error: unknown) => {
 
   throw error;
 };
+
+/** Runs a synchronous file system call, turning an error about a missing path into `false` */
+export const falseIfMissingSync = <T>(run: () => T) => {
+  try {
+    return run();
+  } catch (error) {
+    return returnFalseIfMissing(error);
+  }
+};

@@ -1,6 +1,7 @@
 import "node:child_process";
 import "node:path";
-import "node:fs/promises";
+import fs from "node:fs";
+import fsPromises from "node:fs/promises";
 import "node:util";
 
 // node_modules/es-toolkit/dist/_internal/globalThis.mjs
@@ -7392,6 +7393,32 @@ Object.freeze({
 	hex: plainWhenUnsupportedFactory(hex),
 	bgHex: plainWhenUnsupportedFactory(bgHex)
 });
+
+// node_modules/path-type/index.mjs
+async function isType(fsStatType, statsMethodName, filePath) {
+	if (typeof filePath !== "string") throw new TypeError(`Expected a string, got ${typeof filePath}`);
+	try {
+		return (await fsPromises[fsStatType](filePath))[statsMethodName]();
+	} catch (error) {
+		if (error.code === "ENOENT") return false;
+		throw error;
+	}
+}
+function isTypeSync(fsStatType, statsMethodName, filePath) {
+	if (typeof filePath !== "string") throw new TypeError(`Expected a string, got ${typeof filePath}`);
+	try {
+		return fs[fsStatType](filePath)[statsMethodName]();
+	} catch (error) {
+		if (error.code === "ENOENT") return false;
+		throw error;
+	}
+}
+isType.bind(void 0, "stat", "isFile");
+isType.bind(void 0, "stat", "isDirectory");
+isType.bind(void 0, "lstat", "isSymbolicLink");
+isTypeSync.bind(void 0, "statSync", "isFile");
+isTypeSync.bind(void 0, "statSync", "isDirectory");
+isTypeSync.bind(void 0, "lstatSync", "isSymbolicLink");
 
 // dom/closest-typed.mjs
 Object.assign((element, selector) => element.closest(selector), { as: (element, selector) => element.closest(selector) });
