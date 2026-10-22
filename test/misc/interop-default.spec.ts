@@ -17,7 +17,15 @@ describe('misc/interopDefault', () => {
 
   it('returns a present default export even if it is falsy', async () => {
     await expect(interopDefault({default: 0})).resolves.toBe(0);
-    await expect(interopDefault({default: undefined})).resolves.toBeUndefined();
+    await expect(interopDefault({default: ''})).resolves.toBe('');
+  });
+
+  it('returns the module itself when the default export is `null` or `undefined`', async () => {
+    const withUndefined = {default: undefined, named: 'x'};
+    const withNull = {default: null};
+
+    await expect(interopDefault(withUndefined)).resolves.toBe(withUndefined);
+    await expect(interopDefault(withNull)).resolves.toBe(withNull);
   });
 
   it('reads the default export of a function', async () => {

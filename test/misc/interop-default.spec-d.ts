@@ -12,4 +12,10 @@ describe('misc/interopDefault', () => {
     expectTypeOf(interopDefault({named: 'x'})).toEqualTypeOf<Promise<{named: string}>>();
     expectTypeOf(interopDefault(Promise.resolve(1))).toEqualTypeOf<Promise<number>>();
   });
+
+  it('resolves to the module type when the default export is nullish', () => {
+    expectTypeOf(interopDefault({default: undefined, named: 'x'})).toEqualTypeOf<
+      Promise<{default: undefined; named: string}>
+    >();
+  });
 });
