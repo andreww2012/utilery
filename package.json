@@ -61,6 +61,10 @@
       "types": "./dist/function/index.d.mts",
       "default": "./dist/function/index.mjs"
     },
+    "./glob": {
+      "types": "./dist/glob/index.d.mts",
+      "default": "./dist/glob/index.mjs"
+    },
     "./http": {
       "types": "./dist/http/index.d.mts",
       "default": "./dist/http/index.mjs"
@@ -210,6 +214,7 @@
     "@types/http-link-header": "1.0.7",
     "@types/negotiator": "0.6.5",
     "@types/node": "22.20.5",
+    "@types/picomatch": "4.0.3",
     "@types/range-parser": "1.2.7",
     "@types/yieldable-json": "2.0.2",
     "@vitest/coverage-v8": "5.0.3",
@@ -246,6 +251,7 @@
     "neotraverse": "1.0.1",
     "npm-check-updates": "23.1.0",
     "oxfmt": "catalog:format",
+    "picomatch": "4.0.7",
     "pretty-ms": "9.3.1",
     "publint": "0.3.25",
     "range-parser": "1.3.0",

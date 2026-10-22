@@ -50,6 +50,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `bytes`     | `Uint8Array` conversion, Base64 and hex encoding        | ✅                 |
 | `dom`       | Selector-typed DOM lookups                              | ❌                 |
 | `function`  | Function composition, currying and partial application  | ✅                 |
+| `glob`      | Glob pattern matching and path filters                  | ✅                 |
 | `http`      | Parsing and formatting of HTTP headers                  | ✅                 |
 | `id`        | Unique ID generation                                    | ✅                 |
 | `iterable`  | Generic iterable traversal and aggregation              | ✅                 |
@@ -123,6 +124,7 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 | [`nanoid`](docs/packages/nanoid.md)                                | Secure, URL-safe unique ID generation — the `id` group / `unutils/id`                                                                                                                    |
 | [`negotiator`](docs/packages/negotiator.md)                        | Content encoding negotiation (`http/getPreferredEncoding`)                                                                                                                               |
 | [`neotraverse`](docs/packages/neotraverse.md)                      | Recursive visitor traversal of nested values — the `traverse` group / `unutils/traverse`                                                                                                 |
+| [`picomatch`](docs/packages/picomatch.md)                          | Glob matching — the `glob` group / `unutils/glob`                                                                                                                                        |
 | [`pretty-ms`](docs/packages/pretty-ms.md)                          | Human-readable duration formatting, including the colon notation (`misc/formatDuration`)                                                                                                 |
 | [`range-parser`](docs/packages/range-parser.md)                    | Parsing the `Range` HTTP header (`http/parseRangeHeader`)                                                                                                                                |
 | [`safe-stable-stringify`](docs/packages/safe-stable-stringify.md)  | Deterministic, circular-safe `JSON.stringify`                                                                                                                                            |
@@ -220,6 +222,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `function/maybeCall`                  | Resolves a `MaybeFn` (value or getter); calls it with forwarded args when it is a function, else returns it as-is                                                                                                       |
 | `function/partial`                    | Consolidates `partial`/`partialRight`; args as an array; pass `true` to pre-apply trailing                                                                                                                              |
 | `function/toDisposable`               | Consolidates `defer`/`deferAsync`: wraps a cleanup callback for `using`/`await using`; an async callback gives an `AsyncDisposable` only                                                                                |
+| `glob/createPathFilter`               | Filter function from `include` and `exclude` patterns: globs (via `picomatch`) or regular expressions                                                                                                                   |
 | `http/parseRetryAfter`                | Parses the `Retry-After` header (seconds or an HTTP date) into milliseconds                                                                                                                                             |
 | `iterable/countBy`                    | -                                                                                                                                                                                                                       |
 | `iterable/every`                      | Generalized from `set/every`; simple `(value) => boolean` callback                                                                                                                                                      |
