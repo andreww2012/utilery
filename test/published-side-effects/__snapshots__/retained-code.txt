@@ -55,6 +55,99 @@ function bindKey(object, key, ...partialArgs) {
 }
 bindKey.placeholder = Symbol("bindKey.placeholder");
 
+// _virtual/_rolldown/runtime.mjs
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __commonJSMin = (cb, mod) => () => (mod || (cb((mod = { exports: {} }).exports, mod), cb = null), mod.exports);
+var __copyProps = (to, from, except, desc) => {
+	if (from && typeof from === "object" || typeof from === "function") for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+		key = keys[i];
+		if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, {
+			get: ((k) => from[k]).bind(null, key),
+			enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+		});
+	}
+	return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule || !__hasOwnProp.call(mod, "default") ? __defProp(target, "default", {
+	value: mod,
+	enumerable: true
+}) : target, mod));
+var __require = (() => createRequire(import.meta.url))();
+
+// node_modules/toposort/index.mjs
+var require_toposort = __commonJSMin(((exports, module) => {
+	module.exports = function(edges) {
+		return toposort(uniqueNodes(edges), edges);
+	};
+	module.exports.array = toposort;
+	function toposort(nodes, edges) {
+		var cursor = nodes.length, sorted = new Array(cursor), visited = {}, i = cursor, outgoingEdges = makeOutgoingEdges(edges), nodesHash = makeNodesHash(nodes);
+		edges.forEach(function(edge) {
+			if (!nodesHash.has(edge[0]) || !nodesHash.has(edge[1])) throw new Error("Unknown node. There is an unknown node in the supplied edges.");
+		});
+		while (i--) if (!visited[i]) visit(nodes[i], i, new Set());
+		return sorted;
+		function visit(node, i, predecessors) {
+			if (predecessors.has(node)) {
+				var nodeRep;
+				try {
+					nodeRep = ", node was:" + JSON.stringify(node);
+				} catch (e) {
+					nodeRep = "";
+				}
+				throw new Error("Cyclic dependency" + nodeRep);
+			}
+			if (!nodesHash.has(node)) throw new Error("Found unknown node. Make sure to provided all involved nodes. Unknown node: " + JSON.stringify(node));
+			if (visited[i]) return;
+			visited[i] = true;
+			var outgoing = outgoingEdges.get(node) || new Set();
+			outgoing = Array.from(outgoing);
+			if (i = outgoing.length) {
+				predecessors.add(node);
+				do {
+					var child = outgoing[--i];
+					visit(child, nodesHash.get(child), predecessors);
+				} while (i);
+				predecessors.delete(node);
+			}
+			sorted[--cursor] = node;
+		}
+	}
+	function uniqueNodes(arr) {
+		var res = new Set();
+		for (var i = 0, len = arr.length; i < len; i++) {
+			var edge = arr[i];
+			res.add(edge[0]);
+			res.add(edge[1]);
+		}
+		return Array.from(res);
+	}
+	function makeOutgoingEdges(arr) {
+		var edges = new Map();
+		for (var i = 0, len = arr.length; i < len; i++) {
+			var edge = arr[i];
+			if (!edges.has(edge[0])) edges.set(edge[0], new Set());
+			if (!edges.has(edge[1])) edges.set(edge[1], new Set());
+			edges.get(edge[0]).add(edge[1]);
+		}
+		return edges;
+	}
+	function makeNodesHash(arr) {
+		var res = new Map();
+		for (var i = 0, len = arr.length; i < len; i++) res.set(arr[i], i);
+		return res;
+	}
+}));
+require_toposort();
+
+// array/topological-sort.mjs
+require_toposort();
+
 // node_modules/uint8array-extras/index.mjs
 new globalThis.TextDecoder("utf8");
 new globalThis.TextEncoder();
@@ -106,30 +199,6 @@ const callPartial = (func, args, isFromRight) => {
 	return partial$1(func, ...args);
 };
 Object.assign(((func, args, isFromRight = false) => callPartial(func, args, isFromRight)), { placeholder: partial$1.placeholder });
-
-// _virtual/_rolldown/runtime.mjs
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJSMin = (cb, mod) => () => (mod || (cb((mod = { exports: {} }).exports, mod), cb = null), mod.exports);
-var __copyProps = (to, from, except, desc) => {
-	if (from && typeof from === "object" || typeof from === "function") for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
-		key = keys[i];
-		if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, {
-			get: ((k) => from[k]).bind(null, key),
-			enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
-		});
-	}
-	return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule || !__hasOwnProp.call(mod, "default") ? __defProp(target, "default", {
-	value: mod,
-	enumerable: true
-}) : target, mod));
-var __require = (() => createRequire(import.meta.url))();
 
 // node_modules/picomatch/lib/constants.mjs
 var require_constants$1 = __commonJSMin(((exports, module) => {

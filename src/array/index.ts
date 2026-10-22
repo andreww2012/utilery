@@ -59,3 +59,4 @@ export {arrayify} from './arrayify.ts';
 export {cartesianProduct} from './cartesian-product.ts';
 export {sortedArrayIndexOf} from './sorted-array-index-of.ts';
 export {sortedArrayInsertionIndex} from './sorted-array-insertion-index.ts';
+export {CyclicDependencyError, topologicalSort} from './topological-sort.ts';

@@ -18,6 +18,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'isexe',
     'puka',
     'sindresorhus',
+    'toposort',
     'tusbar',
   ],
   misc: ['knipignore', 'rearg', 'GHSA', 'unstub', 'nocase', 'nothrow', 'PATHEXT', 'LOCALAPPDATA'],
