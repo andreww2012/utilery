@@ -34,6 +34,6 @@ export {toWords} from './to-words.ts';
 export {trim} from './trim.ts';
 export {trimEnd} from './trim-end.ts';
 export {trimStart} from './trim-start.ts';
-export {truncate} from './truncate.ts';
+export {truncate, type TruncateOptions} from './truncate.ts';
 export {unescapeHtml} from './unescape-html.ts';
 export {upperFirst} from './upper-first.ts';
