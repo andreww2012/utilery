@@ -1,5 +1,6 @@
 export {capitalize} from './capitalize.ts';
 export {charAt} from './char-at.ts';
+export {createUniqueSlugify} from './create-unique-slugify.ts';
 export {deburr} from './deburr.ts';
 export {dedent} from './dedent.ts';
 export {endsWith} from './ends-with.ts';
@@ -11,6 +12,7 @@ export {padEnd} from './pad-end.ts';
 export {padStart} from './pad-start.ts';
 export {replace} from './replace.ts';
 export {replaceAll} from './replace-all.ts';
+export {type SlugifyOptions, slugify} from './slugify.ts';
 export {startsWith} from './starts-with.ts';
 export {stringConcat} from './string-concat.ts';
 export {stringIncludes} from './string-includes.ts';

@@ -53,6 +53,7 @@ overrides:
 peerDependencyRules: {}
 
 patchedDependencies:
+  '@sindresorhus/slugify': patches/@sindresorhus__slugify.patch
   arkregex: patches/arkregex.patch
   ipaddr.js: patches/ipaddr.js.patch
   # Must include a version since multiple nanoid versions are present in the dep tree

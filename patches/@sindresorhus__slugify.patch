@@ -1,0 +1,22 @@
+Exposes `overridable-replacements.js` (the built-in `&` -> `and`, `♥` -> `love` and `🦄` -> `unicorn`
+replacements) in `exports`, so that our `slugify` can pass them to the transliteration it runs
+itself before calling the package with `transliterate: false`.
+
+diff --git a/package.json b/package.json
+index d65b64f32d1e9382d657e5c8dac4e3a81509afdd..42251bfaee0201348717d8d2f05e6e9cea9f3439 100644
+--- a/package.json
++++ b/package.json
+@@ -12,8 +12,11 @@
+ 	},
+ 	"type": "module",
+ 	"exports": {
+-		"types": "./index.d.ts",
+-		"default": "./index.js"
++		".": {
++			"types": "./index.d.ts",
++			"default": "./index.js"
++		},
++		"./overridable-replacements.js": "./overridable-replacements.js"
+ 	},
+ 	"sideEffects": false,
+ 	"engines": {
