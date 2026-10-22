@@ -201,6 +201,7 @@
     "destr": "2.0.5",
     "devalue": "6.0.2",
     "es-toolkit": "1.52.0",
+    "escape-string-regexp": "5.0.0",
     "eslint": "10.12.0",
     "eslint-config-un": "1.0.0-rc.4",
     "eslint-plugin-format": "2.0.1",
