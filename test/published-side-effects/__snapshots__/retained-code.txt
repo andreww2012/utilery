@@ -60,6 +60,10 @@ new globalThis.TextDecoder("utf8");
 new globalThis.TextEncoder();
 Array.from({ length: 256 }, (_, index) => index.toString(16).padStart(2, "0"));
 
+// node_modules/mimic-function/index.mjs
+Object.getOwnPropertyDescriptor(Function.prototype, "toString");
+Object.getOwnPropertyDescriptor(Function.prototype.toString, "name");
+
 // node_modules/es-toolkit/dist/function/partial.mjs
 function partial$1(func, ...partialArgs) {
 	return partialImpl(func, placeholderSymbol$1, ...partialArgs);
