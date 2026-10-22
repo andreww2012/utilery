@@ -24,7 +24,7 @@ interface ArrayFindDuplicatesOptions {
  * To only check whether there are any duplicates, use `arrayIsUnique`.
  * @param array - The array to search. Not mutated.
  * @param options - Optional search settings, passed after the mapper or comparator when there is one.
- * @param options.limit Stops the search once this many duplicates are found. Defaults to `Infinity`.
+ * @param options.limit - Stops the search once this many duplicates are found. Defaults to `Infinity`.
  * @returns A new array with one element per repeated value.
  * @example
  * // Basic equality (SameValueZero)
@@ -47,14 +47,41 @@ export function arrayFindDuplicates<T>(
   array: readonly T[],
   options?: ArrayFindDuplicatesOptions,
 ): T[];
+
+/**
+ * Finds the elements that repeat an earlier element of the array, comparing
+ * elements with a custom function. Each repeated value is reported once, as
+ * its second occurrence.
+ * @param array - The array to search. Not mutated.
+ * @param areItemsEqual - Tells whether two elements are equal: `a` is an earlier element and `b` a later one.
+ * @param options - Optional search settings.
+ * @param options.limit - Stops the search once this many duplicates are found. Defaults to `Infinity`.
+ * @returns A new array with one element per repeated value.
+ * @example
+ * arrayFindDuplicates(['a', 'B', 'b', 'A'], (a, b) => a.toLowerCase() === b.toLowerCase());
+ * // ['b', 'A']
+ */
 export function arrayFindDuplicates<T>(
   array: readonly T[],
   areItemsEqual: (a: T, b: T) => boolean,
   options?: ArrayFindDuplicatesOptions,
 ): T[];
+
+/**
+ * Finds the elements that repeat an earlier element of the array, comparing
+ * the keys a function maps them to. Each repeated value is reported once, as
+ * its second occurrence.
+ * @param array - The array to search. Not mutated.
+ * @param mapper - Maps an element to the key to compare.
+ * @param options - Optional search settings.
+ * @param options.limit - Stops the search once this many duplicates are found. Defaults to `Infinity`.
+ * @returns A new array with one element per repeated value.
+ * @example
+ * arrayFindDuplicates([{id: 1, v: 'a'}, {id: 2, v: 'b'}, {id: 1, v: 'c'}], (item) => item.id);
+ * // [{id: 1, v: 'c'}]
+ */
 export function arrayFindDuplicates<T>(
   array: readonly T[],
-  // eslint-disable-next-line ts/unified-signatures -- merging signatures results in less strict type inference for the provided function
   mapper: (value: T) => unknown,
   options?: ArrayFindDuplicatesOptions,
 ): T[];

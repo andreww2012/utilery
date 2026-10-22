@@ -38,15 +38,33 @@ import {findDuplicates} from '../_internal/find-duplicates.ts';
  * // [[1, 2]]
  */
 export function arrayIsUnique(array: readonly unknown[]): boolean;
+
+/**
+ * Checks whether no element of the array repeats another one, comparing
+ * elements with a custom function. Stops at the first repeat.
+ * @param array - The array to check. Not mutated.
+ * @param areItemsEqual - Tells whether two elements are equal.
+ * @returns `true` if every element is unique (including for an empty array), otherwise `false`.
+ * @example
+ * arrayIsUnique(['a', 'A'], (a, b) => a.toLowerCase() === b.toLowerCase());
+ * // false
+ */
 export function arrayIsUnique<T>(
   array: readonly T[],
   areItemsEqual: (a: T, b: T) => boolean,
 ): boolean;
-export function arrayIsUnique<T>(
-  array: readonly T[],
-  // eslint-disable-next-line ts/unified-signatures -- merging signatures results in less strict type inference for the provided function
-  mapper: (value: T) => unknown,
-): boolean;
+
+/**
+ * Checks whether no element of the array repeats another one, comparing the
+ * keys a function maps them to. Stops at the first repeat.
+ * @param array - The array to check. Not mutated.
+ * @param mapper - Maps an element to the key to compare.
+ * @returns `true` if every element is unique (including for an empty array), otherwise `false`.
+ * @example
+ * arrayIsUnique([{id: 1}, {id: 2}, {id: 1}], (item) => item.id);
+ * // false
+ */
+export function arrayIsUnique<T>(array: readonly T[], mapper: (value: T) => unknown): boolean;
 export function arrayIsUnique<T>(
   array: readonly T[],
   fn?: ((value: T) => unknown) | ((a: T, b: T) => boolean),
