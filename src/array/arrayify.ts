@@ -1,3 +1,5 @@
+import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
+
 // Distributes over a union, so its array members keep their own types instead of becoming elements
 type ArrayifyEachMember<T, ShouldWrapNullish extends boolean> = T extends null | undefined
   ? ShouldWrapNullish extends true
@@ -59,8 +61,11 @@ type ArrayifyEachMember<T, ShouldWrapNullish extends boolean> = T extends null |
  */
 export function arrayify<T extends null | undefined>(value: T, shouldWrapNullish: true): [T];
 export function arrayify<T extends readonly unknown[]>(value: T, shouldWrapNullish: true): T;
-export function arrayify<T>(value: T | readonly T[], shouldWrapNullish: true): NonNullable<T>[];
-// Comes after the `T | readonly T[]` overload, which catches homogeneous unions first
+export function arrayify<T>(
+  value: MaybeReadonlyArray<T>,
+  shouldWrapNullish: true,
+): NonNullable<T>[];
+// Comes after the `MaybeReadonlyArray<T>` overload, which catches homogeneous unions first
 export function arrayify<T>(value: T, shouldWrapNullish: true): ArrayifyEachMember<T, true>;
 export function arrayify(value: null | undefined, shouldWrapNullish?: boolean): [];
 export function arrayify<T extends readonly unknown[]>(
@@ -68,7 +73,7 @@ export function arrayify<T extends readonly unknown[]>(
   shouldWrapNullish?: boolean,
 ): T;
 export function arrayify<T>(
-  value: T | readonly T[] | null | undefined,
+  value: MaybeReadonlyArray<T> | null | undefined,
   shouldWrapNullish?: boolean,
 ): NonNullable<T>[];
 export function arrayify<T>(value: T, shouldWrapNullish?: boolean): ArrayifyEachMember<T, false>;

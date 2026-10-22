@@ -1,5 +1,6 @@
 import {chunk} from 'es-toolkit/array';
 import {chunkBy} from 'es-toolkit/fp';
+import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
 import {arrayMapWithAccumulator} from './array-map-with-accumulator.ts';
 
 const isValidChunkSize = (size: number) =>
@@ -68,7 +69,7 @@ export function arrayChunks<T, const Sizes extends readonly number[]>(
 export function arrayChunks<T>(array: readonly T[], iteratee: (value: T) => unknown): T[][];
 export function arrayChunks<T>(
   array: readonly T[],
-  sizeOrIteratee: number | readonly number[] | ((value: T) => unknown),
+  sizeOrIteratee: MaybeReadonlyArray<number> | ((value: T) => unknown),
 ): T[][] {
   if (typeof sizeOrIteratee === 'function') {
     return chunkBy(sizeOrIteratee)(array);

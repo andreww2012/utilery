@@ -1,6 +1,7 @@
 import {defaults, defaultsDeep, toDefaulted} from 'es-toolkit/compat';
 import {cloneDeep} from 'es-toolkit/object';
 import {arrayify} from '../array/arrayify.ts';
+import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
 
 type IntersectAll<Sources extends readonly unknown[]> = Sources extends readonly [
   infer Head,
@@ -70,7 +71,7 @@ export function assignDefaults<T extends object, S extends object>(
 ): NonNullable<T & S>;
 export function assignDefaults(
   target: object,
-  source: object | readonly object[],
+  source: MaybeReadonlyArray<object>,
   options?: AssignDefaultsOptions,
 ): object {
   const sources = arrayify(source);
