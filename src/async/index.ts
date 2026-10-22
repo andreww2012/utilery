@@ -6,5 +6,6 @@ export {rejectAfter} from './reject-after.ts';
 export {Semaphore} from './semaphore.ts';
 export {sleep} from './sleep.ts';
 export {sleepAbortable} from './sleep-abortable.ts';
+export {withAbortSignal} from './with-abort-signal.ts';
 export {withConcurrencyLimit} from './with-concurrency-limit.ts';
 export {withTimeout} from './with-timeout.ts';
