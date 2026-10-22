@@ -61,6 +61,10 @@
       "types": "./dist/function/index.d.mts",
       "default": "./dist/function/index.mjs"
     },
+    "./http": {
+      "types": "./dist/http/index.d.mts",
+      "default": "./dist/http/index.mjs"
+    },
     "./id": {
       "types": "./dist/id/index.d.mts",
       "default": "./dist/id/index.mjs"
@@ -194,7 +198,11 @@
     "@commitlint/types": "21.2.3",
     "@eslint/config-inspector": "3.5.0",
     "@thi.ng/binary": "3.6.17",
+    "@tusbar/cache-control": "3.0.1",
+    "@types/http-link-header": "1.0.7",
+    "@types/negotiator": "0.6.5",
     "@types/node": "22.20.5",
+    "@types/range-parser": "1.2.7",
     "@types/yieldable-json": "2.0.2",
     "@vitest/coverage-v8": "5.0.3",
     "@vitest/eslint-plugin": "1.6.27",
@@ -218,6 +226,7 @@
     "eslint-plugin-sentences-per-line": "0.1.6",
     "eslint-plugin-sonarjs": "4.2.2",
     "happy-dom": "20.14.6",
+    "http-link-header": "1.1.4",
     "ipaddr.js": "2.5.0",
     "jest-extended": "7.0.0",
     "knip": "6.41.0",
@@ -225,11 +234,13 @@
     "lossless-json": "4.3.1",
     "ms-ts": "1.0.0",
     "nanoid": "6.0.2",
+    "negotiator": "1.1.0",
     "neotraverse": "1.0.1",
     "npm-check-updates": "23.1.0",
     "oxfmt": "catalog:format",
     "pretty-ms": "9.3.1",
     "publint": "0.3.25",
+    "range-parser": "1.3.0",
     "remeda": "2.51.0",
     "rolldown": "1.2.13",
     "safe-stable-stringify": "2.5.0",

@@ -3,6 +3,7 @@ export * from './async/index.ts';
 export * from './bitwise/index.ts';
 export * from './bytes/index.ts';
 export * from './function/index.ts';
+export * from './http/index.ts';
 export * from './id/index.ts';
 export * from './iterable/index.ts';
 export * from './json/index.ts';
