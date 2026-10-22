@@ -5,5 +5,6 @@ export {promiseTry} from './promise-try.ts';
 export {rejectAfter} from './reject-after.ts';
 export {Semaphore} from './semaphore.ts';
 export {sleep} from './sleep.ts';
+export {sleepAbortable} from './sleep-abortable.ts';
 export {withConcurrencyLimit} from './with-concurrency-limit.ts';
 export {withTimeout} from './with-timeout.ts';
