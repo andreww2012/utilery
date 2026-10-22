@@ -3157,6 +3157,39 @@ require_yieldable_json().parseAsync;
 // json/json-stringify-async.mjs
 require_yieldable_json().stringifyAsync;
 
+// node_modules/htmlescape/htmlescape.mjs
+var require_htmlescape = __commonJSMin(((exports, module) => {
+	var ESCAPE_LOOKUP = {
+		"&": "\\u0026",
+		">": "\\u003e",
+		"<": "\\u003c",
+		"\u2028": "\\u2028",
+		"\u2029": "\\u2029"
+	};
+	var ESCAPE_REGEX = /[&><\u2028\u2029]/g;
+	function escaper(match) {
+		return ESCAPE_LOOKUP[match];
+	}
+	module.exports = function(obj) {
+		return JSON.stringify(obj).replace(ESCAPE_REGEX, escaper);
+	};
+	var TERMINATORS_LOOKUP = {
+		"\u2028": "\\u2028",
+		"\u2029": "\\u2029"
+	};
+	var TERMINATORS_REGEX = /[\u2028\u2029]/g;
+	function sanitizer(match) {
+		return TERMINATORS_LOOKUP[match];
+	}
+	module.exports.sanitize = function(str) {
+		return str.replace(TERMINATORS_REGEX, sanitizer);
+	};
+}));
+require_htmlescape();
+
+// json/json-stringify-for-html.mjs
+__toESM(require_htmlescape(), 1).default;
+
 // node_modules/safe-stable-stringify/index.mjs
 var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 	const { hasOwnProperty } = Object.prototype;

@@ -237,6 +237,9 @@ importers:
       '@tusbar/cache-control':
         specifier: 3.0.1
         version: 3.0.1
+      '@types/htmlescape':
+        specifier: 1.1.3
+        version: 1.1.3
       '@types/http-link-header':
         specifier: 1.0.7
         version: 1.0.7
@@ -342,6 +345,9 @@ importers:
       happy-dom:
         specifier: 20.14.6
         version: 20.14.6
+      htmlescape:
+        specifier: 1.1.1
+        version: 1.1.1
       http-link-header:
         specifier: 1.1.4
         version: 1.1.4
@@ -2119,6 +2125,9 @@ packages:
 
   '@types/hast@3.0.5':
     resolution: {integrity: sha512-rp/ezSWaD1m44dPKICGhiskI13nVr7qTloFwDa/IYkhhf5nzwP+zIQcIJh3WIFSBOy/H1PzB40jPjMDksN4F+g==}
+
+  '@types/htmlescape@1.1.3':
+    resolution: {integrity: sha512-tuC81YJXGUe0q8WRtBNW+uyx79rkkzWK651ALIXXYq5/u/IxjX4iHneGF2uUqzsNp+F+9J2mFZOv9jiLTtIq0w==}
 
   '@types/http-link-header@1.0.7':
     resolution: {integrity: sha512-snm5oLckop0K3cTDAiBnZDy6ncx9DJ3mCRDvs42C884MbVYPP74Tiq2hFsSDRTyjK6RyDYDIulPiW23ge+g5Lw==}
@@ -4142,6 +4151,10 @@ packages:
 
   html-standard@0.0.13:
     resolution: {integrity: sha512-6oNfW3c1t44O7jVXu0tp4E5MbHifWlXrHlZBPt6y7vFdgLOUUh8hyzoRhfUgozlBUK6oLLYhqP1uIqbZ8ggcBA==}
+
+  htmlescape@1.1.1:
+    resolution: {integrity: sha512-eVcrzgbR4tim7c7soKQKtxa/kQM4TzjnlU83rcZ9bHU6t31ehfV7SktN6McWgwPWg+JYMA/O3qpGxBvFq1z2Jg==}
+    engines: {node: '>=0.10'}
 
   http-cache-semantics@4.3.0:
     resolution: {integrity: sha512-M5t5LlJpS1UHMjvwRQVdFHvPISGeLAxNcrWuJkeGh0KxsqCHZ1O3NXZU/8x7cD0BDcGW8kapxMKTvwlqrNkHkA==}
@@ -7622,6 +7635,8 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
+  '@types/htmlescape@1.1.3': {}
+
   '@types/http-link-header@1.0.7':
     dependencies:
       '@types/node': 22.20.5
@@ -9385,6 +9400,8 @@ snapshots:
     dependencies:
       vscode-css-languageservice: 6.3.10
       vscode-languageserver-textdocument: 1.0.15
+
+  htmlescape@1.1.1: {}
 
   http-cache-semantics@4.3.0: {}
 
