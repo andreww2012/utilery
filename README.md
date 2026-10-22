@@ -8,7 +8,7 @@ A growing collection of general-purpose utilities and TypeScript types, mostly c
 
 - 🌱 **Zero dependencies**: everything is bundled;
 - 🌳 **Tree-shakeable**: unused utilities are dropped from your bundle;
-- ✨ **More than 250** utilities and **200** types.
+- ✨ **More than 400** utilities and **250** types.
 
 ## Installation
 
@@ -326,6 +326,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `predicate/isTruthy`                  | Truthy type guard whose narrowing subtracts the falsy members (unlike `.filter(Boolean)`, which keeps the type)                                                                                                         |
 | `predicate/isUnsafeObjectKey`         | Whether a key can be used for prototype pollution: `__proto__`, `constructor` or `prototype`                                                                                                                            |
 | `predicate/isValidDate`               | Whether a value is a `Date` holding a valid time                                                                                                                                                                        |
+| `runtime/getBuiltinModule`            | Typed `process.getBuiltinModule` that gives `undefined` outside Node.js                                                                                                                                                 |
 | `server/colors`                       | es-toolkit's terminal styles that return plain text when colors are not supported (see `server/isColorSupported`)                                                                                                       |
 | `server/isColorSupported`             | Whether to color output: `FORCE_COLOR` first, then a terminal that supports colors (respects `NO_COLOR`, `TERM=dumb`)                                                                                                   |
 | `server/isNodeError`                  | Whether a caught value is a Node.js system error, optionally with one of the given codes; narrows to `NodeJS.ErrnoException`                                                                                            |
