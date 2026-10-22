@@ -228,6 +228,7 @@
     "any-ascii": "0.3.3",
     "arkregex": "0.0.12",
     "cleye": "2.7.0",
+    "clickable-path": "0.1.1",
     "cross-env": "10.1.0",
     "cspell": "10.3.6",
     "decode-uri-component": "0.5.0",

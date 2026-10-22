@@ -279,6 +279,9 @@ importers:
       cleye:
         specifier: 2.7.0
         version: 2.7.0
+      clickable-path:
+        specifier: 0.1.1
+        version: 0.1.1
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -2860,6 +2863,10 @@ packages:
   cli-width@4.1.0:
     resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
     engines: {node: '>= 12'}
+
+  clickable-path@0.1.1:
+    resolution: {integrity: sha512-ROn/mdV2pR8WFdpJjFDCSouLRg9myf95xacO1iy8G/AVO/x5y124pjF3EaoWrTBRWC3vh0DPqa/MhKyx3mMeKg==}
+    engines: {node: '>=22.1.0'}
 
   cliui@9.0.1:
     resolution: {integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==}
@@ -8196,6 +8203,8 @@ snapshots:
       type-flag: 4.5.2
 
   cli-width@4.1.0: {}
+
+  clickable-path@0.1.1: {}
 
   cliui@9.0.1:
     dependencies:
