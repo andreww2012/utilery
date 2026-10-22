@@ -9,6 +9,7 @@ export {isValidLength} from './is-valid-length.ts';
 export {ms} from './ms.ts';
 export {parseBoolean, type ParseBooleanOptions} from './parse-boolean.ts';
 export {parseColonDuration} from './parse-colon-duration.ts';
+export {parseNpmPackageSpecifier} from './parse-npm-package-specifier.ts';
 export {randomBytes} from './random-bytes.ts';
 export {redactUrlCredentials} from './redact-url-credentials.ts';
 export {sanitizeUrl} from './sanitize-url.ts';

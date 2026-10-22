@@ -8,6 +8,11 @@ declare module 'puka' {
   ) => string;
 }
 
+// Has types, but its `exports` don't point to them
+declare module 'parse-package-name' {
+  export const parse: (input: string) => {name: string; version: string; path: string};
+}
+
 declare module '@sindresorhus/slugify/overridable-replacements.js' {
   const overridableReplacements: readonly (readonly [string, string])[];
   export default overridableReplacements;
