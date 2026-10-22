@@ -4,14 +4,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {jsonParse} from '../src/json/json-parse.ts';
 import {regexEscape} from '../src/regex/regex-escape.ts';
+import {
+  DIST_PNPM,
+  NOTICES_PATH,
+  ROOT,
+  collectStorePackageNames,
+  findPackagesWithoutLicenseText,
+} from './_third-party-notices.ts';
 
-const ROOT = path.resolve(import.meta.dirname, '..');
 const NODE_MODULES = path.join(ROOT, 'node_modules');
 const PNPM_STORE = path.join(NODE_MODULES, '.pnpm');
-// The actual set of bundled packages is whatever `tsdown` emits here, which includes
-// transitively bundled dependencies the declared `BUNDLED_PACKAGES` list does not track.
-const DIST_PNPM = path.join(ROOT, 'dist', 'node_modules', '.pnpm');
-const NOTICES_PATH = path.join(ROOT, 'THIRD_PARTY_NOTICES.md');
 
 const TABLE_START = '<!-- THIRD_PARTY_NOTICES_TABLE:START -->';
 const TABLE_END = '<!-- THIRD_PARTY_NOTICES_TABLE:END -->';
@@ -25,29 +27,8 @@ const TABLE_REGION_REGEX = new RegExp(
 // Grouping parentheses SPDX allows around a whole expression, e.g. `(MIT OR CC0-1.0)`.
 const WRAPPING_PARENS_REGEX = /^\((.*)\)$/;
 
-const collectBundledPackageNames = () => {
-  const names = new Set<string>();
-
-  for (const storeEntry of fs.readdirSync(DIST_PNPM)) {
-    const entryNodeModules = path.join(DIST_PNPM, storeEntry, 'node_modules');
-    if (!fs.existsSync(entryNodeModules)) {
-      continue;
-    }
-
-    for (const scopeOrName of fs.readdirSync(entryNodeModules)) {
-      if (scopeOrName.startsWith('@')) {
-        for (const scopedName of fs.readdirSync(path.join(entryNodeModules, scopeOrName))) {
-          names.add(`${scopeOrName}/${scopedName}`);
-        }
-      } else {
-        names.add(scopeOrName);
-      }
-    }
-  }
-
-  // eslint-disable-next-line unicorn/no-array-sort
-  return [...names].sort();
-};
+// eslint-disable-next-line unicorn/no-array-sort
+const collectBundledPackageNames = () => [...collectStorePackageNames(DIST_PNPM)].sort();
 
 const resolvePackageJsonPath = (packageName: string) => {
   const directPath = path.join(NODE_MODULES, packageName, 'package.json');
@@ -118,6 +99,13 @@ const run = () => {
   if (!TABLE_REGION_REGEX.test(noticesText)) {
     throw new Error(
       `Could not find the "${TABLE_START}"…"${TABLE_END}" region in ${NOTICES_PATH}.`,
+    );
+  }
+
+  const missing = findPackagesWithoutLicenseText(noticesText);
+  if (missing.length > 0) {
+    throw new Error(
+      `Add the license texts of these bundled packages to ${NOTICES_PATH}: ${missing.join(', ')}.`,
     );
   }
 
