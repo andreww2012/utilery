@@ -35,4 +35,27 @@ describe('misc/getErrorMessage', () => {
   it('uses a custom fallback', () => {
     expect(getErrorMessage({code: 'E_FAIL'}, 'Request failed')).toBe('Request failed');
   });
+
+  it('accepts the fallback in the options', () => {
+    expect(getErrorMessage(null, {fallback: 'Request failed'})).toBe('Request failed');
+  });
+
+  it('appends the error code with `includeCode`', () => {
+    expect(
+      getErrorMessage(Object.assign(new Error('Not found'), {code: 'E404'}), {includeCode: true}),
+    ).toBe('Not found (E404)');
+    expect(getErrorMessage({message: 'Rate limited', code: 429}, {includeCode: true})).toBe(
+      'Rate limited (429)',
+    );
+    expect(getErrorMessage({code: 'E_FAIL'}, {includeCode: true})).toBe('Unknown error (E_FAIL)');
+  });
+
+  it('does not repeat a code already in the message', () => {
+    const error = Object.assign(new Error("ENOENT: no such file or directory, open 'x'"), {
+      code: 'ENOENT',
+    });
+
+    expect(getErrorMessage(error, {includeCode: true})).toBe(error.message);
+    expect(getErrorMessage({message: 'x', code: {nested: true}}, {includeCode: true})).toBe('x');
+  });
 });
