@@ -85,6 +85,10 @@
       "types": "./dist/misc/index.d.mts",
       "default": "./dist/misc/index.mjs"
     },
+    "./net": {
+      "types": "./dist/net/index.d.mts",
+      "default": "./dist/net/index.mjs"
+    },
     "./object": {
       "types": "./dist/object/index.d.mts",
       "default": "./dist/object/index.mjs"
@@ -214,6 +218,7 @@
     "eslint-plugin-sentences-per-line": "0.1.6",
     "eslint-plugin-sonarjs": "4.2.2",
     "happy-dom": "20.14.6",
+    "ipaddr.js": "2.5.0",
     "jest-extended": "7.0.0",
     "knip": "6.41.0",
     "lefthook": "2.2.1",

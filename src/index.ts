@@ -9,6 +9,7 @@ export * from './json/index.ts';
 export * from './map/index.ts';
 export * from './math/index.ts';
 export * from './misc/index.ts';
+export * from './net/index.ts';
 export * from './object/index.ts';
 export * from './predicate/index.ts';
 export * from './regex/index.ts';

@@ -183,6 +183,7 @@ overrides:
 
 patchedDependencies:
   arkregex: 3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd
+  ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
   remeda: e5e9cb0ab98af1439c69c33c8c0eb3417e8516a7ee031dff8616649f6126164c
   yieldable-json: 99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88
@@ -293,6 +294,9 @@ importers:
       happy-dom:
         specifier: 20.14.6
         version: 20.14.6
+      ipaddr.js:
+        specifier: 2.5.0
+        version: 2.5.0(patch_hash=6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c)
       jest-extended:
         specifier: 7.0.0
         version: 7.0.0(@typescript/typescript6@6.0.2)
@@ -4081,6 +4085,10 @@ packages:
   ip-address@10.7.3:
     resolution: {integrity: sha512-A1kdq/tSb5QjvKvAMgIoEvDBIgL7qaqVP/jkvSwYYRZ9iEzvPpopxp2wQfu3SuZRHtpHNxMn8Fs0bS+gf5Xmwg==}
     engines: {node: '>= 12'}
+
+  ipaddr.js@2.5.0:
+    resolution: {integrity: sha512-aq+t5NAc+cS6rZQQVWC2x98CPqGtKKTMDd4Gaodv0wShnItdKg/51djkGJ1hqH+Oy0ivDftCbSLCQob8zso01w==}
+    engines: {node: '>= 10'}
 
   is-alphabetical@2.0.1:
     resolution: {integrity: sha512-FWyyY60MeTNyeSRpkM2Iry0G9hpr7/9kD40mD/cGQEuilcZYS4okz8SN2Q6rLCJ8gbCt6fN+rC+6tMGS99LaxQ==}
@@ -9202,6 +9210,8 @@ snapshots:
       '@types/node': 22.20.5
 
   ip-address@10.7.3: {}
+
+  ipaddr.js@2.5.0(patch_hash=6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c): {}
 
   is-alphabetical@2.0.1: {}
 

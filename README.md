@@ -56,6 +56,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `map`       | `Map` querying, insertion and transformation            | ✅                 |
 | `math`      | Numeric aggregation, interpolation and randomness       | ✅                 |
 | `misc`      | Miscellaneous helpers that fit no other group           | ✅                 |
+| `net`       | IP address validation and classification                | ✅                 |
 | `object`    | Object merging, picking and deep-path access            | ✅                 |
 | `predicate` | Type guards and value predicates                        | ✅                 |
 | `regex`     | Type-safe `RegExp` and pattern escaping                 | ✅                 |
@@ -112,6 +113,7 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 | [`destr`](docs/packages/destr.md)                                 | Forgiving and strict JSON parsing (`jsonParseSafe` / `jsonParse`)                                                                                                                        |
 | [`devalue`](docs/packages/devalue.md)                             | Serialize/revive `Date`/`Map`/`Set`/`BigInt`, circular refs and nested promises (not plain JSON)                                                                                         |
 | [`escape-string-regexp`](docs/packages/escape-string-regexp.md)   | Escaping strings for regular expressions (`regex/regexEscape`)                                                                                                                           |
+| [`ipaddr.js`](docs/packages/ipaddr.js.md)                         | IP address validation and ranges — the `net` group / `unutils/net`                                                                                                                       |
 | [`lossless-json`](docs/packages/lossless-json.md)                 | Precision-preserving JSON parse/stringify (`bigint` and decimals)                                                                                                                        |
 | [`ms-ts`](docs/packages/ms-ts.md)                                 | Compile-time duration-string → milliseconds conversion (`ms` / `Ms`)                                                                                                                     |
 | [`nanoid`](docs/packages/nanoid.md)                               | Secure, URL-safe unique ID generation — the `id` group / `unutils/id`                                                                                                                    |
@@ -256,6 +258,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `misc/getErrorMessage`                | Message of a caught value of any type: an error's (or error-like object's) `message`, a string as is, other primitives as strings, otherwise a fallback; `{includeCode}` appends the error code                         |
 | `misc/interopDefault`                 | Resolves a module or a promise of it (like a dynamic `import()`) to its default export when it has one (not `null` or `undefined`), otherwise to the module itself                                                      |
 | `misc/parseColonDuration`             | Parses `m:ss`, `h:mm:ss` or `d:hh:mm:ss` (optionally negative, with fractional seconds) into milliseconds; `undefined` for invalid input. Reverses `formatDuration` with `{colonNotation: true}`                        |
+| `net/isLocalhost`                     | Whether a host name points to the local machine: `localhost`, its subdomains or a loopback IP (also in square brackets)                                                                                                 |
 | `object/assignDefaults`               | Consolidates `defaults`/`defaultsDeep`/`toDefaulted`; single source or array, `{deep, copy}` modes                                                                                                                      |
 | `object/findObjectKey`                | Consolidates `findKey`/`findLastKey`; pass `true` to scan from the end                                                                                                                                                  |
 | `object/hasPath`                      | Deep-path existence check; pass `{inherited: true}` to include the prototype chain                                                                                                                                      |

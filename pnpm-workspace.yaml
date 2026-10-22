@@ -54,6 +54,7 @@ peerDependencyRules: {}
 
 patchedDependencies:
   arkregex: patches/arkregex.patch
+  ipaddr.js: patches/ipaddr.js.patch
   # Must include a version since multiple nanoid versions are present in the dep tree
   nanoid@6: patches/nanoid.patch
   remeda: patches/remeda.patch
