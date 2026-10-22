@@ -16,4 +16,4 @@ import type {BitIndex} from './is-bit-index.ts';
  * rotateBitsLeft(0x12_34_56_78, 8);
  * // 0x34_56_78_12
  */
-export const rotateBitsLeft = (value: number, count: BitIndex) => rotateLeft(value, count);
+export const rotateBitsLeft: (value: number, count: BitIndex) => number = rotateLeft;

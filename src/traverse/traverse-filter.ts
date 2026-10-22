@@ -12,8 +12,8 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * traverseFilter({a: 1, b: 2, c: 3}, (_context, node) => typeof node === 'number' && node % 2 === 0);
  * // [2]
  */
-export const traverseFilter = (
+export const traverseFilter: (
   value: unknown,
   predicate: (context: TraverseContext, node: unknown) => unknown,
   options?: TraverseOptions,
-): unknown[] => filter(value, predicate, options);
+) => unknown[] = filter;

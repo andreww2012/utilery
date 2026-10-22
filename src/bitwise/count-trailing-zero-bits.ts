@@ -19,4 +19,4 @@ import {ctz32} from '@thi.ng/binary/count';
  * countTrailingZeroBits(0);
  * // 32
  */
-export const countTrailingZeroBits = (value: number) => ctz32(value);
+export const countTrailingZeroBits: (value: number) => number = ctz32;

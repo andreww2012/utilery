@@ -11,5 +11,4 @@ import type {TraverseOptions} from './_shared.ts';
  * traverseNodes({x: 1, y: {z: 2}}).filter((node) => typeof node === 'number');
  * // [1, 2]
  */
-export const traverseNodes = (value: unknown, options?: TraverseOptions): unknown[] =>
-  nodes(value, options);
+export const traverseNodes: (value: unknown, options?: TraverseOptions) => unknown[] = nodes;

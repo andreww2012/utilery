@@ -3,7 +3,7 @@
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
 We take the **recursive visitor-traversal** primitives from `neotraverse`'s default functional API (ES2022, prototype-pollution hardened) into the `traverse` group.
-Each walker is a thin arrow wrapper that delegates to `neotraverse` at runtime while re-typing its upstream `any` signature to `unknown` node values (plus a generic return where it applies), without reshaping the callback or options.
+Each walker is the `neotraverse` function itself, re-typed from its upstream `any` signature to `unknown` node values (plus a generic return where it applies), without reshaping the callback or options.
 The recursive walk overflows the call stack past ~2000 levels of nesting; pass `{maxDepth}` to bound it on untrusted input.
 
 | Original function group and name                                                                                                            | Status | Our function group and name | Notes                                                                                                            |

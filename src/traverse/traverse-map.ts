@@ -20,10 +20,9 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * });
  * // {count: 2}
  */
-export const traverseMap = <T>(
+// The upstream function returns `any`, but it returns a clone of the value it was given
+export const traverseMap: <T>(
   value: T,
   callback: (context: TraverseContext, node: unknown) => void,
   options?: TraverseOptions,
-): T =>
-  // eslint-disable-next-line ts/no-unsafe-return -- the underlying traversal returns `any`; the mapped clone keeps the input's shape
-  map(value, callback, options);
+) => T = map;

@@ -19,4 +19,4 @@ import type {BitIndex} from './is-bit-index.ts';
  * toggleBit(5, 2);
  * // 1
  */
-export const toggleBit = (value: number, bitIndex: BitIndex) => bitFlip(value, bitIndex);
+export const toggleBit: (value: number, bitIndex: BitIndex) => number = bitFlip;

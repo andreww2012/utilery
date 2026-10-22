@@ -21,4 +21,4 @@ import {popCount} from '@thi.ng/binary/count';
  * countSetBits(0b1100 ^ 0b1010);
  * // 2
  */
-export const countSetBits = (value: number) => popCount(value);
+export const countSetBits: (value: number) => number = popCount;

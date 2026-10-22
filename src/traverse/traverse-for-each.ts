@@ -24,10 +24,9 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * });
  * // [5, 125]
  */
-export const traverseForEach = <T>(
+// The upstream function returns `any`, but it returns the value it was given
+export const traverseForEach: <T>(
   value: T,
   callback: (context: TraverseContext, node: unknown) => void,
   options?: TraverseOptions,
-): T =>
-  // eslint-disable-next-line ts/no-unsafe-return -- the underlying traversal returns `any`; the walk keeps the input's shape
-  forEach(value, callback, options);
+) => T = forEach;

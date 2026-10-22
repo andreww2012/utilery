@@ -18,4 +18,4 @@ import {i32u32} from '@thi.ng/binary/int';
  * toUint32(5.9);
  * // 5
  */
-export const toUint32 = (value: number) => i32u32(value);
+export const toUint32: (value: number) => number = i32u32;

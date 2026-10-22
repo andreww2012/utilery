@@ -12,8 +12,8 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * traverseFind({a: 1, b: 5}, (_context, node) => typeof node === 'number' && node > 3);
  * // 5
  */
-export const traverseFind = (
+export const traverseFind: (
   value: unknown,
   predicate: (context: TraverseContext, node: unknown) => unknown,
   options?: TraverseOptions,
-): unknown => find(value, predicate, options);
+) => unknown = find;

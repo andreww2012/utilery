@@ -13,8 +13,8 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * // true
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
-export const traverseEvery = (
+export const traverseEvery: (
   value: unknown,
   predicate: (context: TraverseContext, node: unknown) => unknown,
   options?: TraverseOptions,
-) => every(value, predicate, options);
+) => boolean = every;

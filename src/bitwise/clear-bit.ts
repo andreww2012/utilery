@@ -19,4 +19,4 @@ import type {BitIndex} from './is-bit-index.ts';
  * clearBit(-1, 0);
  * // 4_294_967_294
  */
-export const clearBit = (value: number, bitIndex: BitIndex) => bitClear(value, bitIndex);
+export const clearBit: (value: number, bitIndex: BitIndex) => number = bitClear;

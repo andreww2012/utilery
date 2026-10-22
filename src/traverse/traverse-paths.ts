@@ -11,4 +11,4 @@ import type {TraverseOptions} from './_shared.ts';
  * traversePaths({a: {b: 1}});
  * // [[], ['a'], ['a', 'b']]
  */
-export const traversePaths = (value: unknown, options?: TraverseOptions) => paths(value, options);
+export const traversePaths: (value: unknown, options?: TraverseOptions) => PropertyKey[][] = paths;

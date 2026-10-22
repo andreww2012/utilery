@@ -18,11 +18,10 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * );
  * // 3
  */
-export const traverseReduce = <Accumulator>(
+// The upstream function returns `any`, but it returns the accumulator
+export const traverseReduce: <Accumulator>(
   value: unknown,
   callback: (context: TraverseContext, accumulator: Accumulator, node: unknown) => Accumulator,
   initialValue?: Accumulator,
   options?: TraverseOptions,
-): Accumulator =>
-  // eslint-disable-next-line ts/no-unsafe-return -- the underlying traversal returns `any`; the mapped clone keeps the input's shape
-  reduce(value, callback, initialValue, options);
+) => Accumulator = reduce;
