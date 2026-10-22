@@ -1,3 +1,4 @@
+export {isAbortError} from './is-abort-error.ts';
 export {isArray} from './is-array.ts';
 export {isBuffer} from './is-buffer.ts';
 export {isEmptyObject} from './is-empty-object.ts';
@@ -18,4 +19,5 @@ export {isPropertyDefined} from './is-property-defined.ts';
 export {isTruthy} from './is-truthy.ts';
 export {isPropertyNotNullish} from './is-property-not-nullish.ts';
 export {isSafeInteger} from './is-safe-integer.ts';
+export {isTimeoutError} from './is-timeout-error.ts';
 export {isTypedArray} from './is-typed-array.ts';
