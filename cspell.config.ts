@@ -29,6 +29,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'iteratees',
     'nullary',
     'stringifiers',
+    'thenables',
   ],
   typeFest: ['jsonify', 'jsonifiable', 'arrayable', 'asyncify', 'optionalize'],
 };
