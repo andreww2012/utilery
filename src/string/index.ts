@@ -23,7 +23,6 @@ export {stringSplit} from './string-split.ts';
 export {toCamelCase} from './to-camel-case.ts';
 export {toConstantCase} from './to-constant-case.ts';
 export {toDelimiterCase} from './to-delimiter-case.ts';
-export {toForwardSlashes} from './to-forward-slashes.ts';
 export {toKebabCase} from './to-kebab-case.ts';
 export {toLowerCase} from './to-lower-case.ts';
 export {toPascalCase} from './to-pascal-case.ts';

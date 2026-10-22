@@ -67,7 +67,7 @@ Only its **non-type** (runtime) exports are audited here; the type-level utiliti
 | `remove`                  | ❌     | `array/arrayPurgeBy`           | Covered (mutating)                                                                       |
 | `sample`                  | ✅     | `array/arraySample`            | With-replacement sampling folded in (unbiased)                                           |
 | `shuffle`                 | ❌     | `array/arrayShuffle`           | Covered                                                                                  |
-| `slash`                   | ✅     | `string/toForwardSlashes`      | Renamed for clarity                                                                      |
+| `slash`                   | ✅     | `path/toForwardSlashes`        | Renamed for clarity                                                                      |
 | `sleep`                   | ❌     | `async/sleep`                  | Covered (es-toolkit `delay`)                                                             |
 | `sum`                     | ❌     | `math/sum`                     | Covered                                                                                  |
 | `tap`                     | ✅     | `function/tap`                 | -                                                                                        |

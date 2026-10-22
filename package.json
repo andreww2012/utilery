@@ -97,6 +97,10 @@
       "types": "./dist/object/index.d.mts",
       "default": "./dist/object/index.mjs"
     },
+    "./path": {
+      "types": "./dist/path/index.d.mts",
+      "default": "./dist/path/index.mjs"
+    },
     "./predicate": {
       "types": "./dist/predicate/index.d.mts",
       "default": "./dist/predicate/index.mjs"

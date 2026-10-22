@@ -59,6 +59,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `misc`      | Miscellaneous helpers that fit no other group           | ✅                 |
 | `net`       | IP address validation and classification                | ✅                 |
 | `object`    | Object merging, picking and deep-path access            | ✅                 |
+| `path`      | Cross-platform file path checks and parsing             | ✅                 |
 | `predicate` | Type guards and value predicates                        | ✅                 |
 | `regex`     | Type-safe `RegExp` and pattern escaping                 | ✅                 |
 | `runtime`   | Runtime environment detection                           | ✅                 |
@@ -284,6 +285,8 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `object/swapObjectProperties`         | Swaps the values (and types) of two properties (via `remeda`'s `swapProps`); object analog of `arraySwapIndexes`                                                                                                        |
 | `object/toPathSegments`               | Parses a path string into segments (via `remeda`'s `stringToPath`); a literal string yields a precisely-typed tuple, numeric segments as numbers                                                                        |
 | `object/updateByPath`                 | Consolidates `update`/`updateWith`; mutating deep-path update with optional container customizer                                                                                                                        |
+| `path/isSafeRelativePath`             | Whether a path is relative and never leaves its base directory (`..`, absolute, drive and UNC paths are rejected)                                                                                                       |
+| `path/parseNodeModulesPath`           | Splits a path inside `node_modules` into the directory, the package name and the subpath (innermost package for nested ones)                                                                                            |
 | `predicate/isAbortError`              | Whether a caught value is an error named `AbortError`                                                                                                                                                                   |
 | `predicate/isBuffer`                  | Enhanced with a `value is Buffer` type guard                                                                                                                                                                            |
 | `predicate/isIn`                      | `ts-extras`' `objectHasIn` with `(key, object)` argument order (reads like `key in object`); narrows the object                                                                                                         |
