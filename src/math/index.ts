@@ -3,6 +3,7 @@ export {bigintPercentile} from './bigint-percentile.ts';
 export {bigintSum} from './bigint-sum.ts';
 export {ceil} from './ceil.ts';
 export {clamp} from './clamp.ts';
+export {createSeededRandom} from './create-seeded-random.ts';
 export {floor} from './floor.ts';
 export {interpolate} from './interpolate.ts';
 export {isInRange} from './is-in-range.ts';
