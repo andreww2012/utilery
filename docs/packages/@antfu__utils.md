@@ -18,7 +18,7 @@ Only its **non-type** (runtime) exports are audited here; the type-level utiliti
 | `clearUndefined`          | 🚧     | *(under consideration)*        | Mutating strip of `undefined`; `omit(obj, (v) => v === undefined)` covers the copy case  |
 | `createControlledPromise` | ❌     | *(native)*                     | Use `Promise.withResolvers()`                                                            |
 | `createPromiseLock`       | 🚧     | *(under consideration)*        | A dynamic wait-group (await all in-flight); would need a rename                          |
-| `createSingletonPromise`  | ✅     | `async/createSingletonPromise` | -                                                                                        |
+| `createSingletonPromise`  | ❌     | `async/createSingletonPromise` | Replaced by our own code: doesn't keep rejections by default, has a `ttl` option         |
 | `debounce`                | ❌     | `function/debounce`            | Covered (es-toolkit)                                                                     |
 | `deepMerge`               | ❌     | `object/mergeDeep`             | Covered                                                                                  |
 | `deepMergeWithArray`      | ❌     | `object/mergeDeep`             | Array-concat merge expressible via the `mergeValues` customizer                          |

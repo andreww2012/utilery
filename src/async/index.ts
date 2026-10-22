@@ -1,5 +1,5 @@
 export {allKeyed} from './all-keyed.ts';
-export {createSingletonPromise} from './create-singleton-promise.ts';
+export {createSingletonPromise, type SingletonPromiseOptions} from './create-singleton-promise.ts';
 export {Mutex} from './mutex.ts';
 export {promiseTry} from './promise-try.ts';
 export {rejectAfter} from './reject-after.ts';
