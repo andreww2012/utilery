@@ -50,6 +50,11 @@ function bindKey(object, key, ...partialArgs) {
 }
 bindKey.placeholder = Symbol("bindKey.placeholder");
 
+// node_modules/uint8array-extras/index.mjs
+new globalThis.TextDecoder("utf8");
+new globalThis.TextEncoder();
+Array.from({ length: 256 }, (_, index) => index.toString(16).padStart(2, "0"));
+
 // node_modules/es-toolkit/dist/function/partial.mjs
 function partial$1(func, ...partialArgs) {
 	return partialImpl(func, placeholderSymbol$1, ...partialArgs);

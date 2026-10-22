@@ -41,6 +41,10 @@
       "types": "./dist/bitwise/index.d.mts",
       "default": "./dist/bitwise/index.mjs"
     },
+    "./bytes": {
+      "types": "./dist/bytes/index.d.mts",
+      "default": "./dist/bytes/index.mjs"
+    },
     "./dom": {
       "types": "./dist/dom/index.d.mts",
       "default": "./dist/dom/index.mjs"
@@ -231,6 +235,7 @@
     "typed-query-selector": "2.12.3",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "typescript7": "npm:typescript@7.0.2",
+    "uint8array-extras": "1.6.0",
     "valibot": "1.5.0",
     "verkit": "0.5.0",
     "vitest": "5.0.3",

@@ -47,6 +47,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `array`     | Array and tuple manipulation                            | ✅                 |
 | `async`     | Promises, mutexes, timeouts and concurrency             | ✅                 |
 | `bitwise`   | Bit flags and other bit manipulation of 32-bit integers | ✅                 |
+| `bytes`     | `Uint8Array` conversion, Base64 and hex encoding        | ✅                 |
 | `dom`       | Selector-typed DOM lookups                              | ❌                 |
 | `function`  | Function composition, currying and partial application  | ✅                 |
 | `id`        | Unique ID generation                                    | ✅                 |
@@ -122,6 +123,7 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 | [`ts-extras`](docs/packages/ts-extras.md)                         | Thin, strongly-typed wrappers over native methods                                                                                                                                        |
 | [`type-fest`](docs/packages/type-fest.md)                         | Type-only utility types (the `types` group / `unutils/types`)                                                                                                                            |
 | [`typed-query-selector`](docs/packages/typed-query-selector.md)   | Infers the element type from a CSS selector literal — the `dom` group / `unutils/dom`                                                                                                    |
+| [`uint8array-extras`](docs/packages/uint8array-extras.md)         | `Uint8Array` conversions, Base64 and hex — the `bytes` group / `unutils/bytes`                                                                                                           |
 | [`yieldable-json`](docs/packages/yieldable-json.md)               | Non-blocking async JSON parse/stringify                                                                                                                                                  |
 
 <details>
