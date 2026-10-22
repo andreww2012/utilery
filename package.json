@@ -242,6 +242,7 @@
     "eslint-plugin-remeda": "2.2.0",
     "eslint-plugin-sentences-per-line": "0.1.6",
     "eslint-plugin-sonarjs": "4.2.2",
+    "find-up-simple": "1.0.1",
     "happy-dom": "20.14.6",
     "http-link-header": "1.1.4",
     "ipaddr.js": "2.5.0",

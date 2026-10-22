@@ -1,9 +1,11 @@
 export {type ColorFunction, colors} from './colors.ts';
 export {ExecError, exec} from './exec.ts';
+export {findUp, type FindUpOptions, findUpSync} from './find-up.ts';
 export {isColorSupported} from './is-color-supported.ts';
 export {isDirectory, isDirectorySync} from './is-directory.ts';
 export {isFile, isFileSync} from './is-file.ts';
 export {isNodeError} from './is-node-error.ts';
+export {isPathInside} from './is-path-inside.ts';
 export {isSymlink, isSymlinkSync} from './is-symlink.ts';
 export {pathExists, pathExistsSync} from './path-exists.ts';
 export {readFileSafe} from './read-file-safe.ts';

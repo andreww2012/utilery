@@ -1,7 +1,9 @@
-import "node:child_process";
 import "node:path";
-import fs from "node:fs";
+import "node:process";
 import fsPromises from "node:fs/promises";
+import "node:url";
+import fs from "node:fs";
+import "node:child_process";
 import "node:util";
 
 // node_modules/es-toolkit/dist/_internal/globalThis.mjs
