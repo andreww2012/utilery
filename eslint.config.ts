@@ -66,6 +66,20 @@ export default eslintConfig({
       // `eslint-config-un` comes with Prettier, which would format code blocks too
       configFormatFencedCodeBlocks: false,
     },
+    e18e: {
+      configModuleReplacements: {
+        options: {
+          allowed: [
+            // Unlike their suggested replacements: `fast-string-width` (which `fast-wrap-ansi` uses)
+            // miscounts zero-width characters, conjoining Hangul and tabs, and the native
+            // `util.stripVTControlCharacters` is missing outside Node.js
+            'string-width',
+            'strip-ansi',
+            'wrap-ansi',
+          ],
+        },
+      },
+    },
     ts: {
       allowDefaultProject: ['*.config.*ts'],
     },
