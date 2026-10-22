@@ -204,6 +204,9 @@ importers:
       '@arethetypeswrong/core':
         specifier: 0.18.5
         version: 0.18.5
+      '@braintree/sanitize-url':
+        specifier: 7.1.2
+        version: 7.1.2
       '@changesets/changelog-github':
         specifier: 1.0.1
         version: 1.0.1
@@ -381,6 +384,9 @@ importers:
       picomatch:
         specifier: 4.0.7
         version: 4.0.7
+      pretty-bytes:
+        specifier: 7.2.0
+        version: 7.2.0
       pretty-ms:
         specifier: 9.3.1
         version: 9.3.1
@@ -456,6 +462,9 @@ importers:
       yieldable-json:
         specifier: 2.1.0
         version: 2.1.0(patch_hash=99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88)
+      yn:
+        specifier: 5.1.0
+        version: 5.1.0
 
 packages:
 
@@ -515,6 +524,9 @@ packages:
 
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
+
+  '@braintree/sanitize-url@7.1.2':
+    resolution: {integrity: sha512-jigsZK+sMF/cuiB7sERuo9V7N9jx+dhmHHnQyDSVdpZwVutaBu7WvNYqMDLSgFgfB30n452TP3vjDAvFC973mA==}
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -5097,6 +5109,10 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
+  pretty-bytes@7.2.0:
+    resolution: {integrity: sha512-T2kroepGB5DRVbkN/nOpW03+VRWqdtJhZNuCW3wYk3chdPjgi4GcTBOaxWfHq1MIM0ypidxsSWbQaAiRpxnXmg==}
+    engines: {node: '>=20'}
+
   pretty-format@30.5.1:
     resolution: {integrity: sha512-byhRAPguVKMQIj4kjJwJ5lAskVhfuiSdiYl/aLTWpgkGEmic2jYhJh1yE9ih8Ox44Xg9ccCT11/S6QrzSJuNrg==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
@@ -5969,6 +5985,10 @@ packages:
     resolution: {integrity: sha512-yi7ehVd4UPvdmD9xf/8DCsdGAo4yC6kYZ9mxNYgXk/b24+s3FIn9Vevfb2qjs4KNUe8BmL/Ci8FHsn174uvcYA==}
     engines: {node: '>= 4.0.0'}
 
+  yn@5.1.0:
+    resolution: {integrity: sha512-TfXLvT6eVsBNIm8rAXTwJYdQFtOXaHQ+rA7LU8HL8C/BFfaSfhvFE5T1rHAdBCbAj808HaqjXVkmo8jmeGOqhw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
@@ -6053,6 +6073,8 @@ snapshots:
   '@bcoe/v8-coverage@1.0.2': {}
 
   '@braidai/lang@1.1.2': {}
+
+  '@braintree/sanitize-url@7.1.2': {}
 
   '@cacheable/memory@2.2.0':
     dependencies:
@@ -10603,6 +10625,8 @@ snapshots:
   prettier@3.9.10:
     optional: true
 
+  pretty-bytes@7.2.0: {}
+
   pretty-format@30.5.1:
     dependencies:
       '@jest/react-is-18': react-is@18.3.1
@@ -11463,6 +11487,8 @@ snapshots:
       yargs-parser: 22.0.0
 
   yieldable-json@2.1.0(patch_hash=99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88): {}
+
+  yn@5.1.0: {}
 
   yocto-queue@0.1.0: {}
 

@@ -14,6 +14,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'cleye',
     'nanoid',
     'neotraverse',
+    'braintree',
     'isexe',
     'puka',
     'sindresorhus',

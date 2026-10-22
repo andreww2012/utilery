@@ -128,7 +128,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var __require = (() => createRequire(import.meta.url))();
 
 // node_modules/picomatch/lib/constants.mjs
-var require_constants = __commonJSMin(((exports, module) => {
+var require_constants$1 = __commonJSMin(((exports, module) => {
 	const WIN_SLASH = "\\\\/";
 	const WIN_NO_SLASH = `[^${WIN_SLASH}]`;
 	const DEFAULT_MAX_EXTGLOB_RECURSION = 0;
@@ -283,11 +283,11 @@ var require_constants = __commonJSMin(((exports, module) => {
 		}
 	};
 }));
-require_constants();
+require_constants$1();
 
 // node_modules/picomatch/lib/utils.mjs
 var require_utils = __commonJSMin(((exports) => {
-	const { REGEX_BACKSLASH, REGEX_REMOVE_BACKSLASH, REGEX_SPECIAL_CHARS, REGEX_SPECIAL_CHARS_GLOBAL } = require_constants();
+	const { REGEX_BACKSLASH, REGEX_REMOVE_BACKSLASH, REGEX_SPECIAL_CHARS, REGEX_SPECIAL_CHARS_GLOBAL } = require_constants$1();
 	exports.isObject = (val) => val !== null && typeof val === "object" && !Array.isArray(val);
 	exports.hasRegexChars = (str) => REGEX_SPECIAL_CHARS.test(str);
 	exports.isRegexChar = (str) => str.length === 1 && exports.hasRegexChars(str);
@@ -337,7 +337,7 @@ require_utils();
 // node_modules/picomatch/lib/scan.mjs
 var require_scan = __commonJSMin(((exports, module) => {
 	const utils = require_utils();
-	const { CHAR_ASTERISK, CHAR_AT, CHAR_BACKWARD_SLASH, CHAR_COMMA, CHAR_DOT, CHAR_EXCLAMATION_MARK, CHAR_FORWARD_SLASH, CHAR_LEFT_CURLY_BRACE, CHAR_LEFT_PARENTHESES, CHAR_LEFT_SQUARE_BRACKET, CHAR_PLUS, CHAR_QUESTION_MARK, CHAR_RIGHT_CURLY_BRACE, CHAR_RIGHT_PARENTHESES, CHAR_RIGHT_SQUARE_BRACKET } = require_constants();
+	const { CHAR_ASTERISK, CHAR_AT, CHAR_BACKWARD_SLASH, CHAR_COMMA, CHAR_DOT, CHAR_EXCLAMATION_MARK, CHAR_FORWARD_SLASH, CHAR_LEFT_CURLY_BRACE, CHAR_LEFT_PARENTHESES, CHAR_LEFT_SQUARE_BRACKET, CHAR_PLUS, CHAR_QUESTION_MARK, CHAR_RIGHT_CURLY_BRACE, CHAR_RIGHT_PARENTHESES, CHAR_RIGHT_SQUARE_BRACKET } = require_constants$1();
 	const isPathSeparator = (code) => {
 		return code === CHAR_FORWARD_SLASH || code === CHAR_BACKWARD_SLASH;
 	};
@@ -618,7 +618,7 @@ require_scan();
 
 // node_modules/picomatch/lib/parse.mjs
 var require_parse = __commonJSMin(((exports, module) => {
-	const constants = require_constants();
+	const constants = require_constants$1();
 	const utils = require_utils();
 	const { MAX_LENGTH, POSIX_REGEX_SOURCE, REGEX_NON_SPECIAL_CHARS, REGEX_SPECIAL_CHARS_BACKREF, REPLACEMENTS } = constants;
 	const expandRange = (args, options) => {
@@ -1610,7 +1610,7 @@ var require_picomatch$1 = __commonJSMin(((exports, module) => {
 	const scan = require_scan();
 	const parse = require_parse();
 	const utils = require_utils();
-	const constants = require_constants();
+	const constants = require_constants$1();
 	const isObject = (val) => val && typeof val === "object" && !Array.isArray(val);
 	const picomatch = (glob, options, returnState = false) => {
 		if (Array.isArray(glob)) {
@@ -1772,7 +1772,7 @@ require_picomatch();
 require_picomatch();
 
 // node_modules/content-type/dist/index.mjs
-var require_dist = __commonJSMin(((exports) => {
+var require_dist$1 = __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.format = format;
 	exports.parse = parse;
@@ -1896,11 +1896,11 @@ var require_dist = __commonJSMin(((exports) => {
 		throw new TypeError(`Invalid parameter value: ${str}`);
 	}
 }));
-require_dist();
+require_dist$1();
 
 // node_modules/negotiator/lib/accept.mjs
 var require_accept = __commonJSMin(((exports, module) => {
-	var contentType = require_dist();
+	var contentType = require_dist$1();
 	module.exports = parseAccept;
 	function parseAccept(header) {
 		var values = [];
@@ -2082,7 +2082,7 @@ require_encoding();
 
 // node_modules/negotiator/lib/language.mjs
 var require_language = __commonJSMin(((exports, module) => {
-	var contentType = require_dist();
+	var contentType = require_dist$1();
 	var parseAccept = require_accept();
 	module.exports = preferredLanguages;
 	module.exports.preferredLanguages = preferredLanguages;
@@ -2157,7 +2157,7 @@ require_language();
 
 // node_modules/negotiator/lib/mediaType.mjs
 var require_mediaType = __commonJSMin(((exports, module) => {
-	var contentType = require_dist();
+	var contentType = require_dist$1();
 	var parseAcceptHeader = require_accept();
 	module.exports = preferredMediaTypes;
 	module.exports.preferredMediaTypes = preferredMediaTypes;
@@ -3508,6 +3508,78 @@ typeof SharedArrayBuffer === "undefined" || Object.getOwnPropertyDescriptor(Shar
 // node_modules/devalue/src/base64.mjs
 Uint8Array.fromBase64;
 typeof process === "object" && process.versions?.node;
+
+// node_modules/@braintree/sanitize-url/dist/constants.mjs
+var require_constants = __commonJSMin(((exports) => {
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.BLANK_URL = exports.relativeFirstCharacters = exports.whitespaceEscapeCharsRegex = exports.urlSchemeRegex = exports.ctrlCharactersRegex = exports.htmlCtrlEntityRegex = exports.htmlEntitiesRegex = exports.invalidProtocolRegex = void 0;
+	exports.invalidProtocolRegex = /^([^\w]*)(javascript|data|vbscript)/im;
+	exports.htmlEntitiesRegex = /&#(\w+)(^\w|;)?/g;
+	exports.htmlCtrlEntityRegex = /&(newline|tab);/gi;
+	exports.ctrlCharactersRegex = /[\u0000-\u001F\u007F-\u009F\u2000-\u200D\uFEFF]/gim;
+	exports.urlSchemeRegex = /^.+(:|&colon;)/gim;
+	exports.whitespaceEscapeCharsRegex = /(\\|%5[cC])((%(6[eE]|72|74))|[nrt])/g;
+	exports.relativeFirstCharacters = [".", "/"];
+	exports.BLANK_URL = "about:blank";
+}));
+require_constants();
+
+// node_modules/@braintree/sanitize-url/dist/index.mjs
+var require_dist = __commonJSMin(((exports) => {
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.sanitizeUrl = sanitizeUrl;
+	var constants_1 = require_constants();
+	function isRelativeUrlWithoutProtocol(url) {
+		return constants_1.relativeFirstCharacters.indexOf(url[0]) > -1;
+	}
+	function decodeHtmlCharacters(str) {
+		return str.replace(constants_1.ctrlCharactersRegex, "").replace(constants_1.htmlEntitiesRegex, function(match, dec) {
+			return String.fromCharCode(dec);
+		});
+	}
+	function isValidUrl(url) {
+		return URL.canParse(url);
+	}
+	function decodeURI(uri) {
+		try {
+			return decodeURIComponent(uri);
+		} catch (e) {
+			return uri;
+		}
+	}
+	function sanitizeUrl(url) {
+		if (!url) return constants_1.BLANK_URL;
+		var charsToDecode;
+		var decodedUrl = decodeURI(url.trim());
+		do {
+			decodedUrl = decodeHtmlCharacters(decodedUrl).replace(constants_1.htmlCtrlEntityRegex, "").replace(constants_1.ctrlCharactersRegex, "").replace(constants_1.whitespaceEscapeCharsRegex, "").trim();
+			decodedUrl = decodeURI(decodedUrl);
+			charsToDecode = decodedUrl.match(constants_1.ctrlCharactersRegex) || decodedUrl.match(constants_1.htmlEntitiesRegex) || decodedUrl.match(constants_1.htmlCtrlEntityRegex) || decodedUrl.match(constants_1.whitespaceEscapeCharsRegex);
+		} while (charsToDecode && charsToDecode.length > 0);
+		var sanitizedUrl = decodedUrl;
+		if (!sanitizedUrl) return constants_1.BLANK_URL;
+		if (isRelativeUrlWithoutProtocol(sanitizedUrl)) return sanitizedUrl;
+		var trimmedUrl = sanitizedUrl.trimStart();
+		var urlSchemeParseResults = trimmedUrl.match(constants_1.urlSchemeRegex);
+		if (!urlSchemeParseResults) return sanitizedUrl;
+		var urlScheme = urlSchemeParseResults[0].toLowerCase().trim();
+		if (constants_1.invalidProtocolRegex.test(urlScheme)) return constants_1.BLANK_URL;
+		var backSanitized = trimmedUrl.replace(/\\/g, "/");
+		if (urlScheme === "mailto:" || urlScheme.includes("://")) return backSanitized;
+		if (urlScheme === "http:" || urlScheme === "https:") {
+			if (!isValidUrl(backSanitized)) return constants_1.BLANK_URL;
+			var url_1 = new URL(backSanitized);
+			url_1.protocol = url_1.protocol.toLowerCase();
+			url_1.hostname = url_1.hostname.toLowerCase();
+			return url_1.toString();
+		}
+		return backSanitized;
+	}
+}));
+require_dist();
+
+// misc/sanitize-url.mjs
+require_dist().sanitizeUrl;
 
 // node_modules/ipaddr.js/lib/ipaddr.mjs
 var require_ipaddr = __commonJSMin(((exports, module) => {
