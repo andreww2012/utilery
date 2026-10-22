@@ -14,10 +14,12 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'cleye',
     'nanoid',
     'neotraverse',
+    'isexe',
+    'puka',
     'sindresorhus',
     'tusbar',
   ],
-  misc: ['knipignore', 'rearg', 'GHSA', 'unstub', 'nocase', 'LOCALAPPDATA'],
+  misc: ['knipignore', 'rearg', 'GHSA', 'unstub', 'nocase', 'nothrow', 'PATHEXT', 'LOCALAPPDATA'],
   englishIshWords: [
     'arrayify',
     'combinators',

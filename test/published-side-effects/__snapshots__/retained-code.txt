@@ -1,9 +1,9 @@
 import { createRequire } from "node:module";
 import "node:path";
-import process$1 from "node:process";
-import fsPromises from "node:fs/promises";
-import "node:url";
 import fs from "node:fs";
+import fsPromises from "node:fs/promises";
+import process$1 from "node:process";
+import "node:url";
 import os from "node:os";
 import "node:child_process";
 import "node:util";
@@ -7399,6 +7399,215 @@ Object.freeze({
 	bgHex: plainWhenUnsupportedFactory(bgHex)
 });
 
+// node_modules/isexe/dist/commonjs/index.min.mjs
+var require_index_min = __commonJSMin(((exports) => {
+	var a = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports);
+	var _ = a((i) => {
+		"use strict";
+		Object.defineProperty(i, "__esModule", { value: !0 });
+		i.sync = i.isexe = void 0;
+		var M = __require("node:fs"), x = __require("node:fs/promises"), q = async (t, e = {}) => {
+			let { ignoreErrors: r = !1 } = e;
+			try {
+				return d(await (0, x.stat)(t), e);
+			} catch (s) {
+				let n = s;
+				if (r || n.code === "EACCES") return !1;
+				throw n;
+			}
+		};
+		i.isexe = q;
+		var m = (t, e = {}) => {
+			let { ignoreErrors: r = !1 } = e;
+			try {
+				return d((0, M.statSync)(t), e);
+			} catch (s) {
+				let n = s;
+				if (r || n.code === "EACCES") return !1;
+				throw n;
+			}
+		};
+		i.sync = m;
+		var d = (t, e) => t.isFile() && A(t, e), A = (t, e) => {
+			let r = e.uid ?? process.getuid?.(), s = e.groups ?? process.getgroups?.() ?? [], n = e.gid ?? process.getgid?.() ?? s[0];
+			if (r === void 0 || n === void 0) throw new Error("cannot get uid or gid");
+			let u = new Set([n, ...s]), c = t.mode, S = t.uid, P = t.gid, f = parseInt("100", 8), l = parseInt("010", 8);
+			return !!(c & parseInt("001", 8) || c & l && u.has(P) || c & f && S === r || c & 72 && r === 0);
+		};
+	});
+	var g = a((o) => {
+		"use strict";
+		Object.defineProperty(o, "__esModule", { value: !0 });
+		o.sync = o.isexe = void 0;
+		var T = __require("node:fs"), I = __require("node:fs/promises"), D = __require("node:path"), F = async (t, e = {}) => {
+			let { ignoreErrors: r = !1 } = e;
+			try {
+				return y(await (0, I.stat)(t), t, e);
+			} catch (s) {
+				let n = s;
+				if (r || n.code === "EACCES") return !1;
+				throw n;
+			}
+		};
+		o.isexe = F;
+		var L = (t, e = {}) => {
+			let { ignoreErrors: r = !1 } = e;
+			try {
+				return y((0, T.statSync)(t), t, e);
+			} catch (s) {
+				let n = s;
+				if (r || n.code === "EACCES") return !1;
+				throw n;
+			}
+		};
+		o.sync = L;
+		var B = (t, e) => {
+			let { pathExt: r = process.env.PATHEXT || "" } = e, s = r.split(D.delimiter);
+			if (s.indexOf("") !== -1) return !0;
+			for (let n of s) {
+				let u = n.toLowerCase(), c = t.substring(t.length - u.length).toLowerCase();
+				if (u && c === u) return !0;
+			}
+			return !1;
+		}, y = (t, e, r) => t.isFile() && B(e, r);
+	});
+	var p = a((h) => {
+		"use strict";
+		Object.defineProperty(h, "__esModule", { value: !0 });
+	});
+	var v = exports && exports.__createBinding || (Object.create ? (function(t, e, r, s) {
+		s === void 0 && (s = r);
+		var n = Object.getOwnPropertyDescriptor(e, r);
+		(!n || ("get" in n ? !e.__esModule : n.writable || n.configurable)) && (n = {
+			enumerable: !0,
+			get: function() {
+				return e[r];
+			}
+		}), Object.defineProperty(t, s, n);
+	}) : (function(t, e, r, s) {
+		s === void 0 && (s = r), t[s] = e[r];
+	}));
+	var G = exports && exports.__setModuleDefault || (Object.create ? (function(t, e) {
+		Object.defineProperty(t, "default", {
+			enumerable: !0,
+			value: e
+		});
+	}) : function(t, e) {
+		t.default = e;
+	});
+	var w = exports && exports.__importStar || (function() {
+		var t = function(e) {
+			return t = Object.getOwnPropertyNames || function(r) {
+				var s = [];
+				for (var n in r) Object.prototype.hasOwnProperty.call(r, n) && (s[s.length] = n);
+				return s;
+			}, t(e);
+		};
+		return function(e) {
+			if (e && e.__esModule) return e;
+			var r = {};
+			if (e != null) for (var s = t(e), n = 0; n < s.length; n++) s[n] !== "default" && v(r, e, s[n]);
+			return G(r, e), r;
+		};
+	})();
+	var X = exports && exports.__exportStar || function(t, e) {
+		for (var r in t) r !== "default" && !Object.prototype.hasOwnProperty.call(e, r) && v(e, t, r);
+	};
+	Object.defineProperty(exports, "__esModule", { value: !0 });
+	exports.sync = exports.isexe = exports.posix = exports.win32 = void 0;
+	var E = w(_());
+	exports.posix = E;
+	var O = w(g());
+	exports.win32 = O;
+	X(p(), exports);
+	var b = (process.env._ISEXE_TEST_PLATFORM_ || process.platform) === "win32" ? O : E;
+	exports.isexe = b.isexe;
+	exports.sync = b.sync;
+}));
+require_index_min();
+
+// node_modules/which/lib/index.mjs
+var require_lib$1 = __commonJSMin(((exports, module) => {
+	const { isexe, sync: isexeSync } = require_index_min();
+	const { join, delimiter, sep, posix } = __require("path");
+	const isWindows = process.platform === "win32";
+	const rSlash = new RegExp(`[${posix.sep}${sep === posix.sep ? "" : sep}]`.replace(/(\\)/g, "\\$1"));
+	const rRel = new RegExp(`^\\.${rSlash.source}`);
+	const getNotFoundError = (cmd) => Object.assign(new Error(`not found: ${cmd}`), { code: "ENOENT" });
+	const getPathInfo = (cmd, { path: optPath = process.env.PATH, pathExt: optPathExt = process.env.PATHEXT, delimiter: optDelimiter = delimiter }) => {
+		const pathEnv = cmd.match(rSlash) ? [""] : [...isWindows ? [process.cwd()] : [], ...(optPath || "").split(optDelimiter)];
+		if (isWindows) {
+			const pathExtExe = optPathExt || [
+				".EXE",
+				".CMD",
+				".BAT",
+				".COM"
+			].join(optDelimiter);
+			const pathExt = pathExtExe.split(optDelimiter).flatMap((item) => [item, item.toLowerCase()]);
+			if (cmd.includes(".") && pathExt[0] !== "") pathExt.unshift("");
+			return {
+				pathEnv,
+				pathExt,
+				pathExtExe
+			};
+		}
+		return {
+			pathEnv,
+			pathExt: [""]
+		};
+	};
+	const getPathPart = (raw, cmd) => {
+		const pathPart = /^".*"$/.test(raw) ? raw.slice(1, -1) : raw;
+		return (!pathPart && rRel.test(cmd) ? cmd.slice(0, 2) : "") + join(pathPart, cmd);
+	};
+	const which = async (cmd, opt = {}) => {
+		const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+		const found = [];
+		for (const envPart of pathEnv) {
+			const p = getPathPart(envPart, cmd);
+			for (const ext of pathExt) {
+				const withExt = p + ext;
+				if (await isexe(withExt, {
+					pathExt: pathExtExe,
+					ignoreErrors: true
+				})) {
+					if (!opt.all) return withExt;
+					found.push(withExt);
+				}
+			}
+		}
+		if (opt.all && found.length) return found;
+		if (opt.nothrow) return null;
+		throw getNotFoundError(cmd);
+	};
+	const whichSync = (cmd, opt = {}) => {
+		const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+		const found = [];
+		for (const pathEnvPart of pathEnv) {
+			const p = getPathPart(pathEnvPart, cmd);
+			for (const ext of pathExt) {
+				const withExt = p + ext;
+				if (isexeSync(withExt, {
+					pathExt: pathExtExe,
+					ignoreErrors: true
+				})) {
+					if (!opt.all) return withExt;
+					found.push(withExt);
+				}
+			}
+		}
+		if (opt.all && found.length) return found;
+		if (opt.nothrow) return null;
+		throw getNotFoundError(cmd);
+	};
+	module.exports = which;
+	which.sync = whichSync;
+}));
+require_lib$1();
+
+// server/find-executable.mjs
+require_lib$1();
+
 // node_modules/is-safe-filename/index.mjs
 Object.freeze([
 	"",
@@ -7447,6 +7656,181 @@ isType.bind(void 0, "lstat", "isSymbolicLink");
 isTypeSync.bind(void 0, "statSync", "isFile");
 isTypeSync.bind(void 0, "statSync", "isDirectory");
 isTypeSync.bind(void 0, "lstatSync", "isSymbolicLink");
+
+// node_modules/puka/index.mjs
+var require_puka = __commonJSMin(((exports) => {
+	Object.defineProperty(exports, "__esModule", { value: true });
+	const formatSymbol = Symbol("format");
+	const preformatSymbol = Symbol("preformat");
+	const sticky = (source) => new RegExp(source, "y");
+	const execFrom = (re, haystack, index) => (re.lastIndex = index, re.exec(haystack));
+	function quoteForCmd(text, forceQuote) {
+		let caretDepth = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0;
+		if (!text.length) return "\"\"";
+		if (/[\n\r]/.test(text)) throw new Error("Line breaks can't be quoted on Windows");
+		const caretEscape = /["%]/.test(text);
+		text = quoteForWin32(text, forceQuote || !caretEscape && /[&()<>^|]/.test(text));
+		if (caretEscape) do
+			text = text.replace(/[\t "%&()<>^|]/g, "^$&");
+		while (caretDepth--);
+		return text;
+	}
+	const quoteForWin32 = (text, forceQuote) => forceQuote || /[\t "]/.test(text) ? `"${text.replace(/\\+(?=$|")/g, "$&$&").replace(/"/g, "\\\"")}"` : text;
+	const cmdMetaChars = /[\t\n\r "%&()<>^|]/;
+	var Win32Context = class {
+		constructor() {
+			this.currentScope = newScope(null);
+			this.scopesByObject = new Map();
+			this.argDetectState = 0;
+			this.argSet = new Set();
+		}
+		read(text) {
+			const length = text.length;
+			for (let pos = 0, match; pos < length;) {
+				while (match = execFrom(reUnimportant, text, pos)) {
+					if (match[2] == null) {
+						if (match[1] != null) this.argDetectState = this.argDetectState === 0 ? ADS_FLAG_INITIAL_REDIRECT : 0;
+						else if (this.argDetectState !== ADS_FLAG_ARGS) this.argDetectState |= ADS_FLAG_WORD;
+					} else if ((this.argDetectState & ADS_FLAG_WORD) !== 0) this.argDetectState = ADS_FLAG_ARGS & ~this.argDetectState >> 1;
+					pos += match[0].length;
+				}
+				if (pos >= length) break;
+				if (match = execFrom(reSeqOp, text, pos)) {
+					this.seq();
+					pos += match[0].length;
+				} else {
+					const char = text.charCodeAt(pos);
+					if (char === CARET) pos += 2;
+					else if (char === QUOTE) pos += execFrom(reNotQuote, text, pos + 1)[0].length + 2;
+					else {
+						if (char === OPEN_PAREN) this.enterScope();
+						else if (char === CLOSE_PAREN) this.exitScope();
+						else if (char === PIPE) this.pipe();
+						else this.argDetectState = this.argDetectState === 0 ? ADS_FLAG_INITIAL_REDIRECT : 0;
+						pos++;
+					}
+				}
+			}
+		}
+		enterScope() {
+			this.currentScope = newScope(this.currentScope);
+			this.argDetectState = 0;
+		}
+		exitScope() {
+			this.currentScope = this.currentScope.parent || (this.currentScope.parent = newScope(null));
+			this.argDetectState = ADS_FLAG_ARGS;
+		}
+		seq() {
+			this.currentScope = newScope(this.currentScope.parent);
+			this.argDetectState = 0;
+		}
+		pipe() {
+			this.currentScope.depthDelta = 1;
+			this.argDetectState = 0;
+		}
+		mark(obj) {
+			this.scopesByObject.set(obj, this.currentScope);
+			if (this.argDetectState === ADS_FLAG_ARGS) this.argSet.add(obj);
+			else this.argDetectState |= ADS_FLAG_WORD;
+		}
+		at(obj) {
+			const scope = this.scopesByObject.get(obj);
+			return {
+				depth: getDepth(scope),
+				isArgument: this.argSet.has(obj),
+				isNative: scope.isNative
+			};
+		}
+	};
+	const ADS_FLAG_WORD = 1;
+	const ADS_FLAG_ARGS = 2;
+	const ADS_FLAG_INITIAL_REDIRECT = 4;
+	const getDepth = (scope) => scope === null ? 0 : scope.depth !== -1 ? scope.depth : scope.depth = getDepth(scope.parent) + scope.depthDelta;
+	const newScope = (parent) => ({
+		parent,
+		depthDelta: 0,
+		depth: -1,
+		isNative: false
+	});
+	const CARET = "^".charCodeAt();
+	const QUOTE = "\"".charCodeAt();
+	const OPEN_PAREN = "(".charCodeAt();
+	const CLOSE_PAREN = ")".charCodeAt();
+	const PIPE = "|".charCodeAt();
+	const reNotQuote = sticky("[^\"]*");
+	const reSeqOp = sticky("&&?|\\|\\|");
+	const reUnimportant = sticky("(\\d*>&)|[^\\s\"$&()<>^|]+|(\\s+)");
+	const quoteForSh = (text, forceQuote) => text.length ? forceQuote || shMetaChars.test(text) ? `'${text.replace(/'/g, "'\\''")}'`.replace(/^(?:'')+(?!$)/, "").replace(/\\'''/g, "\\'") : text : "''";
+	const shMetaChars = /[\t\n\r "#$&'()*;<>?\\`|~]/;
+	function Formatter() {}
+	Object.assign(Formatter, {
+		for(platform) {
+			return platform == null ? Formatter.default || (Formatter.default = Formatter.for(process.platform)) : Formatter._registry.get(platform) || Formatter._registry.get("sh");
+		},
+		declare(props) {
+			const platform = props && props.platform || "sh";
+			const existingFormatter = Formatter._registry.get(platform);
+			const formatter = Object.assign(existingFormatter || new Formatter(), props);
+			formatter.emptyString === void 0 && (formatter.emptyString = formatter.quote("", true));
+			existingFormatter || Formatter._registry.set(formatter.platform, formatter);
+		},
+		_registry: new Map(),
+		prototype: {
+			platform: "sh",
+			quote: quoteForSh,
+			metaChars: shMetaChars,
+			hasExtraMetaChars: false,
+			statementSeparator: ";",
+			createContext() {
+				return defaultContext;
+			}
+		}
+	});
+	const defaultContext = { at() {} };
+	Formatter.declare();
+	Formatter.declare({
+		platform: "win32",
+		quote(text, forceQuote, opts) {
+			return quoteForCmd(text, forceQuote, opts ? (opts.depth || 0) + (opts.isArgument && !opts.isNative ? 1 : 0) : 0);
+		},
+		metaChars: cmdMetaChars,
+		hasExtraMetaChars: true,
+		statementSeparator: "&",
+		createContext(root) {
+			const context = new this.Context();
+			root[preformatSymbol](context);
+			return context;
+		},
+		Context: Win32Context
+	});
+	var ShellStringUnquoted = class {
+		constructor(value) {
+			this.value = value;
+		}
+		[formatSymbol]() {
+			return this.value;
+		}
+		[preformatSymbol](context) {
+			context.read(this.value);
+		}
+	};
+	";".charCodeAt();
+	"'".charCodeAt();
+	"\"".charCodeAt();
+	sticky("[^']+");
+	sticky("[^\"]+");
+	sticky("[^\\s\"#$&'();<>\\\\`|]+|([#$&()\\\\`|]+)");
+	sticky("(\\s*\\d*[<>]+\\s*)|\\s+");
+	new ShellStringUnquoted(" ");
+	function quoteForShell(text, forceQuote, platform) {
+		return Formatter.for(platform).quote(text, forceQuote);
+	}
+	exports.quoteForShell = quoteForShell;
+}));
+require_puka();
+
+// server/quote-shell-argument.mjs
+require_puka();
 
 // node_modules/imurmurhash/imurmurhash.mjs
 var require_imurmurhash = __commonJSMin(((exports, module) => {
