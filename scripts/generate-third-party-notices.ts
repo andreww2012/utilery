@@ -1,19 +1,14 @@
 // cspell:ignore npmx
 
 import fs from 'node:fs';
-import path from 'node:path';
-import {jsonParse} from '../src/json/json-parse.ts';
 import {regexEscape} from '../src/regex/regex-escape.ts';
 import {
   DIST_PNPM,
   NOTICES_PATH,
-  ROOT,
   collectStorePackageNames,
   findLicenseTextMismatches,
+  readInstalledPackageJson,
 } from './_third-party-notices.ts';
-
-const NODE_MODULES = path.join(ROOT, 'node_modules');
-const PNPM_STORE = path.join(NODE_MODULES, '.pnpm');
 
 const TABLE_START = '<!-- THIRD_PARTY_NOTICES_TABLE:START -->';
 const TABLE_END = '<!-- THIRD_PARTY_NOTICES_TABLE:END -->';
@@ -30,22 +25,6 @@ const WRAPPING_PARENS_REGEX = /^\((.*)\)$/;
 // eslint-disable-next-line unicorn/no-array-sort
 const collectBundledPackageNames = () => [...collectStorePackageNames(DIST_PNPM)].sort();
 
-const resolvePackageJsonPath = (packageName: string) => {
-  const directPath = path.join(NODE_MODULES, packageName, 'package.json');
-  if (fs.existsSync(directPath)) {
-    return directPath;
-  }
-
-  // Transitively bundled dependencies live only in pnpm's virtual store, not at the top level
-  const storePrefix = `${packageName.replaceAll('/', '+')}@`;
-  const storeEntry = fs.readdirSync(PNPM_STORE).find((entry) => entry.startsWith(storePrefix));
-  if (storeEntry == null) {
-    throw new Error(`Cannot locate the installed package "${packageName}".`);
-  }
-
-  return path.join(PNPM_STORE, storeEntry, 'node_modules', packageName, 'package.json');
-};
-
 interface PackageRow {
   packageCell: string;
   versionCell: string;
@@ -60,9 +39,7 @@ const TABLE_HEADER: Readonly<PackageRow> = {
 
 const buildTable = () => {
   const rows = collectBundledPackageNames().map<PackageRow>((name) => {
-    const {version, license} = jsonParse<{version: string; license?: string}>(
-      fs.readFileSync(resolvePackageJsonPath(name), 'utf8'),
-    );
+    const {version, license} = readInstalledPackageJson(name);
     if (!license) {
       throw new Error(`Package "${name}" is missing a "license" field in its package.json.`);
     }
