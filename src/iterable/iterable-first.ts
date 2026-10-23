@@ -13,4 +13,5 @@ import {head} from 'es-toolkit/iterator';
  * iterableFirst([]);
  * // undefined
  */
-export const iterableFirst = <T>(iterable: Iterable<T>) => head(iterable[Symbol.iterator]());
+export const iterableFirst = <T>(iterable: Iterable<T>): T | undefined =>
+  head(iterable[Symbol.iterator]());

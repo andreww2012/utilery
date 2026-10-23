@@ -16,7 +16,8 @@ import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
  * await isFile('src');
  * // false
  */
-export const isFile = async (path: string) => await isFileBase(path).catch(returnFalseIfMissing);
+export const isFile = async (path: string): Promise<boolean> =>
+  await isFileBase(path).catch(returnFalseIfMissing);
 
 /**
  * Synchronous version of `isFile`.
@@ -26,4 +27,4 @@ export const isFile = async (path: string) => await isFileBase(path).catch(retur
  * isFileSync('package.json');
  * // true
  */
-export const isFileSync = (path: string) => falseIfMissingSync(() => isFileSyncBase(path));
+export const isFileSync = (path: string): boolean => falseIfMissingSync(() => isFileSyncBase(path));

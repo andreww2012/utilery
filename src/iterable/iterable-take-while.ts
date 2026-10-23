@@ -20,4 +20,4 @@ import {takeWhile} from 'es-toolkit/iterator';
 export const iterableTakeWhile = <T>(
   iterable: Iterable<T>,
   predicate: (value: T, index: number) => boolean,
-) => takeWhile(iterable[Symbol.iterator](), predicate);
+): IteratorObject<T, undefined> => takeWhile(iterable[Symbol.iterator](), predicate);

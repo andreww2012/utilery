@@ -18,5 +18,7 @@ import type {DelimiterCase} from 'string-ts';
  * toDelimiterCase('XMLHttpRequest', '/');
  * // 'XML/Http/Request'
  */
-export const toDelimiterCase = <S extends string, D extends string>(value: S, delimiter: D) =>
-  words(value).join(delimiter) as DelimiterCase<S, D>;
+export const toDelimiterCase = <S extends string, D extends string>(
+  value: S,
+  delimiter: D,
+): DelimiterCase<S, D> => words(value).join(delimiter);

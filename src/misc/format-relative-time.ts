@@ -71,7 +71,7 @@ export interface FormatRelativeTimeOptions {
 export const formatRelativeTime = (
   date: Date | number,
   options: FormatRelativeTimeOptions = {},
-) => {
+): string => {
   const {now = Date.now(), locale, style, numeric = 'auto'} = options;
   const differenceMs = Number(date) - Number(now);
   const [unit, unitMilliseconds] = UNITS.find(

@@ -22,7 +22,9 @@ const NODE_MODULES_PATH_REGEX =
  * parseNodeModulesPath('/repo/src/index.ts');
  * // undefined
  */
-export const parseNodeModulesPath = (path: string) => {
+export const parseNodeModulesPath = (
+  path: string,
+): {directory: string; name: string; subpath: string | undefined} | undefined => {
   const groups = NODE_MODULES_PATH_REGEX.exec(path)?.groups;
   return groups?.directory == null || groups.name == null
     ? undefined

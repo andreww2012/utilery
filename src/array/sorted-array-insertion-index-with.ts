@@ -32,4 +32,4 @@ import {sortedIndexWith} from 'remeda';
 export const sortedArrayInsertionIndexWith = <T>(
   sortedArray: readonly T[],
   predicate: (value: T, index: number, array: readonly T[]) => boolean,
-) => sortedIndexWith(sortedArray, predicate);
+): number => sortedIndexWith(sortedArray, predicate);

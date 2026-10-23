@@ -25,5 +25,5 @@ export type ParsedSemver = SemVer;
  * parseSemver('1.2');
  * // undefined
  */
-export const parseSemver = (version: string, options?: {loose?: boolean}) =>
+export const parseSemver = (version: string, options?: {loose?: boolean}): SemVer | undefined =>
   tryParse(version, options) || undefined;

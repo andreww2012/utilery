@@ -1,4 +1,4 @@
-import {sort} from 'remeda';
+import {type ReorderedArray, sort} from 'remeda';
 
 /**
  * Returns a new array with the elements of `array` sorted by `comparator`, just
@@ -30,4 +30,4 @@ import {sort} from 'remeda';
 export const arraySort = <T extends readonly unknown[]>(
   array: T,
   comparator: (a: T[number], b: T[number]) => number,
-) => sort(array, comparator);
+): ReorderedArray<T> => sort(array, comparator);

@@ -74,7 +74,7 @@ export function mergeDeep<
 export function mergeDeep<
   T extends Record<PropertyKey, unknown>,
   S extends Record<PropertyKey, unknown>,
->(target: T, source: S, options?: MergeDeepOptions<T, S>) {
+>(target: T, source: S, options?: MergeDeepOptions<T, S>): Merge<T, S> | (T & S) {
   const {mergeValues, copy} = options || {};
 
   if (copy) {

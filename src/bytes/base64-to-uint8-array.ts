@@ -24,7 +24,7 @@ const decodeBase64Fallback = (base64: string) => {
  * base64ToUint8Array('-_8');
  * // Uint8Array [251, 255]
  */
-export const base64ToUint8Array = (base64: string) => {
+export const base64ToUint8Array = (base64: string): Uint8Array<ArrayBuffer> => {
   // The native decoder takes one alphabet at a time, so Base64URL is turned into Base64
   const standardBase64 = base64.replaceAll('-', '+').replaceAll('_', '/');
   // Not every supported environment has it

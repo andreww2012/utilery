@@ -1,4 +1,4 @@
-import {mapWithFeedback} from 'remeda';
+import {type Mapped, mapWithFeedback} from 'remeda';
 
 /**
  * Like `arrayMap`, but threads an accumulator through the iteration: each
@@ -30,4 +30,4 @@ export const arrayMapWithAccumulator = <T extends readonly unknown[], Accumulato
   array: T,
   callback: (accumulator: Accumulator, value: T[number], index: number, array: T) => Accumulator,
   initialValue: Accumulator,
-) => mapWithFeedback(array, callback, initialValue);
+): Mapped<T, Accumulator> => mapWithFeedback(array, callback, initialValue);

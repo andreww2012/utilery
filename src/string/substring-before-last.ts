@@ -13,7 +13,7 @@
  * substringBeforeLast('Makefile', '.');
  * // 'Makefile'
  */
-export const substringBeforeLast = (text: string, delimiter: string, fallback = text) => {
+export const substringBeforeLast = (text: string, delimiter: string, fallback = text): string => {
   const index = text.lastIndexOf(delimiter);
   return index === -1 ? fallback : text.slice(0, index);
 };

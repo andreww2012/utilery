@@ -26,4 +26,4 @@ export const arrayTakeFirstBy = <T>(
   array: readonly T[],
   count: number,
   ...rules: [OrderRule<T>, ...OrderRule<T>[]]
-) => takeFirstBy(array, count, ...rules);
+): T[] => takeFirstBy(array, count, ...rules);

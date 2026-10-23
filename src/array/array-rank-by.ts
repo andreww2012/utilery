@@ -26,4 +26,4 @@ export const arrayRankBy = <T>(
   array: readonly T[],
   item: T,
   ...rules: [OrderRule<T>, ...OrderRule<T>[]]
-) => rankBy(array, item, ...rules);
+): number => rankBy(array, item, ...rules);

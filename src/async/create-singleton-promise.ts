@@ -44,7 +44,10 @@ export interface SingletonPromiseOptions {
  * // Start over
  * await getDatabase.reset();
  */
-export const createSingletonPromise = <T>(fn: () => T, options: SingletonPromiseOptions = {}) => {
+export const createSingletonPromise = <T>(
+  fn: () => T,
+  options: SingletonPromiseOptions = {},
+): (() => Promise<Awaited<T>>) & {reset: () => Promise<void>} => {
   const {cacheRejections = false, ttlMs} = options;
   let cached: {promise: Promise<Awaited<T>>; resolvedAt?: number} | undefined;
 

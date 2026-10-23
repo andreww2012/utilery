@@ -24,5 +24,5 @@ import {type GlobOptions, toPicomatchOptions} from './_shared.ts';
  * globToRegex('*.md', {caseInsensitive: true}).test('README.MD');
  * // true
  */
-export const globToRegex = (pattern: string, options?: GlobOptions) =>
+export const globToRegex = (pattern: string, options?: GlobOptions): RegExp =>
   picomatch.makeRe(pattern, toPicomatchOptions(options));

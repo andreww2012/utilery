@@ -18,4 +18,4 @@ export const iterableScan = <T, A>(
   iterable: Iterable<T>,
   reducer: (accumulator: A, value: T, index: number) => A,
   initialValue: A,
-) => scan(iterable[Symbol.iterator](), reducer, initialValue);
+): IteratorObject<A, undefined> => scan(iterable[Symbol.iterator](), reducer, initialValue);

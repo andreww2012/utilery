@@ -48,7 +48,7 @@ export function randomIntInclusive(
   minimumOrMaximum: number,
   maximumOrOptions?: number | {random?: () => number},
   options?: {random?: () => number},
-) {
+): number {
   const [minimum, maximum, getRandom] = resolveRandomArguments(
     minimumOrMaximum,
     maximumOrOptions,

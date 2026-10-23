@@ -55,7 +55,7 @@ export type TruncateOptions =
  * truncate('a-very-long-file-name.tar.gz', {length: 15, position: 'middle', omission: '…'});
  * // 'a-very-….tar.gz'
  */
-export const truncate = (text: string, options: TruncateOptions = {}) => {
+export const truncate = (text: string, options: TruncateOptions = {}): string => {
   if (options.position == null || options.position === 'end') {
     return truncateEnd(text, options);
   }

@@ -23,7 +23,7 @@
 export const sleepAbortable = (
   milliseconds: number,
   options: {signal?: AbortSignal; unref?: boolean} = {},
-) =>
+): Promise<void> =>
   new Promise<void>((resolve, reject) => {
     const {signal, unref = false} = options;
     signal?.throwIfAborted();

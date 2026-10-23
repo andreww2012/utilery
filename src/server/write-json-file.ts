@@ -65,7 +65,7 @@ export const writeJsonFile = async (
   filePath: string,
   data: unknown,
   options?: WriteJsonFileOptions,
-) => {
+): Promise<void> => {
   await writeJsonFileBase(filePath, data, {...DEFAULT_OPTIONS, ...options});
 };
 
@@ -81,6 +81,6 @@ export const writeJsonFileSync = (
   filePath: string,
   data: unknown,
   options?: WriteJsonFileOptions,
-) => {
+): void => {
   writeJsonFileSyncBase(filePath, data, {...DEFAULT_OPTIONS, ...options});
 };

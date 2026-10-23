@@ -29,7 +29,7 @@ export const withTimeout = async <T>(
   run: (signal: AbortSignal) => T | PromiseLike<T>,
   milliseconds: number,
   options: {signal?: AbortSignal} = {},
-) => {
+): Promise<T> => {
   options.signal?.throwIfAborted();
 
   const controller = new AbortController();

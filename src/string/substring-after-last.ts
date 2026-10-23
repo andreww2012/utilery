@@ -16,7 +16,7 @@
  * substringAfterLast('Makefile', '.', '');
  * // ''
  */
-export const substringAfterLast = (text: string, delimiter: string, fallback = text) => {
+export const substringAfterLast = (text: string, delimiter: string, fallback = text): string => {
   const index = text.lastIndexOf(delimiter);
   return index === -1 ? fallback : text.slice(index + delimiter.length);
 };

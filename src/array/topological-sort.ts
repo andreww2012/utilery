@@ -66,7 +66,7 @@ const findCycle = <T>(nodes: readonly T[], dependenciesOf: ReadonlyMap<T, readon
 export const topologicalSort = <T>(
   nodes: Iterable<T>,
   getDependencies: (node: T) => Iterable<T>,
-) => {
+): T[] => {
   const dependenciesOf = new Map<T, T[]>();
   // Dependencies outside the given nodes are collected too, as the package requires every node
   const collect = (node: T) => {

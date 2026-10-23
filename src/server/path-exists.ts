@@ -21,7 +21,7 @@ import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
  * // false
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name -- the well-known name of this check, as in `fs-extra`
-export const pathExists = async (path: string) =>
+export const pathExists = async (path: string): Promise<boolean> =>
   await fs.promises
     .access(path)
     .then(() => true)
@@ -38,7 +38,7 @@ export const pathExists = async (path: string) =>
  * // true
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name -- the well-known name of this check, as in `fs.existsSync`
-export const pathExistsSync = (path: string) =>
+export const pathExistsSync = (path: string): boolean =>
   falseIfMissingSync(() => {
     fs.accessSync(path);
     return true;

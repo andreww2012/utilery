@@ -18,7 +18,7 @@
  * stringByteLength('😀');
  * // 4
  */
-export const stringByteLength = (text: string) => {
+export const stringByteLength = (text: string): number => {
   let bytes = 0;
   for (let index = 0; index < text.length; index++) {
     // UTF-16 code units are read on purpose, surrogate pairs are handled below

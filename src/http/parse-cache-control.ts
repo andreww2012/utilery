@@ -1,5 +1,5 @@
 // cspell:ignore maxage
-import {parse} from '@tusbar/cache-control';
+import {type CacheControl, parse} from '@tusbar/cache-control';
 
 /**
  * Parses the `Cache-Control` HTTP header into an object with a property per
@@ -29,4 +29,5 @@ import {parse} from '@tusbar/cache-control';
  * // Is the response cacheable at all?
  * const {noStore, private: isPrivate} = parseCacheControl(response.headers.get('cache-control'));
  */
-export const parseCacheControl = (header: string | null | undefined) => parse(header || undefined);
+export const parseCacheControl = (header: string | null | undefined): CacheControl =>
+  parse(header || undefined);

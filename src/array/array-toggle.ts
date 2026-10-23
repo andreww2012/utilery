@@ -47,7 +47,7 @@ export const arrayToggle = <T>(
      */
     copy?: boolean;
   },
-) => {
+): T[] => {
   const result = options?.copy ? [...array] : array;
   const isIncluded = result.includes(value);
   const shouldBeIncluded = shouldInclude ?? !isIncluded;

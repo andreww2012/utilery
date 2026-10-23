@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import tsEslintPlugin from '@typescript-eslint/eslint-plugin';
 import {eslintConfig} from 'eslint-config-un';
 import {Alphabet} from 'eslint-plugin-perfectionist/alphabet';
 import oxfmtConfig from './oxfmt.config.ts';
@@ -14,6 +15,8 @@ const bundledPackages = fs
     const typesName = fileName.replace(PACKAGE_DOC_EXTENSION_REGEX, '');
     return [typesName.replace('__', '/'), `@types/${typesName}`];
   });
+
+const explicitModuleBoundaryTypes = tsEslintPlugin.rules['explicit-module-boundary-types'];
 
 export default eslintConfig({
   ignores: [
@@ -36,6 +39,37 @@ export default eslintConfig({
       },
     },
   },
+  extraPlugins: {
+    local: {
+      rules: {
+        // Doesn't require a return type on an arrow function whose body is `value as T`: the cast
+        // already gives it
+        'explicit-module-boundary-types': {
+          ...explicitModuleBoundaryTypes,
+          create: (context: Parameters<typeof explicitModuleBoundaryTypes.create>[0]) =>
+            explicitModuleBoundaryTypes.create(
+              // Not a spread: the context is frozen and keeps most of its properties in the prototype
+              Object.create(context, {
+                report: {
+                  value: (descriptor: Parameters<typeof context.report>[0]) => {
+                    /* eslint-disable ts/no-unsafe-enum-comparison -- The values of the node type
+                    enum are these strings, and the package with the enum isn't our dependency */
+                    const isCastArrowFunction =
+                      'node' in descriptor &&
+                      descriptor.node.type === 'ArrowFunctionExpression' &&
+                      descriptor.node.body.type === 'TSAsExpression';
+                    /* eslint-enable ts/no-unsafe-enum-comparison */
+                    if (!isCastArrowFunction) {
+                      context.report(descriptor);
+                    }
+                  },
+                },
+              }) as typeof context,
+            ),
+        },
+      },
+    },
+  },
   extraConfigs: [
     {
       // The package docs intentionally use a `Package:` prefix in their title
@@ -48,6 +82,13 @@ export default eslintConfig({
       files: ['src/**/*.global.ts'],
       rules: {
         'ts/method-signature-style': [2, 'method'],
+      },
+    },
+    {
+      files: ['src/**/*.ts'],
+      ignores: ['src/_internal/**', 'src/**/_*.ts'],
+      rules: {
+        'local/explicit-module-boundary-types': 2,
       },
     },
   ],

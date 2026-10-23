@@ -52,7 +52,7 @@ export const generateMailtoLink = (options: {
   subject?: string;
   body?: string;
   recipientsAsQueryParam?: boolean;
-}) => {
+}): string => {
   const {subject = '', body = '', recipientsAsQueryParam = false} = options;
 
   const to = joinRecipients(options.to);

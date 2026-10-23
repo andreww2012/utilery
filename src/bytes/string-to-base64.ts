@@ -24,5 +24,5 @@ import {type Base64EncodingOptions, uint8ArrayToBase64} from './uint8-array-to-b
  * stringToBase64('Привет', {urlSafe: true});
  * // '0J_RgNC40LLQtdGC'
  */
-export const stringToBase64 = (text: string, options?: Base64EncodingOptions) =>
+export const stringToBase64 = (text: string, options?: Base64EncodingOptions): string =>
   uint8ArrayToBase64(stringToUint8Array(text), options);

@@ -14,5 +14,7 @@ import {chunk} from 'es-toolkit/iterator';
  * [...iterableChunks([1, 2, 3, 4, 5], 2)];
  * // [[1, 2], [3, 4], [5]]
  */
-export const iterableChunks = <T>(iterable: Iterable<T>, size: number) =>
-  chunk(iterable[Symbol.iterator](), size);
+export const iterableChunks = <T>(
+  iterable: Iterable<T>,
+  size: number,
+): IteratorObject<T[], undefined> => chunk(iterable[Symbol.iterator](), size);

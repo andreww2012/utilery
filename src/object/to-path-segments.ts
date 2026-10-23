@@ -20,6 +20,6 @@ import {type StringToPath, stringToPath} from 'remeda';
  */
 export function toPathSegments<Path extends string>(path: Path): StringToPath<Path>;
 export function toPathSegments<const T extends readonly PropertyKey[]>(path: T): T;
-export function toPathSegments(path: string | readonly PropertyKey[]) {
+export function toPathSegments(path: string | readonly PropertyKey[]): PropertyKey[] {
   return typeof path === 'string' ? stringToPath(path) : [...path];
 }

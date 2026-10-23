@@ -15,4 +15,4 @@ import picomatch from 'picomatch';
  * isGlobPattern('src/index.ts');
  * // false
  */
-export const isGlobPattern = (text: string) => picomatch.scan(text).isGlob;
+export const isGlobPattern = (text: string): boolean => picomatch.scan(text).isGlob;

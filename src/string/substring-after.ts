@@ -16,7 +16,7 @@
  * substringAfter('https://example.com', '?', '');
  * // ''
  */
-export const substringAfter = (text: string, delimiter: string, fallback = text) => {
+export const substringAfter = (text: string, delimiter: string, fallback = text): string => {
   const index = text.indexOf(delimiter);
   return index === -1 ? fallback : text.slice(index + delimiter.length);
 };

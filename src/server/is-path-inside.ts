@@ -29,7 +29,7 @@ import path from 'node:path';
  *   throw new Error('Forbidden');
  * }
  */
-export const isPathInside = (childPath: string, parentPath: string) => {
+export const isPathInside = (childPath: string, parentPath: string): boolean => {
   const relativePath = path.relative(parentPath, childPath);
   // An absolute result means another Windows drive, where no relative path exists
   return (

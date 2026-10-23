@@ -57,7 +57,7 @@ export const nanoidFactory = (
   alphabet: string,
   size = 21,
   options?: {insecure?: boolean; random?: (bytes: number) => Uint8Array},
-) => {
+): ((size?: number) => string) => {
   if (options?.random) {
     return customRandom(alphabet, size, options.random);
   }

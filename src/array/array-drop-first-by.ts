@@ -27,4 +27,4 @@ export const arrayDropFirstBy = <T>(
   array: readonly T[],
   count: number,
   ...rules: [OrderRule<T>, ...OrderRule<T>[]]
-) => dropFirstBy(array, count, ...rules);
+): T[] => dropFirstBy(array, count, ...rules);

@@ -1,4 +1,4 @@
-import {type OrderRule, firstBy} from 'remeda';
+import {type FirstBy, type OrderRule, firstBy} from 'remeda';
 
 /**
  * Returns the first element of `array` according to one or more ordering
@@ -35,4 +35,4 @@ import {type OrderRule, firstBy} from 'remeda';
 export const arrayFirstBy = <T extends readonly unknown[]>(
   array: T,
   ...rules: [OrderRule<T[number]>, ...OrderRule<T[number]>[]]
-) => firstBy(array, ...rules);
+): FirstBy<T> => firstBy(array, ...rules);

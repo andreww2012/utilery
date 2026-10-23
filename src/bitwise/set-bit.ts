@@ -29,5 +29,5 @@ import type {BitIndex} from './is-bit-index.ts';
  * setBit(0, 31);
  * // 2_147_483_648
  */
-export const setBit = (value: number, bitIndex: BitIndex, isSet = true) =>
+export const setBit = (value: number, bitIndex: BitIndex, isSet = true): number =>
   isSet ? bitSet(value, bitIndex) : bitClear(value, bitIndex);

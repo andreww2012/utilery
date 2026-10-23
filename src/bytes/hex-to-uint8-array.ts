@@ -16,7 +16,7 @@ const HEX_REGEX = /^(?:[\da-f]{2})*$/i;
  * hexToUint8Array('FF00');
  * // Uint8Array [255, 0]
  */
-export const hexToUint8Array = (hex: string) => {
+export const hexToUint8Array = (hex: string): Uint8Array<ArrayBuffer> => {
   // Not every supported environment has it
   const nativeUint8Array: Uint8ArrayConstructor & {
     fromHex?: (hex: string) => Uint8Array<ArrayBuffer>;

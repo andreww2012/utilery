@@ -13,7 +13,7 @@
  * findClosestNumber([], 5);
  * // undefined
  */
-export const findClosestNumber = (values: Iterable<number>, target: number) => {
+export const findClosestNumber = (values: Iterable<number>, target: number): number | undefined => {
   let closest: number | undefined;
   for (const value of values) {
     if (closest == null || Math.abs(value - target) < Math.abs(closest - target)) {

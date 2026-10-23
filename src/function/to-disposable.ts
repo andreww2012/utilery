@@ -33,7 +33,9 @@ import {defer, deferAsync} from 'es-toolkit/util';
  */
 export function toDisposable(callback: () => PromiseLike<void>): AsyncDisposable;
 export function toDisposable(callback: () => void): Disposable & AsyncDisposable;
-export function toDisposable(callback: () => void | PromiseLike<void>) {
+export function toDisposable(
+  callback: () => void | PromiseLike<void>,
+): Disposable & AsyncDisposable {
   return {
     ...defer(() => {
       void callback();

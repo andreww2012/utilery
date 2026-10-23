@@ -34,7 +34,7 @@ const hashString = (text: string) => {
 export const createSeededRandom = (seed: number | string) => {
   let state = typeof seed === 'string' ? hashString(seed) : Math.trunc(seed);
 
-  return () => {
+  return (): number => {
     state = (state + 0x6d_2b_79_f5) >>> 0;
     let mixed = Math.imul(state ^ (state >>> 15), state | 1);
     mixed ^= mixed + Math.imul(mixed ^ (mixed >>> 7), mixed | 61);

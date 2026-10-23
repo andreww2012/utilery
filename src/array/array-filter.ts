@@ -27,8 +27,6 @@ import {type FilteredArray, type NonRefinedFilteredArray, filter} from 'remeda';
  * arrayFilter([1, 'a', 2], (value): value is number => typeof value === 'number');
  * // [1, 2]
  */
-// Return types are annotated explicitly because inferring them fails to emit
-// declarations (TS7056: remeda's FilteredArray is too large to serialize)
 export function arrayFilter<T extends readonly unknown[], Condition extends T[number]>(
   array: T,
   predicate: (value: T[number], index: number, array: T) => value is Condition,
@@ -40,6 +38,6 @@ export function arrayFilter<T extends readonly unknown[], IsIncluded extends boo
 export function arrayFilter<T extends readonly unknown[]>(
   array: T,
   predicate: (value: T[number], index: number, array: T) => boolean,
-) {
+): T[number][] {
   return filter(array, predicate);
 }

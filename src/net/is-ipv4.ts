@@ -15,4 +15,4 @@ import ipaddr from 'ipaddr.js';
  * isIpv4('::1');
  * // false
  */
-export const isIpv4 = (value: string) => ipaddr.IPv4.isValidFourPartDecimal(value);
+export const isIpv4 = (value: string): boolean => ipaddr.IPv4.isValidFourPartDecimal(value);

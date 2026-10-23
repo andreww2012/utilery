@@ -18,4 +18,5 @@ import {uint8ArrayToString} from './uint8-array-to-string.ts';
  * base64ToString('0J/RgNC40LLQtdGC');
  * // 'Привет'
  */
-export const base64ToString = (base64: string) => uint8ArrayToString(base64ToUint8Array(base64));
+export const base64ToString = (base64: string): string =>
+  uint8ArrayToString(base64ToUint8Array(base64));

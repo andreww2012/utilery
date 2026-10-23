@@ -21,7 +21,7 @@ interface ColorStreamLike {
  * // true in a terminal, false when piped: `node script.js | cat`
  * isColorSupported(process.stderr);
  */
-export const isColorSupported = (stream: ColorStreamLike = process.stdout) => {
+export const isColorSupported = (stream: ColorStreamLike = process.stdout): boolean => {
   const {FORCE_COLOR} = process.env;
   return FORCE_COLOR == null
     ? stream.isTTY === true && stream.hasColors?.() === true

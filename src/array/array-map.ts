@@ -1,4 +1,4 @@
-import {map} from 'remeda';
+import {type Mapped, map} from 'remeda';
 
 /**
  * Maps each element of an array through `callback`, just like
@@ -30,4 +30,4 @@ import {map} from 'remeda';
 export const arrayMap = <T extends readonly unknown[], U>(
   array: T,
   callback: (value: T[number], index: number, array: T) => U,
-) => map(array, callback);
+): Mapped<T, U> => map(array, callback);

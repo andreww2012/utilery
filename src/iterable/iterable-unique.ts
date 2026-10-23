@@ -24,4 +24,4 @@ import {uniqBy} from 'es-toolkit/iterator';
 export const iterableUnique = <T>(
   iterable: Iterable<T>,
   mapper: (value: T) => unknown = identity,
-) => uniqBy(iterable[Symbol.iterator](), mapper);
+): IteratorObject<T, undefined> => uniqBy(iterable[Symbol.iterator](), mapper);

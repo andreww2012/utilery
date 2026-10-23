@@ -26,7 +26,7 @@ import Negotiator from 'negotiator';
 export const getPreferredEncoding = (
   acceptEncoding: string | null | undefined,
   available?: readonly string[],
-) => {
+): string | undefined => {
   // The types of the package lack the `preferred` option, which breaks ties in the server's order
   const negotiator: {
     encoding: (

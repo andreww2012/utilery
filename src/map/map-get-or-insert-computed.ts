@@ -34,7 +34,7 @@ export const mapGetOrInsertComputed = <K, V>(
   map: Map<K, V>,
   key: K,
   computeDefaultValue: (key: K) => V,
-) => {
+): V => {
   // Not every supported environment has it
   const nativeMap: Map<K, V> & {
     getOrInsertComputed?: (key: K, computeDefaultValue: (key: K) => V) => V;

@@ -16,7 +16,7 @@ import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
  * await isDirectory('package.json');
  * // false
  */
-export const isDirectory = async (path: string) =>
+export const isDirectory = async (path: string): Promise<boolean> =>
   await isDirectoryBase(path).catch(returnFalseIfMissing);
 
 /**
@@ -27,5 +27,5 @@ export const isDirectory = async (path: string) =>
  * isDirectorySync('src');
  * // true
  */
-export const isDirectorySync = (path: string) =>
+export const isDirectorySync = (path: string): boolean =>
   falseIfMissingSync(() => isDirectorySyncBase(path));

@@ -1,5 +1,6 @@
 // cspell:ignore nothrow PATHEXT
 import which from 'which';
+import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
 
 /** Options of `findExecutable` and `findExecutableSync` */
 export interface FindExecutableOptions {
@@ -51,7 +52,7 @@ export async function findExecutable(
 export async function findExecutable(
   command: string,
   options: FindExecutableOptions & {all?: boolean} = {},
-) {
+): Promise<MaybeReadonlyArray<string> | undefined> {
   const result = await which(command, {...options, all: options.all, nothrow: true});
   return result || (options.all ? [] : undefined);
 }
@@ -78,7 +79,7 @@ export function findExecutableSync(
 export function findExecutableSync(
   command: string,
   options: FindExecutableOptions & {all?: boolean} = {},
-) {
+): MaybeReadonlyArray<string> | undefined {
   const result = which.sync(command, {...options, all: options.all, nothrow: true});
   return result || (options.all ? [] : undefined);
 }

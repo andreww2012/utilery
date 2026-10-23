@@ -54,7 +54,7 @@ export const createPathFilter = (
   const includeMatchers = arrayify(patterns.include).map((pattern) => toMatcher(pattern, options));
   const excludeMatchers = arrayify(patterns.exclude).map((pattern) => toMatcher(pattern, options));
 
-  return (path: string) => {
+  return (path: string): boolean => {
     const normalizedPath = toForwardSlashes(path);
     return (
       excludeMatchers.every((matches) => !matches(normalizedPath)) &&

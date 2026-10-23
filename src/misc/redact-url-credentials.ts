@@ -18,5 +18,5 @@ const URL_CREDENTIALS_REGEX = /^([a-z][\d+\-.a-z]*:\/\/)[^#/?]*@/i;
  * redactUrlCredentials('https://example.com/a@b');
  * // 'https://example.com/a@b'
  */
-export const redactUrlCredentials = (url: string | URL) =>
+export const redactUrlCredentials = (url: string | URL): string =>
   String(url).replace(URL_CREDENTIALS_REGEX, '$1***@');

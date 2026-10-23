@@ -29,7 +29,7 @@ const ROOTED_PATH_REGEX = /^(?:[/\\]|[a-z]:)/i;
  * isSafeRelativePath('a\\..\\..\\b');
  * // false
  */
-export const isSafeRelativePath = (path: string) => {
+export const isSafeRelativePath = (path: string): boolean => {
   if (!path || path.includes('\0') || ROOTED_PATH_REGEX.test(path)) {
     return false;
   }

@@ -32,7 +32,7 @@ export function interopDefault<T>(
       : Default
     : Awaited<T>
 >;
-export async function interopDefault(module: unknown) {
+export async function interopDefault(module: unknown): Promise<unknown> {
   const resolved = await module;
 
   return resolved != null &&

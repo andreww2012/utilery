@@ -23,7 +23,7 @@ const promiseTryFallback = async <Arguments extends unknown[], Result>(
 export const promiseTry = <Arguments extends unknown[], Result>(
   fn: (...parameters: Arguments) => Result,
   ...callArguments: Arguments
-) => {
+): Promise<Awaited<Result>> => {
   // Not every supported environment has it
   const nativePromise: PromiseConstructor & {try?: typeof promiseTryFallback} = Promise;
 

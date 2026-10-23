@@ -29,7 +29,7 @@ export const isGlobMatch = (
   path: string,
   patterns: MaybeReadonlyArray<string>,
   options?: GlobOptions,
-) =>
+): boolean =>
   picomatch.isMatch(
     path,
     typeof patterns === 'string' ? patterns : [...patterns],

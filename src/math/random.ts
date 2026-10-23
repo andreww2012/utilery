@@ -30,7 +30,7 @@ export function random(
   minimumOrMaximum: number,
   maximumOrOptions?: number | {random?: () => number},
   options?: {random?: () => number},
-) {
+): number {
   const [minimum, maximum, getRandom = Math.random] = resolveRandomArguments(
     minimumOrMaximum,
     maximumOrOptions,

@@ -16,7 +16,7 @@ import {isIpv4} from './is-ipv4.ts';
  * isIpv6('192.168.0.1');
  * // false
  */
-export const isIpv6 = (value: string) => {
+export const isIpv6 = (value: string): boolean => {
   if (!ipaddr.IPv6.isValid(value)) {
     return false;
   }

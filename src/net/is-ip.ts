@@ -15,4 +15,4 @@ import {isIpv6} from './is-ipv6.ts';
  * isIp('example.com');
  * // false
  */
-export const isIp = (value: string) => isIpv4(value) || isIpv6(value);
+export const isIp = (value: string): boolean => isIpv4(value) || isIpv6(value);

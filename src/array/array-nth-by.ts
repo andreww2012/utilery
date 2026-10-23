@@ -30,4 +30,4 @@ export const arrayNthBy = <T extends readonly unknown[]>(
   array: T,
   index: number,
   ...rules: [OrderRule<T[number]>, ...OrderRule<T[number]>[]]
-) => nthBy(array, index, ...rules);
+): T[number] | undefined => nthBy(array, index, ...rules);

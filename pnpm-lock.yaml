@@ -177,7 +177,7 @@ patchedDependencies:
   arkregex: f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
-  remeda: 2404cd7d4128cd88b45643519671f1d19809dce340979a279968f278ae9bce70
+  remeda: 967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e
   safe-stable-stringify: 12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839
   signal-exit: 1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd
   which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
@@ -260,6 +260,9 @@ importers:
       '@types/yieldable-json':
         specifier: 2.0.2
         version: 2.0.2
+      '@typescript-eslint/eslint-plugin':
+        specifier: 8.71.2
+        version: 8.71.2(@typescript-eslint/parser@8.71.2)(@typescript/typescript6@6.0.2)(eslint@10.13.0)(supports-color@9.4.0)
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -409,7 +412,7 @@ importers:
         version: 1.3.0
       remeda:
         specifier: 2.53.0
-        version: 2.53.0(patch_hash=2404cd7d4128cd88b45643519671f1d19809dce340979a279968f278ae9bce70)
+        version: 2.53.0(patch_hash=967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e)
       rolldown:
         specifier: 1.2.15
         version: 1.2.15
@@ -10627,7 +10630,7 @@ snapshots:
       mdast-util-to-markdown: 2.2.0
       unified: 11.0.5
 
-  remeda@2.53.0(patch_hash=2404cd7d4128cd88b45643519671f1d19809dce340979a279968f278ae9bce70): {}
+  remeda@2.53.0(patch_hash=967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e): {}
 
   require-from-string@2.0.2: {}
 

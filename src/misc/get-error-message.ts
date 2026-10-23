@@ -63,7 +63,7 @@ const getMessage = (error: unknown, fallback: string) => {
 export const getErrorMessage = (
   error: unknown,
   fallbackOrOptions: string | {fallback?: string; includeCode?: boolean} = {},
-) => {
+): string => {
   const {fallback = 'Unknown error', includeCode = false} =
     typeof fallbackOrOptions === 'string' ? {fallback: fallbackOrOptions} : fallbackOrOptions;
   const message = getMessage(error, fallback);

@@ -18,7 +18,10 @@
  * // The same order for the same seed
  * arrayShuffle(cards, {random: createSeededRandom('game 42')});
  */
-export const arrayShuffle = <T>(array: readonly T[], options: {random?: () => number} = {}) => {
+export const arrayShuffle = <T>(
+  array: readonly T[],
+  options: {random?: () => number} = {},
+): T[] => {
   const {random = Math.random} = options;
   const result = [...array];
   for (let index = result.length - 1; index > 0; index--) {

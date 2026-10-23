@@ -22,4 +22,5 @@ import type {BitIndex} from './is-bit-index.ts';
  * const CAN_EDIT = 2;
  * isBitSet(permissions, CAN_EDIT);
  */
-export const isBitSet = (value: number, bitIndex: BitIndex) => ((value >>> bitIndex) & 1) === 1;
+export const isBitSet = (value: number, bitIndex: BitIndex): boolean =>
+  ((value >>> bitIndex) & 1) === 1;

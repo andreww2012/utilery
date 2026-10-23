@@ -127,5 +127,5 @@ const toBaseOptions = (options: SlugifyOptions = {}) => ({
  * slugify('foo@unicorn', {customReplacements: [['@', 'at']]});
  * // 'fooatunicorn'
  */
-export const slugify = (text: string, options?: SlugifyOptions) =>
+export const slugify = (text: string, options?: SlugifyOptions): string =>
   slugifyBase(toAscii(text, options), toBaseOptions(options));

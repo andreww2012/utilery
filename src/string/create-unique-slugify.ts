@@ -27,7 +27,9 @@ import {type SlugifyOptions, slugify} from './slugify.ts';
  * slugifyHeading('Usage');
  * // 'usage'
  */
-export const createUniqueSlugify = () => {
+export const createUniqueSlugify = (): ((text: string, options?: SlugifyOptions) => string) & {
+  reset: () => void;
+} => {
   const usedSlugs = new Set<string>();
   // The last counter of each slug, so a long run of the same slug doesn't start from 2 each time
   const lastCounters = new Map<string, number>();

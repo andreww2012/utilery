@@ -1,4 +1,4 @@
-import {type Evolver, evolve} from 'remeda';
+import {type Evolved, type Evolver, evolve} from 'remeda';
 
 /**
  * Returns a new object with each value transformed by the function registered
@@ -27,4 +27,4 @@ import {type Evolver, evolve} from 'remeda';
 export const mapObjectValuesByKey = <T extends object, E extends Evolver<T>>(
   object: T,
   evolver: E,
-) => evolve(object, evolver);
+): Evolved<T, E> => evolve(object, evolver);

@@ -28,4 +28,5 @@ export const findClosestString = (
   target: string,
   candidates: Iterable<string>,
   options?: {maxDistance?: number},
-) => closestMatch(target, Array.isArray(candidates) ? candidates : [...candidates], options);
+): string | undefined =>
+  closestMatch(target, Array.isArray(candidates) ? candidates : [...candidates], options);

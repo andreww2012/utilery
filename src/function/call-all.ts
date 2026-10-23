@@ -23,7 +23,7 @@ export const callAll =
   <Arguments extends unknown[]>(
     ...functions: (((...parameters: Arguments) => unknown) | Falsy)[]
   ) =>
-  (...callArguments: Arguments) => {
+  (...callArguments: Arguments): void => {
     functions.forEach((fn) => {
       if (fn) {
         fn(...callArguments);

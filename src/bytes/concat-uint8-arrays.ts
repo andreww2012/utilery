@@ -25,6 +25,6 @@ import {concatUint8Arrays as concatUint8ArraysBase} from 'uint8array-extras';
 export const concatUint8Arrays = (
   arrays: readonly (Uint8Array | ArrayBuffer)[],
   totalLength?: number,
-) =>
+): Uint8Array<ArrayBuffer> =>
   // Copied, as the package only types a mutable array
   concatUint8ArraysBase([...arrays], totalLength);

@@ -25,7 +25,7 @@ const DEFAULT_QUOTES = ['"', "'", '`'] as const;
  * unquote("'kept'", ['"']);
  * // "'kept'"
  */
-export const unquote = (text: string, quotes: readonly string[] = DEFAULT_QUOTES) => {
+export const unquote = (text: string, quotes: readonly string[] = DEFAULT_QUOTES): string => {
   const [first] = text;
   return first != null &&
     text.length >= first.length * 2 &&

@@ -61,7 +61,7 @@ export const splitOutsideQuotes = (
   text: string,
   separator: string,
   options: SplitOutsideQuotesOptions = {},
-) => {
+): string[] => {
   // The package compares the separator with single UTF-16 code units, so any other never matches
   if (separator.length !== 1) {
     throw new TypeError(

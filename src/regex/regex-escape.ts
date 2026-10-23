@@ -58,7 +58,7 @@ const escapeCharacter = (character: string) => {
  * new RegExp(String.raw`(.)\1${regexEscape('0')}`).test('aa0');
  * // true
  */
-export const regexEscape = (text: string) => {
+export const regexEscape = (text: string): string => {
   // Not every supported environment has it
   const nativeRegExp: RegExpConstructor & {escape?: (text: string) => string} = RegExp;
 

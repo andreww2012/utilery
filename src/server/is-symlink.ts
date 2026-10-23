@@ -17,7 +17,7 @@ import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
  * await isSymlink('package.json');
  * // false
  */
-export const isSymlink = async (path: string) =>
+export const isSymlink = async (path: string): Promise<boolean> =>
   await isSymlinkBase(path).catch(returnFalseIfMissing);
 
 /**
@@ -28,4 +28,5 @@ export const isSymlink = async (path: string) =>
  * isSymlinkSync('node_modules/.bin/vitest');
  * // true
  */
-export const isSymlinkSync = (path: string) => falseIfMissingSync(() => isSymlinkSyncBase(path));
+export const isSymlinkSync = (path: string): boolean =>
+  falseIfMissingSync(() => isSymlinkSyncBase(path));

@@ -80,7 +80,7 @@ export interface MemoizeAsyncOptions<Fn extends AnyAsyncFunction, CacheKey> {
 export const memoizeAsync = <Fn extends AnyAsyncFunction, CacheKey = Parameters<Fn>[0]>(
   fn: Fn,
   options?: MemoizeAsyncOptions<Fn, CacheKey>,
-) => {
+): Fn & {clear: () => void} => {
   const memoized = pMemoize(fn, options);
   return Object.assign(memoized, {
     clear: () => {

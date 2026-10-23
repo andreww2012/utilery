@@ -32,5 +32,5 @@ import {nanoid as nanoidNonSecure} from 'nanoid/non-secure';
  * nanoid(10, {insecure: true});
  * // e.g. 'Uakgb_J5m9'
  */
-export const nanoid = (size = 21, options?: {insecure?: boolean}) =>
+export const nanoid = (size = 21, options?: {insecure?: boolean}): string =>
   options?.insecure ? nanoidNonSecure(size) : nanoidSecure(size);

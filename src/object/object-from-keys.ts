@@ -1,4 +1,5 @@
-import {fromKeys} from 'remeda';
+import {type FromKeys, fromKeys} from 'remeda';
+import type {Prettify} from '../types/prettify.ts';
 
 /**
  * Builds an object from an array of `keys`, using `mapper` to compute the value
@@ -25,4 +26,4 @@ import {fromKeys} from 'remeda';
 export const objectFromKeys = <T extends readonly PropertyKey[], V>(
   keys: T,
   mapper: (key: T[number], index: number, keys: T) => V,
-) => fromKeys(keys, mapper);
+): Prettify<FromKeys<T, V>> => fromKeys(keys, mapper);

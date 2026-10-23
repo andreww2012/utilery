@@ -23,7 +23,7 @@ import {toInt32} from './to-int32.ts';
  * indexesOfSetBits(-2_147_483_648);
  * // [31]
  */
-export const indexesOfSetBits = (value: number) => {
+export const indexesOfSetBits = (value: number): BitIndex[] => {
   const indexes: BitIndex[] = [];
 
   // Each step clears the lowest set bit, so the loop only visits the set ones

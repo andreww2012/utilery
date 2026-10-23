@@ -16,4 +16,4 @@ import type {Words} from 'string-ts';
  * toWords('XMLHttpRequest');
  * // ['XML', 'Http', 'Request']
  */
-export const toWords = <S extends string>(value: S) => words(value) as Words<S>;
+export const toWords = <S extends string>(value: S): Words<S> => words(value);

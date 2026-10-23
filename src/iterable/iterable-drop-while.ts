@@ -16,4 +16,4 @@ import {dropWhile} from 'es-toolkit/iterator';
 export const iterableDropWhile = <T>(
   iterable: Iterable<T>,
   predicate: (value: T, index: number) => boolean,
-) => dropWhile(iterable[Symbol.iterator](), predicate);
+): IteratorObject<T, undefined> => dropWhile(iterable[Symbol.iterator](), predicate);

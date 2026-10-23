@@ -19,7 +19,10 @@
  * const loadConfig = (options: {signal?: AbortSignal}) =>
  *   withAbortSignal(readConfigFile(), options.signal);
  */
-export const withAbortSignal = async <T>(promise: PromiseLike<T>, signal?: AbortSignal) => {
+export const withAbortSignal = async <T>(
+  promise: PromiseLike<T>,
+  signal?: AbortSignal,
+): Promise<T> => {
   if (signal == null) {
     return await promise;
   }

@@ -14,4 +14,5 @@ import {count} from 'es-toolkit/iterator';
  * iterableCount(iterableRange(0, 100, 7));
  * // 15
  */
-export const iterableCount = (iterable: Iterable<unknown>) => count(iterable[Symbol.iterator]());
+export const iterableCount = (iterable: Iterable<unknown>): number =>
+  count(iterable[Symbol.iterator]());

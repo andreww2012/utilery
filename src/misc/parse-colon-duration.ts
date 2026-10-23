@@ -38,7 +38,7 @@ const COLON_DURATION_REGEX = /^(-?)(\d+(?::\d{2}){1,3})(?:\.(\d+))?$/;
  * parseColonDuration('1:60');
  * // undefined (seconds are out of range)
  */
-export const parseColonDuration = (text: string) => {
+export const parseColonDuration = (text: string): number | undefined => {
   const [, sign, fields, fraction = ''] = COLON_DURATION_REGEX.exec(text) || [];
   const fieldValues = fields?.split(':').map(Number) || [];
   const [seconds = 0, minutes = 0, hours = 0, days = 0] = fieldValues.toReversed();

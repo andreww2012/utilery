@@ -22,7 +22,7 @@ const LOCALHOST_REGEX = /^(?:[^.]+\.)*localhost\.?$/i;
  * isLocalhost('example.com');
  * // false
  */
-export const isLocalhost = (hostname: string) => {
+export const isLocalhost = (hostname: string): boolean => {
   const host =
     hostname.startsWith('[') && hostname.endsWith(']') ? hostname.slice(1, -1) : hostname;
   return LOCALHOST_REGEX.test(host) || getIpRange(host) === 'loopback';

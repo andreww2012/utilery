@@ -24,7 +24,10 @@ const HTTP_DATE_START_REGEX = /^[a-z]/i;
  *   await sleep(parseRetryAfter(response.headers.get('retry-after')) ?? 1000);
  * }
  */
-export const parseRetryAfter = (header: string | null | undefined, now = Date.now()) => {
+export const parseRetryAfter = (
+  header: string | null | undefined,
+  now = Date.now(),
+): number | undefined => {
   const value = header?.trim() || '';
   if (DELAY_SECONDS_REGEX.test(value)) {
     return Number(value) * 1000;

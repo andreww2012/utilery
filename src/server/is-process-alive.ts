@@ -19,7 +19,7 @@ import {isNodeError} from './is-node-error.ts';
  *   await fs.rm('app.lock');
  * }
  */
-export const isProcessAlive = (processId: number) => {
+export const isProcessAlive = (processId: number): boolean => {
   try {
     process.kill(processId, 0);
     return true;

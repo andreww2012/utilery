@@ -31,7 +31,7 @@ export interface Base64EncodingOptions {
 export const uint8ArrayToBase64 = (
   bytes: Uint8Array | ArrayBuffer,
   {urlSafe = false}: Base64EncodingOptions = {},
-) => {
+): string => {
   // Not every supported environment has it
   const nativeBytes: Uint8Array & {
     toBase64?: (options: {alphabet: 'base64' | 'base64url'; omitPadding: boolean}) => string;

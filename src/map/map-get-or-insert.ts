@@ -29,7 +29,7 @@
  * mapGetOrInsert(new Map<string, number | undefined>([['a', undefined]]), 'a', 42);
  * // undefined
  */
-export const mapGetOrInsert = <K, V>(map: Map<K, V>, key: K, defaultValue: V) => {
+export const mapGetOrInsert = <K, V>(map: Map<K, V>, key: K, defaultValue: V): V => {
   // Not every supported environment has it
   const nativeMap: Map<K, V> & {getOrInsert?: (key: K, defaultValue: V) => V} = map;
   if (nativeMap.getOrInsert) {
