@@ -71,9 +71,9 @@ const unattributedErrors: string[] = [];
 const ERROR_LINE_PATTERN = /^([^(]+\.ts)\(\d+,\d+\): error/;
 
 const recordErrors = (output: string) => {
-  for (const line of output.split('\n')) {
+  output.split('\n').forEach((line) => {
     if (!line) {
-      continue;
+      return;
     }
 
     const file = ERROR_LINE_PATTERN.exec(line)?.[1];
@@ -84,7 +84,7 @@ const recordErrors = (output: string) => {
     } else {
       unattributedErrors.push(line);
     }
-  }
+  });
 };
 
 beforeAll(() => {
@@ -114,12 +114,12 @@ beforeAll(() => {
   // npm/pnpm pack into a top-level `package/` directory
   fs.renameSync(path.join(modulesDirectory, 'package'), path.join(modulesDirectory, 'unutils'));
 
-  for (const file of scenarioFiles) {
+  scenarioFiles.forEach((file) => {
     const destination = path.join(consumerDirectory, file);
     fs.mkdirSync(path.dirname(destination), {recursive: true});
     fs.copyFileSync(path.join(scenariosDirectoryPath, file), destination);
-  }
-  for (const program of programs) {
+  });
+  programs.forEach((program) => {
     const tsconfigName = `tsconfig.${program.name}.json`;
     fs.writeFileSync(
       path.join(consumerDirectory, tsconfigName),
@@ -145,7 +145,7 @@ beforeAll(() => {
     }
 
     recordErrors(output);
-  }
+  });
 }, 120_000);
 
 afterAll(() => {

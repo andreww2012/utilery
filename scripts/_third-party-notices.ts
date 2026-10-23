@@ -16,22 +16,20 @@ const LICENSE_TEXT_HEADING_REGEX = /^### `([^`]+)`$/gm;
 export const collectStorePackageNames = (storePath: string) => {
   const names = new Set<string>();
 
-  for (const storeEntry of fs.readdirSync(storePath)) {
+  fs.readdirSync(storePath).forEach((storeEntry) => {
     const entryNodeModules = path.join(storePath, storeEntry, 'node_modules');
-    if (!fs.existsSync(entryNodeModules)) {
-      continue;
-    }
-
-    for (const scopeOrName of fs.readdirSync(entryNodeModules)) {
-      if (scopeOrName.startsWith('@')) {
-        for (const scopedName of fs.readdirSync(path.join(entryNodeModules, scopeOrName))) {
-          names.add(`${scopeOrName}/${scopedName}`);
+    if (fs.existsSync(entryNodeModules)) {
+      fs.readdirSync(entryNodeModules).forEach((scopeOrName) => {
+        if (scopeOrName.startsWith('@')) {
+          fs.readdirSync(path.join(entryNodeModules, scopeOrName)).forEach((scopedName) => {
+            names.add(`${scopeOrName}/${scopedName}`);
+          });
+        } else {
+          names.add(scopeOrName);
         }
-      } else {
-        names.add(scopeOrName);
-      }
+      });
     }
-  }
+  });
 
   return names;
 };

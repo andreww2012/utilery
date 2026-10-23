@@ -23,6 +23,7 @@ describe('function/curry', () => {
     });
 
     it('treats fromRight=false the same as the default', () => {
+      // eslint-disable-next-line unicorn/no-unnecessary-default-arguments -- The default is passed on purpose
       expect(curry(subtract2, false)(10)(3)).toBe(7);
     });
 

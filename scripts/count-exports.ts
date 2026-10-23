@@ -102,27 +102,25 @@ const collectUtilityFiles = (
     return files;
   }
 
-  for (const statement of sourceFile.statements) {
+  sourceFile.statements.forEach((statement) => {
     if (
       !ts.isExportDeclaration(statement) ||
       statement.moduleSpecifier == null ||
       !ts.isStringLiteral(statement.moduleSpecifier) ||
       !statement.moduleSpecifier.text.startsWith('.')
     ) {
-      continue;
+      return;
     }
 
     const resolved = resolveRelativeModule(entry, statement.moduleSpecifier.text);
-    if (resolved == null) {
-      continue;
+    if (resolved != null) {
+      if (path.basename(resolved) === 'index.ts') {
+        collectUtilityFiles(resolved, program, visited, files);
+      } else {
+        files.add(resolved);
+      }
     }
-
-    if (path.basename(resolved) === 'index.ts') {
-      collectUtilityFiles(resolved, program, visited, files);
-    } else {
-      files.add(resolved);
-    }
-  }
+  });
 
   return files;
 };

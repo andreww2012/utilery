@@ -1,13 +1,11 @@
 # cspell:ignore GHSA
-# `ncu` only updates catalogs in workspace mode, which needs this.
-# It also makes Changesets name git tags `<package-name>@<version>` instead of `v<version>`
+# Makes Changesets name git tags `<package-name>@<version>` instead of `v<version>`
 packages:
   - ./
 
 saveExact: true
 autoDedupe: true
 saveTypes: true
-# eslint-disable-next-line json-schema-validator/no-invalid -- The schema is outdated
 lockfile:
   # Records `autoDedupe`, so that installs don't resolve the lockfile again
   includeResolutionSettings: true
@@ -34,15 +32,7 @@ allowBuilds:
 dedupePeers: true
 strictPeerDependencies: false
 
-catalogs:
-  format:
-    oxfmt: 0.72.0
-
 overrides:
-  # Format Markdown code blocks with the same oxfmt version as all other files
-  eslint-plugin-format>oxfmt: 'catalog:format'
-  # Only used by its Prettier rule. Otherwise, `eslint-config-un` would think Prettier is used
-  eslint-plugin-format>prettier: '-'
   # The `typescript7` alias pulls the real `typescript@7` that does not expose the API yet
   eslint-plugin-sonarjs>typescript: 'npm:@typescript/typescript6@6.0.2'
   # GHSA-fx2h-pf6j-xcff cspell:disable-line

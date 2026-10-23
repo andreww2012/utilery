@@ -28,9 +28,9 @@ describe('array/arraySample', () => {
       expect(result).toHaveLength(3);
       expect(new Set(result).size).toBe(3);
 
-      for (const item of result) {
+      result.forEach((item) => {
         expect(source).toContain(item);
-      }
+      });
     });
 
     it('returns an empty array when size is 0', () => {
@@ -65,9 +65,9 @@ describe('array/arraySample', () => {
 
       expect(result).toHaveLength(5);
 
-      for (const item of result) {
+      result.forEach((item) => {
         expect(source).toContain(item);
-      }
+      });
     });
 
     it('allows the size to exceed the source length', () => {

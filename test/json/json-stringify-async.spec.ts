@@ -31,6 +31,7 @@ describe('json/jsonStringifyAsync', () => {
     const value = Array.from({length: 100_000}, (_, index) => index);
     const setImmediateSpy = vi.spyOn(globalThis, 'setImmediate');
 
+    // eslint-disable-next-line unicorn/no-unnecessary-default-arguments -- To compare with the intensity below
     await jsonStringifyAsync(value, null, 0, 1);
     const lowIntensityTicks = setImmediateSpy.mock.calls.length;
     setImmediateSpy.mockClear();

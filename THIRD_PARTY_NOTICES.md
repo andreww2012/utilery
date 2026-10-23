@@ -2,7 +2,7 @@
 
 # Third-Party Notices
 
-`unutils` ships with zero runtime dependencies by bundling the packages it builds on directly into its published output (see [`docs/packages`](docs/packages) for what each one contributes).
+`unutils` ships with zero runtime dependencies by bundling the packages it builds on directly into its published output (see [`docs/packages`](./docs/packages) for what each one contributes).
 This file reproduces their license texts, as required by those licenses.
 
 <!-- THIRD_PARTY_NOTICES_TABLE:START -->

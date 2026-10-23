@@ -22,6 +22,7 @@ describe('function/flow', () => {
     });
 
     it('treats fromRight=false the same as the default', () => {
+      // eslint-disable-next-line unicorn/no-unnecessary-default-arguments -- The default is passed on purpose
       const piped = flow([addOne, timesTwo], false);
 
       expect(piped(3 as never)).toBe(8);

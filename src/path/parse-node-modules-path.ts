@@ -24,11 +24,11 @@ const NODE_MODULES_PATH_REGEX =
  */
 export const parseNodeModulesPath = (path: string) => {
   const groups = NODE_MODULES_PATH_REGEX.exec(path)?.groups;
-  return groups?.directory != null && groups.name != null
-    ? {
+  return groups?.directory == null || groups.name == null
+    ? undefined
+    : {
         directory: groups.directory,
         name: groups.name.replace('\\', '/'),
         subpath: groups.subpath || undefined,
-      }
-    : undefined;
+      };
 };

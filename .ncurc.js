@@ -52,28 +52,25 @@ const collectBundledPackages = () => {
   const packageNames = new Set();
 
   const addPackagesFromSource = (/** @type {string} */ source) => {
-    for (const [, specifier] of source.matchAll(EXTERNAL_IMPORT_REGEX)) {
+    source.matchAll(EXTERNAL_IMPORT_REGEX).forEach(([, specifier]) => {
       if (specifier.startsWith('.') || specifier.startsWith('node:')) {
-        continue;
+        return;
       }
 
       const segments = specifier.split('/');
       packageNames.add(specifier.startsWith('@') ? `${segments[0]}/${segments[1]}` : segments[0]);
-    }
+    });
   };
 
   const walk = (/** @type {string} */ directory) => {
-    for (const entry of fs.readdirSync(directory, {withFileTypes: true})) {
+    fs.readdirSync(directory, {withFileTypes: true}).forEach((entry) => {
       const entryPath = path.join(directory, entry.name);
       if (entry.isDirectory()) {
         walk(entryPath);
-        continue;
-      }
-
-      if (entry.name.endsWith('.ts')) {
+      } else if (entry.name.endsWith('.ts')) {
         addPackagesFromSource(fs.readFileSync(entryPath, 'utf8'));
       }
-    }
+    });
   };
 
   walk(SRC_DIRECTORY);
@@ -127,10 +124,6 @@ export default defineConfig({
   cache: true,
   cacheExpiration: 30,
   cacheFile: path.join(CACHE_DIRECTORY, 'cache.json'),
-
-  // Catalogs in `pnpm-workspace.yaml` are only updated in workspace mode
-  workspaces: true,
-  root: true,
 
   target: (packageName) => {
     if (PACKAGES_WITH_PINNED_MAJOR_VERSION.has(packageName)) {

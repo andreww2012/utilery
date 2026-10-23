@@ -200,7 +200,7 @@
 | [`string/capitalize`](https://es-toolkit.dev/reference/string/capitalize.html)                 | ✅     | `string/capitalize` *(same)*       | -                                                                                                    |
 | [`string/constantCase`](https://es-toolkit.dev/reference/string/constantCase.html)             | ✅     | `string/toConstantCase`            | -                                                                                                    |
 | [`string/deburr`](https://es-toolkit.dev/reference/string/deburr.html)                         | ✅     | `string/deburr` *(same)*           | -                                                                                                    |
-| [`string/dedent`](https://es-toolkit.dev/reference/string/dedent.html)                         | ❌     | `string/dedent`                    | Covered by the [`dedent`](dedent.md) package                                                         |
+| [`string/dedent`](https://es-toolkit.dev/reference/string/dedent.html)                         | ❌     | `string/dedent`                    | Covered by the [`dedent`](./dedent.md) package                                                       |
 | [`string/escape`](https://es-toolkit.dev/reference/string/escape.html)                         | ✅     | `string/escapeHtml`                | Renamed for clarity: handles HTML entities specifically                                              |
 | [`string/escapeRegExp`](https://es-toolkit.dev/reference/string/escapeRegExp.html)             | ❌     | `regex/regexEscape`                | Replaced by `escape-string-regexp`, which also escapes `-`                                           |
 | [`string/kebabCase`](https://es-toolkit.dev/reference/string/kebabCase.html)                   | ✅     | `string/toKebabCase`               | -                                                                                                    |
@@ -269,7 +269,7 @@ The returned iterators need the global `Iterator` (Baseline 2025).
 
 ## `es-toolkit/types`
 
-Every type here is already covered by an existing one, mostly from [`type-fest`](type-fest.md).
+Every type here is already covered by an existing one, mostly from [`type-fest`](./type-fest.md).
 
 | Original function group and name | Status | Our function group and name    | Notes                                                                          |
 | -------------------------------- | ------ | ------------------------------ | ------------------------------------------------------------------------------ |

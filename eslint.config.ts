@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {eslintConfig} from 'eslint-config-un';
-import {GLOB_MARKDOWN_SUPPORTED_CODE_BLOCKS} from 'eslint-config-un/globs';
 import oxfmtConfig from './oxfmt.config.ts';
 
 const PACKAGE_DOC_EXTENSION_REGEX = /\.md$/;
@@ -41,7 +40,9 @@ export default eslintConfig({
   ],
   configs: {
     format: {
-      files: [GLOB_MARKDOWN_SUPPORTED_CODE_BLOCKS],
+      // Other files are formatted by oxfmt itself
+      files: [],
+      configFencedCodeBlocks: true,
       formatter: [
         'oxfmt',
         {
@@ -63,8 +64,6 @@ export default eslintConfig({
     },
     markdown: {
       configSentencesPerLine: true,
-      // `eslint-config-un` comes with Prettier, which would format code blocks too
-      configFormatFencedCodeBlocks: false,
     },
     e18e: {
       configModuleReplacements: {
@@ -83,11 +82,16 @@ export default eslintConfig({
     ts: {
       allowDefaultProject: ['*.config.*ts'],
     },
+    un: {
+      overrides: {
+        'un/prefer-array-for-each': 2,
+      },
+    },
     unicorn: {
       overrides: {
         'unicorn/consistent-boolean-name': (severity, options) => ({
           severity,
-          options: [{...options?.[0], ignore: ['^predicate$']}],
+          options: [{...options?.[0], ignore: ['^(filter|predicate)$']}],
         }),
       },
     },

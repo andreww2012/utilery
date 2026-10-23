@@ -4,17 +4,17 @@ describe('predicate/isTruthy', () => {
   it('returns true for truthy values', () => {
     const values: unknown[] = [1, 'a', {}, [], true, Number.POSITIVE_INFINITY];
 
-    for (const value of values) {
+    values.forEach((value) => {
       expect(isTruthy(value)).toBe(true);
-    }
+    });
   });
 
   it('returns false for falsy values', () => {
     const values: unknown[] = [0, 0n, '', false, null, undefined, Number.NaN];
 
-    for (const value of values) {
+    values.forEach((value) => {
       expect(isTruthy(value)).toBe(false);
-    }
+    });
   });
 
   it('removes falsy values when used as a filter predicate', () => {
