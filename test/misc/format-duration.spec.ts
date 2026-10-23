@@ -22,5 +22,13 @@ describe('misc/formatDuration', () => {
     expect(formatDuration(90_061_000, {colonNotation: true, hideYearAndDays: true})).toBe(
       '25:01:01',
     );
+    expect(formatDuration(3_723_000, {colonNotation: true, unitCount: 1})).toBe('1:02:03');
+  });
+
+  it('hides the seconds unless the duration is under a minute', () => {
+    expect(formatDuration(90_000, {hideSeconds: true})).toBe('1m');
+    expect(formatDuration(45_000, {hideSeconds: true})).toBe('45s');
+    expect(formatDuration(60_000, {colonNotation: true, hideSeconds: true})).toBe('0:01');
+    expect(formatDuration(3_723_000, {colonNotation: true, hideSeconds: true})).toBe('1:02');
   });
 });

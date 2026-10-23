@@ -15,11 +15,15 @@ export type {Options as FormatDurationOptions} from 'pretty-ms';
  *   (defaults to `1`).
  * - `colonNotation`: digital watch format (`'5:01:45'`), always showing at
  *   least minutes.
+ *   It ignores `unitCount`.
  *   Combine it with `hideYearAndDays` to count hours past 24 (`'25:00:00'`)
  *   instead of adding day and year fields.
  *   Parse such strings back with `parseColonDuration`.
- * - `hideYear`, `hideYearAndDays`, `hideSeconds`: leave out the larger or
- *   smaller units, adding their values to the neighboring ones.
+ * - `hideYear`, `hideYearAndDays`: leave out the larger units, adding their
+ *   values to the smaller ones.
+ * - `hideSeconds`: leave out the seconds, unless the duration is under a
+ *   minute.
+ *   With `colonNotation`, it always shows the hours, so `'0:01'` is one minute.
  * @param milliseconds - The duration in milliseconds.
  * @param options - Formatting options.
  * @returns The formatted duration.

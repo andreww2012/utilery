@@ -13,6 +13,9 @@ const COLON_DURATION_REGEX = /^(-?)(\d+(?::\d{2}){1,3})(?:\.(\d+))?$/;
  * `25:00:00` (25 hours) are valid.
  *
  * This is the reverse of `formatDuration` with `{colonNotation: true}`.
+ * It doesn't support the year field (format with `hideYear` or
+ * `hideYearAndDays` to avoid it) or the output of `hideSeconds`, where the last
+ * field is minutes.
  * @param text - The duration to parse.
  * Surrounding whitespace is not allowed.
  * @returns The duration in milliseconds, or `undefined` when `text` is not a valid duration.
