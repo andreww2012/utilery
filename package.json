@@ -200,6 +200,7 @@
     "prepublishOnly": "nr build && node scripts/generate-third-party-notices.ts"
   },
   "devDependencies": {
+    "@andreww2012/npm-check-updates-config": "0.1.0",
     "@antfu/ni": "30.6.0",
     "@antfu/utils": "9.3.0",
     "@arethetypeswrong/core": "0.18.5",
