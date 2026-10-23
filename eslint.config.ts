@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {eslintConfig} from 'eslint-config-un';
+import {Alphabet} from 'eslint-plugin-perfectionist/alphabet';
 import oxfmtConfig from './oxfmt.config.ts';
 
 const PACKAGE_DOC_EXTENSION_REGEX = /\.md$/;
@@ -23,6 +24,18 @@ export default eslintConfig({
   ],
   mode: 'lib',
   defaultConfigsStatus: 'misc-enabled',
+  plugins: {
+    perfectionist: {
+      settings: {
+        // Puts `.` before `-`, so that `./foo.ts` comes before `./foo-bar.ts`
+        type: 'custom',
+        alphabet: Alphabet.generateRecommendedAlphabet()
+          .sortByLocaleCompare('en-US')
+          .placeCharacterBefore({characterBefore: '.', characterAfter: '-'})
+          .getCharacters(),
+      },
+    },
+  },
   extraConfigs: [
     {
       // The package docs intentionally use a `Package:` prefix in their title
@@ -77,6 +90,14 @@ export default eslintConfig({
             'wrap-ansi',
           ],
         },
+      },
+    },
+    perfectionist: {
+      configSortExports: {
+        files: ['src/**/index.ts'],
+      },
+      configSortNamedExports: {
+        files: ['src/**/index.ts'],
       },
     },
     ts: {

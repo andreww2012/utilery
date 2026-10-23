@@ -1,5 +1,5 @@
 export {type ColorFunction, colors} from './colors.ts';
-export {ExecError, exec} from './exec.ts';
+export {exec, ExecError} from './exec.ts';
 export {findExecutable, type FindExecutableOptions, findExecutableSync} from './find-executable.ts';
 export {findUp, type FindUpOptions, findUpSync} from './find-up.ts';
 export {

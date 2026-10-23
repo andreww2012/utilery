@@ -6,7 +6,6 @@ export {jsonStringifyAsync} from './json-stringify-async.ts';
 export {jsonStringifyForHtml} from './json-stringify-for-html.ts';
 export {jsonStringifyLossless} from './json-stringify-lossless.ts';
 export {jsonStringifyStable} from './json-stringify-stable.ts';
-export {LosslessNumber as NumberLossless} from 'lossless-json';
 export {
   STRUCTURED_PARSE_DEFAULT_OPERATIONS,
   structuredParse,
@@ -22,3 +21,4 @@ export {
   type StructuredStringifyOptions,
 } from './structured-stringify.ts';
 export {structuredStringifyAsync} from './structured-stringify-async.ts';
+export {LosslessNumber as NumberLossless} from 'lossless-json';

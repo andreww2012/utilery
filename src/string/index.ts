@@ -16,7 +16,7 @@ export {padEnd} from './pad-end.ts';
 export {padStart} from './pad-start.ts';
 export {replace} from './replace.ts';
 export {replaceAll} from './replace-all.ts';
-export {type SlugifyOptions, slugify} from './slugify.ts';
+export {slugify, type SlugifyOptions} from './slugify.ts';
 export {splitOutsideQuotes, type SplitOutsideQuotesOptions} from './split-outside-quotes.ts';
 export {startsWith} from './starts-with.ts';
 export {stringByteLength} from './string-byte-length.ts';

@@ -7,6 +7,6 @@ export {isBitSet} from './is-bit-set.ts';
 export {rotateBitsLeft} from './rotate-bits-left.ts';
 export {rotateBitsRight} from './rotate-bits-right.ts';
 export {setBit} from './set-bit.ts';
-export {toggleBit} from './toggle-bit.ts';
 export {toInt32} from './to-int32.ts';
 export {toUint32} from './to-uint32.ts';
+export {toggleBit} from './toggle-bit.ts';

@@ -244,6 +244,7 @@
     "eslint": "10.13.0",
     "eslint-config-un": "1.0.0-rc.5",
     "eslint-plugin-github-action": "0.4.0",
+    "eslint-plugin-perfectionist": "5.13.0",
     "eslint-plugin-remeda": "2.2.0",
     "eslint-plugin-sentences-per-line": "0.1.6",
     "eslint-plugin-sonarjs": "4.2.2",
