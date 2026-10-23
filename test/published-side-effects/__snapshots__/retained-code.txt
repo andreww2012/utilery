@@ -7127,10 +7127,6 @@ require_split_string();
 // string/split-outside-quotes.mjs
 require_split_string();
 
-// node_modules/remeda/dist/words-Cr8hSj8M.mjs
-[...`	.
-.\v.\f.\r. ..\xA0. . . . . . . . . . . . .\u2028.\u2029. . .　.﻿`.split(`.`)];
-
 // node_modules/ansi-styles/index.mjs
 const ANSI_BACKGROUND_OFFSET = 10;
 const wrapAnsi16 = (offset = 0) => (code) => `\u001B[${code + offset}m`;

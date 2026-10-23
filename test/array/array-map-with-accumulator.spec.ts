@@ -7,22 +7,24 @@ describe('array/arrayMapWithAccumulator', () => {
     ).toStrictEqual([1, 3, 6, 10]);
   });
 
-  it('passes the accumulator, value, index, and the elements processed so far to the callback', () => {
+  it('passes the accumulator, value, index, and the source array to the callback', () => {
+    const source = [10, 20];
     const calls: [number, number, number, number[]][] = [];
 
     arrayMapWithAccumulator(
-      [10, 20],
-      (accumulator, value, index, processed) => {
-        calls.push([accumulator, value, index, [...processed]]);
+      source,
+      (accumulator, value, index, array) => {
+        calls.push([accumulator, value, index, array]);
         return accumulator + value;
       },
       0,
     );
 
     expect(calls).toStrictEqual([
-      [0, 10, 0, [10]],
-      [10, 20, 1, [10, 20]],
+      [0, 10, 0, source],
+      [10, 20, 1, source],
     ]);
+    expect(calls[0]?.[3]).toBe(source);
   });
 
   it('returns an empty array for an empty input', () => {

@@ -16,10 +16,10 @@ describe('array/arrayMapWithAccumulator', () => {
   it('types the callback parameters', () => {
     arrayMapWithAccumulator(
       ['a', 'b'] as const,
-      (accumulator, value, _index, processed) => {
+      (accumulator, value, _index, array) => {
         expectTypeOf(accumulator).toEqualTypeOf<number>();
         expectTypeOf(value).toEqualTypeOf<'a' | 'b'>();
-        expectTypeOf(processed).toEqualTypeOf<readonly ('a' | 'b')[]>();
+        expectTypeOf(array).toEqualTypeOf<readonly ['a', 'b']>();
         return accumulator;
       },
       0,

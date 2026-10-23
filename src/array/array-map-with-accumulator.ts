@@ -10,8 +10,7 @@ import {mapWithFeedback} from 'remeda';
  * @param array - The array (or tuple) to scan.
  * Not mutated.
  * @param callback - Computes the next accumulator from the current one and the element.
- * Receives the accumulator, the value, its index, and the elements processed so far (the current
- * one included).
+ * Receives the accumulator, the value, its index, and the source array.
  * @param initialValue - The accumulator seed used before the first element.
  * @returns An array of the successive accumulator values, one per input element.
  * @example
@@ -23,17 +22,12 @@ import {mapWithFeedback} from 'remeda';
  * arrayMapWithAccumulator([3, 1, 4, 1, 5], (accumulator, value) => Math.max(accumulator, value), -Infinity);
  * // [3, 3, 4, 4, 5]
  * @example
- * // The callback receives the index and the elements processed so far too
+ * // The callback receives the index and the source array too
  * arrayMapWithAccumulator(['a', 'b', 'c'], (accumulator, value, index) => accumulator + value + index, '');
  * // ['a0', 'a0b1', 'a0b1c2']
  */
 export const arrayMapWithAccumulator = <T extends readonly unknown[], Accumulator>(
   array: T,
-  callback: (
-    accumulator: Accumulator,
-    value: T[number],
-    index: number,
-    processed: readonly T[number][],
-  ) => Accumulator,
+  callback: (accumulator: Accumulator, value: T[number], index: number, array: T) => Accumulator,
   initialValue: Accumulator,
 ) => mapWithFeedback(array, callback, initialValue);
