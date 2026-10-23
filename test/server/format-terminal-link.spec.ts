@@ -35,6 +35,7 @@ describe('server/formatTerminalFileLink', () => {
   it('supports a custom label', () => {
     expect(
       formatTerminalFileLink('/repo/a.ts', {
+        cwd: '/repo',
         enabled: false,
         formatter: (absolutePath) => absolutePath.toUpperCase(),
       }),

@@ -51,6 +51,8 @@ patchedDependencies:
   remeda: patches/remeda.patch
   safe-stable-stringify: patches/safe-stable-stringify.patch
   signal-exit: patches/signal-exit.patch
+  # Must include a version since multiple which versions are present in the dep tree
+  which@7: patches/which.patch
   # Must include a version since multiple write-file-atomic versions are present in the dep tree
   write-file-atomic@6: patches/write-file-atomic.patch
   yieldable-json: patches/yieldable-json.patch

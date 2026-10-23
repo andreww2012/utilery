@@ -1,0 +1,80 @@
+On Windows, `which` tries each `PATHEXT` item twice: as written and in lower case. On a file system
+that ignores case (NTFS by default), both `tool.CMD` and `tool.cmd` find the same file, so with
+`all: true`, `findExecutable` and `findExecutableSync` returned every match twice. A lowercase item
+like `.cmd` gave the same path twice even where case matters. Now only the first case variant that
+exists is a match. The latest release (7.0.0) still has this bug.
+
+diff --git a/lib/index.js b/lib/index.js
+index 2fd358baf888fdc0b16bf2618a9b63ae85512f2f..efb9a24bf191f434f48ab2715a8f90a5467b8bff 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -31,14 +31,15 @@ const getPathInfo = (cmd, {
+   if (isWindows) {
+     const pathExtExe = optPathExt ||
+       ['.EXE', '.CMD', '.BAT', '.COM'].join(optDelimiter)
+-    const pathExt = pathExtExe.split(optDelimiter).flatMap((item) => [item, item.toLowerCase()])
+-    if (cmd.includes('.') && pathExt[0] !== '') {
+-      pathExt.unshift('')
++    // the case variants of each item: only the first one that exists is a match
++    const pathExt = pathExtExe.split(optDelimiter).map((item) => [...new Set([item, item.toLowerCase()])])
++    if (cmd.includes('.') && pathExt[0][0] !== '') {
++      pathExt.unshift([''])
+     }
+     return { pathEnv, pathExt, pathExtExe }
+   }
+ 
+-  return { pathEnv, pathExt: [''] }
++  return { pathEnv, pathExt: [['']] }
+ }
+ 
+ const getPathPart = (raw, cmd) => {
+@@ -54,14 +55,17 @@ const which = async (cmd, opt = {}) => {
+   for (const envPart of pathEnv) {
+     const p = getPathPart(envPart, cmd)
+ 
+-    for (const ext of pathExt) {
+-      const withExt = p + ext
+-      const is = await isexe(withExt, { pathExt: pathExtExe, ignoreErrors: true })
+-      if (is) {
+-        if (!opt.all) {
+-          return withExt
++    for (const variants of pathExt) {
++      for (const ext of variants) {
++        const withExt = p + ext
++        const is = await isexe(withExt, { pathExt: pathExtExe, ignoreErrors: true })
++        if (is) {
++          if (!opt.all) {
++            return withExt
++          }
++          found.push(withExt)
++          break
+         }
+-        found.push(withExt)
+       }
+     }
+   }
+@@ -84,14 +88,17 @@ const whichSync = (cmd, opt = {}) => {
+   for (const pathEnvPart of pathEnv) {
+     const p = getPathPart(pathEnvPart, cmd)
+ 
+-    for (const ext of pathExt) {
+-      const withExt = p + ext
+-      const is = isexeSync(withExt, { pathExt: pathExtExe, ignoreErrors: true })
+-      if (is) {
+-        if (!opt.all) {
+-          return withExt
++    for (const variants of pathExt) {
++      for (const ext of variants) {
++        const withExt = p + ext
++        const is = isexeSync(withExt, { pathExt: pathExtExe, ignoreErrors: true })
++        if (is) {
++          if (!opt.all) {
++            return withExt
++          }
++          found.push(withExt)
++          break
+         }
+-        found.push(withExt)
+       }
+     }
+   }

@@ -42,6 +42,14 @@ describe('server/findExecutable', () => {
     expect(found.map((filePath) => path.dirname(filePath))).toStrictEqual([first, second]);
   });
 
+  it.each(['.CMD', '.cmd'])('finds each file once with `pathExt: %s`', async (pathExt) => {
+    const found = await findExecutable('tool', {path: searchPath, pathExt, all: true});
+    const foundSync = findExecutableSync('tool', {path: searchPath, pathExt, all: true});
+
+    expect(found.map((filePath) => path.dirname(filePath))).toStrictEqual([first, second]);
+    expect(foundSync).toStrictEqual(found);
+  });
+
   it('returns `undefined` or an empty array when nothing is found', async () => {
     await expect(findExecutable('missing-tool', {path: searchPath})).resolves.toBeUndefined();
     expect(findExecutableSync('missing-tool', {path: searchPath, all: true})).toStrictEqual([]);

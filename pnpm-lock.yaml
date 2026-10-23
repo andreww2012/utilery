@@ -180,6 +180,7 @@ patchedDependencies:
   remeda: 2404cd7d4128cd88b45643519671f1d19809dce340979a279968f278ae9bce70
   safe-stable-stringify: 12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839
   signal-exit: 1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd
+  which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
   write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
   yieldable-json: 99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88
 
@@ -462,7 +463,7 @@ importers:
         version: 5.0.5(@types/node@22.20.5)(@vitest/coverage-v8@5.0.5)(@vitest/ui@5.0.5)(happy-dom@21.0.4)(vite@8.3.5)
       which:
         specifier: 7.0.0
-        version: 7.0.0
+        version: 7.0.0(patch_hash=a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5)
       wrap-ansi:
         specifier: 10.0.2
         version: 10.0.2
@@ -11272,7 +11273,7 @@ snapshots:
     dependencies:
       isexe: 4.0.0
 
-  which@7.0.0:
+  which@7.0.0(patch_hash=a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5):
     dependencies:
       isexe: 4.0.0
 

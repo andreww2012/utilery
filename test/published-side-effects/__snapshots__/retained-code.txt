@@ -7798,8 +7798,8 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 				".BAT",
 				".COM"
 			].join(optDelimiter);
-			const pathExt = pathExtExe.split(optDelimiter).flatMap((item) => [item, item.toLowerCase()]);
-			if (cmd.includes(".") && pathExt[0] !== "") pathExt.unshift("");
+			const pathExt = pathExtExe.split(optDelimiter).map((item) => [...new Set([item, item.toLowerCase()])]);
+			if (cmd.includes(".") && pathExt[0][0] !== "") pathExt.unshift([""]);
 			return {
 				pathEnv,
 				pathExt,
@@ -7808,7 +7808,7 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 		}
 		return {
 			pathEnv,
-			pathExt: [""]
+			pathExt: [[""]]
 		};
 	};
 	const getPathPart = (raw, cmd) => {
@@ -7820,7 +7820,7 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 		const found = [];
 		for (const envPart of pathEnv) {
 			const p = getPathPart(envPart, cmd);
-			for (const ext of pathExt) {
+			for (const variants of pathExt) for (const ext of variants) {
 				const withExt = p + ext;
 				if (await isexe(withExt, {
 					pathExt: pathExtExe,
@@ -7828,6 +7828,7 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 				})) {
 					if (!opt.all) return withExt;
 					found.push(withExt);
+					break;
 				}
 			}
 		}
@@ -7840,7 +7841,7 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 		const found = [];
 		for (const pathEnvPart of pathEnv) {
 			const p = getPathPart(pathEnvPart, cmd);
-			for (const ext of pathExt) {
+			for (const variants of pathExt) for (const ext of variants) {
 				const withExt = p + ext;
 				if (isexeSync(withExt, {
 					pathExt: pathExtExe,
@@ -7848,6 +7849,7 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 				})) {
 					if (!opt.all) return withExt;
 					found.push(withExt);
+					break;
 				}
 			}
 		}
