@@ -10,4 +10,14 @@ describe('misc/ms', () => {
     // @ts-expect-error wrong milliseconds value for the '42m' duration
     ms<'42m'>(42);
   });
+
+  it('accepts every duration string that `Ms` accepts', () => {
+    expectTypeOf(ms<'100'>(100)).toEqualTypeOf<100>();
+    expectTypeOf(ms<' - 1s '>(-1000)).toEqualTypeOf<-1000>();
+  });
+
+  it('requires the duration string', () => {
+    // @ts-expect-error no duration string to check the value against
+    ms(1000);
+  });
 });

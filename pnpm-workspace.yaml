@@ -11,7 +11,8 @@ lockfile:
   includeResolutionSettings: true
 
 minimumReleaseAge: 960 # 16 hours in minutes
-minimumReleaseAgeExclude: []
+minimumReleaseAgeExclude: # []
+  - ms-ts@1.2.0
 minimumReleaseAgeExcludePrune: true
 
 trustPolicy: no-downgrade
