@@ -16,7 +16,8 @@ minimumReleaseAgeExcludePrune: true
 
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 43200 # 30 days in minutes
-trustPolicyExclude: []
+trustPolicyExclude: # []
+  - lefthook@2.2.2
 
 audit:
   ignore: # []
@@ -24,7 +25,7 @@ audit:
   ignorePrune: true
 
 allowBuilds:
-  lefthook@2.2.1: true
+  lefthook@2.2.2: true
 
   esbuild: false
   unrs-resolver: false
@@ -36,8 +37,6 @@ overrides:
   # The `typescript7` alias pulls the real `typescript@7` that does not expose the API yet
   eslint-plugin-sonarjs>typescript: 'npm:@typescript/typescript6@6.0.2'
   # GHSA-fx2h-pf6j-xcff cspell:disable-line
-  # Can't use range like `^8.0.16` as pnpm won't re-resolve the already-locked vite for a range replacement, only for an exact one
-  vite@>=8.0.0 <8.0.16: 8.0.16
   nanoid@>=3 <3.3.17: 3.3.18
   postcss@>=8 <=8.5.17: 8.5.26
 

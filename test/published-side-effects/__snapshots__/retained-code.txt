@@ -62,7 +62,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJSMin = (cb, mod) => () => (mod || (cb((mod = { exports: {} }).exports, mod), cb = null), mod.exports);
+var __commonJSMin = (cb, mod) => () => (mod || (cb((mod = { exports: {} }).exports, mod, mod.exports), cb = null), mod.exports);
 var __copyProps = (to, from, except, desc) => {
 	if (from && typeof from === "object" || typeof from === "function") for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
 		key = keys[i];
@@ -3688,7 +3688,7 @@ require_dist();
 require_dist().sanitizeUrl;
 
 // node_modules/ipaddr.js/lib/ipaddr.mjs
-var require_ipaddr = __commonJSMin(((exports, module) => {
+var require_ipaddr = __commonJSMin(((exports, module, this$1) => {
 	(function(root) {
 		"use strict";
 		const ipv4Part = "(0?\\d+|0x[a-f0-9]+)";
@@ -4652,7 +4652,7 @@ var require_ipaddr = __commonJSMin(((exports, module) => {
 		};
 		if (typeof module !== "undefined" && module.exports) module.exports = ipaddr;
 		else root.ipaddr = ipaddr;
-	})(exports);
+	})(this$1);
 }));
 require_ipaddr();
 

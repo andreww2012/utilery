@@ -13,7 +13,6 @@ const DIST_PATH = path.resolve(import.meta.dirname, '../../dist');
 const ENTRY_ID = 'entry';
 const MODULE_MARKER_REGEX = /^__module__\("(.+)"\);$/m;
 const PNPM_STORE_PATH_REGEX = /node_modules\/\.pnpm\/[^/]+\/node_modules\//g;
-const REGION_COMMENT_REGEX = /^\/\/#(?:end)?region.*\n/gm;
 
 it('keeps only the known code of unused modules', async () => {
   const files = fs.globSync('**/*.mjs', {cwd: DIST_PATH});
@@ -24,6 +23,9 @@ it('keeps only the known code of unused modules', async () => {
   const bundle = await rolldown({
     input: ENTRY_ID,
     logLevel: 'silent',
+    experimental: {
+      attachDebugInfo: 'none', // Do not attach Rolldown's module comments
+    },
     // Unlike `true`, rules also override the `sideEffects` field of `package.json`
     treeshake: {moduleSideEffects: [{test: /./, sideEffects: true}]},
     plugins: [
@@ -36,7 +38,7 @@ it('keeps only the known code of unused modules', async () => {
                 .map((file) => `import ${JSON.stringify(path.join(DIST_PATH, file))};`)
                 .join('\n')
             : null,
-        // Marks where each module's code starts: region comments are missing for some modules
+        // Marks where each module's code starts
         transform: {
           filter: {id: /\.mjs$/},
           handler: (code, id) => {
@@ -54,9 +56,7 @@ it('keeps only the known code of unused modules', async () => {
     output: [chunk],
   } = await bundle.generate({comments: false});
 
-  const [externalImports = '', ...markedSections] = chunk.code
-    .replaceAll(REGION_COMMENT_REGEX, '')
-    .split(MODULE_MARKER_REGEX);
+  const [externalImports = '', ...markedSections] = chunk.code.split(MODULE_MARKER_REGEX);
   const retainedCode = [
     externalImports.trim(),
     ...arrayChunks(markedSections, 2).map(
