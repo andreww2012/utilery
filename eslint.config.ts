@@ -95,6 +95,15 @@ export default eslintConfig({
         }),
       },
     },
+    vitest: {
+      overrides: {
+        'vitest/require-hook': (severity, options) => ({
+          severity,
+          // Declares tests, like `describe`
+          options: [{...options?.[0], allowedFunctionCalls: ['describeWithAndWithoutNative']}],
+        }),
+      },
+    },
 
     // False positives:
     rxjs: false,

@@ -11,4 +11,10 @@ import {uint8ArrayToHex as uint8ArrayToHexBase} from 'uint8array-extras';
  * // Hex digest of a hash
  * uint8ArrayToHex(await crypto.subtle.digest('SHA-256', data));
  */
-export const uint8ArrayToHex: (bytes: Uint8Array | ArrayBuffer) => string = uint8ArrayToHexBase;
+export const uint8ArrayToHex = (bytes: Uint8Array | ArrayBuffer) => {
+  // Not every supported environment has it
+  const nativeBytes: Uint8Array & {toHex?: () => string} =
+    bytes instanceof ArrayBuffer ? new Uint8Array(bytes) : bytes;
+
+  return nativeBytes.toHex ? nativeBytes.toHex() : uint8ArrayToHexBase(bytes);
+};

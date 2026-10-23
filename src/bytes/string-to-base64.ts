@@ -1,6 +1,6 @@
 // cspell:ignore Привет
-import {stringToBase64 as stringToBase64Base} from 'uint8array-extras';
-import type {Base64EncodingOptions} from './uint8-array-to-base64.ts';
+import {stringToUint8Array} from './string-to-uint8-array.ts';
+import {type Base64EncodingOptions, uint8ArrayToBase64} from './uint8-array-to-base64.ts';
 
 /**
  * Encodes a string as Base64, using its UTF-8 bytes.
@@ -24,5 +24,5 @@ import type {Base64EncodingOptions} from './uint8-array-to-base64.ts';
  * stringToBase64('Привет', {urlSafe: true});
  * // '0J_RgNC40LLQtdGC'
  */
-export const stringToBase64 = (text: string, {urlSafe = false}: Base64EncodingOptions = {}) =>
-  stringToBase64Base(text, {urlSafe});
+export const stringToBase64 = (text: string, options?: Base64EncodingOptions) =>
+  uint8ArrayToBase64(stringToUint8Array(text), options);

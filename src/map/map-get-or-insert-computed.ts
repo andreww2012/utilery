@@ -5,6 +5,10 @@
  * The lazy counterpart of `mapGetOrInsert`: `computeDefaultValue` runs only on a miss, so it suits
  * defaults that are expensive to build, must not be shared between keys, or have side effects.
  * An already present value is never overwritten, and a stored `undefined` counts as present.
+ *
+ * Calls the native `Map#getOrInsertComputed` when the map has it, which doesn't call the `has`,
+ * `get` and `set` methods of the map: a `Map` subclass that overrides them should override
+ * `getOrInsertComputed` too.
  * @param map - The map to read from.
  * Mutated only when `key` is not present.
  * @param key - The key to look up.
@@ -31,6 +35,14 @@ export const mapGetOrInsertComputed = <K, V>(
   key: K,
   computeDefaultValue: (key: K) => V,
 ) => {
+  // Not every supported environment has it
+  const nativeMap: Map<K, V> & {
+    getOrInsertComputed?: (key: K, computeDefaultValue: (key: K) => V) => V;
+  } = map;
+  if (nativeMap.getOrInsertComputed) {
+    return nativeMap.getOrInsertComputed(key, computeDefaultValue);
+  }
+
   if (map.has(key)) {
     // `V` may itself include `undefined`, so `has` is the only sound presence check, and `get`
     // cannot be narrowed by it

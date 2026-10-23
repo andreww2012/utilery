@@ -310,9 +310,6 @@ importers:
       es-toolkit:
         specifier: 1.52.0
         version: 1.52.0
-      escape-string-regexp:
-        specifier: 5.0.0
-        version: 5.0.0
       eslint:
         specifier: 10.13.0
         version: 10.13.0(jiti@2.7.0)(supports-color@9.4.0)

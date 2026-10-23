@@ -1,8 +1,13 @@
+const promiseTryFallback = async <Arguments extends unknown[], Result>(
+  fn: (...parameters: Arguments) => Result,
+  ...callArguments: Arguments
+): Promise<Awaited<Result>> => await fn(...callArguments);
+
 /**
  * Calls a function and always returns a promise of its result: a returned value
  * or promise is resolved, and an error thrown synchronously becomes a rejection
  * instead of escaping.
- * Like `Promise.try`, which is not yet available everywhere.
+ * Calls the native `Promise.try` when it is available.
  *
  * Useful for calling callbacks that may be synchronous or asynchronous, so
  * that one `.catch` handles every failure.
@@ -15,7 +20,14 @@
  * // A user callback that may throw or return a promise
  * promiseTry(onSave, document).then(showSuccess, showError);
  */
-export const promiseTry = async <Arguments extends unknown[], Result>(
+export const promiseTry = <Arguments extends unknown[], Result>(
   fn: (...parameters: Arguments) => Result,
   ...callArguments: Arguments
-): Promise<Awaited<Result>> => await fn(...callArguments);
+) => {
+  // Not every supported environment has it
+  const nativePromise: PromiseConstructor & {try?: typeof promiseTryFallback} = Promise;
+
+  return nativePromise.try
+    ? nativePromise.try(fn, ...callArguments)
+    : promiseTryFallback(fn, ...callArguments);
+};

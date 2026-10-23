@@ -241,7 +241,6 @@
     "devalue": "6.0.3",
     "env-paths": "4.0.0",
     "es-toolkit": "1.52.0",
-    "escape-string-regexp": "5.0.0",
     "eslint": "10.13.0",
     "eslint-config-un": "1.0.0-rc.5",
     "eslint-plugin-github-action": "0.4.0",
