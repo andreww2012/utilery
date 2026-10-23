@@ -362,8 +362,8 @@ importers:
         specifier: 4.3.3
         version: 4.3.3
       ms-ts:
-        specifier: 1.0.0
-        version: 1.0.0
+        specifier: 1.1.0
+        version: 1.1.0
       nanoid:
         specifier: 6.0.2
         version: 6.0.2(patch_hash=3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86)
@@ -4748,10 +4748,6 @@ packages:
   mrmime@2.0.1:
     resolution: {integrity: sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ==}
     engines: {node: '>=10'}
-
-  ms-ts@1.0.0:
-    resolution: {integrity: sha512-LMS4LlDFszhIXRtCKY3kU8ib/bT+RWbdRJsK1qrmO9qPl52K+FAmuLs1gKLceZT/FA4ntvyWcu0gdfwjnaFF3Q==}
-    engines: {node: '>=22'}
 
   ms-ts@1.1.0:
     resolution: {integrity: sha512-J+wtP0FF4QkzEFguPKJCbXyYKUxlHlqSbfmK/jkxKSds8evlZfn7vk4gxTYa+j6PO1tQK3T8UZP65L2tsikrJg==}
@@ -10127,8 +10123,6 @@ snapshots:
   mri@1.2.0: {}
 
   mrmime@2.0.1: {}
-
-  ms-ts@1.0.0: {}
 
   ms-ts@1.1.0: {}
 
