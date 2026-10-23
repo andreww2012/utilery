@@ -178,6 +178,7 @@ patchedDependencies:
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
   remeda: e5e9cb0ab98af1439c69c33c8c0eb3417e8516a7ee031dff8616649f6126164c
+  safe-stable-stringify: 12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839
   signal-exit: 1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd
   write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
   yieldable-json: 99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88
@@ -412,8 +413,8 @@ importers:
         specifier: 1.2.15
         version: 1.2.15
       safe-stable-stringify:
-        specifier: 2.5.0
-        version: 2.5.0
+        specifier: 3.0.0
+        version: 3.0.0(patch_hash=12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839)
       split-string:
         specifier: 6.1.0
         version: 6.1.0
@@ -5241,9 +5242,9 @@ packages:
   safe-regex@2.1.1:
     resolution: {integrity: sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A==}
 
-  safe-stable-stringify@2.5.0:
-    resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
-    engines: {node: '>=10'}
+  safe-stable-stringify@3.0.0:
+    resolution: {integrity: sha512-1z5+QfsSGAtBGJrCw2DP9cwfdvSEMRN4BKKaZxFIKwcwRbshkrtKzzueVFAJ2d1QJm+J3AmpYvI88jFnlEZmyg==}
+    engines: {node: '>=18'}
 
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
@@ -10671,7 +10672,7 @@ snapshots:
     dependencies:
       regexp-tree: 0.1.27
 
-  safe-stable-stringify@2.5.0: {}
+  safe-stable-stringify@3.0.0(patch_hash=12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839): {}
 
   safer-buffer@2.1.2: {}
 

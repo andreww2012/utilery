@@ -1,0 +1,88 @@
+Exports the `stringify` function directly. The package instead defines it on `globalThis` on
+import, so that its CommonJS and ES module entry points share one instance. We bundle a single copy
+of the package, so there is nothing to share, and:
+- Importing `unutils/json` must not change globals.
+- The `sideEffects` field of our `package.json` lets bundlers drop the bare `import '../index.js'`
+  of the ES module wrapper, which then reads `undefined` from `globalThis` and throws on import.
+
+Also replaces `export =` in `index.d.ts` with `export default`: our declaration build can't bundle
+CommonJS declaration syntax.
+
+diff --git a/esm/wrapper.mjs b/esm/wrapper.mjs
+index 40fb6916f96277278eaef7536d15d6f9e2e6b64a..5cc05a207e66e96d32590790f4376554d1a4aca6 100644
+--- a/esm/wrapper.mjs
++++ b/esm/wrapper.mjs
+@@ -1,9 +1,5 @@
+-import '../index.js'
++import stringify from '../index.js'
+ 
+-const sharedGlobal = /** @type {Record<symbol, typeof import('../index.js').default>} */ (
+-  globalThis
+-)
+-
+-export const stringify = sharedGlobal[Symbol.for('safe-stable-stringify@3.0.0')]
++export { stringify }
+ export const configure = stringify.configure
+ export default stringify
+diff --git a/index.d.ts b/index.d.ts
+index 955403b1cbb75dc14d59bab16f591137469d59b2..ca9bf39d7236ac6c2d8953d8524c16fa14e1294b 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -25,4 +25,4 @@ declare namespace stringify {
+   }
+ }
+ 
+-export = stringify
++export default stringify
+diff --git a/index.js b/index.js
+index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..23e9469bdbe98c39b547e283b18139e56a47aa79 100644
+--- a/index.js
++++ b/index.js
+@@ -734,23 +734,12 @@ function configure (options) {
+   return stringify
+ }
+ 
+-const sharedGlobal = /** @type {Record<symbol, typeof import('./index.js').default | undefined>} */ (
+-  globalThis
+-)
+-const exportSymbol = Symbol.for('safe-stable-stringify@3.0.0')
+-
+-if (sharedGlobal[exportSymbol] === undefined) {
+-  const stringify = configure()
+-  // @ts-expect-error
+-  stringify.configure = configure
+-  // @ts-expect-error
+-  stringify.stringify = stringify
+-  // @ts-expect-error
+-  stringify.default = stringify
+-  Object.defineProperty(sharedGlobal, exportSymbol, {
+-    configurable: true,
+-    enumerable: false,
+-    value: /** @type {typeof import('./index.js').default} */ (stringify),
+-    writable: true
+-  })
+-}
++const stringify = configure()
++// @ts-expect-error
++stringify.configure = configure
++// @ts-expect-error
++stringify.stringify = stringify
++// @ts-expect-error
++stringify.default = stringify
++
++module.exports = stringify
+diff --git a/wrapper.cjs b/wrapper.cjs
+index 4145fa51619e4e7f9f3e21270db5ec5819fca15d..d066735bfedbf49064b0f03b8699e5524643ac3d 100644
+--- a/wrapper.cjs
++++ b/wrapper.cjs
+@@ -1,9 +1,3 @@
+ 'use strict'
+ 
+-require('./index.js')
+-
+-const sharedGlobal = /** @type {Record<symbol, typeof import('./index.js').default>} */ (
+-  globalThis
+-)
+-
+-module.exports = sharedGlobal[Symbol.for('safe-stable-stringify@3.0.0')]
++module.exports = require('./index.js')
