@@ -230,7 +230,7 @@
     "actions-up": "2.0.0",
     "all-contributors-cli": "6.27.0-rc.1",
     "any-ascii": "0.3.3",
-    "arkregex": "0.0.12",
+    "arkregex": "0.0.14",
     "cleye": "2.7.0",
     "clickable-path": "0.1.1",
     "cross-env": "10.1.0",

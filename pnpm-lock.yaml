@@ -278,8 +278,8 @@ importers:
         specifier: 0.3.3
         version: 0.3.3
       arkregex:
-        specifier: 0.0.12
-        version: 0.0.12(patch_hash=3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd)
+        specifier: 0.0.14
+        version: 0.0.14(patch_hash=3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd)
       cleye:
         specifier: 2.7.0
         version: 2.7.0
@@ -509,8 +509,8 @@ packages:
     resolution: {integrity: sha512-9ytjzGwxjm9Uz7I9avfbt5vlQt6uk9uRRESzJjqrznl6WKvI6dwYTo+vJ3U02Wrq/mR3iql/PzhvHhKdJIAjDQ==}
     engines: {node: '>=20'}
 
-  '@ark/util@0.56.6':
-    resolution: {integrity: sha512-mHqq0f0HyDd9YadpFl25w0QECAP7d8HGIUpEC85duD+L+xr4i/CwfOid/Z7zJFFF/47oLt6+pZB9RbqWpBYTYg==}
+  '@ark/util@0.56.8':
+    resolution: {integrity: sha512-XLiQyGfpJcws1zCtp2Cva8s1oheCdFn1Rt6JSyC4NnkDrpwCJnlaiawuuOc1Z97vMH+jEzW5vyyf0xOju5wUQA==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -2649,8 +2649,8 @@ packages:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
 
-  arkregex@0.0.12:
-    resolution: {integrity: sha512-sOxL0eX50pnRYO4OyajKZChGuuj/iHwC5tysiAaGOPBu+zJwJQckWn7/DRH2++ol5uaKpyRn7N0hKT7nDqGmgg==}
+  arkregex@0.0.14:
+    resolution: {integrity: sha512-G3I/uCtWE0IKQiPh0qqmmAFDdtjZKZQ5mNPR6gJBeAMZ7VqYCpoaDeXnLju2Zo6ywExtmxZJELeVFb0MPDjPyA==}
 
   array-timsort@1.0.3:
     resolution: {integrity: sha512-/+3GRL7dDAGEfM6TseQk/U+mi18TU2Ms9I3UlLdUMhz2hbvGNTKdj9xniwXfUqgYhHxRx0+8UnKkvlNwVU+cWQ==}
@@ -5979,7 +5979,7 @@ snapshots:
       typescript: 5.6.1-rc
       validate-npm-package-name: 5.0.1
 
-  '@ark/util@0.56.6': {}
+  '@ark/util@0.56.8': {}
 
   '@babel/code-frame@7.29.7':
     dependencies:
@@ -7964,9 +7964,9 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arkregex@0.0.12(patch_hash=3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd):
+  arkregex@0.0.14(patch_hash=3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd):
     dependencies:
-      '@ark/util': 0.56.6
+      '@ark/util': 0.56.8
 
   array-timsort@1.0.3: {}
 
