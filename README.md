@@ -89,6 +89,7 @@ document.querySelector('button#submit'); // HTMLButtonElement | null
 
 One import anywhere in your project is enough: a declaration file or an entry module is the usual place.
 They are strictly opt-in: no other entrypoint pulls them in, so nothing changes until you add the import yourself.
+Other entrypoints never change global types.
 Where several of them augment the same thing, import at most one, otherwise their declarations merge into each other.
 
 <details>

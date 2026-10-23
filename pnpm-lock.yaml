@@ -174,7 +174,7 @@ overrides:
 
 patchedDependencies:
   '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
-  arkregex: 3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd
+  arkregex: f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
   remeda: 2404cd7d4128cd88b45643519671f1d19809dce340979a279968f278ae9bce70
@@ -280,7 +280,7 @@ importers:
         version: 0.3.3
       arkregex:
         specifier: 0.0.14
-        version: 0.0.14(patch_hash=3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd)
+        version: 0.0.14(patch_hash=f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6)
       cleye:
         specifier: 2.7.0
         version: 2.7.0
@@ -7974,7 +7974,7 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arkregex@0.0.14(patch_hash=3f67bd7e43eee25c719bf062c781074cdc10fd2636c0bfe0e1d332a7d32f7dcd):
+  arkregex@0.0.14(patch_hash=f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6):
     dependencies:
       '@ark/util': 0.56.8
 

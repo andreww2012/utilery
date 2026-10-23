@@ -1,9 +1,21 @@
+Changes only the type declarations:
+
+- Imports the `@ark/util` types from the files that declare them (`@ark/util/internal/*.js`)
+  instead of the package root. The root also re-exports `registry.ts`, and our declaration build
+  then kept its `declare global` block, so importing `unutils` or `unutils/regex` added a global
+  `ArkEnv` type to the consumer's project. With `skipLibCheck: false`, a consumer that also uses
+  `arktype` then got `TS2300: Duplicate identifier 'prototypes'`.
+- Renames the `s` namespace to `sOps`, as the comment in `out/state.d.ts` explains.
+
 diff --git a/out/charset.d.ts b/out/charset.d.ts
-index 6d99b3ccd39af38f99605bbfda4b275a586f7a6c..13f9ee43a34cf7b52f44744681f5a5b1fb45e9c9 100644
+index 6d99b3ccd39af38f99605bbfda4b275a586f7a6c..fca6ee6a6a2b6e81af7aab32d721ce1ce1fc2560 100644
 --- a/out/charset.d.ts
 +++ b/out/charset.d.ts
-@@ -1,9 +1,9 @@
- import type { Backslash, ErrorMessage, noSuggest, Scanner, writeUnclosedGroupMessage } from "@ark/util";
+@@ -1,9 +1,11 @@
+-import type { Backslash, ErrorMessage, noSuggest, Scanner, writeUnclosedGroupMessage } from "@ark/util";
++import type { ErrorMessage, noSuggest } from "@ark/util/internal/errors.js";
++import type { Scanner, writeUnclosedGroupMessage } from "@ark/util/internal/scanner.js";
++import type { Backslash } from "@ark/util/internal/strings.js";
  import type { parseEscapedChar, StringDigit } from "./escape.ts";
 -import type { s, State } from "./state.ts";
 -export type parseCharset<s extends State, unscanned extends string> = Scanner.shiftUntilEscapable<unscanned, "]", Backslash> extends (Scanner.shiftResult<infer scanned, infer nextUnscanned>) ? nextUnscanned extends `]${infer remaining}` ? scanned extends Scanner.shift<"^", string> ? s.shiftQuantifiable<s, string, remaining> : parseNonNegatedCharset<scanned, never, null> extends (infer result extends string) ? [
@@ -16,17 +28,20 @@ index 6d99b3ccd39af38f99605bbfda4b275a586f7a6c..13f9ee43a34cf7b52f44744681f5a5b1
  type parseDash<unscanned extends string, set extends string, lastChar extends string | null> = lastChar extends string ? parseChar<unscanned> extends (Scanner.shiftResult<infer rangeEnd, infer next>) ? parseNonNegatedCharset<next, set | inferRange<lastChar, rangeEnd>, null> : // trailing -, treat as literal
  set | "-" : parseNonNegatedCharset<unscanned, set | "-", "-">;
 diff --git a/out/escape.d.ts b/out/escape.d.ts
-index 2d3f3ad42745569174b89db467ff4c9ceb4956c5..b847bb4ef304c77fc8ccd90850768ed6037ade6d 100644
+index ccb43a91ad870472f5d4f0ad0424b9f21ebf7ea4..c85fc926f92f1113c8e7bd0c38315cbf974e4f26 100644
 --- a/out/escape.d.ts
 +++ b/out/escape.d.ts
-@@ -1,10 +1,10 @@
- import type { ErrorMessage, Scanner, WhitespaceChar } from "@ark/util";
+@@ -1,10 +1,12 @@
+-import type { ErrorMessage, Scanner, WhitespaceChar } from "@ark/util";
 -import type { Control, ReferenceNode, s, State } from "./state.ts";
 -export type parseEscape<s extends State, unscanned extends string> = unscanned extends Scanner.shift<infer char, infer nextUnscanned> ? char extends NonZeroDigit ? parseNumericBackreference<s, unscanned> : char extends "k" ? parseNamedBackreference<s, nextUnscanned> : char extends UnicodePropertyChar ? parseUnicodeProperty<s, char, nextUnscanned> : parseSingleEscapedCharacter<s, char, nextUnscanned> : s.error<trailingBackslashMessage>;
 -type parseNumericBackreference<s extends State, fullUnscanned extends string> = Scanner.shiftUntilNot<fullUnscanned, StringDigit> extends (Scanner.shiftResult<infer ref, infer remaining>) ? s.shiftQuantifiable<s, ReferenceNode<ref>, remaining> : never;
 -type parseNamedBackreference<s extends State, unscanned extends string> = unscanned extends `<${infer ref}>${infer following}` ? s.shiftQuantifiable<s, ReferenceNode<ref>, following> : s.error<missingBackreferenceNameMessage>;
 -type parseUnicodeProperty<s extends State, char extends UnicodePropertyChar, unscanned extends string> = unscanned extends `{${string}}${infer following}` ? s.shiftQuantifiable<s, string, following> : s.error<writeInvalidUnicodePropertyMessage<char>>;
 -type parseSingleEscapedCharacter<s extends State, char extends string, remaining extends string> = parseEscapedChar<char> extends infer result extends string ? result extends ErrorMessage ? s.error<result> : s.shiftQuantifiable<s, result, remaining> : never;
++import type { ErrorMessage } from "@ark/util/internal/errors.js";
++import type { Scanner } from "@ark/util/internal/scanner.js";
++import type { WhitespaceChar } from "@ark/util/internal/strings.js";
 +import type { Control, ReferenceNode, sOps, State } from "./state.ts";
 +export type parseEscape<s extends State, unscanned extends string> = unscanned extends Scanner.shift<infer char, infer nextUnscanned> ? char extends NonZeroDigit ? parseNumericBackreference<s, unscanned> : char extends "k" ? parseNamedBackreference<s, nextUnscanned> : char extends UnicodePropertyChar ? parseUnicodeProperty<s, char, nextUnscanned> : parseSingleEscapedCharacter<s, char, nextUnscanned> : sOps.error<trailingBackslashMessage>;
 +type parseNumericBackreference<s extends State, fullUnscanned extends string> = Scanner.shiftUntilNot<fullUnscanned, StringDigit> extends (Scanner.shiftResult<infer ref, infer remaining>) ? sOps.shiftQuantifiable<s, ReferenceNode<ref>, remaining> : never;
@@ -36,13 +51,25 @@ index 2d3f3ad42745569174b89db467ff4c9ceb4956c5..b847bb4ef304c77fc8ccd90850768ed6
  export type parseEscapedChar<char extends string> = char extends RegexClassChar ? string : char extends "d" ? `${number}` : char extends "s" ? WhitespaceChar : char extends BoundaryChar ? "" : char extends Control ? char : char extends "c" ? ErrorMessage<caretNotationMessage> : char extends StringEscapableChar ? ErrorMessage<writeStringEscapableMessage<char>> : ErrorMessage<writeUnnecessaryEscapeMessage<char>>;
  export declare const trailingBackslashMessage = "A regex cannot end with \\";
  export type trailingBackslashMessage = typeof trailingBackslashMessage;
+diff --git a/out/execArray.d.ts b/out/execArray.d.ts
+index 7570b2b19a3bca15de70889931de3019fdccaeec..04a61f46fb7e9d98d112462f1d81c9277a90cd5f 100644
+--- a/out/execArray.d.ts
++++ b/out/execArray.d.ts
+@@ -1,4 +1,4 @@
+-import type { DynamicBase } from "@ark/util";
++import type { DynamicBase } from "@ark/util/internal/records.js";
+ import type { Flags, IndexedCaptures, NamedCaptures } from "./regex.ts";
+ export interface RegexExecArray<patternAndCaptures extends IndexedCaptures, namedCaptures extends NamedCaptures, flags extends Flags> extends DynamicBase<patternAndCaptures> {
+     /**
 diff --git a/out/group.d.ts b/out/group.d.ts
-index 57bc36d08e8655d8651e2f40852f0830a18f7125..718c35380139803499cc36be9a5b2ace2fb2c633 100644
+index 57bc36d08e8655d8651e2f40852f0830a18f7125..cc0e5b11b23f061b1f0f66e9fa7e6e64814c2dd2 100644
 --- a/out/group.d.ts
 +++ b/out/group.d.ts
-@@ -1,9 +1,9 @@
- import type { ErrorMessage, Scanner, writeUnclosedGroupMessage } from "@ark/util";
+@@ -1,9 +1,10 @@
+-import type { ErrorMessage, Scanner, writeUnclosedGroupMessage } from "@ark/util";
 -import type { State, s } from "./state.ts";
++import type { ErrorMessage } from "@ark/util/internal/errors.js";
++import type { Scanner, writeUnclosedGroupMessage } from "@ark/util/internal/scanner.js";
 +import type { State, sOps } from "./state.ts";
  type LookaroundChar = "=" | "!";
  export type ModifiableFlag = "i" | "m" | "s";
@@ -53,7 +80,7 @@ index 57bc36d08e8655d8651e2f40852f0830a18f7125..718c35380139803499cc36be9a5b2ace
  type ShiftedModifiers<flags extends ModifiableFlag = ModifiableFlag, negated extends ModifiableFlag = ModifiableFlag, unscanned extends string = string> = [ParsedModifiers<flags, negated>, unscanned];
  type ParsedModifiers<flags extends ModifiableFlag = ModifiableFlag, negated extends ModifiableFlag = ModifiableFlag> = {
      flags: flags;
-@@ -24,7 +24,7 @@ export declare const missingNegatedModifierMessage = "- must be followed by the
+@@ -24,7 +25,7 @@ export declare const missingNegatedModifierMessage = "- must be followed by the
  type missingNegatedModifierMessage = typeof missingNegatedModifierMessage;
  export declare const writeInvalidModifierMessage: <char extends string>(char: char) => writeInvalidModifierMessage<char>;
  type writeInvalidModifierMessage<char extends string> = `Modifier flag ${char} must be 'i', 'm' or 's'`;
@@ -63,10 +90,15 @@ index 57bc36d08e8655d8651e2f40852f0830a18f7125..718c35380139803499cc36be9a5b2ace
  export declare const unnamedCaptureGroupMessage = "Capture group <> requires a name";
  export type unnamedCaptureGroupMessage = typeof unnamedCaptureGroupMessage;
 diff --git a/out/parse.d.ts b/out/parse.d.ts
-index 0b62c72c034c3a92b608516d9c760a1decc8fbe8..190b826ead5f8a203969dcac7f8af317b16ed3a7 100644
+index 0b62c72c034c3a92b608516d9c760a1decc8fbe8..ec7d7efc9f84c6cf1439f7216e5d6d6879f1bab4 100644
 --- a/out/parse.d.ts
 +++ b/out/parse.d.ts
-@@ -3,8 +3,8 @@ import type { parseCharset } from "./charset.ts";
+@@ -1,10 +1,12 @@
+-import type { Backslash, ErrorMessage, Scanner } from "@ark/util";
++import type { ErrorMessage } from "@ark/util/internal/errors.js";
++import type { Scanner } from "@ark/util/internal/scanner.js";
++import type { Backslash } from "@ark/util/internal/strings.js";
+ import type { parseCharset } from "./charset.ts";
  import type { parseEscape } from "./escape.ts";
  import type { parseGroup } from "./group.ts";
  import type { parseBuiltinQuantifier, parsePossibleRange, QuantifyingChar } from "./quantify.ts";
@@ -79,21 +111,23 @@ index 0b62c72c034c3a92b608516d9c760a1decc8fbe8..190b826ead5f8a203969dcac7f8af317
  type maybeSplitCasing<caseInsensitive extends boolean, char extends string> = caseInsensitive extends false ? char : Lowercase<char> extends Uppercase<char> ? char : UnionTree<[Lowercase<char>, Capitalize<char>]>;
  export {};
 diff --git a/out/quantify.d.ts b/out/quantify.d.ts
-index a167d59053e430b93dcff9df6aca842af7839ce9..cce074cb58bc126c79c3119b14bb09b35024897c 100644
+index a167d59053e430b93dcff9df6aca842af7839ce9..a1a285747836161c74b1c3dbb34d5d211728b211 100644
 --- a/out/quantify.d.ts
 +++ b/out/quantify.d.ts
-@@ -1,7 +1,7 @@
- import type { parseNonNegativeInteger, Scanner } from "@ark/util";
+@@ -1,7 +1,8 @@
+-import type { parseNonNegativeInteger, Scanner } from "@ark/util";
 -import type { s, State } from "./state.ts";
 -export type parseBuiltinQuantifier<s extends State, quantifier extends QuantifyingChar, unscanned extends string> = s["root"] extends "" ? s.error<writeUnmatchedQuantifierError<quantifier>> : quantifyBuiltin<s, quantifier, unscanned extends Scanner.shift<"?", infer lazyUnscanned> ? lazyUnscanned : unscanned>;
 -type quantifyBuiltin<s extends State, quantifier extends QuantifyingChar, unscanned extends string> = quantifier extends "?" ? s.pushQuantifier<s, 0, 1, unscanned> : quantifier extends "+" ? s.pushQuantifier<s, 1, null, unscanned> : quantifier extends "*" ? s.pushQuantifier<s, 0, null, unscanned> : never;
++import type { parseNonNegativeInteger } from "@ark/util/internal/numbers.js";
++import type { Scanner } from "@ark/util/internal/scanner.js";
 +import type { sOps, State } from "./state.ts";
 +export type parseBuiltinQuantifier<s extends State, quantifier extends QuantifyingChar, unscanned extends string> = s["root"] extends "" ? sOps.error<writeUnmatchedQuantifierError<quantifier>> : quantifyBuiltin<s, quantifier, unscanned extends Scanner.shift<"?", infer lazyUnscanned> ? lazyUnscanned : unscanned>;
 +type quantifyBuiltin<s extends State, quantifier extends QuantifyingChar, unscanned extends string> = quantifier extends "?" ? sOps.pushQuantifier<s, 0, 1, unscanned> : quantifier extends "+" ? sOps.pushQuantifier<s, 1, null, unscanned> : quantifier extends "*" ? sOps.pushQuantifier<s, 0, null, unscanned> : never;
  type ParsedRange = {
      min: number;
      max: number | null;
-@@ -25,10 +25,10 @@ type parsePossibleRangeString<unscanned extends string> = unscanned extends (`${
+@@ -25,10 +26,10 @@ type parsePossibleRangeString<unscanned extends string> = unscanned extends (`${
      unscanned: skipPossibleQuestionMark<next>;
  }> : null;
  type parseQuantifier<unscanned extends string, parsed extends ParsedRange> = unscanned extends `${infer range}${parsed["unscanned"]}` ? `{${range}` : never;
@@ -106,11 +140,33 @@ index a167d59053e430b93dcff9df6aca842af7839ce9..cce074cb58bc126c79c3119b14bb09b3
  export type quantify<pattern extends string, min extends number, max extends number | null> = tryFastPath<pattern, min, max>;
  type tryFastPath<pattern extends string, min extends number, max extends number | null> = max extends 0 ? "" : string extends pattern ? string : `${number}` extends pattern ? min extends 0 ? "" | `${number}` : `${number}` : min extends 0 ? max extends 1 ? "" | pattern : max extends number ? loopFromZero<pattern, max, "", []> : // max is null, all we can do is append ${string}
  "" | `${pattern}${string}` : loopUntilMin<pattern, min, max, "", []>;
+diff --git a/out/regex.d.ts b/out/regex.d.ts
+index 6ff4abae55b96050224150a105ba4743a3eff91d..da53e5f3cf0605fb5b6369588f6fe90a8592f07d 100644
+--- a/out/regex.d.ts
++++ b/out/regex.d.ts
+@@ -1,4 +1,5 @@
+-import type { ErrorMessage, inferred } from "@ark/util";
++import type { ErrorMessage } from "@ark/util/internal/errors.js";
++import type { inferred } from "@ark/util/internal/generics.js";
+ import type { RegexExecArray } from "./execArray.ts";
+ import type { parseState } from "./parse.ts";
+ import type { State } from "./state.ts";
 diff --git a/out/state.d.ts b/out/state.d.ts
-index 024a0edff4024ec540abb0651094bea0b2c7ff74..518fc4a4757add0c73f299cb989ab86ac286d127 100644
+index d3e1f5bc2c1ff6ce7ecb99e582bae16546a6e04e..fe4e3210ca1669fb264a64cafd17d9499298fe88 100644
 --- a/out/state.d.ts
 +++ b/out/state.d.ts
-@@ -50,7 +50,17 @@ export type Control = QuantifyingChar | Boundary | "|" | "." | "{" | "-" | "\\";
+@@ -1,4 +1,9 @@
+-import type { contains, ErrorMessage, noSuggest, NumberLiteral, setIndex, unionKeyOf, writeUnclosedGroupMessage, writeUnmatchedGroupCloseMessage, ZeroWidthSpace } from "@ark/util";
++import type { setIndex } from "@ark/util/internal/arrays.js";
++import type { ErrorMessage, noSuggest, ZeroWidthSpace } from "@ark/util/internal/errors.js";
++import type { NumberLiteral } from "@ark/util/internal/numbers.js";
++import type { unionKeyOf } from "@ark/util/internal/records.js";
++import type { writeUnclosedGroupMessage, writeUnmatchedGroupCloseMessage } from "@ark/util/internal/scanner.js";
++import type { contains } from "@ark/util/internal/strings.js";
+ import type { writeUnresolvableBackreferenceMessage } from "./escape.ts";
+ import type { quantify, QuantifyingChar } from "./quantify.ts";
+ import type { Flags, IndexedCaptures, NamedCaptures, Regex, RegexContext } from "./regex.ts";
+@@ -50,7 +55,17 @@ export type Control = QuantifyingChar | Boundary | "|" | "." | "{" | "}" | "-" |
  export type AnchorMarker<inner extends Anchor = Anchor> = `<${ZeroWidthSpace}${inner}${ZeroWidthSpace}>`;
  export type StartAnchorMarker = AnchorMarker<"^">;
  export type EndAnchorMarker = AnchorMarker<"$">;
@@ -129,7 +185,7 @@ index 024a0edff4024ec540abb0651094bea0b2c7ff74..518fc4a4757add0c73f299cb989ab86a
      type error<message extends string> = State.from<{
          unscanned: ErrorMessage<message>;
          groups: [];
-@@ -135,7 +145,7 @@ export declare namespace s {
+@@ -135,7 +150,7 @@ export declare namespace s {
          root: s["capture"] extends CapturedGroupKind ? GroupTree<State.Group.finalize<s>, s["capture"]> : s["capture"] extends State.UnnamedCaptureKind.lookaround ? "" : State.Group.finalize<s>;
          caseInsensitive: last["caseInsensitive"];
          flags: s["flags"];

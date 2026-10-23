@@ -2,6 +2,8 @@ import {execFileSync, execSync} from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import ts from 'typescript';
+import {jsonParse} from '../../src/json/json-parse.ts';
 
 // Type-checks the **published** declarations (built + packed) from an isolated
 // consumer, covering the gap that `.spec-d.ts` (reads `src/`), `attw` and `publint` miss.
@@ -62,6 +64,35 @@ const programs = [
     exclude: [],
   })),
 ];
+
+// Lists what a declaration file declares outside its own module: these declarations apply to the
+// whole program that includes the file
+const describeOutwardDeclarations = (sourceFile: ts.SourceFile) => {
+  if (!ts.isExternalModule(sourceFile)) {
+    return ['not a module, so all its declarations are global'];
+  }
+
+  return [
+    ...sourceFile.libReferenceDirectives.map(({fileName}) => `/// <reference lib="${fileName}" />`),
+    ...sourceFile.typeReferenceDirectives.map(
+      ({fileName}) => `/// <reference types="${fileName}" />`,
+    ),
+    ...sourceFile.statements.flatMap((statement) => {
+      if (ts.isNamespaceExportDeclaration(statement)) {
+        return `export as namespace ${statement.name.text}`;
+      }
+      if (ts.isModuleDeclaration(statement)) {
+        if (ts.isStringLiteral(statement.name)) {
+          return `declare module '${statement.name.text}'`;
+        }
+        if ((statement.flags & ts.NodeFlags.GlobalAugmentation) !== 0) {
+          return 'declare global';
+        }
+      }
+      return [];
+    }),
+  ];
+};
 
 let consumerDirectory: string;
 // Maps a scenario file name to the `tsc` error lines emitted for it
@@ -173,6 +204,41 @@ describe('published DTS consumer', () => {
     });
 
     expect(leaked).toStrictEqual([]);
+  });
+
+  // The declaration build keeps such declarations of bundled packages too, like `declare global`
+  // of `@ark/util` once did, which added `ArkEnv` to the globals of every consumer
+  it('keeps globals and other modules unchanged outside `*.global` entry points', () => {
+    // The compiler resolves symlinks, like the one to the temporary directory on macOS
+    const packageDirectory = fs.realpathSync(path.join(consumerDirectory, 'node_modules/unutils'));
+    const {exports} = jsonParse<{exports: Record<string, unknown>}>(
+      fs.readFileSync(path.join(packageDirectory, 'package.json'), 'utf8'),
+    );
+    const consumerPath = path.join(consumerDirectory, 'non-global-entry-points.ts');
+    fs.writeFileSync(
+      consumerPath,
+      Object.keys(exports)
+        .filter((subpath) => subpath !== './package.json' && !subpath.endsWith(GLOBAL_SUFFIX))
+        .map((subpath) => `import ${JSON.stringify(path.posix.join('unutils', subpath))};`)
+        .join('\n'),
+    );
+    const packageFiles = ts
+      .createProgram(
+        [consumerPath],
+        ts.convertCompilerOptionsFromJson(CONSUMER_COMPILER_OPTIONS, consumerDirectory).options,
+      )
+      .getSourceFiles()
+      .filter(({fileName}) => path.resolve(fileName).startsWith(packageDirectory + path.sep));
+
+    expect(packageFiles).not.toHaveLength(0);
+    expect(
+      packageFiles.flatMap((sourceFile) =>
+        describeOutwardDeclarations(sourceFile).map(
+          (description) =>
+            `${path.relative(packageDirectory, sourceFile.fileName)}: ${description}`,
+        ),
+      ),
+    ).toStrictEqual([]);
   });
 
   it.each(scenarioFiles)('%s', (file) => {
