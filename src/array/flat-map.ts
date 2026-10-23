@@ -2,12 +2,12 @@ import {flatMapDeep, flatMap as flatMapEs} from 'es-toolkit/array';
 import type {ExtractNestedArrayType} from '../_internal/types.ts';
 
 /**
- * Maps each element through `iteratee` and flattens the resulting arrays. When
- * the optional `depth` (third argument) is omitted — or explicitly set to
- * `Number.POSITIVE_INFINITY` — the result is *fully* flattened. This deviates
- * from `Array.prototype.flatMap`, whose default depth is `1`. Passing a finite
- * `depth` flattens to exactly that level; omitting it or passing `Infinity`
- * flattens fully.
+ * Maps each element through `iteratee` and flattens the resulting arrays.
+ * When the optional `depth` (third argument) is omitted (or explicitly set to
+ * `Number.POSITIVE_INFINITY`), the result is *fully* flattened.
+ * This deviates from `Array.prototype.flatMap`, whose default depth is `1`.
+ * Passing a finite `depth` flattens to exactly that level; omitting it or
+ * passing `Infinity` flattens fully.
  *
  * Negative, `NaN`, and non-integer `depth` values follow
  * `Array.prototype.flat` semantics (negative/`NaN` → no flattening, non-integer
@@ -15,14 +15,15 @@ import type {ExtractNestedArrayType} from '../_internal/types.ts';
  *
  * For an async iteratee, use `flatMapAsync` instead.
  * @param array - The array to map and flatten.
- * @param iteratee - Produces the new array elements. Receives the item, its index, and the source array.
+ * @param iteratee - Produces the new array elements.
+ * Receives the item, its index, and the source array.
  * @returns A new array with the mapped, flattened elements.
  * @example
- * // Default — deep flatten
+ * // Default: deep flatten
  * flatMap([1, 2, 3], (n) => [[n, n]]);
  * // [1, 1, 2, 2, 3, 3]
  * @example
- * // Explicit depth of 1 — matches `Array.prototype.flatMap`'s default
+ * // Explicit depth of 1: matches `Array.prototype.flatMap`'s default
  * flatMap([1, 2, 3], (n) => [[n, n]], 1);
  * // [[1, 1], [2, 2], [3, 3]]
  * @example
@@ -30,7 +31,7 @@ import type {ExtractNestedArrayType} from '../_internal/types.ts';
  * flatMap([1, 2], (n) => [[[n, n]]], 2);
  * // [[1, 1], [2, 2]]
  * @example
- * // Depth of 0 just maps — no flattening
+ * // Depth of 0 just maps: no flattening
  * flatMap([1, 2], (n) => [n, n], 0);
  * // [[1, 1], [2, 2]]
  * @example

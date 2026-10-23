@@ -17,10 +17,10 @@ The `bytes` group / `unutils/bytes`.
 | [`stringToUint8Array`][api]                                         | ✅     | `bytes/stringToUint8Array`  | -                            |
 | [`concatUint8Arrays`][api]                                          | ✅     | `bytes/concatUint8Arrays`   | Also accepts readonly arrays |
 | [`toUint8Array`][api]                                               | ✅     | `bytes/toUint8Array`        | -                            |
-| `isUint8Array`, `assertUint8Array`, `assertUint8ArrayOrArrayBuffer` | ⌛     | —                           | Not added yet                |
-| `areUint8ArraysEqual`, `compareUint8Arrays`                         | ⌛     | —                           | Not added yet                |
-| `indexOf`, `includes`                                               | ⌛     | —                           | Not added yet                |
-| `getUintBE`                                                         | ⌛     | —                           | Not added yet                |
+| `isUint8Array`, `assertUint8Array`, `assertUint8ArrayOrArrayBuffer` | ⌛     | -                           | Not added yet                |
+| `areUint8ArraysEqual`, `compareUint8Arrays`                         | ⌛     | -                           | Not added yet                |
+| `indexOf`, `includes`                                               | ⌛     | -                           | Not added yet                |
+| `getUintBE`                                                         | ⌛     | -                           | Not added yet                |
 | `TypedArray`                                                        | ❌     | `types/TypedArray`          | Covered                      |
 
 [api]: https://github.com/sindresorhus/uint8array-extras#api

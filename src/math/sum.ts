@@ -1,15 +1,18 @@
 /**
  * Calculates the sum of an iterable of numbers, in a single pass and without
- * materializing an intermediate array — so it works on any iterable
- * (generators, `Set`s, …), not just arrays. When the second argument is
- * omitted, the elements are summed directly. When a `getValue` function is
- * provided, each element (along with its zero-based position) is mapped through
- * it first and the resulting numbers are summed.
+ * materializing an intermediate array, so it works on any iterable (generators,
+ * `Set`s, ...), not just arrays.
+ * When the second argument is omitted, the elements are summed directly.
+ * When a `getValue` function is provided, each element (along with its
+ * zero-based position) is mapped through it first and the resulting numbers are
+ * summed.
  *
  * Returns `0` for an empty input.
- * @param items - The iterable to sum. Not mutated.
+ * @param items - The iterable to sum.
+ * Not mutated.
  * @param getValue - Optional selector that produces the numeric value to add
- * from each element. Receives the element and its zero-based position.
+ * from each element.
+ * Receives the element and its zero-based position.
  * @returns The sum of the resolved numeric values, or `0` if `items` is empty.
  * @example
  * // Basic sum of a number array
@@ -20,7 +23,7 @@
  * sum(new Set([1, 2, 3]));
  * // 6
  * @example
- * // With a selector — sum a numeric field of objects
+ * // With a selector: sum a numeric field of objects
  * sum([{a: 1}, {a: 2}, {a: 3}], (item) => item.a);
  * // 6
  * @example

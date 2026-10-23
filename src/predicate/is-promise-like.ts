@@ -1,8 +1,9 @@
 /**
  * Checks whether a value is promise-like (a "thenable"): an object or a
- * function with a `then` method, which `await` and `Promise.resolve` treat as
- * a promise. Unlike `instanceof Promise`, also detects promises from other
- * realms (iframes, `vm` contexts) and promise libraries.
+ * function with a `then` method, which `await` and `Promise.resolve` treat as a
+ * promise.
+ * Unlike `instanceof Promise`, also detects promises from other realms
+ * (iframes, `vm` contexts) and promise libraries.
  * @param value - The value to check.
  * @returns `true` if the value has a `then` method, otherwise `false`.
  * @example

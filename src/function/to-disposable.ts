@@ -3,8 +3,9 @@ import {defer, deferAsync} from 'es-toolkit/util';
 /**
  * Wraps a cleanup callback into a disposable object, so the callback runs
  * automatically when the enclosing `using` / `await using` block exits, even
- * when it exits by throwing. Similar to `defer` in Go or `finally` blocks, but
- * the cleanup is declared next to the resource it cleans up.
+ * when it exits by throwing.
+ * Similar to `defer` in Go or `finally` blocks, but the cleanup is declared
+ * next to the resource it cleans up.
  *
  * A sync callback gives an object usable with both `using` and `await using`.
  * An async callback gives an object usable only with `await using`, so the

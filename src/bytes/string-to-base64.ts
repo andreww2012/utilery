@@ -3,12 +3,13 @@ import {stringToBase64 as stringToBase64Base} from 'uint8array-extras';
 import type {Base64EncodingOptions} from './uint8-array-to-base64.ts';
 
 /**
- * Encodes a string as Base64, using its UTF-8 bytes. Unlike `btoa`, does not
- * throw on characters outside Latin-1, like emoji or Cyrillic letters.
+ * Encodes a string as Base64, using its UTF-8 bytes.
+ * Unlike `btoa`, does not throw on characters outside Latin-1, like emoji or
+ * Cyrillic letters.
  *
  * Pass `{urlSafe: true}` for the URL-safe Base64URL alphabet (`-` and `_`
- * instead of `+` and `/`), without the `=` padding. Decode with
- * `base64ToString`.
+ * instead of `+` and `/`), without the `=` padding.
+ * Decode with `base64ToString`.
  * @param text - The string to encode.
  * @param options - Options.
  * @param options.urlSafe - Use the Base64URL alphabet without padding (defaults to `false`).

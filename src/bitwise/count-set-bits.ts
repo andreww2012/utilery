@@ -6,7 +6,8 @@ import {popCount} from '@thi.ng/binary/count';
  *
  * To count the bits that differ between two numbers (their Hamming distance),
  * pass `a ^ b`.
- * @param value - The number to read. Treated as a 32-bit integer, so negative numbers work too.
+ * @param value - The number to read.
+ * Treated as a 32-bit integer, so negative numbers work too.
  * @returns The number of set bits, from `0` to `32`.
  * @example
  * // 0b1011

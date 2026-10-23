@@ -6,9 +6,10 @@ import {toInt32} from './to-int32.ts';
  * Lists the indexes of the bits that are `1` in the 32-bit integer
  * representation of `value`, from the least significant one (index `0`) up.
  *
- * Handy for turning bit flags into a list of the enabled ones. The indexes can
- * be passed to the other bit utilities as is.
- * @param value - The number to read. Treated as a 32-bit integer, so negative numbers work too.
+ * Handy for turning bit flags into a list of the enabled ones.
+ * The indexes can be passed to the other bit utilities as is.
+ * @param value - The number to read.
+ * Treated as a 32-bit integer, so negative numbers work too.
  * @returns The indexes of the set bits, in ascending order.
  * @example
  * // 0b1010

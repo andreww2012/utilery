@@ -38,7 +38,7 @@ describe('iterable/find', () => {
 
   it('narrows the type when given a type-guard predicate', () => {
     const items: (string | number)[] = ['a', 1, 'b'];
-    const result = find(items, (value): value is number => typeof value === 'number');
+    const result = find(items, (value) => typeof value === 'number');
 
     expect(result).toBe(1);
   });

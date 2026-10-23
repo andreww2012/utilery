@@ -28,7 +28,7 @@ describe('function/partial', () => {
       expect(skipFirst('start', 'end')).toBe('start-mid-end');
     });
 
-    it('returns the original function when no args are pre-applied', () => {
+    it('returns the original function when no arguments are pre-applied', () => {
       const wrapped = partial(double, []);
 
       expect(wrapped(3)).toBe(6);

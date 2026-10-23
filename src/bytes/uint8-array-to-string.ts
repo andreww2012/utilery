@@ -1,9 +1,10 @@
 import {uint8ArrayToString as uint8ArrayToStringBase} from 'uint8array-extras';
 
 /**
- * Decodes bytes as text. UTF-8 by default; any other encoding supported by
- * `TextDecoder` can be passed (use `'latin1'` instead of Node's `'binary'`,
- * and `'utf-16le'` instead of `'utf16le'`).
+ * Decodes bytes as text.
+ * UTF-8 by default; any other encoding supported by `TextDecoder` can be passed
+ * (use `'latin1'` instead of Node's `'binary'`, and `'utf-16le'` instead of
+ * `'utf16le'`).
  *
  * Invalid byte sequences are replaced with `U+FFFD` (`'�'`) instead of
  * throwing.

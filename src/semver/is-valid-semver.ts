@@ -1,9 +1,10 @@
 import {isValid} from 'verkit';
 
 /**
- * Checks whether a string is a valid semantic version (`major.minor.patch`
- * with optional prerelease and build parts). A leading `v` and surrounding
- * whitespace are allowed; incomplete versions like `'1.2'` and ranges are not.
+ * Checks whether a string is a valid semantic version (`major.minor.patch` with
+ * optional prerelease and build parts).
+ * A leading `v` and surrounding whitespace are allowed; incomplete versions
+ * like `'1.2'` and ranges are not.
  * @param version - The string to check.
  * @param options - Options.
  * @param options.loose - Accept common syntax mistakes, like a leading `=` (defaults to `false`).
@@ -19,5 +20,5 @@ import {isValid} from 'verkit';
  * isValidSemver('^1.2.3');
  * // false
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const isValidSemver = isValid;

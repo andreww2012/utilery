@@ -8,8 +8,8 @@ describe('array/arrayFilter', () => {
 
   it('narrows a union array to the guarded element type', () => {
     const values: (number | string)[] = [1, 'a', 2];
-    expectTypeOf(
-      arrayFilter(values, (value): value is number => typeof value === 'number'),
-    ).toEqualTypeOf<number[]>();
+    expectTypeOf(arrayFilter(values, (value) => typeof value === 'number')).toEqualTypeOf<
+      number[]
+    >();
   });
 });

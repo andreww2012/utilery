@@ -25,7 +25,7 @@ const copyContainer = (container: Record<string, unknown> | readonly unknown[]) 
     ? // eslint-disable-next-line unicorn/prefer-spread -- keeps holes, which spreading turns into `undefined`
       container.slice()
     : Object.defineProperties(
-        Object.getPrototypeOf(container) === null ? {__proto__: null} : {},
+        Object.getPrototypeOf(container) == null ? {__proto__: null} : {},
         Object.getOwnPropertyDescriptors(container),
       );
 
@@ -71,17 +71,19 @@ const omitPathIn = (
  *
  * The selection can be made in three ways via the second argument:
  *
- * - An array of top-level keys — precisely typed as `Omit<T, K>`.
- * - An array of deep path strings like `'a.b.c'` or `'a[0].b'` — removes nested
- *   properties (typed loosely as `Partial<T>`). A `*` segment (`'a.*.b'` or
- *   `'a[*].b'`) matches every element of an array or every property of an
- *   object, so a property can be removed from all objects in a list at once.
+ * - An array of top-level keys: precisely typed as `Omit<T, K>`.
+ * - An array of deep path strings like `'a.b.c'` or `'a[0].b'`: removes nested
+ *   properties (typed loosely as `Partial<T>`).
+ *   A `*` segment (`'a.*.b'` or `'a[*].b'`) matches every element of an array
+ *   or every property of an object, so a property can be removed from all
+ *   objects in a list at once.
  *   Deep paths only go through arrays and plain objects, and only those get
- *   copied: the rest of the result is shared with `object`. A key named `*`
- *   cannot be addressed in a path.
- * - A `(value, key) => boolean` predicate — removes the properties for which it
+ *   copied: the rest of the result is shared with `object`.
+ *   A key named `*` cannot be addressed in a path.
+ * - A `(value, key) => boolean` predicate: removes the properties for which it
  *   returns `true` (delegates to `omitBy`).
- * @param object - The source object. Not mutated.
+ * @param object - The source object.
+ * Not mutated.
  * @param keys - The keys/paths to remove, or a `(value, key) => boolean` predicate selecting them.
  * @returns A new object without the selected properties.
  * @example
@@ -97,7 +99,7 @@ const omitPathIn = (
  * omit({users: [{name: 'Ada', password: 'x'}, {name: 'Bob', password: 'y'}]}, ['users.*.password']);
  * // {users: [{name: 'Ada'}, {name: 'Bob'}]}
  * @example
- * // With a predicate — remove string-valued properties
+ * // With a predicate: remove string-valued properties
  * omit({a: 1, b: 'drop', c: 3}, (value) => typeof value === 'string');
  * // {a: 1, c: 3}
  */

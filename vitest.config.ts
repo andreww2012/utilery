@@ -13,13 +13,15 @@ export default defineConfig({
     setupFiles: ['./test/setup.ts'],
     snapshotFormat: {
       min: true,
-      // `indent` is implicitly set to 2 by default, but `min` cannot be used together with non-falsy `indent` value
+      // `indent` is implicitly set to 2 by default, but `min` cannot be used together with
+      // non-falsy `indent` value
       indent: 0,
     },
     coverage: {
       include: ['src/**/*.ts'],
       reporter: ['html', 'json'],
-      // Avoid "Error: ENOENT: no such file or directory, open 'coverage\.tmp\coverage-8.json'" in watch mode
+      // Avoid "Error: ENOENT: no such file or directory, open 'coverage\.tmp\coverage-8.json'" in
+      // watch mode
       clean: false,
       reportsDirectory: 'temp/coverage',
     },

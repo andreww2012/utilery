@@ -12,9 +12,12 @@ import {arrayPurgeValues} from './array-purge-values.ts';
  *
  * By default the array is **mutated** in place.
  * Pass `{copy: true}` to leave it untouched and get a new array back instead.
- * @param array - The array to toggle `value` in. Mutated unless `{copy: true}` is set.
+ * @param array - The array to toggle `value` in.
+ * Mutated unless `{copy: true}` is set.
  * @param value - The value to add or remove.
- * @param shouldInclude - When `true`, the value is only added (if missing). When `false`, it is only removed. When omitted, it is toggled.
+ * @param shouldInclude - When `true`, the value is only added (if missing).
+ * When `false`, it is only removed.
+ * When omitted, it is toggled.
  * @param options - Optional behavior flags.
  * @param options.copy When `true`, returns a new array instead of mutating `array`.
  * @returns The mutated `array`, or a new array when `{copy: true}`.
@@ -40,7 +43,7 @@ export const arrayToggle = <T>(
   options?: {
     /**
      * When `true`, the input array is left untouched and a new array is returned.
-     * When `false` (the default), the input array is mutated in place and returned.
+     * When `false` (the default), the input array is mutated in place and returned
      */
     copy?: boolean;
   },

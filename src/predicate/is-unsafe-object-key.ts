@@ -5,10 +5,11 @@ const UNSAFE_OBJECT_KEYS: ReadonlySet<PropertyKey> = new Set([
 ]);
 
 /**
- * Checks whether a key could be used for prototype pollution when an object
- * is built or updated from untrusted data: `'__proto__'`, `'constructor'` or
- * `'prototype'`. Writing such a key, like `target[key] = value` with key
- * `'__proto__'`, can change the prototype of all objects.
+ * Checks whether a key could be used for prototype pollution when an object is
+ * built or updated from untrusted data: `'__proto__'`, `'constructor'` or
+ * `'prototype'`.
+ * Writing such a key, like `target[key] = value` with key `'__proto__'`, can
+ * change the prototype of all objects.
  * @param key - The key to check.
  * @returns `true` if the key is unsafe to write, otherwise `false`.
  * @example

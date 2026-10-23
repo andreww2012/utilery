@@ -5,7 +5,8 @@ import {isNodeError} from './is-node-error.ts';
  * null signal (`0`), which only checks that the process exists.
  *
  * A process that exists but belongs to another user (`EPERM`) counts as
- * running. Other errors (like an invalid ID) are rethrown.
+ * running.
+ * Other errors (like an invalid ID) are rethrown.
  * @param processId - The ID of the process (a positive integer).
  * @returns `true` if the process is running, otherwise `false`.
  * @example

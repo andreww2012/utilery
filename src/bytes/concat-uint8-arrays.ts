@@ -2,7 +2,8 @@ import {concatUint8Arrays as concatUint8ArraysBase} from 'uint8array-extras';
 
 /**
  * Joins byte arrays (and `ArrayBuffer`s) into a new `Uint8Array`, like
- * `Buffer.concat`. An empty list gives an empty array.
+ * `Buffer.concat`.
+ * An empty list gives an empty array.
  *
  * Pass `totalLength` when it is already known, to skip summing the lengths.
  * A larger value pads the result with zeros, a smaller one throws a

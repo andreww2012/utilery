@@ -1,7 +1,7 @@
 import {ms} from 'unutils';
 import {ms as msFromMisc} from 'unutils/misc';
 
-// Return type is the exact literal, not `number`.
+// Return type is the exact literal, not `number`
 const value = ms<'42m'>(2_520_000);
 const exact: 2_520_000 = value;
 void exact;

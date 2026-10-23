@@ -2,8 +2,8 @@ import {interpolate} from './interpolate.ts';
 
 /**
  * Re-maps `value` from an input range to an output range, preserving its
- * relative position (an affine transformation between the two ranges). For
- * example, `5` within `[0, 10]` maps to `50` within `[0, 100]`.
+ * relative position (an affine transformation between the two ranges).
+ * For example, `5` within `[0, 10]` maps to `50` within `[0, 100]`.
  *
  * By default values outside the input range extrapolate past the output range.
  * Pass `shouldClamp = true` to constrain the result to the output range.

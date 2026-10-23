@@ -103,7 +103,7 @@ describe('array/arrayFill', () => {
       expect(input).toStrictEqual([1, 2, 3, 4, 5]);
     });
 
-    it('supports negative indices', () => {
+    it('supports negative indexes', () => {
       const input = [1, 2, 3, 4, 5];
       const result = arrayFill(input, '*', -4, -1, {copy: true});
 

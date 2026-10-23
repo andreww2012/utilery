@@ -18,7 +18,7 @@ const findCycle = <T>(nodes: readonly T[], dependenciesOf: ReadonlyMap<T, readon
   const path: T[] = [];
   let cycle: T[] | undefined;
 
-  const hasCycleFrom = (node: T): boolean => {
+  const hasCycleFrom = (node: T) => {
     const index = path.indexOf(node);
     if (index !== -1) {
       cycle = [...path.slice(index), node];
@@ -41,9 +41,10 @@ const findCycle = <T>(nodes: readonly T[], dependenciesOf: ReadonlyMap<T, readon
 
 /**
  * Orders nodes so that every node comes after its dependencies, like build
- * steps, packages of a monorepo or modules to load. Nodes can be any values
- * (compared by identity); dependencies that are missing from `nodes` are added
- * to the result too. Independent nodes keep their order as far as possible.
+ * steps, packages of a monorepo or modules to load.
+ * Nodes can be any values (compared by identity); dependencies that are missing
+ * from `nodes` are added to the result too.
+ * Independent nodes keep their order as far as possible.
  *
  * Throws a `CyclicDependencyError` when the dependencies form a cycle; its
  * `cycle` property lists the nodes of the cycle.

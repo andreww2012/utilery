@@ -2,15 +2,17 @@ import {type OrderRule, firstBy} from 'remeda';
 
 /**
  * Returns the first element of `array` according to one or more ordering
- * `rules`, computed in O(n) **without** fully sorting the array. With a single
- * ascending rule this is the minimum; with `'desc'` it is the maximum. Extra
- * rules act as tie-breakers, applied left to right.
+ * `rules`, computed in O(n) **without** fully sorting the array.
+ * With a single ascending rule this is the minimum; with `'desc'` it is the
+ * maximum.
+ * Extra rules act as tie-breakers, applied left to right.
  *
  * Each rule is either a projection `(item) => comparable` (ascending), or a
- * `[projection, 'asc' | 'desc']` pair to choose the direction. The return type
- * is the element type, plus `undefined` only when the input could be empty (a
- * non-empty tuple never yields `undefined`).
- * @param array - The array (or tuple) to search. Not mutated.
+ * `[projection, 'asc' | 'desc']` pair to choose the direction.
+ * The return type is the element type, plus `undefined` only when the input
+ * could be empty (a non-empty tuple never yields `undefined`).
+ * @param array - The array (or tuple) to search.
+ * Not mutated.
  * @param rules - One or more ordering rules; later rules break ties of earlier ones.
  * @returns The first element by the given ordering, or `undefined` when the array is empty.
  * @example

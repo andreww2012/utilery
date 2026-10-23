@@ -2,14 +2,15 @@ import {flowAsync as esFlowAsync} from 'es-toolkit/fp';
 
 /**
  * Async counterpart of `flow`: composes a list of functions into a single
- * function that returns a promise. Each function receives the **awaited**
- * result of the previous one, so sync and async functions can be mixed
- * freely. By default the first function in the list receives the call
- * arguments; with `isFromRight = true`, the last function in the list is
- * invoked first.
- * @param functions - The functions to compose. Must contain at least one
- * function; the first one may accept any signature, every following one is
- * called with a single argument (the previous awaited return value).
+ * function that returns a promise.
+ * Each function receives the **awaited** result of the previous one, so sync
+ * and async functions can be mixed freely.
+ * By default the first function in the list receives the call arguments; with
+ * `isFromRight = true`, the last function in the list is invoked first.
+ * @param functions - The functions to compose.
+ * Must contain at least one function; the first one may accept any signature,
+ * every following one is called with a single argument (the previous awaited
+ * return value).
  * @param isFromRight - When `true`, runs the list right-to-left (compose).
  * Defaults to `false` (pipe).
  * @returns A function that, when invoked, threads its input through the
@@ -33,9 +34,9 @@ import {flowAsync as esFlowAsync} from 'es-toolkit/fp';
  * // 'result: 6'
  */
 export const flowAsync = (
-  functions: readonly ((...args: never[]) => unknown)[],
+  functions: readonly ((...parameters: never[]) => unknown)[],
   isFromRight = false,
-): ((...args: never[]) => Promise<unknown>) => {
+): ((...parameters: never[]) => Promise<unknown>) => {
   return esFlowAsync(
     ...((isFromRight ? functions.toReversed() : functions) as Parameters<typeof esFlowAsync>),
   );

@@ -12,10 +12,9 @@ beforeAll(async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'unutils-find-executable-'));
   first = path.join(root, 'first');
   second = path.join(root, 'second');
-  await mkdir(first);
-  await mkdir(second);
   await Promise.all(
     [first, second].map(async (directory) => {
+      await mkdir(directory);
       const filePath = path.join(directory, process.platform === 'win32' ? 'tool.cmd' : 'tool');
       await writeFile(filePath, '');
       await chmod(filePath, 0o755);

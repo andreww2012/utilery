@@ -1,15 +1,18 @@
 /**
  * Invokes the callback once for each element of an iterable, in iteration
- * order. The iterable is fully consumed.
- * @param iterable - The iterable to walk. Consumed exactly once.
- * @param callback - Invoked with each value. Its return value is ignored.
+ * order.
+ * The iterable is fully consumed.
+ * @param iterable - The iterable to walk.
+ * Consumed exactly once.
+ * @param callback - Invoked with each value.
+ * Its return value is ignored.
  * @example
  * // Collect each value
  * const seen: number[] = [];
  * forEach([1, 2, 3], (value) => seen.push(value));
  * // seen === [1, 2, 3]
  * @example
- * // Works on any iterable — here, a Set
+ * // Works on any iterable: here, a Set
  * const seen: string[] = [];
  * forEach(new Set(['a', 'b']), (value) => seen.push(value));
  * // seen === ['a', 'b']

@@ -1,11 +1,11 @@
 import {zip} from 'es-toolkit/iterator';
 
 /**
- * Lazily pairs up the elements at the same positions of several iterables:
- * the `n`-th tuple holds the `n`-th element of every iterable (a "zip").
+ * Lazily pairs up the elements at the same positions of several iterables: the
+ * `n`-th tuple holds the `n`-th element of every iterable (a "zip").
  * Iteration stops as soon as the **shortest** iterable ends, so infinite
- * iterables are fine as long as one of them is finite. Every iterator is
- * closed when iteration ends.
+ * iterables are fine as long as one of them is finite.
+ * Every iterator is closed when iteration ends.
  *
  * The lazy counterpart of `array/arrayTranspose`, which pads to the longest
  * array instead.

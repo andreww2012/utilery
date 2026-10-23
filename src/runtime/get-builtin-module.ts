@@ -15,9 +15,9 @@ type BuiltinModuleId = ModuleIdOf<NodeJS.Process['getBuiltinModule']>;
  * that also runs in other environments: returns `undefined` instead of
  * failing where built-in modules are not available, like in browsers.
  *
- * Unlike a top-level `import`, nothing is loaded until the function is
- * called, so bundlers for the browser do not try to resolve the module. Works
- * in Node.js and in runtimes compatible with it (Deno, Bun).
+ * Unlike a top-level `import`, nothing is loaded until the function is called,
+ * so bundlers for the browser do not try to resolve the module.
+ * Works in Node.js and in runtimes compatible with it (Deno, Bun).
  * @param id - The ID of the built-in module, with or without the `node:` prefix.
  * @returns The module, or `undefined` if built-in modules are not available.
  * @example

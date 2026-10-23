@@ -51,9 +51,9 @@ describe('async/createSingletonPromise', () => {
     expect(calls).toBe(1);
   });
 
-  it('refreshes a value older than `ttl`', async () => {
+  it('refreshes a value older than `ttlMs`', async () => {
     let calls = 0;
-    const singleton = createSingletonPromise(() => ++calls, {ttl: 20});
+    const singleton = createSingletonPromise(() => ++calls, {ttlMs: 20});
 
     await expect(singleton()).resolves.toBe(1);
     await expect(singleton()).resolves.toBe(1);

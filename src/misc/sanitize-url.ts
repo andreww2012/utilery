@@ -8,9 +8,9 @@ import {sanitizeUrl as sanitizeUrlBase} from '@braintree/sanitize-url';
  *
  * Common tricks to hide such a scheme are handled: HTML entities
  * (`&#106;avascript:`), percent-encoding, control characters and whitespace
- * inside the scheme. Relative URLs and other schemes (`https:`, `mailto:`,
- * custom app schemes) are kept; invalid `http(s):` URLs and empty input give
- * `'about:blank'` too.
+ * inside the scheme.
+ * Relative URLs and other schemes (`https:`, `mailto:`, custom app schemes) are
+ * kept; invalid `http(s):` URLs and empty input give `'about:blank'` too.
  * @param url - The URL to sanitize.
  * @returns The URL, or `'about:blank'` if it is unsafe.
  * @example
@@ -24,5 +24,5 @@ import {sanitizeUrl as sanitizeUrlBase} from '@braintree/sanitize-url';
  * sanitizeUrl('jav&#x09;ascript:alert(1)');
  * // 'about:blank'
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const sanitizeUrl = sanitizeUrlBase;

@@ -1,25 +1,25 @@
 import {partial as esPartial, partialRight as esPartialRight} from 'es-toolkit/function';
 
 const callPartial = (
-  func: (...args: never[]) => unknown,
-  args: readonly unknown[],
+  fn: (...parameters: never[]) => unknown,
+  presetArguments: readonly unknown[],
   isFromRight: boolean,
 ) => {
   if (isFromRight) {
-    const remapped = args.map((arg) =>
-      arg === esPartial.placeholder ? esPartialRight.placeholder : arg,
+    const remapped = presetArguments.map((argument) =>
+      argument === esPartial.placeholder ? esPartialRight.placeholder : argument,
     );
 
-    return esPartialRight(func, ...remapped);
+    return esPartialRight(fn, ...remapped);
   }
 
-  return esPartial(func, ...args);
+  return esPartial(fn, ...presetArguments);
 };
 
 interface PartialFn {
-  <F extends (...args: never[]) => unknown>(
-    func: F,
-    args: readonly unknown[],
+  <F extends (...parameters: never[]) => unknown>(
+    fn: F,
+    presetArguments: readonly unknown[],
     isFromRight?: boolean,
   ): (...remaining: unknown[]) => ReturnType<F>;
 
@@ -29,12 +29,13 @@ interface PartialFn {
 /**
  * Creates a function with some leading or trailing arguments pre-applied.
  * The returned function only needs the remaining arguments at call time.
- * @param func - The function to partially apply.
- * @param args - An array of arguments to pre-apply. Use `partial.placeholder`
- * inside the array to skip a position so the caller supplies it. The same
- * placeholder symbol works for both left and right modes.
- * @param isFromRight - When `true`, `args` are applied to the rightmost
- * parameters of `func` and the returned function fills the leading ones.
+ * @param fn - The function to partially apply.
+ * @param presetArguments - An array of arguments to pre-apply.
+ * Use `partial.placeholder` inside the array to skip a position so the caller supplies
+ * it.
+ * The same placeholder symbol works for both left and right modes.
+ * @param isFromRight - When `true`, `presetArguments` are applied to the rightmost
+ * parameters of `fn` and the returned function fills the leading ones.
  * Defaults to `false`.
  * @returns A function awaiting the remaining arguments.
  * @example
@@ -56,7 +57,7 @@ interface PartialFn {
  * // 'start-mid-end'
  */
 export const partial: PartialFn = Object.assign(
-  ((func: never, args: readonly unknown[], isFromRight = false) =>
-    callPartial(func, args, isFromRight)) as PartialFn,
+  ((fn: never, presetArguments: readonly unknown[], isFromRight = false) =>
+    callPartial(fn, presetArguments, isFromRight)) as PartialFn,
   {placeholder: esPartial.placeholder},
 );

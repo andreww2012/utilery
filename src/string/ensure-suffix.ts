@@ -2,7 +2,8 @@ import {ensureSuffix as baseEnsureSuffix} from '@antfu/utils';
 
 /**
  * Ensures `value` ends with `suffix`, appending it only when it is not already
- * present. When `value` already ends with `suffix`, it is returned unchanged.
+ * present.
+ * When `value` already ends with `suffix`, it is returned unchanged.
  * The argument order puts the subject string first, mirroring native `String`
  * methods like `endsWith`/`padEnd`.
  * @param value - The string to ensure the suffix on.

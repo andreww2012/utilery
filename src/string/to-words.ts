@@ -4,8 +4,9 @@ import type {Words} from 'string-ts';
 /**
  * Splits a string into its constituent **words** (`'fooBarBaz'` →
  * `['foo', 'Bar', 'Baz']`), breaking on case boundaries, separators, and digit
- * runs while preserving each word's original case. A string literal is typed as
- * the exact tuple of word literals; a non-literal `string` returns `string[]`.
+ * runs while preserving each word's original case.
+ * A string literal is typed as the exact tuple of word literals; a non-literal
+ * `string` returns `string[]`.
  * @param value - The string to split.
  * @returns The tuple of words.
  * @example

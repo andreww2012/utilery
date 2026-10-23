@@ -3,9 +3,9 @@ import type {ConstantCase} from 'string-ts';
 import type {WidenNonLiteral} from '../_internal/types.ts';
 
 /**
- * Converts a string to **CONSTANT_CASE** (`'fooBar'` → `'FOO_BAR'`). A string
- * literal is typed as the exact constant-cased literal; a non-literal `string`
- * returns `string`.
+ * Converts a string to **CONSTANT_CASE** (`'fooBar'` → `'FOO_BAR'`).
+ * A string literal is typed as the exact constant-cased literal; a non-literal
+ * `string` returns `string`.
  * @param value - The string to convert.
  * @returns The constant-cased string.
  * @example

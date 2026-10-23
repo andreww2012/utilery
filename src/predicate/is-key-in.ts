@@ -1,13 +1,13 @@
 import {keyIn} from 'ts-extras';
 
 /**
- * Checks whether `key` exists in `object` — including inherited properties, as
- * the `in` operator does — and acts as a type guard that narrows the **key** to
- * those that actually exist in the object. This is useful for validating a
- * union of candidate keys: on a positive result, the key is narrowed to the
- * subset present in the object. The argument order mirrors the native
- * `key in object` expression. It also guards against prototype-pollution keys
- * (`__proto__`, `constructor`).
+ * Checks whether `key` exists in `object` (including inherited properties, as
+ * the `in` operator does) and acts as a type guard that narrows the **key** to
+ * those that actually exist in the object.
+ * This is useful for validating a union of candidate keys: on a positive
+ * result, the key is narrowed to the subset present in the object.
+ * The argument order mirrors the native `key in object` expression.
+ * It also guards against prototype-pollution keys (`__proto__`, `constructor`).
  *
  * To narrow the **object** instead of the key, use {@link isIn}.
  * @param key - The property key (often a union of candidates) to look for.

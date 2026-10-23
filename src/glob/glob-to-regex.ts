@@ -3,10 +3,10 @@ import {type GlobOptions, toPicomatchOptions} from './_shared.ts';
 
 /**
  * Converts a glob pattern into a regular expression matching whole paths, for
- * use where a `RegExp` is expected. Supports `*` (any characters within a
- * path segment), `**` (any number of segments), `?`, character classes
- * (`[a-z]`), braces (`{js,ts}`, `{1..3}`) and extended globs (`+(a|b)`,
- * `!(a)`).
+ * use where a `RegExp` is expected.
+ * Supports `*` (any characters within a path segment), `**` (any number of
+ * segments), `?`, character classes (`[a-z]`), braces (`{js,ts}`, `{1..3}`) and
+ * extended globs (`+(a|b)`, `!(a)`).
  *
  * Paths use `/` as the separator; pass `{windows: true}` to also accept `\`.
  * By default, wildcards don't match names starting with a dot; pass

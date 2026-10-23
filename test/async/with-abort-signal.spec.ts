@@ -4,11 +4,13 @@ describe('async/withAbortSignal', () => {
   it('settles like the promise when not aborted', async () => {
     const controller = new AbortController();
 
-    await expect(withAbortSignal(Promise.resolve(1), controller.signal)).resolves.toBe(1);
-    await expect(
-      withAbortSignal(Promise.reject(new Error('failed')), controller.signal),
-    ).rejects.toThrow('failed');
-    await expect(withAbortSignal(Promise.resolve(2))).resolves.toBe(2);
+    await Promise.all([
+      expect(withAbortSignal(Promise.resolve(1), controller.signal)).resolves.toBe(1),
+      expect(
+        withAbortSignal(Promise.reject(new Error('failed')), controller.signal),
+      ).rejects.toThrow('failed'),
+      expect(withAbortSignal(Promise.resolve(2))).resolves.toBe(2),
+    ]);
   });
 
   it('rejects with the reason when aborted first', async () => {

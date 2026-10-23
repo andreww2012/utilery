@@ -8,8 +8,10 @@ let directory: string;
 
 beforeAll(async () => {
   directory = await mkdtemp(path.join(tmpdir(), 'unutils-path-exists-'));
-  await writeFile(path.join(directory, 'file.txt'), 'text');
-  await mkdir(path.join(directory, 'nested'));
+  await Promise.all([
+    writeFile(path.join(directory, 'file.txt'), 'text'),
+    mkdir(path.join(directory, 'nested')),
+  ]);
 });
 
 afterAll(async () => {
@@ -18,8 +20,10 @@ afterAll(async () => {
 
 describe('server/pathExists', () => {
   it('returns true for an existing file or directory', async () => {
-    await expect(pathExists(path.join(directory, 'file.txt'))).resolves.toBe(true);
-    await expect(pathExists(path.join(directory, 'nested'))).resolves.toBe(true);
+    await Promise.all([
+      expect(pathExists(path.join(directory, 'file.txt'))).resolves.toBe(true),
+      expect(pathExists(path.join(directory, 'nested'))).resolves.toBe(true),
+    ]);
   });
 
   it('returns false for a missing path', async () => {

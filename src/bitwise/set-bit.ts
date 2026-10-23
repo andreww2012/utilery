@@ -3,14 +3,18 @@ import type {BitIndex} from './is-bit-index.ts';
 
 /**
  * Returns `value` with the bit at the given index set to `1`, or to `0` when
- * `isSet` is `false`. Bit `0` is the least significant one.
+ * `isSet` is `false`.
+ * Bit `0` is the least significant one.
  *
  * The result is an unsigned 32-bit integer (from `0` to `2 ** 32 - 1`), so
  * setting bit `31` gives a positive number.
  * Use `toInt32` to get a signed one.
- * @param value - The number to change. Treated as a 32-bit integer, so negative numbers work too.
- * @param bitIndex - The index of the bit, from `0` to `31`. Check a dynamic number with `isBitIndex` first.
- * @param isSet - The new state of the bit. Defaults to `true`.
+ * @param value - The number to change.
+ * Treated as a 32-bit integer, so negative numbers work too.
+ * @param bitIndex - The index of the bit, from `0` to `31`.
+ * Check a dynamic number with `isBitIndex` first.
+ * @param isSet - The new state of the bit.
+ * Defaults to `true`.
  * @returns The new number.
  * @example
  * // 0b0001 → 0b0101

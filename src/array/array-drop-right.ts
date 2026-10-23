@@ -1,15 +1,17 @@
 import {dropRight, dropRightWhile} from 'es-toolkit/array';
 
 /**
- * Removes elements from the end of an array. The number of elements to drop
- * is either given directly as a count, or determined by a predicate that decides
- * how long to keep dropping from the end (the predicate walks the array from the
- * last element backwards).
- * @param array - The array to drop elements from. Not mutated.
+ * Removes elements from the end of an array.
+ * The number of elements to drop is either given directly as a count, or
+ * determined by a predicate that decides how long to keep dropping from the end
+ * (the predicate walks the array from the last element backwards).
+ * @param array - The array to drop elements from.
+ * Not mutated.
  * @param itemsCountOrPredicate - Either the number of elements to drop from the
- * end, or a predicate `(item, index, array) => boolean`. When a predicate is
- * passed, elements are dropped from the end as long as it returns `true`; the
- * first `false` result (walking right-to-left) stops the dropping.
+ * end, or a predicate `(item, index, array) => boolean`.
+ * When a predicate is passed, elements are dropped from the end as long as it
+ * returns `true`; the first `false` result (walking right-to-left) stops the
+ * dropping.
  * @returns A new array with the trailing elements removed.
  * @example
  * // Drop the last N elements

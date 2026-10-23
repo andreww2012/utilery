@@ -5,14 +5,16 @@ const COLON_DURATION_REGEX = /^(-?)(\d+(?::\d{2}){1,3})(?:\.(\d+))?$/;
  * Parses a duration written in colon notation, the digital watch format used
  * by media players and race timers, into milliseconds.
  *
- * Accepts `m:ss`, `h:mm:ss` and `d:hh:mm:ss`, optionally with a leading `-`
- * and a fractional part of seconds (`1:35.5`). Every field except the first
- * must have exactly two digits and stay within its range (below 60 for minutes
- * and seconds, below 24 for hours). The first field may be as large as needed,
- * so `90:00` (90 minutes) and `25:00:00` (25 hours) are valid.
+ * Accepts `m:ss`, `h:mm:ss` and `d:hh:mm:ss`, optionally with a leading `-` and
+ * a fractional part of seconds (`1:35.5`).
+ * Every field except the first must have exactly two digits and stay within its
+ * range (below 60 for minutes and seconds, below 24 for hours).
+ * The first field may be as large as needed, so `90:00` (90 minutes) and
+ * `25:00:00` (25 hours) are valid.
  *
  * This is the reverse of `formatDuration` with `{colonNotation: true}`.
- * @param text - The duration to parse. Surrounding whitespace is not allowed.
+ * @param text - The duration to parse.
+ * Surrounding whitespace is not allowed.
  * @returns The duration in milliseconds, or `undefined` when `text` is not a valid duration.
  * @example
  * // Minutes and hours

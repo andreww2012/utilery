@@ -1,14 +1,13 @@
-// cspell:ignore Monaten
 import {formatRelativeTime} from '../../src/misc/format-relative-time.ts';
 
-const NOW = new Date('2024-06-15T12:00:00Z');
+const now = new Date('2024-06-15T12:00:00Z');
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
 const format = (offset: number, options = {}) =>
-  formatRelativeTime(NOW.getTime() + offset, {now: NOW, locale: 'en', ...options});
+  formatRelativeTime(now.getTime() + offset, {now, locale: 'en', ...options});
 
 describe('misc/formatRelativeTime', () => {
   it('uses the largest fitting unit', () => {
@@ -33,7 +32,7 @@ describe('misc/formatRelativeTime', () => {
   });
 
   it('supports the locale and the style', () => {
-    expect(format(-60 * DAY, {locale: 'de'})).toBe('vor 2 Monaten');
+    expect(format(-60 * DAY, {locale: 'de'})).toBe('vor 2 Monaten'); // cspell:disable-line
     expect(format(-5 * MINUTE, {style: 'short'})).toBe('5 min. ago');
   });
 

@@ -6,7 +6,7 @@ import path from 'node:path';
 export const ROOT = path.resolve(import.meta.dirname, '..');
 const DIST_NODE_MODULES = path.join(ROOT, 'dist', 'node_modules');
 // The actual set of bundled packages is whatever `tsdown` emits here, which includes
-// transitively bundled dependencies the declared `BUNDLED_PACKAGES` list does not track.
+// transitively bundled dependencies the declared `BUNDLED_PACKAGES` list does not track
 export const DIST_PNPM = path.join(DIST_NODE_MODULES, '.pnpm');
 export const NOTICES_PATH = path.join(ROOT, 'THIRD_PARTY_NOTICES.md');
 

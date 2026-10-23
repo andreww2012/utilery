@@ -8,8 +8,10 @@ const never = () =>
 
 describe('async/withTimeout', () => {
   it('resolves with the result in time', async () => {
-    await expect(withTimeout(() => Promise.resolve(42), 50)).resolves.toBe(42);
-    await expect(withTimeout(() => 'sync', 50)).resolves.toBe('sync');
+    await Promise.all([
+      expect(withTimeout(() => Promise.resolve(42), 50)).resolves.toBe(42),
+      expect(withTimeout(() => 'sync', 50)).resolves.toBe('sync'),
+    ]);
   });
 
   it('rejects with a `TimeoutError` and aborts the signal', async () => {
@@ -27,12 +29,14 @@ describe('async/withTimeout', () => {
   it('rejects when the given signal is aborted', async () => {
     const controller = new AbortController();
     const promise = withTimeout(never, 1000, {signal: controller.signal});
-    controller.abort(new Error('cancelled'));
+    controller.abort(new Error('canceled'));
 
-    await expect(promise).rejects.toThrow('cancelled');
-    await expect(withTimeout(never, 1000, {signal: AbortSignal.abort()})).rejects.toMatchObject({
-      name: 'AbortError',
-    });
+    await Promise.all([
+      expect(promise).rejects.toThrow('canceled'),
+      expect(withTimeout(never, 1000, {signal: AbortSignal.abort()})).rejects.toMatchObject({
+        name: 'AbortError',
+      }),
+    ]);
   });
 
   it('passes errors through', async () => {

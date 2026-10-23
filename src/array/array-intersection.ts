@@ -1,9 +1,10 @@
 import {intersectionBy, intersectionWith} from 'es-toolkit/array';
 
 /**
- * Returns the intersection of two arrays — the elements from `firstArray` that
- * are also present in `secondArray`. The strategy used for the equality check
- * depends on the optional third argument:
+ * Returns the intersection of two arrays: the elements from `firstArray` that
+ * are also present in `secondArray`.
+ * The strategy used for the equality check depends on the optional third
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (the same semantics
  *   as `Set.prototype.has`).
@@ -12,7 +13,8 @@ import {intersectionBy, intersectionWith} from 'es-toolkit/array';
  * - When a unary function `(value) => key` is passed, both arrays are mapped
  *   through it and the resulting keys are compared (delegates to
  *   `intersectionBy`).
- * @param firstArray - The array whose elements may appear in the result. Not mutated.
+ * @param firstArray - The array whose elements may appear in the result.
+ * Not mutated.
  * @param secondArray - The array of elements to intersect with.
  * @returns A new array containing the elements from `firstArray` that also appear in `secondArray`.
  * @example
@@ -20,7 +22,7 @@ import {intersectionBy, intersectionWith} from 'es-toolkit/array';
  * arrayIntersection([1, 2, 3, 4, 5], [2, 4, 6]);
  * // [2, 4]
  * @example
- * // With a mapper — compare by a derived key
+ * // With a mapper: compare by a derived key
  * arrayIntersection(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 2}, {id: 4}],

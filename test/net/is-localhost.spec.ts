@@ -1,4 +1,3 @@
-// cspell:ignore notlocalhost
 import {isLocalhost} from '../../src/net/is-localhost.ts';
 
 describe('net/isLocalhost', () => {
@@ -21,7 +20,7 @@ describe('net/isLocalhost', () => {
   it('rejects other hosts', () => {
     expect(isLocalhost('example.com')).toBe(false);
     expect(isLocalhost('localhost.example.com')).toBe(false);
-    expect(isLocalhost('notlocalhost')).toBe(false);
+    expect(isLocalhost('notlocalhost')).toBe(false); // cspell:disable-line
     expect(isLocalhost('0.0.0.0')).toBe(false);
     expect(isLocalhost('192.168.0.1')).toBe(false);
     expect(isLocalhost('')).toBe(false);

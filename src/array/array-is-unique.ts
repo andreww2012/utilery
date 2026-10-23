@@ -2,8 +2,9 @@ import {findDuplicates} from '../_internal/find-duplicates.ts';
 
 /**
  * Checks whether no element of the array repeats another one, stopping at the
- * first repeat. The strategy used for the equality check depends on the
- * optional second argument:
+ * first repeat.
+ * The strategy used for the equality check depends on the optional second
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (the same semantics
  *   as `Set.prototype.has`).
@@ -16,7 +17,8 @@ import {findDuplicates} from '../_internal/find-duplicates.ts';
  * passed directly as a callback, e.g. `arrays.filter(arrayIsUnique)`.
  *
  * To get the repeated elements, use `arrayFindDuplicates`.
- * @param array - The array to check. Not mutated.
+ * @param array - The array to check.
+ * Not mutated.
  * @returns `true` if every element is unique (including for an empty array), otherwise `false`.
  * @example
  * // Basic equality (SameValueZero)
@@ -25,7 +27,7 @@ import {findDuplicates} from '../_internal/find-duplicates.ts';
  * arrayIsUnique([1, 2, 1]);
  * // false
  * @example
- * // With a mapper — check uniqueness of a derived key
+ * // With a mapper: check uniqueness of a derived key
  * arrayIsUnique([{id: 1}, {id: 2}, {id: 1}], (item) => item.id);
  * // false
  * @example
@@ -41,8 +43,10 @@ export function arrayIsUnique(array: readonly unknown[]): boolean;
 
 /**
  * Checks whether no element of the array repeats another one, comparing
- * elements with a custom function. Stops at the first repeat.
- * @param array - The array to check. Not mutated.
+ * elements with a custom function.
+ * Stops at the first repeat.
+ * @param array - The array to check.
+ * Not mutated.
  * @param areItemsEqual - Tells whether two elements are equal.
  * @returns `true` if every element is unique (including for an empty array), otherwise `false`.
  * @example
@@ -56,8 +60,10 @@ export function arrayIsUnique<T>(
 
 /**
  * Checks whether no element of the array repeats another one, comparing the
- * keys a function maps them to. Stops at the first repeat.
- * @param array - The array to check. Not mutated.
+ * keys a function maps them to.
+ * Stops at the first repeat.
+ * @param array - The array to check.
+ * Not mutated.
  * @param mapper - Maps an element to the key to compare.
  * @returns `true` if every element is unique (including for an empty array), otherwise `false`.
  * @example

@@ -73,8 +73,8 @@ describe('array/arrayTranspose', () => {
           [1, 2],
           [3, 4],
         ],
-        (...args: number[]) => {
-          calls.push(args);
+        (...values: number[]) => {
+          calls.push(values);
           return 0;
         },
       );
@@ -88,9 +88,9 @@ describe('array/arrayTranspose', () => {
     it('passes `undefined` for missing positions in jagged rows', () => {
       const calls: (number | undefined)[][] = [];
 
-      arrayTranspose([[1, 2, 3], [4]], (...args: (number | undefined)[]) => {
-        calls.push(args);
-        return args;
+      arrayTranspose([[1, 2, 3], [4]], (...values: (number | undefined)[]) => {
+        calls.push(values);
+        return values;
       });
 
       expect(calls).toStrictEqual([
@@ -101,11 +101,13 @@ describe('array/arrayTranspose', () => {
     });
 
     it('returns an empty array when the input is empty', () => {
-      expect(arrayTranspose([] as number[][], (...args: number[]) => args)).toStrictEqual([]);
+      expect(arrayTranspose([] as number[][], (...values: number[]) => values)).toStrictEqual([]);
     });
 
     it('returns an empty array when every row is empty', () => {
-      expect(arrayTranspose([[], []] as number[][], (...args: number[]) => args)).toStrictEqual([]);
+      expect(arrayTranspose([[], []] as number[][], (...values: number[]) => values)).toStrictEqual(
+        [],
+      );
     });
   });
 });

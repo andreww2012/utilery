@@ -3,8 +3,9 @@ import {base64ToString as base64ToStringBase} from 'uint8array-extras';
 
 /**
  * Decodes a Base64 or Base64URL string (with or without the `=` padding) and
- * reads the bytes as UTF-8 text. Unlike `atob`, decodes characters outside
- * Latin-1, like emoji or Cyrillic letters, correctly.
+ * reads the bytes as UTF-8 text.
+ * Unlike `atob`, decodes characters outside Latin-1, like emoji or Cyrillic
+ * letters, correctly.
  *
  * Throws a `DOMException` (`InvalidCharacterError`) when the string is not
  * valid Base64.

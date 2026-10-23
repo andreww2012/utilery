@@ -10,11 +10,13 @@ let directory: string;
 beforeAll(async () => {
   directory = await mkdtemp(path.join(tmpdir(), 'unutils-read-files-in-directory-safe-'));
   await mkdir(path.join(directory, 'nested', 'deeper'), {recursive: true});
-  await writeFile(path.join(directory, 'b.json'), '{}');
-  await writeFile(path.join(directory, 'a.md'), '# A');
-  await writeFile(path.join(directory, 'types.d.ts'), 'export {};');
-  await writeFile(path.join(directory, 'nested', 'c.md'), '# C');
-  await writeFile(path.join(directory, 'nested', 'deeper', 'd.md'), '# D');
+  await Promise.all([
+    writeFile(path.join(directory, 'b.json'), '{}'),
+    writeFile(path.join(directory, 'a.md'), '# A'),
+    writeFile(path.join(directory, 'types.d.ts'), 'export {};'),
+    writeFile(path.join(directory, 'nested', 'c.md'), '# C'),
+    writeFile(path.join(directory, 'nested', 'deeper', 'd.md'), '# D'),
+  ]);
 });
 
 afterAll(async () => {
@@ -51,14 +53,16 @@ describe('server/readFilesInDirectorySafe', () => {
   });
 
   it('only reads the files with the given extensions', async () => {
-    await expect(
-      readFilesInDirectorySafe(directory, {recursive: true, extensions: 'md'}).then(
-        toRelativePaths,
-      ),
-    ).resolves.toStrictEqual(['a.md', 'nested/c.md', 'nested/deeper/d.md']);
-    await expect(
-      readFilesInDirectorySafe(directory, {extensions: ['.json', '.d.ts']}).then(toRelativePaths),
-    ).resolves.toStrictEqual(['b.json', 'types.d.ts']);
+    await Promise.all([
+      expect(
+        readFilesInDirectorySafe(directory, {recursive: true, extensions: 'md'}).then(
+          toRelativePaths,
+        ),
+      ).resolves.toStrictEqual(['a.md', 'nested/c.md', 'nested/deeper/d.md']),
+      expect(
+        readFilesInDirectorySafe(directory, {extensions: ['.json', '.d.ts']}).then(toRelativePaths),
+      ).resolves.toStrictEqual(['b.json', 'types.d.ts']),
+    ]);
   });
 
   it('only reads the files passing the filter', async () => {
@@ -94,8 +98,10 @@ describe('server/readFilesInDirectorySafe', () => {
 
   it('skips a file deleted after the directory was listed', async () => {
     const changingDirectory = await mkdtemp(path.join(tmpdir(), 'unutils-read-files-deleted-'));
-    await writeFile(path.join(changingDirectory, 'kept.txt'), 'kept');
-    await writeFile(path.join(changingDirectory, 'deleted.txt'), 'deleted');
+    await Promise.all([
+      writeFile(path.join(changingDirectory, 'kept.txt'), 'kept'),
+      writeFile(path.join(changingDirectory, 'deleted.txt'), 'deleted'),
+    ]);
 
     try {
       await expect(

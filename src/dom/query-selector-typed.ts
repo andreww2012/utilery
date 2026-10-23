@@ -5,16 +5,19 @@ import type {ElementFromSelector} from './element-from-selector.ts';
  * `'button#submit'` returns `HTMLButtonElement | null` rather than `Element | null`,
  * so no cast or type argument is needed at the call site.
  *
- * At runtime this is exactly `root.querySelector(selector)` — all of the added value
- * is in the types. A malformed selector still throws, as it does natively.
+ * At runtime this is exactly `root.querySelector(selector)`: all of the added value
+ * is in the types.
+ * A malformed selector still throws, as it does natively.
  *
  * The selector must be a string *literal*: inference reads the literal type, so a
  * dynamically built (widened `string`) selector falls back to `Element`.
- * An unknown tag — a custom element — also falls back to `Element`; use
+ * An unknown tag (a custom element) also falls back to `Element`; use
  * `querySelectorTyped.as<T>(selector, root?)` to state the type yourself, or augment
  * `HTMLElementTagNameMap` if the same element is queried across the project.
- * @param selector - The CSS selector to match. A literal type yields a precise result.
- * @param root - Where to search. Defaults to `document`.
+ * @param selector - The CSS selector to match.
+ * A literal type yields a precise result.
+ * @param root - Where to search.
+ * Defaults to `document`.
  * @returns The first matching element, typed from the selector, or `null` if nothing matches.
  * @example
  * const submit = querySelectorTyped('button#submit');

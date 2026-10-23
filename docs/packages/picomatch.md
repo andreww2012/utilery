@@ -10,7 +10,7 @@ The `glob` group / `unutils/glob`.
 | [`isMatch`][api]                                                  | ✅     | `glob/isGlobMatch`          | Renamed; same options                                                                                                |
 | [`scan`][api]                                                     | ✅     | `glob/isGlobPattern`        | Only its `isGlob` result                                                                                             |
 | [`picomatch`][api]                                                | ❌     | `glob/createPathFilter`     | Covered: matchers with include and exclude patterns, which can also be regular expressions                           |
-| `test`, `matchBase`, `parse`, `compileRe`, `toRegex`, `constants` | ❌     | —                           | Low-level parts of the matcher                                                                                       |
-| `picomatch/posix`                                                 | ❌     | —                           | Paths are POSIX by default already                                                                                   |
+| `test`, `matchBase`, `parse`, `compileRe`, `toRegex`, `constants` | ❌     | -                           | Low-level parts of the matcher                                                                                       |
+| `picomatch/posix`                                                 | ❌     | -                           | Paths are POSIX by default already                                                                                   |
 
 [api]: https://github.com/micromatch/picomatch#api

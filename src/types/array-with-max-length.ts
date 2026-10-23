@@ -1,6 +1,8 @@
 /**
- * Every shape `TArray` can take once it is known to hold no more than `TMaxLength` elements: a union of tuples of length `0` through `TMaxLength` that keeps the element type of each position.
- * Shapes `TArray` can never actually take are dropped, so an input whose required elements alone already exceed `TMaxLength` resolves to `never`.
+ * Every shape `TArray` can take once it is known to hold no more than `TMaxLength` elements: a
+ * union of tuples of length `0` through `TMaxLength` that keeps the element type of each position.
+ * Shapes `TArray` can never actually take are dropped, so an input whose required elements alone
+ * already exceed `TMaxLength` resolves to `never`.
  * `readonly` is carried over to every member of the union.
  * A non-literal `TMaxLength` constrains nothing and yields `TArray` unchanged.
  * @example
@@ -23,8 +25,10 @@ export type ArrayWithMaxLength<
   : Truncate<TArray, TMaxLength, [], never, TArray extends unknown[] ? false : true>;
 
 /**
- * Walks `TArray` one element at a time, collecting into `TAccumulator` and banking a union member into `TResult` at every length the input is allowed to stop at.
- * Both recursive branches are bare calls so TypeScript's tail-call elimination applies; building the union inside either branch instead would cap `TMaxLength` at ~47.
+ * Walks `TArray` one element at a time, collecting into `TAccumulator` and banking a union member
+ * into `TResult` at every length the input is allowed to stop at.
+ * Both recursive branches are bare calls so TypeScript's tail-call elimination applies; building
+ * the union inside either branch instead would cap `TMaxLength` at ~47
  */
 type Truncate<
   TArray extends readonly unknown[],
@@ -50,8 +54,8 @@ type Truncate<
           >
         : TResult | WithReadonly<TAccumulator, TIsReadonly>;
 
-// Spelled out as a tuple rather than `Readonly<…>` so every leaf stays visibly an
-// array type — a type predicate is only assignable to its parameter when
+// Spelled out as a tuple rather than `Readonly<...>` so every leaf stays visibly an
+// array type: a type predicate is only assignable to its parameter when
 // TypeScript can see that without resolving the conditional
 type WithReadonly<TTuple extends unknown[], TIsReadonly extends boolean> = TIsReadonly extends true
   ? readonly [...TTuple]

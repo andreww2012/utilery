@@ -1,10 +1,9 @@
-// cspell:ignore Привет
 import {base64ToString} from '../../src/bytes/base64-to-string.ts';
 
 describe('bytes/base64ToString', () => {
   it('decodes Base64 as UTF-8 text', () => {
     expect(base64ToString('SGVsbG8=')).toBe('Hello');
-    expect(base64ToString('0J/RgNC40LLQtdGC')).toBe('Привет');
+    expect(base64ToString('0J/RgNC40LLQtdGC')).toBe('Привет'); // cspell:disable-line
   });
 
   it('decodes Base64URL with or without padding', () => {

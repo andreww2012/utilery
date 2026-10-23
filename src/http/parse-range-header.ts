@@ -15,11 +15,14 @@ export interface ParsedRangeHeader {
  * (`'bytes=500-'`) are turned into exact indexes.
  *
  * Pass `{combine: true}` to merge overlapping and adjacent ranges.
- * @param header - The header value (`null` and `undefined` are accepted, as returned by `Headers#get`).
+ * @param header - The header value (`null` and `undefined` are accepted, as returned by
+ * `Headers#get`).
  * @param size - The size of the resource, in the unit of the ranges.
  * @param options - Options.
  * @param options.combine - Merge overlapping and adjacent ranges (defaults to `false`).
- * @returns The unit and the ranges; `'unsatisfiable'` if no range is within the size (the server should respond with `416 Range Not Satisfiable`); `undefined` if the header is missing or invalid (it should be ignored).
+ * @returns The unit and the ranges; `'unsatisfiable'` if no range is within the size (the server
+ * should respond with `416 Range Not Satisfiable`); `undefined` if the header is missing or invalid
+ * (it should be ignored).
  * @example
  * parseRangeHeader('bytes=0-499', 1000);
  * // {unit: 'bytes', ranges: [{start: 0, end: 499}]}

@@ -1,3 +1,4 @@
+# cspell:ignore GHSA
 # `ncu` only updates catalogs in workspace mode, which needs this.
 # It also makes Changesets name git tags `<package-name>@<version>` instead of `v<version>`
 packages:

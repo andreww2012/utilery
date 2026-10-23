@@ -7,15 +7,16 @@ export function reduce<T, A>(
 
 /**
  * Reduces an iterable to a single accumulated value by applying the reducer
- * function to each element. When `initialValue` is omitted, the first
- * yielded element is used as the starting accumulator and the reducer runs
- * from the second element onward.
- * @param iterable - The iterable to reduce. Consumed exactly once.
+ * function to each element.
+ * When `initialValue` is omitted, the first yielded element is used as the
+ * starting accumulator and the reducer runs from the second element onward.
+ * @param iterable - The iterable to reduce.
+ * Consumed exactly once.
  * @param reducer - Receives the running accumulator and the current value;
  * returns the next accumulator.
- * @param initialValue - Optional starting accumulator. If omitted, the first
- * element of the iterable is used and the iterable must yield at least one
- * value.
+ * @param initialValue - Optional starting accumulator.
+ * If omitted, the first element of the iterable is used and the iterable must
+ * yield at least one value.
  * @returns The final accumulated value.
  * @throws {TypeError} If `initialValue` is omitted and the iterable is empty.
  * @example

@@ -32,7 +32,7 @@ describe('function/memoizeAsync', () => {
   it('supports the options', async () => {
     const fn = vi.fn<(a: number, b: number) => Promise<number>>((a, b) => Promise.resolve(a + b));
     const memoized = memoizeAsync(fn, {
-      cacheKey: (args) => args.join(','),
+      cacheKey: (callArguments) => callArguments.join(','),
       shouldCache: (sum) => sum > 0,
     });
 

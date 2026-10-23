@@ -10,12 +10,14 @@ const joinRecipients = (value: MaybeReadonlyArray<string> | undefined) =>
  * directly as an `href`.
  *
  * By default the primary recipients are placed in the link's path
- * (`mailto:a@x.com,b@x.com?subject=…`), the canonical form understood by every
- * mail client. Set `recipientsAsQueryParam` to instead emit them as a `to`
- * query parameter (`mailto:?to=a@x.com&subject=…`); `cc` and `bcc` are always
- * query parameters. Each recipient field accepts a single address or an array,
- * and empty or nullish entries are dropped. With no fields set, a bare
- * `mailto:` is returned.
+ * (`mailto:a@x.com,b@x.com?subject=...`), the canonical form understood by every
+ * mail client.
+ * Set `recipientsAsQueryParam` to instead emit them as a `to` query parameter
+ * (`mailto:?to=a@x.com&subject=...`); `cc` and `bcc` are always query
+ * parameters.
+ * Each recipient field accepts a single address or an array, and empty or
+ * nullish entries are dropped.
+ * With no fields set, a bare `mailto:` is returned.
  * @param options - The link fields.
  * @param options.to - Primary recipient address(es).
  * @param options.cc - Carbon-copy recipient address(es).
@@ -23,7 +25,8 @@ const joinRecipients = (value: MaybeReadonlyArray<string> | undefined) =>
  * @param options.subject - Subject line.
  * @param options.body - Message body.
  * @param options.recipientsAsQueryParam - Emit the primary recipients as a `to`
- * query parameter instead of in the path. Defaults to `false`.
+ * query parameter instead of in the path.
+ * Defaults to `false`.
  * @returns The assembled `mailto:` link.
  * @example
  * // Recipient in the path (canonical form)

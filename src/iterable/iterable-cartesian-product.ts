@@ -1,14 +1,15 @@
 import {cartesianProduct} from 'es-toolkit/iterator';
 
 /**
- * Lazily yields every tuple made by picking one element from each iterable
- * (the Cartesian product), in lexicographic order: the last iterable changes
- * fastest. Yields a single empty tuple when no iterables are passed, and
- * nothing when any of them is empty.
+ * Lazily yields every tuple made by picking one element from each iterable (the
+ * Cartesian product), in lexicographic order: the last iterable changes
+ * fastest.
+ * Yields a single empty tuple when no iterables are passed, and nothing when
+ * any of them is empty.
  *
  * Every iterable except the first one is read into an array when iteration
- * starts, as it is traversed many times. The first one is read lazily, so it
- * may be infinite.
+ * starts, as it is traversed many times.
+ * The first one is read lazily, so it may be infinite.
  *
  * The lazy counterpart of `array/cartesianProduct`.
  * @param iterables - The iterables to combine.

@@ -8,8 +8,8 @@ export type CacheControlDirectives = CacheControlValue;
 
 /**
  * Builds a `Cache-Control` HTTP header from an object of directives, the
- * reverse of `parseCacheControl`. Numbers are seconds; `false`, `null` and
- * missing directives are left out.
+ * reverse of `parseCacheControl`.
+ * Numbers are seconds; `false`, `null` and missing directives are left out.
  * @param directives - The directives, like `{public: true, maxAge: 600}`.
  * @returns The header value.
  * @example

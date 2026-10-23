@@ -1,4 +1,4 @@
-// cspell:ignore mred nifragili nstic supercal
+// cspell:ignore nifragili nstic supercal
 import {stripAnsi} from '../../src/string/strip-ansi.ts';
 import {wrapText} from '../../src/string/wrap-text.ts';
 
@@ -19,7 +19,7 @@ describe('string/wrapText', () => {
   });
 
   it('keeps ANSI styles on every line', () => {
-    const wrapped = wrapText('\u{1B}[31mred text here\u{1B}[39m', 8);
+    const wrapped = wrapText('\u{1B}[31mred text here\u{1B}[39m', 8); // cspell:disable-line
 
     expect(stripAnsi(wrapped)).toBe('red text\nhere');
 

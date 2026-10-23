@@ -3,7 +3,8 @@ import {closestMatch} from 'leven';
 /**
  * Finds the candidate most similar to a string, by the Levenshtein distance
  * (see `levenshteinDistance`): the base of "did you mean ...?" suggestions for
- * mistyped commands, options or keys. On a tie, the earlier candidate wins.
+ * mistyped commands, options or keys.
+ * On a tie, the earlier candidate wins.
  *
  * Pass `maxDistance` to only accept close enough candidates; without it, some
  * candidate is always returned, however different.
@@ -11,7 +12,8 @@ import {closestMatch} from 'leven';
  * @param candidates - The strings to choose from.
  * @param options - Options.
  * @param options.maxDistance - The largest accepted distance.
- * @returns The closest candidate, or `undefined` if there are no candidates or none is within `maxDistance`.
+ * @returns The closest candidate, or `undefined` if there are no candidates or none is within
+ * `maxDistance`.
  * @example
  * findClosestString('kitten', ['sitting', 'kitchen', 'mittens']);
  * // 'kitchen'

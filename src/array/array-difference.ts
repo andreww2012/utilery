@@ -1,9 +1,10 @@
 import {differenceBy, differenceWith} from 'es-toolkit/array';
 
 /**
- * Returns the difference of two arrays — the elements from `firstArray` that
- * are *not* present in `secondArray`. The strategy used for the equality
- * check depends on the optional third argument:
+ * Returns the difference of two arrays: the elements from `firstArray` that are
+ * *not* present in `secondArray`.
+ * The strategy used for the equality check depends on the optional third
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (the same
  *   semantics as `Set.prototype.has`).
@@ -12,15 +13,17 @@ import {differenceBy, differenceWith} from 'es-toolkit/array';
  * - When a unary function `(value) => key` is passed, both arrays are mapped
  *   through it and the resulting keys are compared (delegates to
  *   `differenceBy`).
- * @param firstArray - The array whose elements may appear in the result. Not mutated.
+ * @param firstArray - The array whose elements may appear in the result.
+ * Not mutated.
  * @param secondArray - The array of elements to exclude.
- * @returns A new array containing the elements from `firstArray` that do not appear in `secondArray`.
+ * @returns A new array containing the elements from `firstArray` that do not appear in
+ * `secondArray`.
  * @example
  * // Basic equality (SameValueZero)
  * arrayDifference([1, 2, 3, 4, 5], [2, 4]);
  * // [1, 3, 5]
  * @example
- * // With a mapper — compare by a derived key
+ * // With a mapper: compare by a derived key
  * arrayDifference(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 2}, {id: 4}],

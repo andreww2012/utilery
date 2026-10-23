@@ -1,6 +1,7 @@
 /**
  * Finds the value closest to a target number, like the nearest available size
- * or the nearest step. On a tie, the earlier value wins.
+ * or the nearest step.
+ * On a tie, the earlier value wins.
  * @param values - The numbers to choose from.
  * @param target - The number to get close to.
  * @returns The closest value, or `undefined` if there are no values.

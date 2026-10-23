@@ -4,8 +4,8 @@ export type {Options as FormatDurationOptions} from 'pretty-ms';
 
 /**
  * Formats a duration in milliseconds as a human-readable string, like
- * `'15d 11h 23m 20s'`. Accepts a number or a bigint; negative durations get a
- * leading `-`.
+ * `'15d 11h 23m 20s'`.
+ * Accepts a number or a bigint; negative durations get a leading `-`.
  *
  * Highlights of the options:
  *
@@ -14,9 +14,10 @@ export type {Options as FormatDurationOptions} from 'pretty-ms';
  * - `secondsDecimalDigits`: digits after the decimal point of seconds
  *   (defaults to `1`).
  * - `colonNotation`: digital watch format (`'5:01:45'`), always showing at
- *   least minutes. Combine it with `hideYearAndDays` to count hours past 24
- *   (`'25:00:00'`) instead of adding day and year fields. Parse such strings
- *   back with `parseColonDuration`.
+ *   least minutes.
+ *   Combine it with `hideYearAndDays` to count hours past 24 (`'25:00:00'`)
+ *   instead of adding day and year fields.
+ *   Parse such strings back with `parseColonDuration`.
  * - `hideYear`, `hideYearAndDays`, `hideSeconds`: leave out the larger or
  *   smaller units, adding their values to the neighboring ones.
  * @param milliseconds - The duration in milliseconds.
@@ -45,5 +46,5 @@ export type {Options as FormatDurationOptions} from 'pretty-ms';
  * formatDuration(90_061_000, {colonNotation: true, hideYearAndDays: true});
  * // '25:01:01'
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const formatDuration = prettyMilliseconds;

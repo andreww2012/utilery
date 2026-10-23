@@ -1,44 +1,58 @@
 // cspell:ignore Monaten
-const SECOND = 1000;
-const MINUTE = 60 * SECOND;
-const HOUR = 60 * MINUTE;
-const DAY = 24 * HOUR;
+const SECOND_MS = 1000;
+const MINUTE_MS = 60 * SECOND_MS;
+const HOUR_MS = 60 * MINUTE_MS;
+const DAY_MS = 24 * HOUR_MS;
 
 const UNITS: readonly (readonly [Intl.RelativeTimeFormatUnit, number])[] = [
-  ['year', 365 * DAY],
-  ['month', 30 * DAY],
-  ['week', 7 * DAY],
-  ['day', DAY],
-  ['hour', HOUR],
-  ['minute', MINUTE],
-  ['second', SECOND],
+  ['year', 365 * DAY_MS],
+  ['month', 30 * DAY_MS],
+  ['week', 7 * DAY_MS],
+  ['day', DAY_MS],
+  ['hour', HOUR_MS],
+  ['minute', MINUTE_MS],
+  ['second', SECOND_MS],
 ];
 
 /** Options of `formatRelativeTime` */
 export interface FormatRelativeTimeOptions {
-  /** The moment to compare against. Defaults to the current time */
+  /**
+   * The moment to compare against.
+   * Defaults to the current time
+   */
   now?: Date | number;
-  /** A language tag (or a list of them), like `'en'` or `'de'`. Defaults to the runtime locale */
+
+  /**
+   * A language tag (or a list of them), like `'en'` or `'de'`.
+   * Defaults to the runtime locale
+   */
   locale?: Intl.LocalesArgument;
-  /** `'long'` (`'in 3 months'`), `'short'` (`'in 3 mo.'`) or `'narrow'`. Defaults to `'long'` */
+
+  /**
+   * `'long'` (`'in 3 months'`), `'short'` (`'in 3 mo.'`) or `'narrow'`.
+   * Defaults to `'long'`
+   */
   style?: Intl.RelativeTimeFormatStyle;
 
   /**
    * `'auto'` uses words where the language has them (`'yesterday'`, `'now'`),
-   * `'always'` always uses numbers (`'1 day ago'`). Defaults to `'auto'`
+   * `'always'` always uses numbers (`'1 day ago'`).
+   * Defaults to `'auto'`
    */
   numeric?: Intl.RelativeTimeFormatNumeric;
 }
 
 /**
- * Formats a date relative to now, like `'3 days ago'` or `'in 2 hours'`, in
- * any language. The largest fitting unit is used (seconds, minutes, hours,
- * days, weeks, months or years), and the number is rounded to the nearest
- * integer. A month counts as 30 days and a year as 365 days.
+ * Formats a date relative to now, like `'3 days ago'` or `'in 2 hours'`, in any
+ * language.
+ * The largest fitting unit is used (seconds, minutes, hours, days, weeks,
+ * months or years), and the number is rounded to the nearest integer.
+ * A month counts as 30 days and a year as 365 days.
  *
  * Throws a `RangeError` for an invalid date.
  * @param date - The date to format (a `Date` or a timestamp in milliseconds).
- * @param options - `now`: the moment to compare against; `locale`; `style` (defaults to `'long'`); `numeric` (defaults to `'auto'`).
+ * @param options - `now`: the moment to compare against; `locale`; `style` (defaults to `'long'`);
+ * `numeric` (defaults to `'auto'`).
  * @returns The relative time.
  * @example
  * formatRelativeTime(Date.now() - 3 * 24 * 60 * 60 * 1000, {locale: 'en'});
@@ -59,12 +73,12 @@ export const formatRelativeTime = (
   options: FormatRelativeTimeOptions = {},
 ) => {
   const {now = Date.now(), locale, style, numeric = 'auto'} = options;
-  const difference = Number(date) - Number(now);
+  const differenceMs = Number(date) - Number(now);
   const [unit, unitMilliseconds] = UNITS.find(
-    ([, milliseconds]) => Math.abs(difference) >= milliseconds,
-  ) || ['second', SECOND];
+    ([, milliseconds]) => Math.abs(differenceMs) >= milliseconds,
+  ) || ['second', SECOND_MS];
 
   // Rounded by the absolute value, so that the past and the future are symmetric
-  const value = Math.sign(difference) * Math.round(Math.abs(difference) / unitMilliseconds);
+  const value = Math.sign(differenceMs) * Math.round(Math.abs(differenceMs) / unitMilliseconds);
   return new Intl.RelativeTimeFormat(locale, {style, numeric}).format(value, unit);
 };

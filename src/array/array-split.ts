@@ -6,18 +6,20 @@ type SplitAt<T extends readonly unknown[], Index extends number> = number extend
   : [ArraySlice<T, 0, Index>, ArraySlice<T, Index>];
 
 /**
- * Splits an array into a `[before, after]` pair. The split point is either an
- * index, or determined by a predicate matching the first element that should
- * begin the second part.
+ * Splits an array into a `[before, after]` pair.
+ * The split point is either an index, or determined by a predicate matching the
+ * first element that should begin the second part.
  *
- * A single second argument selects the split mode — pass a predicate to split at
+ * A single second argument selects the split mode: pass a predicate to split at
  * the first match instead of a fixed index.
  *
  * The index form is **tuple-preserving**: splitting a fixed-length tuple at a
  * literal index yields the exact sub-tuples (a negative index counts from the
- * end, just like `Array#slice`), rather than the widened `[T[], T[]]`. A
- * non-literal index or a predicate falls back to `[T[number][], T[number][]]`.
- * @param array - The array (or tuple) to split. Not mutated.
+ * end, just like `Array#slice`), rather than the widened `[T[], T[]]`.
+ * A non-literal index or a predicate falls back to
+ * `[T[number][], T[number][]]`.
+ * @param array - The array (or tuple) to split.
+ * Not mutated.
  * @param index - The index at which to split (negative counts from the end).
  * Alternatively, pass a predicate `(value, index, array) => boolean` to split at
  * the first matching element; when nothing matches, the second part is empty.
@@ -27,7 +29,7 @@ type SplitAt<T extends readonly unknown[], Index extends number> = number extend
  * arraySplit([1, 2, 3, 4, 5], 2);
  * // [[1, 2], [3, 4, 5]]
  * @example
- * // Tuple input + literal index — exact sub-tuples in the type
+ * // Tuple input + literal index: exact sub-tuples in the type
  * arraySplit(['a', 1, true, 'b'] as const, 2);
  * // [['a', 1], [true, 'b']]
  * @example
@@ -39,7 +41,7 @@ type SplitAt<T extends readonly unknown[], Index extends number> = number extend
  * arraySplit([1, 2, 3, 4, 1], (value) => value > 2);
  * // [[1, 2], [3, 4, 1]]
  * @example
- * // No match — the second part is empty
+ * // No match: the second part is empty
  * arraySplit([1, 2, 3], (value) => value > 10);
  * // [[1, 2, 3], []]
  */

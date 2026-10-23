@@ -2,9 +2,9 @@ import {reduce} from 'neotraverse';
 import type {TraverseContext, TraverseOptions} from './_shared.ts';
 
 /**
- * Folds every node of `value` into a single accumulator, depth-first. The
- * `callback` receives the traversal `context`, the current `accumulator` and
- * the node, and returns the next accumulator.
+ * Folds every node of `value` into a single accumulator, depth-first.
+ * The `callback` receives the traversal `context`, the current `accumulator`
+ * and the node, and returns the next accumulator.
  * @param value - The (possibly nested) value to reduce.
  * @param callback - Invoked as `(context, accumulator, node)` for every node.
  * @param initialValue - The starting accumulator.

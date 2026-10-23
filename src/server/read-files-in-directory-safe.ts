@@ -14,20 +14,21 @@ const MAX_CONCURRENT_READS = 32;
 interface ReadFilesInDirectoryOptions {
   /**
    * When `true`, files in nested directories are read too.
-   * Defaults to `false`.
+   * Defaults to `false`
    */
   recursive?: boolean;
 
   /**
    * Only reads the files whose names end with one of these extensions, compared
-   * case-sensitively. The leading dot is optional, and multi-part extensions
-   * like `'.d.ts'` work.
+   * case-sensitively.
+   * The leading dot is optional, and multi-part extensions like `'.d.ts'` work
    */
   extensions?: MaybeReadonlyArray<string>;
 
   /**
-   * Only reads the files for which it returns `true`. Receives the path of the
-   * file relative to the directory, with forward slashes.
+   * Only reads the files for which it returns `true`.
+   * Receives the path of the file relative to the directory, with forward
+   * slashes
    */
   filter?: (relativePath: string) => boolean;
 }
@@ -44,16 +45,19 @@ interface DirectoryFile<Contents> {
 
 /**
  * Reads all files in a directory, returning `null` instead of throwing when the
- * directory does not exist, like `readFileSafe` does for a file. Any other
- * error (permission denied, the path being a file, etc.) is rethrown.
+ * directory does not exist, like `readFileSafe` does for a file.
+ * Any other error (permission denied, the path being a file, etc.) is rethrown.
  *
  * Only regular files are read: subdirectories (unless `recursive` is set) and
- * symbolic links are skipped. The files are sorted by their relative paths, so
- * the order is the same on every platform. Defaults to decoding the contents as
- * UTF-8 text; pass `asBinary: true` to receive raw `Buffer`s.
+ * symbolic links are skipped.
+ * The files are sorted by their relative paths, so the order is the same on
+ * every platform.
+ * Defaults to decoding the contents as UTF-8 text; pass `asBinary: true` to
+ * receive raw `Buffer`s.
  * @param directoryPath - Path to the directory.
  * @param options - Which files to read and how.
- * @param options.asBinary When `true`, the contents are raw `Buffer`s; otherwise UTF-8 strings. Defaults to `false`.
+ * @param options.asBinary When `true`, the contents are raw `Buffer`s; otherwise UTF-8 strings.
+ * Defaults to `false`.
  * @returns The files with their paths and contents, or `null` if the directory does not exist.
  * @example
  * // All Markdown files, including nested ones
@@ -61,7 +65,7 @@ interface DirectoryFile<Contents> {
  *   recursive: true,
  *   extensions: ['md', 'mdx'],
  * });
- * // [{path: 'content/posts/2024/hello.md', relativePath: '2024/hello.md', contents: '# Hello'}, …]
+ * // [{path: 'content/posts/2024/hello.md', relativePath: '2024/hello.md', contents: '# Hello'}, ...]
  * @example
  * // Treat a missing directory as empty
  * const fixtures = (await readFilesInDirectorySafe('fixtures')) || [];

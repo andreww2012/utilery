@@ -1,4 +1,4 @@
-// cspell:ignore héllo Привет
+// cspell:ignore Привет
 import {stringByteLength} from '../../src/string/string-byte-length.ts';
 
 const encoder = new TextEncoder();
@@ -7,7 +7,7 @@ describe('string/stringByteLength', () => {
   it('counts UTF-8 bytes', () => {
     expect(stringByteLength('')).toBe(0);
     expect(stringByteLength('hello')).toBe(5);
-    expect(stringByteLength('héllo')).toBe(6);
+    expect(stringByteLength('héllo')).toBe(6); // cspell:disable-line
     expect(stringByteLength('€')).toBe(3);
     expect(stringByteLength('😀')).toBe(4);
   });

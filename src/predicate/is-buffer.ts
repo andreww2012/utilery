@@ -1,8 +1,8 @@
 import {isBuffer as isBufferFromEsToolkit} from 'es-toolkit/predicate';
 
 /**
- * Checks if a value is a Node.js `Buffer` instance. Acts as a TypeScript
- * type guard, narrowing the value to `Buffer`.
+ * Checks if a value is a Node.js `Buffer` instance.
+ * Acts as a TypeScript type guard, narrowing the value to `Buffer`.
  *
  * Returns `false` outside Node-like environments where `Buffer` is not
  * available.

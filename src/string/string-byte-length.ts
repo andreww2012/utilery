@@ -1,9 +1,10 @@
 // cspell:ignore héllo
 
 /**
- * Counts the bytes of a string encoded as UTF-8, without encoding it: the
- * same as `new TextEncoder().encode(text).length`, but faster and without
- * allocating memory. Useful for size limits of headers, keys or messages.
+ * Counts the bytes of a string encoded as UTF-8, without encoding it: the same
+ * as `new TextEncoder().encode(text).length`, but faster and without allocating
+ * memory.
+ * Useful for size limits of headers, keys or messages.
  *
  * A lone surrogate counts as 3 bytes, as it is encoded as the replacement
  * character (`U+FFFD`).

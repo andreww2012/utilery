@@ -5,27 +5,30 @@ import {type FilteredArray, type NonRefinedFilteredArray, filter} from 'remeda';
  * like `Array.prototype.filter`, but **tuple-aware** in the return type: when
  * the input is a tuple and `predicate` is (or is inferred as) a type guard, the
  * result is the refined *tuple* of surviving elements rather than a widened
- * `T[]`. Since TypeScript 5.5 a predicate like `(value) => value !== 2` is
- * inferred as a guard, so `arrayFilter([1, 2, 3], (value) => value !== 2)` is
- * typed `[1, 3]` — where native `.filter` only yields `(1 | 3)[]`.
+ * `T[]`.
+ * Since TypeScript 5.5 a predicate like `(value) => value !== 2` is inferred as
+ * a guard, so `arrayFilter([1, 2, 3], (value) => value !== 2)` is typed
+ * `[1, 3]`, where native `.filter` only yields `(1 | 3)[]`.
  *
  * Regular arrays still narrow to the guarded element type (e.g. `number[]`), and
- * a non-narrowing boolean predicate yields the element array type. This
- * tuple-level refinement is the reason this util exists.
- * @param array - The array (or tuple) to filter. Not mutated.
- * @param predicate - Keeps each element it returns `true` for; a type guard refines the result type.
+ * a non-narrowing boolean predicate yields the element array type.
+ * This tuple-level refinement is the reason this util exists.
+ * @param array - The array (or tuple) to filter.
+ * Not mutated.
+ * @param predicate - Keeps each element it returns `true` for; a type guard refines the result
+ * type.
  * @returns A new array (or refined tuple) of the elements that passed.
  * @example
- * // Tuple input + inferred guard — the result is the refined tuple `[1, 3]`
+ * // Tuple input + inferred guard: the result is the refined tuple `[1, 3]`
  * arrayFilter([1, 2, 3], (value) => value !== 2);
  * // [1, 3]
  * @example
- * // Regular array — narrows to the guarded element type (`number[]`)
+ * // Regular array: narrows to the guarded element type (`number[]`)
  * arrayFilter([1, 'a', 2], (value): value is number => typeof value === 'number');
  * // [1, 2]
  */
 // Return types are annotated explicitly because inferring them fails to emit
-// declarations (TS7056 — remeda's FilteredArray is too large to serialize).
+// declarations (TS7056: remeda's FilteredArray is too large to serialize)
 export function arrayFilter<T extends readonly unknown[], Condition extends T[number]>(
   array: T,
   predicate: (value: T[number], index: number, array: T) => value is Condition,

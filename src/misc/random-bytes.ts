@@ -10,5 +10,5 @@ import {random} from 'nanoid';
  * randomBytes(16);
  * // Uint8Array(16) [39, 201, ...]
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const randomBytes = random;

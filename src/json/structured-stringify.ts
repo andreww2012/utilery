@@ -8,31 +8,33 @@ import {
 } from 'devalue';
 
 /**
- * Options accepted by {@link structuredStringify} and `structuredStringifyAsync`.
+ * Options accepted by {@link structuredStringify} and `structuredStringifyAsync`
  */
 export type StructuredStringifyOptions = StringifyOptions;
 
 /**
- * Every way {@link structuredStringify} inspects the value being serialized —
+ * Every way {@link structuredStringify} inspects the value being serialized:
  * property reads, prototype method calls, iteration, type classification.
  * Overriding members via {@link StructuredStringifyOptions}' `operations`
  * controls exactly how values are inspected, e.g. to serialize without running
  * code the value owns (getters, proxy traps, patched prototypes), or to
- * serialize values living in another realm or process through opaque handles.
+ * serialize values living in another realm or process through opaque handles
  */
 export type StructuredStringifyOperations = StringifyOperations;
 
 /**
- * The native operations {@link structuredStringify} uses by default. Spread it
- * to build a custom `operations` table that only overrides a few members.
+ * The native operations {@link structuredStringify} uses by default.
+ * Spread it to build a custom `operations` table that only overrides a few
+ * members
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const STRUCTURED_STRINGIFY_DEFAULT_OPERATIONS = defaultStringifyOperations;
 
 /**
  * Given the own enumerable string keys of an array-like value, in property
  * order (where array indexes always come first), returns the leading run of
- * them that are valid array indexes. Does not modify `keys`.
+ * them that are valid array indexes.
+ * Does not modify `keys`.
  *
  * Meant for custom `indicesOf` members of {@link StructuredStringifyOperations},
  * which typically already have the keys in hand.
@@ -48,22 +50,23 @@ export const structuredFilterArrayIndexes: (keys: readonly string[]) => string[]
 /**
  * The error {@link structuredStringify} and `structuredStringifyAsync` throw on
  * a value they cannot serialize, like a function or a class instance without a
- * matching reducer.
+ * matching reducer
  */
 export interface StructuredStringifyError extends Error {
-  /** Where the offending value sits within the serialized value, e.g. `.user.avatar`. */
+  /** Where the offending value sits within the serialized value, e.g. `.user.avatar` */
   path: string;
-  /** The offending value. */
+  /** The offending value */
   value: unknown;
-  /** The value that was being serialized. */
+  /** The value that was being serialized */
   root: unknown;
 }
 
 /**
  * The error {@link structuredStringify} and `structuredStringifyAsync` throw on
  * a value they cannot serialize, like a function or a class instance without a
- * matching reducer. Use it with `instanceof` to tell such failures apart and to
- * read the `path` to the offending value.
+ * matching reducer.
+ * Use it with `instanceof` to tell such failures apart and to read the `path`
+ * to the offending value.
  * @example
  * try {
  *   structuredStringify({user: {greet: () => 'hi'}});
@@ -84,18 +87,20 @@ export const StructuredStringifyError: new (
 
 /**
  * Serializes a value into a string that round-trips through `structuredParse`,
- * preserving types `JSON.stringify` cannot — `Date`, `Map`, `Set`, `BigInt`,
- * `RegExp`, typed arrays, etc. — as well as circular and repeated references.
+ * preserving types `JSON.stringify` cannot (`Date`, `Map`, `Set`, `BigInt`,
+ * `RegExp`, typed arrays, etc.), as well as circular and repeated references.
  *
  * The output is valid JSON text describing the value as a flat list of its
  * parts, so read it back only with `structuredParse`.
- * @param value - The value to serialize. May contain rich types and circular references.
+ * @param value - The value to serialize.
+ * May contain rich types and circular references.
  * @param reducers - Optional map, keyed by name, of functions that turn a
  * non-standard value into a serializable intermediate form (paired with a
  * reviver of the same name in `structuredParse`).
  * @param options - Optional settings.
- * @param options.operations - Overrides for how values are inspected; see {@link StructuredStringifyOperations}.
- * @returns The serialized string — read it back only with `structuredParse`.
+ * @param options.operations - Overrides for how values are inspected; see
+ * {@link StructuredStringifyOperations}.
+ * @returns The serialized string; read it back only with `structuredParse`.
  * @throws {StructuredStringifyError} When the value contains something that cannot be serialized.
  * @example
  * // Serialize values that plain JSON cannot represent

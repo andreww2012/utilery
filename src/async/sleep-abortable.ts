@@ -2,11 +2,11 @@
  * Waits for the given number of milliseconds, like `sleep`, but stops
  * properly when aborted and can let the Node.js process exit meanwhile.
  *
- * Pass an `AbortSignal` to stop waiting early: unlike with `sleep`, the
- * promise then rejects with the signal's reason (a `DOMException` named
- * `'AbortError'` by default; see `isAbortError`). In Node.js, pass
- * `{unref: true}` so that a pending sleep does not keep the process alive,
- * like for a background retry loop.
+ * Pass an `AbortSignal` to stop waiting early: unlike with `sleep`, the promise
+ * then rejects with the signal's reason (a `DOMException` named `'AbortError'`
+ * by default; see `isAbortError`).
+ * In Node.js, pass `{unref: true}` so that a pending sleep does not keep the
+ * process alive, like for a background retry loop.
  * @param milliseconds - How long to wait.
  * @param options - Options.
  * @param options.signal - Stops waiting when aborted.

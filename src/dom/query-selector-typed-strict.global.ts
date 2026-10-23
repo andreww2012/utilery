@@ -1,13 +1,11 @@
 import type {ElementFromSelectorStrict} from './element-from-selector-strict.ts';
 
-/*
- * Strict counterpart of `./query-selector-typed.global.ts`: same global augmentation, except a
+/* Strict counterpart of `./query-selector-typed.global.ts`: same global augmentation, except a
  * malformed selector resolves to `never` instead of falling back to `Element`, so a typo
  * fails to compile rather than surfacing as a runtime throw.
  *
  * Mutually exclusive with `unutils/dom/query-selector-typed.global`: both augment the same
- * members, so importing both merges two conflicting sets of overloads
- */
+ * members, so importing both merges two conflicting sets of overloads */
 declare global {
   interface ParentNode {
     querySelector<Selector extends string, Matched extends ElementFromSelectorStrict<Selector>>(

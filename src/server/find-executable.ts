@@ -1,13 +1,17 @@
+// cspell:ignore nothrow PATHEXT
 import which from 'which';
 
 /** Options of `findExecutable` and `findExecutableSync` */
 export interface FindExecutableOptions {
-  /** Directories to search, joined like the `PATH` variable. Defaults to `process.env.PATH` */
+  /**
+   * Directories to search, joined like the `PATH` variable.
+   * Defaults to `process.env.PATH`
+   */
   path?: string;
 
   /**
-   * Executable extensions to try on Windows, joined like `PATHEXT`. Defaults to
-   * `process.env.PATHEXT`
+   * Executable extensions to try on Windows, joined like `PATHEXT`.
+   * Defaults to `process.env.PATHEXT`
    */
   pathExt?: string;
 }
@@ -18,11 +22,14 @@ export interface FindExecutableOptions {
  * On Windows, also tries the extensions from `PATHEXT` (`.exe`, `.cmd`, etc.)
  * and the current directory first.
  *
- * A command containing a slash is checked as is, without searching. Pass
- * `{all: true}` to get every match in `PATH` order instead of the first one.
+ * A command containing a slash is checked as is, without searching.
+ * Pass `{all: true}` to get every match in `PATH` order instead of the first
+ * one.
  * @param command - The name of the executable, like `'git'`.
- * @param options - `all`: return every match; `path` and `pathExt`: override the environment variables.
- * @returns The path of the executable, or `undefined` if it was not found (an array of paths with `all`, empty if none).
+ * @param options - `all`: return every match; `path` and `pathExt`: override the environment
+ * variables.
+ * @returns The path of the executable, or `undefined` if it was not found (an array of paths with
+ * `all`, empty if none).
  * @example
  * await findExecutable('node');
  * // '/usr/local/bin/node'
@@ -52,8 +59,10 @@ export async function findExecutable(
 /**
  * Synchronous version of `findExecutable`.
  * @param command - The name of the executable, like `'git'`.
- * @param options - `all`: return every match; `path` and `pathExt`: override the environment variables.
- * @returns The path of the executable, or `undefined` if it was not found (an array of paths with `all`, empty if none).
+ * @param options - `all`: return every match; `path` and `pathExt`: override the environment
+ * variables.
+ * @returns The path of the executable, or `undefined` if it was not found (an array of paths with
+ * `all`, empty if none).
  * @example
  * findExecutableSync('git');
  * // '/usr/bin/git'

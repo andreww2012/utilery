@@ -3,12 +3,14 @@ import {isNodeError} from './is-node-error.ts';
 
 /**
  * Reads a file, returning `null` instead of throwing when the file does not
- * exist (`ENOENT`). Any other error (permission denied, the path being a
- * directory, etc.) is rethrown, so genuine failures are never silently
- * swallowed. Defaults to decoding the contents as UTF-8 text; pass `asBinary`
- * as `true` to receive the raw `Buffer`.
+ * exist (`ENOENT`).
+ * Any other error (permission denied, the path being a directory, etc.) is
+ * rethrown, so genuine failures are never silently swallowed.
+ * Defaults to decoding the contents as UTF-8 text; pass `asBinary` as `true` to
+ * receive the raw `Buffer`.
  * @param filePath - Path to the file to read.
- * @param asBinary - When `true`, resolves to a raw `Buffer`; otherwise to a UTF-8 string. Defaults to `false`.
+ * @param asBinary - When `true`, resolves to a raw `Buffer`; otherwise to a UTF-8 string.
+ * Defaults to `false`.
  * @returns The file contents (`string` or `Buffer`), or `null` if the file does not exist.
  * @example
  * // Read text, tolerating a missing file

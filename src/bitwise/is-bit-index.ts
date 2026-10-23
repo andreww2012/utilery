@@ -2,7 +2,7 @@ import type {IntRange} from '../types/int-range.ts';
 
 /**
  * The index of a bit in a 32-bit integer: an integer from `0` (the least
- * significant bit) to `31`.
+ * significant bit) to `31`
  */
 export type BitIndex = IntRange<0, 32>;
 
@@ -11,8 +11,9 @@ export type BitIndex = IntRange<0, 32>;
  * integer from `0` to `31`.
  *
  * The bit utilities only accept such indexes, so literals and enum members are
- * checked at compile time. Use this type guard to pass a dynamic number, like a
- * loop counter or a parsed value, instead of casting it.
+ * checked at compile time.
+ * Use this type guard to pass a dynamic number, like a loop counter or a parsed
+ * value, instead of casting it.
  * Bitwise operators take bit indexes modulo 32, so an unchecked out-of-range
  * index would silently address a wrong bit.
  * @param value - The value to check.

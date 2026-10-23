@@ -2,8 +2,8 @@ import {takeWhile} from 'es-toolkit/iterator';
 
 /**
  * Lazily yields the leading elements of an iterable while `predicate` returns
- * `true`, and stops at the first element for which it returns `false`. Safe to
- * use on infinite iterables.
+ * `true`, and stops at the first element for which it returns `false`.
+ * Safe to use on infinite iterables.
  *
  * The lazy counterpart of `array/arrayTakeWhile`.
  * @param iterable - The iterable to take elements of.

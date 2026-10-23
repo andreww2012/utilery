@@ -12,8 +12,10 @@ beforeAll(async () => {
   root = await mkdtemp(path.join(tmpdir(), 'unutils-find-up-'));
   deep = path.join(root, 'a', 'b', 'c');
   await mkdir(deep, {recursive: true});
-  await writeFile(path.join(root, 'marker.txt'), '');
-  await mkdir(path.join(root, 'a', 'marker.txt'));
+  await Promise.all([
+    writeFile(path.join(root, 'marker.txt'), ''),
+    mkdir(path.join(root, 'a', 'marker.txt')),
+  ]);
 });
 
 afterAll(async () => {

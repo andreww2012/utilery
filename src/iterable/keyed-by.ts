@@ -1,10 +1,11 @@
 /**
- * Indexes items of an iterable by a key derived from each item. Works on any
- * `Iterable` — arrays, `Map`s, `Set`s, generators, and custom iterators. When
- * multiple items produce the same key, the last one wins.
+ * Indexes items of an iterable by a key derived from each item.
+ * Works on any `Iterable`: arrays, `Map`s, `Set`s, generators, and custom
+ * iterators.
+ * When multiple items produce the same key, the last one wins.
  * @param iterable - The iterable to index.
- * @param mapper - Returns the key for each item. Receives the item and its
- * zero-based iteration index.
+ * @param mapper - Returns the key for each item.
+ * Receives the item and its zero-based iteration index.
  * @returns A `Map` from each derived key to the item that produced it.
  * @example
  * // Index objects by a property
@@ -25,7 +26,7 @@
  * keyedBy(['a', 'b', 'c'], (_item, index) => index);
  * // Map { 0 => 'a', 1 => 'b', 2 => 'c' }
  * @example
- * // Index Map entries by a derived key — entries iterate as [key, value] pairs
+ * // Index Map entries by a derived key: entries iterate as [key, value] pairs
  * const scores = new Map([['alice', 90], ['bob', 75]]);
  * keyedBy(scores, ([, score]) => (score >= 90 ? 'A' : 'B'));
  * // Map { 'A' => ['alice', 90], 'B' => ['bob', 75] }

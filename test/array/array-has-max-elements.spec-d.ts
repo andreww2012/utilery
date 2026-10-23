@@ -1,7 +1,7 @@
 import {arrayHasMaxElements} from '../../src/array/array-has-max-elements.ts';
 
 // The narrowed types here are unions of tuples, which `expectTypeOf(value)` brands
-// structurally member by member — that takes ~300s to typecheck, versus ~1s for the
+// structurally member by member, which takes ~300s to typecheck, versus ~1s for the
 // `expectTypeOf<typeof value>()` form below
 describe('array/arrayHasMaxElements', () => {
   it('narrows a regular array to every length that remains possible', () => {

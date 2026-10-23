@@ -3,11 +3,15 @@ import {mapWithFeedback} from 'remeda';
 /**
  * Like {@link arrayMap}, but threads an accumulator through the iteration: each
  * output element is the accumulator value *after* processing the corresponding
- * input element (a prefix scan). Unlike a `reduce`, which yields only the final
- * accumulator, this returns every intermediate state, so the result has the same
- * length as the input (and is tuple-preserving for tuples).
- * @param array - The array (or tuple) to scan. Not mutated.
- * @param callback - Computes the next accumulator from the current one and the element. Receives the accumulator, the value, its index, and the elements processed so far (the current one included).
+ * input element (a prefix scan).
+ * Unlike a `reduce`, which yields only the final accumulator, this returns every
+ * intermediate state, so the result has the same length as the input (and is
+ * tuple-preserving for tuples).
+ * @param array - The array (or tuple) to scan.
+ * Not mutated.
+ * @param callback - Computes the next accumulator from the current one and the element.
+ * Receives the accumulator, the value, its index, and the elements processed so far (the current
+ * one included).
  * @param initialValue - The accumulator seed used before the first element.
  * @returns An array of the successive accumulator values, one per input element.
  * @example

@@ -6,9 +6,7 @@ describe('array/arrayFilter', () => {
   });
 
   it('narrows by a type guard', () => {
-    expect(
-      arrayFilter([1, 'a', 2], (value): value is number => typeof value === 'number'),
-    ).toStrictEqual([1, 2]);
+    expect(arrayFilter([1, 'a', 2], (value) => typeof value === 'number')).toStrictEqual([1, 2]);
   });
 
   it('does not mutate the input', () => {

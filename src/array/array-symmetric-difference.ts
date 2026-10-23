@@ -1,11 +1,11 @@
 import {xorBy, xorWith} from 'es-toolkit/array';
 
 /**
- * Returns the symmetric difference of two arrays — the elements that appear in
- * exactly one of `firstArray` or `secondArray`, but not in both. Duplicates
- * within a single input are collapsed. Order of the result is the order of
- * first appearance in `firstArray` followed by the order of first appearance
- * in `secondArray`.
+ * Returns the symmetric difference of two arrays: the elements that appear in
+ * exactly one of `firstArray` or `secondArray`, but not in both.
+ * Duplicates within a single input are collapsed.
+ * Order of the result is the order of first appearance in `firstArray` followed
+ * by the order of first appearance in `secondArray`.
  *
  * The strategy used for the equality check depends on the optional third
  * argument:
@@ -16,15 +16,18 @@ import {xorBy, xorWith} from 'es-toolkit/array';
  *   custom comparator (delegates to `xorWith`).
  * - When a unary function `(value) => key` is passed, both arrays are mapped
  *   through it and the resulting keys are compared (delegates to `xorBy`).
- * @param firstArray - The first array. Not mutated.
- * @param secondArray - The second array. Not mutated.
- * @returns A new array containing the elements that are present in either `firstArray` or `secondArray` but not in both.
+ * @param firstArray - The first array.
+ * Not mutated.
+ * @param secondArray - The second array.
+ * Not mutated.
+ * @returns A new array containing the elements that are present in either `firstArray` or
+ * `secondArray` but not in both.
  * @example
  * // Basic equality (SameValueZero)
  * arraySymmetricDifference([1, 2, 3, 4], [3, 4, 5, 6]);
  * // [1, 2, 5, 6]
  * @example
- * // With a mapper — compare by a derived key
+ * // With a mapper: compare by a derived key
  * arraySymmetricDifference(
  *   [{id: 1}, {id: 2}],
  *   [{id: 2}, {id: 3}],

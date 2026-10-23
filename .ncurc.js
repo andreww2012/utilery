@@ -41,10 +41,11 @@ const EXTERNAL_IMPORT_REGEX = /(?<![\w.])(?:import\s*\(\s*|import\s+|from\s+)["'
 
 /**
  * The bundled set is emergent: `tsdown` runs with `unbundle: true` and no explicit bundle list,
- * so every external package `src/` imports ends up bundled. Deriving it here (rather than hand-
- * maintaining a list that drifts) keeps the "Bundled utilities" ncu group correct on its own.
+ * so every external package `src/` imports ends up bundled.
+ * Deriving it here (rather than hand-maintaining a list that drifts) keeps the "Bundled
+ * utilities" ncu group correct on its own.
  * Reading `dist/` instead is not an option: ncu runs without a build, and its extra transitive
- * packages are not in `package.json` for ncu to act on anyway.
+ * packages are not in `package.json` for ncu to act on anyway
  */
 const collectBundledPackages = () => {
   /** @type {Set<string>} */

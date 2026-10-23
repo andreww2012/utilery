@@ -1,7 +1,8 @@
 import {stringToUint8Array as stringToUint8ArrayBase} from 'uint8array-extras';
 
 /**
- * Encodes a string as UTF-8 bytes. The reverse of `uint8ArrayToString`.
+ * Encodes a string as UTF-8 bytes.
+ * The reverse of `uint8ArrayToString`.
  * @param text - The string to encode.
  * @returns The UTF-8 bytes.
  * @example

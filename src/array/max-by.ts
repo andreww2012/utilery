@@ -4,12 +4,13 @@ type GetValue<T> = (element: T, index: number, array: readonly T[]) => number | 
 
 /**
  * Finds the element of an array with the largest value returned by `getValue`.
- * `getValue` can return numbers, bigints, or both. When several elements share
- * the largest value, the first one is returned. An element whose value is
- * `NaN` is returned right away, matching `Math.max`.
+ * `getValue` can return numbers, bigints, or both.
+ * When several elements share the largest value, the first one is returned.
+ * An element whose value is `NaN` is returned right away, matching `Math.max`.
  *
  * To find the largest number or bigint itself, use `math/max`.
- * @param items - The array to search. Not mutated.
+ * @param items - The array to search.
+ * Not mutated.
  * @param getValue - Returns the value to compare for each element.
  * @returns The element with the largest value, or `undefined` if `items` is empty
  * (a non-empty tuple never gives `undefined`).

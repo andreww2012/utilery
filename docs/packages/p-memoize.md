@@ -6,8 +6,8 @@
 | ------------------------------------------------- | ------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | [`pMemoize`][api]                                 | ✅     | `function/memoizeAsync`        | Renamed; the default export; the result also has a `clear` method (which does nothing with `{cache: false}`) |
 | [`pMemoizeClear`][api]                            | ❌     | `function/memoizeAsync`        | Covered: call `clear()` on the memoized function                                                             |
-| [`pMemoizeDecorator`][api]                        | ⌛     | —                              | Not added yet                                                                                                |
+| [`pMemoizeDecorator`][api]                        | ⌛     | -                              | Not added yet                                                                                                |
 | `Options`                                         | ✅     | `function/MemoizeAsyncOptions` | Renamed                                                                                                      |
-| `AnyAsyncFunction`, `CacheStorage`, `ShouldCache` | ❌     | —                              | Used in the types of `function/memoizeAsync` only                                                            |
+| `AnyAsyncFunction`, `CacheStorage`, `ShouldCache` | ❌     | -                              | Used in the types of `function/memoizeAsync` only                                                            |
 
 [api]: https://github.com/sindresorhus/p-memoize#api

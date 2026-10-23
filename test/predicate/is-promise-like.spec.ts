@@ -1,3 +1,4 @@
+// cspell:ignore thenables
 /* eslint-disable unicorn/no-thenable -- thenables are what is being tested */
 import {isPromiseLike} from '../../src/predicate/is-promise-like.ts';
 

@@ -3,8 +3,9 @@ import {pullAllBy, pullAllWith} from 'es-toolkit/compat';
 
 /**
  * **Mutates** `array`, removing every element equal to one of the given
- * `values`, and returns it. The strategy used for the equality check depends on
- * the optional third argument:
+ * `values`, and returns it.
+ * The strategy used for the equality check depends on the optional third
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (delegates to
  *   `pull`).
@@ -21,7 +22,7 @@ import {pullAllBy, pullAllWith} from 'es-toolkit/compat';
  * arrayPurgeValues([1, 2, 3, 1, 2], [1, 2]);
  * // [3]
  * @example
- * // With a mapper — compare by a derived key
+ * // With a mapper: compare by a derived key
  * arrayPurgeValues(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 2}],
@@ -61,7 +62,7 @@ export function arrayPurgeValues<T>(
   if (fn.length === 2) {
     pullAllWith(array, values, fn as (a: T, b: unknown) => boolean);
   } else {
-    pullAllBy(array, values, fn as (value: unknown) => unknown);
+    pullAllBy(array, values, fn);
   }
 
   return array;

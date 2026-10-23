@@ -4,11 +4,13 @@ import {compare} from 'verkit';
  * Compares two semantic versions by the rules of the SemVer spec, as npm does:
  * a prerelease is lower than its release (`3.0.0-rc.1` < `3.0.0`), numeric
  * prerelease identifiers are compared as numbers (`rc.2` < `rc.10`), and build
- * metadata is ignored. Fits `Array#sort` as a comparator.
+ * metadata is ignored.
+ * Fits `Array#sort` as a comparator.
  *
- * A leading `v` and surrounding whitespace are allowed. Throws a `TypeError`
- * for an invalid version, including incomplete ones like `'1.2'`; pass
- * `{loose: true}` to also accept common mistakes, like a leading `=`.
+ * A leading `v` and surrounding whitespace are allowed.
+ * Throws a `TypeError` for an invalid version, including incomplete ones like
+ * `'1.2'`; pass `{loose: true}` to also accept common mistakes, like a leading
+ * `=`.
  * @param left - The first version (a string or the result of `parseSemver`).
  * @param right - The second version (a string or the result of `parseSemver`).
  * @param options - Options.
@@ -26,5 +28,5 @@ import {compare} from 'verkit';
  * ['1.10.0', '1.2.0', '1.2.0-beta'].sort(compareSemver);
  * // ['1.2.0-beta', '1.2.0', '1.10.0']
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const compareSemver = compare;

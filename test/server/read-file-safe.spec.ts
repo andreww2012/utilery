@@ -22,8 +22,10 @@ afterAll(async () => {
 
 describe('server/readFileSafe', () => {
   it('reads an existing file as a UTF-8 string by default', async () => {
-    await expect(readFileSafe(existingFile)).resolves.toBe(TEXT_CONTENTS);
-    await expect(readFileSafe(existingFile, false)).resolves.toBe(TEXT_CONTENTS);
+    await Promise.all([
+      expect(readFileSafe(existingFile)).resolves.toBe(TEXT_CONTENTS),
+      expect(readFileSafe(existingFile, false)).resolves.toBe(TEXT_CONTENTS),
+    ]);
   });
 
   it('reads an existing file as a Buffer when asBinary is true', async () => {
@@ -34,8 +36,10 @@ describe('server/readFileSafe', () => {
   });
 
   it('returns null for a missing file in both text and binary modes', async () => {
-    await expect(readFileSafe(path.join(directory, MISSING_FILE))).resolves.toBeNull();
-    await expect(readFileSafe(path.join(directory, MISSING_FILE), true)).resolves.toBeNull();
+    await Promise.all([
+      expect(readFileSafe(path.join(directory, MISSING_FILE))).resolves.toBeNull(),
+      expect(readFileSafe(path.join(directory, MISSING_FILE), true)).resolves.toBeNull(),
+    ]);
   });
 
   it('rethrows errors other than a missing file', async () => {

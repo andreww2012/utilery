@@ -1,16 +1,18 @@
 /**
- * Calculates the median of an iterable of numbers — so it works on any iterable
- * (generators, `Set`s, …), not just arrays. When the second argument is
- * omitted, the elements are used directly. When a `getValue` function is
- * provided, each element is mapped through it first and the resulting numbers
- * are used.
+ * Calculates the median of an iterable of numbers, so it works on any iterable
+ * (generators, `Set`s, ...), not just arrays.
+ * When the second argument is omitted, the elements are used directly.
+ * When a `getValue` function is provided, each element is mapped through it
+ * first and the resulting numbers are used.
  *
  * Unlike the single-pass aggregations, the median requires the full sorted
- * sequence, so the input is materialized into an array internally. For an
- * odd-length input the median is the middle value of the sorted sequence; for
- * an even-length input it is the average of the two middle values. Returns
- * `NaN` for an empty input.
- * @param items - The iterable to compute the median of. Not mutated.
+ * sequence, so the input is materialized into an array internally.
+ * For an odd-length input the median is the middle value of the sorted
+ * sequence; for an even-length input it is the average of the two middle
+ * values.
+ * Returns `NaN` for an empty input.
+ * @param items - The iterable to compute the median of.
+ * Not mutated.
  * @param getValue - Optional selector that produces the numeric value to
  * use from each element.
  * @returns The median, or `NaN` if `items` is empty.
@@ -19,7 +21,7 @@
  * median([1, 2, 3, 4, 5]);
  * // 3
  * @example
- * // Even-length number array — average of the two middle values
+ * // Even-length number array: average of the two middle values
  * median([1, 2, 3, 4]);
  * // 2.5
  * @example
@@ -27,7 +29,7 @@
  * median(new Set([5, 1, 3]));
  * // 3
  * @example
- * // With a selector — median of a numeric field of objects
+ * // With a selector: median of a numeric field of objects
  * median([{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}], (item) => item.a);
  * // 3
  * @example
@@ -48,6 +50,6 @@ export function median<T>(items: Iterable<T>, getValue?: (element: T) => number)
 
   const middle = values.length >>> 1;
 
-  // eslint-disable-next-line ts/no-non-null-assertion -- Both indices are in bounds: `values` is non-empty
+  // eslint-disable-next-line ts/no-non-null-assertion -- Both indexes are in bounds: `values` is non-empty
   return values.length % 2 === 1 ? values[middle]! : (values[middle - 1]! + values[middle]!) / 2;
 }

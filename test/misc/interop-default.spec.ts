@@ -16,16 +16,20 @@ describe('misc/interopDefault', () => {
   });
 
   it('returns a present default export even if it is falsy', async () => {
-    await expect(interopDefault({default: 0})).resolves.toBe(0);
-    await expect(interopDefault({default: ''})).resolves.toBe('');
+    await Promise.all([
+      expect(interopDefault({default: 0})).resolves.toBe(0),
+      expect(interopDefault({default: ''})).resolves.toBe(''),
+    ]);
   });
 
   it('returns the module itself when the default export is `null` or `undefined`', async () => {
     const withUndefined = {default: undefined, named: 'x'};
     const withNull = {default: null};
 
-    await expect(interopDefault(withUndefined)).resolves.toBe(withUndefined);
-    await expect(interopDefault(withNull)).resolves.toBe(withNull);
+    await Promise.all([
+      expect(interopDefault(withUndefined)).resolves.toBe(withUndefined),
+      expect(interopDefault(withNull)).resolves.toBe(withNull),
+    ]);
   });
 
   it('reads the default export of a function', async () => {
@@ -35,8 +39,10 @@ describe('misc/interopDefault', () => {
   });
 
   it('returns primitives and nullish values as is', async () => {
-    await expect(interopDefault('module')).resolves.toBe('module');
-    await expect(interopDefault(null)).resolves.toBeNull();
+    await Promise.all([
+      expect(interopDefault('module')).resolves.toBe('module'),
+      expect(interopDefault(null)).resolves.toBeNull(),
+    ]);
   });
 
   it('works with a real dynamic import', async () => {

@@ -3,14 +3,16 @@ import {range as rangeNumber} from 'es-toolkit/math';
 
 /**
  * Creates an array of numbers or bigints from `start` (inclusive) to `end`
- * (exclusive), incrementing by `step`. When only one argument is passed, it is
- * `end` and `start` is `0`. A negative `step` creates a descending range.
+ * (exclusive), incrementing by `step`.
+ * When only one argument is passed, it is `end` and `start` is `0`.
+ * A negative `step` creates a descending range.
  *
  * All arguments must be of the same type: either all numbers or all bigints.
  * Throws when `step` is `0` (or not an integer for numbers).
  * @param start - The first value (inclusive), or `end` when it is the only argument.
  * @param end - The end of the range (exclusive).
- * @param step - The increment between values. Defaults to `1`.
+ * @param step - The increment between values.
+ * Defaults to `1`.
  * @returns A new array with the values of the range.
  * @example
  * range(4);

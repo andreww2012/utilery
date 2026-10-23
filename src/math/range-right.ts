@@ -2,16 +2,17 @@ import {rangeRight as rangeRightBigint} from 'es-toolkit/bigint';
 import {rangeRight as rangeRightNumber} from 'es-toolkit/math';
 
 /**
- * Like `range`, but the values go in reverse order: creates an array of
- * numbers or bigints from `end` (exclusive) down to `start` (inclusive), with
- * `step` between values. When only one argument is passed, it is `end` and
- * `start` is `0`.
+ * Like `range`, but the values go in reverse order: creates an array of numbers
+ * or bigints from `end` (exclusive) down to `start` (inclusive), with `step`
+ * between values.
+ * When only one argument is passed, it is `end` and `start` is `0`.
  *
  * All arguments must be of the same type: either all numbers or all bigints.
  * Throws when `step` is `0` (or not an integer for numbers).
  * @param start - The last value (inclusive), or `end` when it is the only argument.
  * @param end - The end of the range (exclusive).
- * @param step - The increment between values. Defaults to `1`.
+ * @param step - The increment between values.
+ * Defaults to `1`.
  * @returns A new array with the values of the range in reverse order.
  * @example
  * rangeRight(4);

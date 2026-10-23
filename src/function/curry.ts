@@ -13,13 +13,13 @@ type CurryRight<Params extends readonly unknown[], Result> = Params extends read
     : never;
 
 interface CurryFn {
-  <F extends (...args: never[]) => unknown>(
-    func: F,
+  <F extends (...parameters: never[]) => unknown>(
+    fn: F,
     isFromRight?: false,
   ): Curry<Parameters<F>, ReturnType<F>>;
 
-  <F extends (...args: never[]) => unknown>(
-    func: F,
+  <F extends (...parameters: never[]) => unknown>(
+    fn: F,
     isFromRight: true,
   ): CurryRight<Parameters<F>, ReturnType<F>>;
 }
@@ -28,8 +28,8 @@ interface CurryFn {
  * Converts a function `fn(a, b, c, ...)` into a chain of single-argument
  * calls `f(a)(b)(c)...` that returns the original result once every argument
  * has been supplied.
- * @param func - The function to curry. Its arity determines how many calls
- * the returned chain expects.
+ * @param fn - The function to curry.
+ * Its arity determines how many calls the returned chain expects.
  * @param isFromRight - When `true`, arguments are collected from the rightmost
  * parameter inward, so `f(c)(b)(a)` reaches the original `fn(a, b, c)`.
  * Defaults to `false` (left-to-right collection).
@@ -53,6 +53,6 @@ interface CurryFn {
  * curry(greet)();
  * // 'hi'
  */
-export const curry = ((func: (...args: never[]) => unknown, isFromRight = false) => {
-  return isFromRight ? esCurryRight(func) : esCurry(func);
+export const curry = ((fn: (...parameters: never[]) => unknown, isFromRight = false) => {
+  return isFromRight ? esCurryRight(fn) : esCurry(fn);
 }) as CurryFn;

@@ -1,14 +1,16 @@
 import {drop, dropWhile} from 'es-toolkit/array';
 
 /**
- * Removes elements from the beginning of an array. The number of elements to drop
- * is either given directly as a count, or determined by a predicate that decides
- * how long to keep dropping from the start.
- * @param array - The array to drop elements from. Not mutated.
+ * Removes elements from the beginning of an array.
+ * The number of elements to drop is either given directly as a count, or
+ * determined by a predicate that decides how long to keep dropping from the
+ * start.
+ * @param array - The array to drop elements from.
+ * Not mutated.
  * @param itemsCountOrPredicate - Either the number of elements to drop from the
- * start, or a predicate `(item, index, array) => boolean`. When a predicate is
- * passed, elements are dropped from the start as long as it returns `true`; the
- * first `false` result stops the dropping.
+ * start, or a predicate `(item, index, array) => boolean`.
+ * When a predicate is passed, elements are dropped from the start as long as it
+ * returns `true`; the first `false` result stops the dropping.
  * @returns A new array with the leading elements removed.
  * @example
  * // Drop the first N elements

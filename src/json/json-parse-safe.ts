@@ -1,7 +1,7 @@
 import {destr} from 'destr';
 
 /**
- * Parses a JSON string into a value, never throwing — the forgiving
+ * Parses a JSON string into a value, never throwing: the forgiving
  * counterpart of {@link jsonParse}.
  *
  * Beyond plain `JSON.parse`:
@@ -13,11 +13,14 @@ import {destr} from 'destr';
  *   `constructor.prototype`) are dropped (with a `console.warn`) instead of
  *   polluting the result.
  *
- * Unlike {@link jsonParse}, malformed or non-JSON strings never throw — the
+ * Unlike {@link jsonParse}, malformed or non-JSON strings never throw: the
  * original string is returned unchanged, making this convenient when the input
  * may or may not be JSON.
- * @param value - The value to parse. Strings are parsed; anything else is returned as-is.
- * @returns The parsed value, typed as the `T` type argument (`unknown` by default; a purely type-level assertion), or the original input when it cannot be parsed — assert or validate the shape at the call site.
+ * @param value - The value to parse.
+ * Strings are parsed; anything else is returned as-is.
+ * @returns The parsed value, typed as the `T` type argument (`unknown` by default; a purely
+ * type-level assertion), or the original input when it cannot be parsed; assert or validate the
+ * shape at the call site.
  * @example
  * // Parsing JSON
  * jsonParseSafe('{"a": 1, "b": [2, 3]}');

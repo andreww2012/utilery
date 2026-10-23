@@ -15,5 +15,5 @@ import {supportsHyperlinks} from 'clickable-path';
  * // true in iTerm2, VS Code, Ghostty, WezTerm, Windows Terminal, etc.
  * isTerminalLinkSupported(process.stderr);
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const isTerminalLinkSupported = supportsHyperlinks;

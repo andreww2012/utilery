@@ -2,12 +2,14 @@ import {invert, invertBy} from 'es-toolkit/compat';
 
 /**
  * Swaps an object's keys and values, returning a new object keyed by the
- * original values. When several keys share a value, the last one wins.
+ * original values.
+ * When several keys share a value, the last one wins.
  *
  * Pass a `groupValueBy` iteratee to instead group every original key under its
  * (optionally transformed) value: each entry becomes an **array** of the keys
  * that mapped to it, so nothing is lost on collisions (delegates to `invertBy`).
- * @param object - The source object. Not mutated.
+ * @param object - The source object.
+ * Not mutated.
  * @param groupValueBy - Optional iteratee `(value) => key` deriving the grouping
  * key for each value; when provided, the result groups keys into arrays.
  * @returns A new object keyed by the original values.
@@ -16,11 +18,11 @@ import {invert, invertBy} from 'es-toolkit/compat';
  * swapObjectKeysValues({a: 'x', b: 'y'});
  * // {x: 'a', y: 'b'}
  * @example
- * // Colliding values — last key wins
+ * // Colliding values: last key wins
  * swapObjectKeysValues({a: '1', b: '1'});
  * // {1: 'b'}
  * @example
- * // With an iteratee — group colliding keys into arrays
+ * // With an iteratee: group colliding keys into arrays
  * swapObjectKeysValues({a: 1, b: 2, c: 1}, (value) => `n${value}`);
  * // {n1: ['a', 'c'], n2: ['b']}
  */

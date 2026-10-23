@@ -1,4 +1,3 @@
-// cspell:ignore FFFD
 import {uint8ArrayToString} from '../../src/bytes/uint8-array-to-string.ts';
 
 describe('bytes/uint8ArrayToString', () => {
@@ -8,7 +7,7 @@ describe('bytes/uint8ArrayToString', () => {
   });
 
   it('replaces invalid sequences instead of throwing', () => {
-    expect(uint8ArrayToString(new Uint8Array([255]))).toBe('\u{FFFD}');
+    expect(uint8ArrayToString(new Uint8Array([255]))).toBe('\u{FFFD}'); // cspell:disable-line
   });
 
   it('decodes other encodings', () => {

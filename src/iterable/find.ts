@@ -1,9 +1,10 @@
 /**
  * Finds the first element of an iterable that satisfies the predicate.
- * Iteration short-circuits on the first match, so the iterable is consumed
- * only up to (and including) that element. Supports an optional type-guard
- * predicate to narrow the return type.
- * @param iterable - The iterable to search. Consumed at most once.
+ * Iteration short-circuits on the first match, so the iterable is consumed only
+ * up to (and including) that element.
+ * Supports an optional type-guard predicate to narrow the return type.
+ * @param iterable - The iterable to search.
+ * Consumed at most once.
  * @param predicate - Receives each value and returns whether it matches.
  * @returns The first matching value, or `undefined` if nothing matched.
  * @example
@@ -15,7 +16,7 @@
  * find([1, 2, 3], (value) => value > 10);
  * // undefined
  * @example
- * // Works on any iterable — here, a Set
+ * // Works on any iterable: here, a Set
  * find(new Set(['a', 'bb', 'ccc']), (value) => value.length === 2);
  * // 'bb'
  * @example

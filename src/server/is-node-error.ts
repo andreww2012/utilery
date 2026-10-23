@@ -5,12 +5,12 @@ const isErrorObject = (value: unknown): value is Error =>
 /**
  * Checks whether a caught value is a Node.js system error, like one thrown by
  * `fs` or `child_process`, which carries a string `code` (`'ENOENT'`,
- * `'EACCES'`, etc.). Pass one or more codes to also check that the error has
- * one of them.
+ * `'EACCES'`, etc.).
+ * Pass one or more codes to also check that the error has one of them.
  *
  * Narrows the value to `NodeJS.ErrnoException`, so `code`, `errno`, `path` and
- * `syscall` are typed. Errors from another realm (like a `vm` context) count
- * too.
+ * `syscall` are typed.
+ * Errors from another realm (like a `vm` context) count too.
  * @param error - The caught value.
  * @param codes - Error codes to match; any code matches when none are given.
  * @returns `true` if the value is an error with a string `code` (one of `codes`, if given).

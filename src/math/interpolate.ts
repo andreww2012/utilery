@@ -1,16 +1,20 @@
 /**
  * Linearly interpolates between `min` and `max` by the factor `t`
- * (`min + (max - min) * t`). With `t = 0` the result is `min`, with `t = 1` it
- * is `max`, and `t = 0.5` is the midpoint.
+ * (`min + (max - min) * t`).
+ * With `t = 0` the result is `min`, with `t = 1` it is `max`, and `t = 0.5` is
+ * the midpoint.
  *
  * By default `t` is **not** constrained, so values outside `[0, 1]` extrapolate
- * beyond the `min`/`max` endpoints (the standard behavior). Pass `shouldClamp = true`
- * to constrain `t` to `[0, 1]`, capping the result at the endpoints.
+ * beyond the `min`/`max` endpoints (the standard behavior).
+ * Pass `shouldClamp = true` to constrain `t` to `[0, 1]`, capping the result at the
+ * endpoints.
  * @param min - The value returned when `t` is `0`.
  * @param max - The value returned when `t` is `1`.
- * @param t - The interpolation factor. Not constrained unless `shouldClamp` is `true`.
+ * @param t - The interpolation factor.
+ * Not constrained unless `shouldClamp` is `true`.
  * @param shouldClamp - When `true`, `t` is clamped to `[0, 1]` so the result never
- * goes past `min`/`max`. Defaults to `false` (allows extrapolation).
+ * goes past `min`/`max`.
+ * Defaults to `false` (allows extrapolation).
  * @returns The interpolated value.
  * @example
  * // Midpoint

@@ -2,7 +2,7 @@ import type {ElementFromSelector} from './element-from-selector.ts';
 
 /**
  * Finds every element matching a CSS selector, typed from the selector itself, and
- * returns them as a real array — `'span.badge'` yields `HTMLSpanElement[]`.
+ * returns them as a real array: `'span.badge'` yields `HTMLSpanElement[]`.
  *
  * Returning an array rather than the native `NodeList` is the point: `map`, `filter`,
  * `find`, `flatMap` and every array utility become available without spreading first.
@@ -11,13 +11,16 @@ import type {ElementFromSelector} from './element-from-selector.ts';
  *
  * The selector must be a string *literal*: inference reads the literal type, so a
  * dynamically built (widened `string`) selector falls back to `Element`.
- * An unknown tag — a custom element — also falls back to `Element`; use
+ * An unknown tag (a custom element) also falls back to `Element`; use
  * `querySelectorAllTyped.as<T>(selector, root?)` to state the type yourself, or augment
  * `HTMLElementTagNameMap` if the same element is queried across the project.
  * A malformed selector throws, as it does natively.
- * @param selector - The CSS selector to match. A literal type yields a precise result.
- * @param root - Where to search. Defaults to `document`.
- * @returns An array of matching elements, typed from the selector. Empty when nothing matches.
+ * @param selector - The CSS selector to match.
+ * A literal type yields a precise result.
+ * @param root - Where to search.
+ * Defaults to `document`.
+ * @returns An array of matching elements, typed from the selector.
+ * Empty when nothing matches.
  * @example
  * const badges = querySelectorAllTyped('span.badge');
  * // HTMLSpanElement[]

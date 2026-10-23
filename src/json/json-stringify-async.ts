@@ -1,7 +1,7 @@
 import {stringifyAsync} from 'yieldable-json';
 
 // `@types/yieldable-json` types the replacer key as `number` (it is `string`, as in native
-// `JSON.stringify`). Cast to a clean local signature so callers see correct types.
+// `JSON.stringify`). Cast to a clean local signature so callers see correct types
 const stringify = stringifyAsync as unknown as (
   value: object,
   replacer: ((key: string, value: unknown) => unknown) | (number | string)[] | null,
@@ -17,7 +17,8 @@ const stringify = stringifyAsync as unknown as (
  * @param value - The value to serialize.
  * @param replacer - Optional `JSON.stringify` replacer function or allow-list array.
  * @param space - Optional indentation (number of spaces or a string), as in `JSON.stringify`.
- * @param intensity - Work done per iteration before yielding, `1`–`32` (default `1`); higher trades responsiveness for throughput.
+ * @param intensity - Work done per iteration before yielding, `1` to `32` (default `1`); higher
+ * trades responsiveness for throughput.
  * @returns A promise resolving to the JSON string.
  * @example
  * // Serialize a large payload without blocking the event loop

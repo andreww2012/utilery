@@ -46,7 +46,7 @@ Example: `src/dom/query-selector-typed.global.ts`.
 - Note that an external package's `declare global` cannot be re-exported.
   `import type {} from 'the-package'` is erased from the declaration output, and a plain value import fails when the package ships no runtime code.
   Re-declare the augmentation against our own types instead.
-- `declare global` applies to the entire TypeScript program regardless of which file imports it, so mutually exclusive augmentations can never be tested alongside each other — their overloads merge and none of them stays assertable.
+- `declare global` applies to the entire TypeScript program regardless of which file imports it, so mutually exclusive augmentations can never be tested alongside each other: their overloads merge and none of them stays assertable.
   So test it **only** from `test/published-dts/scenarios/<utility-name>.global/` (not from an in-repo `*.spec-d.ts`), matching the source file name - the harness gives every `*.global` scenario directory a `tsc` program of its own.
 
 ## Adding utilities
@@ -71,12 +71,12 @@ Names target a reader who has never used the source library: we rename whenever 
 - **Adopt a widely-recognized math/CS term when it names the operation precisely.** `zip`/`unzip` → `arrayTranspose`, `xor` → `arraySymmetricDifference`.
 - **Avoid ambiguous or misleading words.** `after`/`before` sound temporal → `fromNthCall`/`untilNthCall`; `escape` is vague → `escapeHtml`.
 - **Reflect behavior, including side effects.** Mutating array helpers share an `arrayPurge*` prefix: `pull` → `arrayPurgeValues`, `remove` → `arrayPurgeBy`, `pullAt` → `arrayPurgeIndexes`.
-- **Prefix by group to disambiguate and signal the operand**, where it helps: `map*` (`filter` → `mapFilter`), `set*` (`filter` → `setFilter`), and `array*` for many array utilities; likewise encode a precondition when it matters (`sortedArray…`).
+- **Prefix by group to disambiguate and signal the operand**, where it helps: `map*` (`filter` → `mapFilter`), `set*` (`filter` → `setFilter`), and `array*` for many array utilities; likewise encode a precondition when it matters (`sortedArray*`).
   Not mandatory when the name is already unambiguous (`flatMap`, `sortBy`).
-- **Predicates read as a question (`is*`)** — `inRange` → `isInRange`, `isLength` → `isValidLength`; converters use `to*` — `camelCase` → `toCamelCase`.
+- **Predicates read as a question (`is*`)**: `inRange` → `isInRange`, `isLength` → `isValidLength`; converters use `to*`: `camelCase` → `toCamelCase`.
 - **Strict camelCase, acronyms included.** `isJSON` → `isJson`.
-- **Spelling preferences:**
-  - ❌ indices ✅ indexes
+- **Spelling preferences**:
+  - ❌ indices ✅ indexes <!-- cspell:disable-line -->
 - All the above applies to type utility naming.
 
 </details>

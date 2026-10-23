@@ -5,9 +5,10 @@ import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
  * Checks whether a file or directory exists at the given path.
  *
  * A missing path (or one going through a file, like `file.txt/child`) gives
- * `false`. Any other error, like permission denied, is rethrown, so genuine
- * failures are never mistaken for a missing path. Symbolic links are followed:
- * a link to a missing target gives `false`.
+ * `false`.
+ * Any other error, like permission denied, is rethrown, so genuine failures are
+ * never mistaken for a missing path.
+ * Symbolic links are followed: a link to a missing target gives `false`.
  *
  * To read a file that may be missing, use `readFileSafe` instead of checking
  * first: the file could be deleted between the check and the read.
@@ -27,9 +28,9 @@ export const pathExists = async (path: string) =>
     .catch(returnFalseIfMissing);
 
 /**
- * Synchronous version of `pathExists`. Unlike the native `fs.existsSync`,
- * rethrows errors other than a missing path (like permission denied) instead
- * of returning `false` for them.
+ * Synchronous version of `pathExists`.
+ * Unlike the native `fs.existsSync`, rethrows errors other than a missing path
+ * (like permission denied) instead of returning `false` for them.
  * @param path - The path to check.
  * @returns `true` if something exists at the path, otherwise `false`.
  * @example

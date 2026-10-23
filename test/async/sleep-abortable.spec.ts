@@ -13,8 +13,10 @@ describe('async/sleepAbortable', () => {
     const promise = sleepAbortable(1000, {signal: controller.signal});
     controller.abort();
 
-    await expect(promise).rejects.toMatchObject({name: 'AbortError'});
-    await expect(sleepAbortable(10, {signal: AbortSignal.abort('reason')})).rejects.toBe('reason');
+    await Promise.all([
+      expect(promise).rejects.toMatchObject({name: 'AbortError'}),
+      expect(sleepAbortable(10, {signal: AbortSignal.abort('reason')})).rejects.toBe('reason'),
+    ]);
   });
 
   it('can unref the timer', async () => {

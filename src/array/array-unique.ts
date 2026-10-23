@@ -1,8 +1,9 @@
 import {uniqBy, uniqWith} from 'es-toolkit/array';
 
 /**
- * Returns a new array with duplicate elements removed. The strategy used for
- * the equality check depends on the optional second argument:
+ * Returns a new array with duplicate elements removed.
+ * The strategy used for the equality check depends on the optional second
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (the same semantics
  *   as `Set.prototype.has`).
@@ -10,14 +11,15 @@ import {uniqBy, uniqWith} from 'es-toolkit/array';
  *   custom comparator (delegates to `uniqWith`).
  * - When a unary function `(value) => key` is passed, items are mapped through
  *   it and the resulting keys are compared (delegates to `uniqBy`).
- * @param array - The array to deduplicate. Not mutated.
+ * @param array - The array to deduplicate.
+ * Not mutated.
  * @returns A new array containing only the first occurrence of each unique element.
  * @example
  * // Basic equality (SameValueZero)
  * arrayUnique([1, 2, 1, 3, 2]);
  * // [1, 2, 3]
  * @example
- * // With a mapper — deduplicate by a derived key
+ * // With a mapper: deduplicate by a derived key
  * arrayUnique([{id: 1, v: 'a'}, {id: 2, v: 'b'}, {id: 1, v: 'c'}], (item) => item.id);
  * // [{id: 1, v: 'a'}, {id: 2, v: 'b'}]
  * @example
@@ -41,6 +43,6 @@ export function arrayUnique<T>(
   }
 
   return fn.length === 2
-    ? uniqWith(array as T[], fn as (a: T, b: T) => boolean)
-    : uniqBy(array as T[], fn as (value: T) => unknown);
+    ? uniqWith(array, fn as (a: T, b: T) => boolean)
+    : uniqBy(array, fn as (value: T) => unknown);
 }

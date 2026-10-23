@@ -10,13 +10,15 @@ type IsEqualCustomizer = (
 ) => boolean | undefined;
 
 /**
- * Performs a deep equality comparison between two values. Handles `Date`,
- * `RegExp`, nested objects, arrays, `Map`, `Set`, and circular references.
+ * Performs a deep equality comparison between two values.
+ * Handles `Date`, `RegExp`, nested objects, arrays, `Map`, `Set`, and circular
+ * references.
  *
  * When the third argument is omitted, the values are compared with the default
- * strategy. When a `customizer` is provided, it is invoked for every visited
- * value-pair and may return `true` or `false` to override the default —
- * returning `undefined` falls back to the default strategy.
+ * strategy.
+ * When a `customizer` is provided, it is invoked for every visited value-pair
+ * and may return `true` or `false` to override the default; returning
+ * `undefined` falls back to the default strategy.
  * @param a - The first value to compare.
  * @param b - The second value to compare.
  * @param customizer - Optional comparator invoked as
@@ -31,7 +33,7 @@ type IsEqualCustomizer = (
  * isEqual(new Date('2020-01-01'), new Date('2020-01-01'));
  * // true
  * @example
- * // With a customizer — case-insensitive string comparison
+ * // With a customizer: case-insensitive string comparison
  * isEqual('Hello', 'hello', (x, y) => {
  *   if (typeof x === 'string' && typeof y === 'string') {
  *     return x.toLowerCase() === y.toLowerCase();

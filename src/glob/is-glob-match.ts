@@ -6,9 +6,9 @@ import {type GlobOptions, toPicomatchOptions} from './_shared.ts';
  * Checks whether a path matches a glob pattern (or any of several patterns).
  * See `globToRegex` for the supported syntax.
  *
- * A pattern starting with `!` is negated: it matches every path the rest of
- * the pattern does not match. To include some paths and exclude others, use
- * `createPathFilter`.
+ * A pattern starting with `!` is negated: it matches every path the rest of the
+ * pattern does not match.
+ * To include some paths and exclude others, use `createPathFilter`.
  * @param path - The path to check.
  * @param patterns - A glob pattern or a list of them.
  * @param options - `dot`, `caseInsensitive`, `windows` and `matchBasename`.

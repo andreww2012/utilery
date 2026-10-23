@@ -26,7 +26,7 @@ export default eslintConfig({
   defaultConfigsStatus: 'misc-enabled',
   extraConfigs: [
     {
-      // The package docs intentionally use a `Package:` prefix in their title.
+      // The package docs intentionally use a `Package:` prefix in their title
       files: ['docs/packages/*.md'],
       rules: {
         'markdown-preferences/no-heading-trailing-punctuation': 'off',
@@ -70,8 +70,8 @@ export default eslintConfig({
       configModuleReplacements: {
         options: {
           allowed: [
-            // Unlike their suggested replacements: `fast-string-width` (which `fast-wrap-ansi` uses)
-            // miscounts zero-width characters, conjoining Hangul and tabs, and the native
+            // Unlike their suggested replacements: `fast-string-width` (which `fast-wrap-ansi`
+            // uses) miscounts zero-width characters, conjoining Hangul and tabs, and the native
             // `util.stripVTControlCharacters` is missing outside Node.js
             'string-width',
             'strip-ansi',

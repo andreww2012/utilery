@@ -13,12 +13,17 @@ import {allUnionMembers} from '../src/ts/all-union-members.ts';
 const __dirname = path.resolve(import.meta.dirname, '..');
 
 type CountType = 'functions' | 'types' | 'constants' | 'files';
-const COUNT_TYPES = allUnionMembers<CountType>()(['functions', 'types', 'constants', 'files']);
+const COUNT_TYPES = allUnionMembers<CountType, {readonly: true}>()([
+  'functions',
+  'types',
+  'constants',
+  'files',
+]);
 const COUNT_TYPE_ALL = 'all';
 
 type OutputFormat = 'text' | 'json';
-const OUTPUT_FORMATS = allUnionMembers<OutputFormat>()(['text', 'json']);
-const DEFAULT_OUTPUT_FORMAT = 'text' satisfies OutputFormat;
+const OUTPUT_FORMATS = allUnionMembers<OutputFormat, {readonly: true}>()(['text', 'json']);
+const DEFAULT_OUTPUT_FORMAT: OutputFormat = 'text';
 
 const quoteList = (values: readonly string[]) => values.map((value) => `'${value}'`).join(', ');
 
@@ -129,7 +134,7 @@ const classifyExport = (symbol: ts.Symbol, checker: ts.TypeChecker): CountType =
     return 'types';
   }
 
-  const declaration = resolved.valueDeclaration ?? resolved.declarations?.[0];
+  const declaration = resolved.valueDeclaration || resolved.declarations?.[0];
   if (declaration == null) {
     return 'constants';
   }
@@ -142,6 +147,15 @@ const classifyExport = (symbol: ts.Symbol, checker: ts.TypeChecker): CountType =
 };
 
 type Counts = Record<CountType, number>;
+
+const countCategories = (categories: Iterable<CountType>, fileCount: number) =>
+  [...categories].reduce<Counts>(
+    (counts, category) => {
+      counts[category] += 1;
+      return counts;
+    },
+    {functions: 0, types: 0, constants: 0, files: fileCount},
+  );
 
 const analyze = (subpaths: Subpath[]) => {
   const configPath = ts.findConfigFile(
@@ -166,44 +180,29 @@ const analyze = (subpaths: Subpath[]) => {
   const overallFiles = new Set<string>();
 
   const perSubpath = subpaths.map(({subpath, sourceEntry}) => {
-    const counts: Counts = {functions: 0, types: 0, constants: 0, files: 0};
-
     const sourceFile = program.getSourceFile(sourceEntry);
     const moduleSymbol = sourceFile && checker.getSymbolAtLocation(sourceFile);
-
-    if (moduleSymbol != null) {
-      for (const exportSymbol of checker.getExportsOfModule(moduleSymbol)) {
+    const categories = (moduleSymbol == null ? [] : checker.getExportsOfModule(moduleSymbol)).map(
+      (exportSymbol) => {
         const category = classifyExport(exportSymbol, checker);
-        counts[category] += 1;
-
         overallCategories.set(exportSymbol.getName(), category);
-      }
-    }
+        return category;
+      },
+    );
 
     // A non-index entry (like a `*.global` module) is a utility file itself
     const files =
       path.basename(sourceEntry) === 'index.ts'
         ? collectUtilityFiles(sourceEntry, program)
         : new Set([sourceEntry]);
-    counts.files = files.size;
     for (const file of files) {
       overallFiles.add(file);
     }
 
-    return {subpath, counts};
+    return {subpath, counts: countCategories(categories, files.size)};
   });
 
-  const overall: Counts = {
-    functions: 0,
-    types: 0,
-    constants: 0,
-    files: overallFiles.size,
-  };
-  for (const category of overallCategories.values()) {
-    overall[category] += 1;
-  }
-
-  return {overall, perSubpath};
+  return {overall: countCategories(overallCategories.values(), overallFiles.size), perSubpath};
 };
 
 const formatText = (

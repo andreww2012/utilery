@@ -9,9 +9,9 @@ Scripts live at `scripts/<name>.ts` and run directly via `node scripts/<name>.ts
 You should do your best to avoid using features that would make the script not runnable with plain Node.JS type stripping.
 Use relative paths to import source utilities.
 
-## Dogfood utilities — but only when it earns its place
+## Dogfood utilities, but only when it helps
 
-Prefer the project's own utilities over native or hand-rolled equivalents **when they make a positive difference** — added safety, correct typing, or non-obvious edge-case handling.
+Prefer the project's own utilities over native or hand-rolled equivalents **when they make a positive difference**: added safety, correct typing, or non-obvious edge-case handling.
 
 ## Registering the script
 

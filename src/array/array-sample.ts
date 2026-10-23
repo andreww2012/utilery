@@ -1,28 +1,30 @@
 /**
- * Returns one or more elements drawn uniformly at random from `array`. Without
- * the second argument, a single element is returned directly.
+ * Returns one or more elements drawn uniformly at random from `array`.
+ * Without the second argument, a single element is returned directly.
  *
- * When `size` is provided, a new array of that many elements is returned. By
- * default elements are sampled **without replacement** — each can appear at
+ * When `size` is provided, a new array of that many elements is returned.
+ * By default elements are sampled **without replacement**: each can appear at
  * most once, so `size` may not exceed `array.length` (via Floyd's algorithm).
- * Pass `{withReplacement: true}` to sample **with
- * replacement** instead: each draw is independent, elements may repeat, and
- * `size` may exceed `array.length`.
+ * Pass `{withReplacement: true}` to sample **with replacement** instead: each
+ * draw is independent, elements may repeat, and `size` may exceed
+ * `array.length`.
  *
  * Uses `Math.random` (not cryptographically secure) unless another generator
  * is passed as the `random` option, like a seeded one from
  * `createSeededRandom`.
- * @param array - The array to sample from. Not mutated.
+ * @param array - The array to sample from.
+ * Not mutated.
  * @param size - Optional number of elements to draw.
  * @param options - Sampling options.
  * @param options.withReplacement - When `true`, the same element may be drawn
- * more than once and `size` may exceed `array.length`. Defaults to `false`.
+ * more than once and `size` may exceed `array.length`.
+ * Defaults to `false`.
  * @param options.random - A function returning numbers from `0` to `1`, used
  * instead of `Math.random`.
- * @returns When `size` is omitted, a single random element (or `undefined`
- * if `array` is empty). When `size` is provided, a new array of that many
- * randomly chosen elements (empty when sampling with replacement from an empty
- * array).
+ * @returns When `size` is omitted, a single random element (or `undefined` if
+ * `array` is empty).
+ * When `size` is provided, a new array of that many randomly chosen elements
+ * (empty when sampling with replacement from an empty array).
  * @throws {Error} Without replacement, when `size` is greater than `array.length`.
  * @example
  * // Single element

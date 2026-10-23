@@ -8,6 +8,6 @@
 | [`link`][api]                     | ✅     | `server/formatTerminalFileLink`                                            | Renamed       |
 | [`supportsHyperlinks`][api]       | ✅     | `server/isTerminalLinkSupported`                                           | Renamed       |
 | `HyperlinkOptions`, `LinkOptions` | ✅     | `server/FormatTerminalLinkOptions`, `server/FormatTerminalFileLinkOptions` | Renamed       |
-| [`createLinker`][api]             | ⌛     | —                                                                          | Not added yet |
+| [`createLinker`][api]             | ⌛     | -                                                                          | Not added yet |
 
 [api]: https://github.com/danielroe/clickable-path#api

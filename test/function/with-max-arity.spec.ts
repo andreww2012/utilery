@@ -1,6 +1,6 @@
 import {withMaxArity} from '../../src/function/with-max-arity.ts';
 
-const collect = (...args: number[]) => args;
+const collect = (...values: number[]) => values;
 
 describe('function/withMaxArity', () => {
   it('basic test', () => {

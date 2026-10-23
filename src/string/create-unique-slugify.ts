@@ -3,13 +3,15 @@ import {type SlugifyOptions, slugify} from './slugify.ts';
 /**
  * Creates a `slugify` function that never returns the same slug twice: a
  * repeated slug gets a counter suffix (`foo`, `foo-2`, `foo-3`), like heading
- * IDs on GitHub. A suffix is never reused, even when the text itself ends with
- * a number (`foo 2` after two `foo`s gives `foo-2-2`). Slugs differing only in
- * case count as the same.
+ * IDs on GitHub.
+ * A suffix is never reused, even when the text itself ends with a number
+ * (`foo 2` after two `foo`s gives `foo-2-2`).
+ * Slugs differing only in case count as the same.
  *
  * Each created function counts on its own; call its `reset` method to start
- * over. Empty slugs are not counted and stay empty. See `slugify` for how text
- * is turned into a slug and for the options.
+ * over.
+ * Empty slugs are not counted and stay empty.
+ * See `slugify` for how text is turned into a slug and for the options.
  * @returns A `slugify` function with a counter and a `reset` method.
  * @example
  * const slugifyHeading = createUniqueSlugify();

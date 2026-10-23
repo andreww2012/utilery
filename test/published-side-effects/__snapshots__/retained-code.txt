@@ -194,11 +194,11 @@ const placeholderSymbol = Symbol("partialRight.placeholder");
 partialRight.placeholder = placeholderSymbol;
 
 // function/partial.mjs
-const callPartial = (func, args, isFromRight) => {
-	if (isFromRight) return partialRight(func, ...args.map((arg) => arg === partial$1.placeholder ? partialRight.placeholder : arg));
-	return partial$1(func, ...args);
+const callPartial = (fn, presetArguments, isFromRight) => {
+	if (isFromRight) return partialRight(fn, ...presetArguments.map((argument) => argument === partial$1.placeholder ? partialRight.placeholder : argument));
+	return partial$1(fn, ...presetArguments);
 };
-Object.assign(((func, args, isFromRight = false) => callPartial(func, args, isFromRight)), { placeholder: partial$1.placeholder });
+Object.assign(((fn, presetArguments, isFromRight = false) => callPartial(fn, presetArguments, isFromRight)), { placeholder: partial$1.placeholder });
 
 // node_modules/picomatch/lib/constants.mjs
 var require_constants$1 = __commonJSMin(((exports, module) => {
@@ -7565,7 +7565,7 @@ const isColorSupported = (stream = process.stdout) => {
 
 // server/colors.mjs
 const plainWhenUnsupported = (style) => (text) => isColorSupported() ? style(text) : text;
-const plainWhenUnsupportedFactory = (createStyle) => (...args) => plainWhenUnsupported(createStyle(...args));
+const plainWhenUnsupportedFactory = (createStyle) => (...callArguments) => plainWhenUnsupported(createStyle(...callArguments));
 const { ansi256, bgAnsi256, rgb, bgRgb, hex, bgHex, ...styles } = colors$1;
 Object.freeze({
 	...mapValues(styles, plainWhenUnsupported),

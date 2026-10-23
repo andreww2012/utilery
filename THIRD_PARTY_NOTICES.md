@@ -1,4 +1,4 @@
-<!-- cspell:ignore Pooya Parsa Jong Puru Vijay Guichard Sindre Sorhus sublicensable Schlueter Andrey Sitnik arielhs Ashkenas Hendrickson Hermsmeier Holowaychuk Jens Klehr Rebecca Schlinkert Verschueren hunterwb whitequark -->
+<!-- cspell:ignore ark arktype isexe Pooya Parsa Jong Puru Vijay Guichard Sindre Sorhus sublicensable Schlueter Andrey Sitnik arielhs Ashkenas Hendrickson Hermsmeier Holowaychuk Jens Klehr Rebecca Schlinkert Verschueren hunterwb whitequark -->
 
 # Third-Party Notices
 
@@ -7,7 +7,7 @@ This file reproduces their license texts, as required by those licenses.
 
 <!-- THIRD_PARTY_NOTICES_TABLE:START -->
 
-<!-- The table below is generated automatically upon publishing; do not edit it by hand. -->
+<!-- The table below is generated automatically upon publishing; do not edit it by hand -->
 
 <!-- THIRD_PARTY_NOTICES_TABLE:END -->
 

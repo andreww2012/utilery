@@ -17,5 +17,5 @@ import escapeStringRegexp from 'escape-string-regexp';
  * new RegExp(`[${regexEscape('a-z')}]`).test('m');
  * // false
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const regexEscape = escapeStringRegexp;

@@ -2,11 +2,12 @@
  * Tests whether any element of an iterable satisfies the predicate.
  * Iteration short-circuits on the first `true`, so the iterable is consumed
  * only up to (and including) that element.
- * @param iterable - The iterable to test. Consumed at most once.
+ * @param iterable - The iterable to test.
+ * Consumed at most once.
  * @param predicate - Receives each value and returns whether it satisfies the
  * condition.
- * @returns `true` if at least one element matches, otherwise `false`. An
- * empty iterable always returns `false`.
+ * @returns `true` if at least one element matches, otherwise `false`.
+ * An empty iterable always returns `false`.
  * @example
  * // Returns true on the first match
  * some([1, 2, 3], (value) => value === 2);
@@ -20,7 +21,7 @@
  * some([], () => true);
  * // false
  * @example
- * // Works on any iterable — here, a Set
+ * // Works on any iterable: here, a Set
  * some(new Set([1, 2, 3]), (value) => value > 2);
  * // true
  */

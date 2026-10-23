@@ -5,21 +5,33 @@ import {
 
 /** Options of `writeJsonFile` and `writeJsonFileSync` */
 export interface WriteJsonFileOptions {
-  /** Indentation as a string or a number of spaces; `undefined` for none. Defaults to `2` */
+  /**
+   * Indentation as a string or a number of spaces; `undefined` for none.
+   * Defaults to `2`
+   */
   indent?: string | number;
 
   /**
    * Keeps the indentation of the existing file, if there is one; `indent` is
-   * used otherwise. Defaults to `true`
+   * used otherwise.
+   * Defaults to `true`
    */
   detectIndent?: boolean;
-  /** Sorts object keys recursively, optionally with a compare function. Defaults to `false` */
+
+  /**
+   * Sorts object keys recursively, optionally with a compare function.
+   * Defaults to `false`
+   */
   sortKeys?: boolean | ((left: string, right: string) => number);
   /** Passed to `JSON.stringify` */
   replacer?:
     | ((this: unknown, key: string, value: unknown) => unknown)
     | readonly (number | string)[];
-  /** File mode of a new file. Defaults to `0o666` (before the umask is applied) */
+
+  /**
+   * File mode of a new file.
+   * Defaults to `0o666` (before the umask is applied)
+   */
   mode?: number;
 }
 
@@ -27,9 +39,9 @@ const DEFAULT_OPTIONS: Readonly<WriteJsonFileOptions> = {indent: 2, detectIndent
 
 /**
  * Serializes a value as JSON and writes it to a file atomically: the data is
- * written to a temporary file first, which then replaces the target, so a
- * crash never leaves a half-written file behind. Missing parent directories
- * are created.
+ * written to a temporary file first, which then replaces the target, so a crash
+ * never leaves a half-written file behind.
+ * Missing parent directories are created.
  *
  * By default, the indentation of an existing file is kept (2 spaces for a new
  * one), and a trailing newline is added unless the existing file has none.

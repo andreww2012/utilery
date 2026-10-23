@@ -7,4 +7,4 @@
 | [`parse`](https://github.com/tusbar/cache-control#parseheader)         | ✅     | `http/parseCacheControl`      | Renamed; accepts `null`                             |
 | [`format`](https://github.com/tusbar/cache-control#formatcachecontrol) | ✅     | `http/formatCacheControl`     | Renamed                                             |
 | `CacheControlValue`                                                    | ✅     | `http/CacheControlDirectives` | Renamed                                             |
-| `CacheControl`                                                         | ❌     | —                             | The class of the result of `http/parseCacheControl` |
+| `CacheControl`                                                         | ❌     | -                             | The class of the result of `http/parseCacheControl` |

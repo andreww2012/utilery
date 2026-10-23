@@ -1,13 +1,14 @@
 /**
  * Returns the value stored under `key`, first inserting `defaultValue` when the key is not present.
  *
- * The return type is not optional, unlike `Map#get`, so the result is directly usable — which
+ * The return type is not optional, unlike `Map#get`, so the result is directly usable, which
  * collapses the usual "look up, create when missing, then use" dance into a single expression.
  * An already present value is never overwritten, and a stored `undefined` counts as present.
  *
  * `defaultValue` is evaluated by the caller on every call, even when `key` is already present.
  * Use `mapGetOrInsertComputed` when producing it is expensive or has side effects.
- * @param map - The map to read from. Mutated only when `key` is not present.
+ * @param map - The map to read from.
+ * Mutated only when `key` is not present.
  * @param key - The key to look up.
  * @param defaultValue - The value to insert and return when `key` is not present.
  * @returns The value already stored under `key`, or `defaultValue` when it has just been inserted.
@@ -27,7 +28,8 @@
  */
 export const mapGetOrInsert = <K, V>(map: Map<K, V>, key: K, defaultValue: V) => {
   if (map.has(key)) {
-    // `V` may itself include `undefined`, so `has` is the only sound presence check, and `get` cannot be narrowed by it
+    // `V` may itself include `undefined`, so `has` is the only sound presence check, and `get`
+    // cannot be narrowed by it
     return map.get(key) as V;
   }
 

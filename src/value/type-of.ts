@@ -1,12 +1,13 @@
 /**
- * Returns the runtime type of `value` as a string — an enhanced `typeof` that
+ * Returns the runtime type of `value` as a string: an enhanced `typeof` that
  * distinguishes object subtypes the operator collapses into `'object'`.
  *
  * Primitives return their lowercase `typeof` result (`'string'`, `'number'`,
  * `'boolean'`, `'bigint'`, `'symbol'`, `'undefined'`, `'function'`), with
- * `null` reported as `'null'`. Everything else returns its internal class tag
- * in its natural casing (`'Array'`, `'Date'`, `'Map'`, `'Promise'`, `'Object'`,
- * …), honoring a custom `Symbol.toStringTag` when present.
+ * `null` reported as `'null'`.
+ * Everything else returns its internal class tag in its natural casing
+ * (`'Array'`, `'Date'`, `'Map'`, `'Promise'`, `'Object'`, ...), honoring a
+ * custom `Symbol.toStringTag` when present.
  * @param value - The value to inspect.
  * @returns The runtime type name of `value`.
  * @example

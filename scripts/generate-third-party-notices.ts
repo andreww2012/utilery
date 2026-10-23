@@ -18,13 +18,13 @@ const PNPM_STORE = path.join(NODE_MODULES, '.pnpm');
 const TABLE_START = '<!-- THIRD_PARTY_NOTICES_TABLE:START -->';
 const TABLE_END = '<!-- THIRD_PARTY_NOTICES_TABLE:END -->';
 const GENERATED_NOTE =
-  '<!-- The table below is generated automatically upon publishing; do not edit it by hand. -->';
+  '<!-- The table below is generated automatically upon publishing; do not edit it by hand -->';
 const NPMX_BASE = 'https://npmx.dev';
 
 const TABLE_REGION_REGEX = new RegExp(
   String.raw`${regexEscape(TABLE_START)}[\s\S]*?${regexEscape(TABLE_END)}`,
 );
-// Grouping parentheses SPDX allows around a whole expression, e.g. `(MIT OR CC0-1.0)`.
+// Grouping parentheses SPDX allows around a whole expression, e.g. `(MIT OR CC0-1.0)`
 const WRAPPING_PARENS_REGEX = /^\((.*)\)$/;
 
 // eslint-disable-next-line unicorn/no-array-sort
@@ -36,7 +36,7 @@ const resolvePackageJsonPath = (packageName: string) => {
     return directPath;
   }
 
-  // Transitively bundled dependencies live only in pnpm's virtual store, not at the top level.
+  // Transitively bundled dependencies live only in pnpm's virtual store, not at the top level
   const storePrefix = `${packageName.replaceAll('/', '+')}@`;
   const storeEntry = fs.readdirSync(PNPM_STORE).find((entry) => entry.startsWith(storePrefix));
   if (storeEntry == null) {
@@ -51,6 +51,12 @@ interface PackageRow {
   versionCell: string;
   licenseCell: string;
 }
+
+const TABLE_HEADER: Readonly<PackageRow> = {
+  packageCell: 'Package',
+  versionCell: 'Version',
+  licenseCell: 'License',
+};
 
 const buildTable = () => {
   const rows = collectBundledPackageNames().map<PackageRow>((name) => {
@@ -68,12 +74,7 @@ const buildTable = () => {
     };
   });
 
-  const header: PackageRow = {
-    packageCell: 'Package',
-    versionCell: 'Version',
-    licenseCell: 'License',
-  };
-  const allRows = [header, ...rows];
+  const allRows = [TABLE_HEADER, ...rows];
   const widthOf = (pick: (row: PackageRow) => string) =>
     Math.max(...allRows.map((row) => pick(row).length));
   const packageWidth = widthOf((row) => row.packageCell);
@@ -84,7 +85,7 @@ const buildTable = () => {
     `| ${packageCell.padEnd(packageWidth)} | ${versionCell.padEnd(versionWidth)} | ${licenseCell.padEnd(licenseWidth)} |`;
 
   return [
-    formatRow(header),
+    formatRow(TABLE_HEADER),
     `| ${'-'.repeat(packageWidth)} | ${'-'.repeat(versionWidth)} | ${'-'.repeat(licenseWidth)} |`,
     ...rows.map(formatRow),
   ].join('\n');
@@ -98,7 +99,7 @@ const run = () => {
   const noticesText = fs.readFileSync(NOTICES_PATH, 'utf8');
   if (!TABLE_REGION_REGEX.test(noticesText)) {
     throw new Error(
-      `Could not find the "${TABLE_START}"…"${TABLE_END}" region in ${NOTICES_PATH}.`,
+      `Could not find the "${TABLE_START}"..."${TABLE_END}" region in ${NOTICES_PATH}.`,
     );
   }
 

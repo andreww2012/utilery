@@ -2,13 +2,17 @@ import {uint8ArrayToBase64 as uint8ArrayToBase64Base} from 'uint8array-extras';
 
 /** Options of `uint8ArrayToBase64` and `stringToBase64` */
 export interface Base64EncodingOptions {
-  /** Use the URL-safe Base64URL alphabet (`-` and `_`) without padding. Defaults to `false` */
+  /**
+   * Use the URL-safe Base64URL alphabet (`-` and `_`) without padding.
+   * Defaults to `false`
+   */
   urlSafe?: boolean;
 }
 
 /**
- * Encodes bytes as a Base64 string. Unlike `btoa`, works on bytes, so any
- * binary data (and text encoded with `stringToUint8Array`) is supported.
+ * Encodes bytes as a Base64 string.
+ * Unlike `btoa`, works on bytes, so any binary data (and text encoded with
+ * `stringToUint8Array`) is supported.
  *
  * Pass `{urlSafe: true}` for the URL-safe Base64URL alphabet (`-` and `_`
  * instead of `+` and `/`), without the `=` padding.

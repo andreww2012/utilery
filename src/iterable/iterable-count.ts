@@ -1,8 +1,8 @@
 import {count} from 'es-toolkit/iterator';
 
 /**
- * Counts the elements of an iterable by consuming it. Never use it on an
- * infinite iterable.
+ * Counts the elements of an iterable by consuming it.
+ * Never use it on an infinite iterable.
  *
  * To count elements by group, use `countBy`.
  * @param iterable - The iterable to count the elements of.

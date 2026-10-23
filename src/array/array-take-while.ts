@@ -2,11 +2,14 @@ import {takeRightWhile, takeWhile} from 'es-toolkit/array';
 
 /**
  * Takes a contiguous run of elements from one edge of an array, walking inward
- * as long as the predicate returns `true`. The first `false` result stops the
- * taking, and only the elements collected up to that point are returned.
- * @param array - The array to take elements from. Not mutated.
- * @param predicate - `(item, index, array) => boolean`. Elements are taken
- * while it returns `true`; the first `false` result stops the taking.
+ * as long as the predicate returns `true`.
+ * The first `false` result stops the taking, and only the elements collected up
+ * to that point are returned.
+ * @param array - The array to take elements from.
+ * Not mutated.
+ * @param predicate - `(item, index, array) => boolean`.
+ * Elements are taken while it returns `true`; the first `false` result stops
+ * the taking.
  * @param isFromRight - When `true`, the predicate walks the array from the last
  * element backwards and trailing matches are returned in their original order.
  * Defaults to `false` (walks from the first element).

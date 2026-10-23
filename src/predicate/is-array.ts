@@ -35,5 +35,5 @@ import {isArray as isArrayBase} from 'remeda';
  * isArray(new Set([1, 2, 3])); // false
  * isArray({length: 0}); // false
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const isArray = isArrayBase;

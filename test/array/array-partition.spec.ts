@@ -41,7 +41,7 @@ describe('array/arrayPartition', () => {
     });
 
     it('assigns an element to the first satisfied predicate only', () => {
-      // 6 matches both predicates but lands in the first group only.
+      // 6 matches both predicates but lands in the first group only
       expect(
         arrayPartition(
           [6],

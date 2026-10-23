@@ -18,12 +18,13 @@ export type IpRange =
  * `192.168.0.0/16`, etc.), `'uniqueLocal'` (the IPv6 private range,
  * `fc00::/7`), `'linkLocal'` (`169.254.0.0/16`, `fe80::/10`), `'unspecified'`
  * (`0.0.0.0`, `::`), `'multicast'`, `'reserved'` (documentation, testing and
- * other special ranges), and others. Publicly routable addresses give
- * `'unicast'`.
+ * other special ranges), and others.
+ * Publicly routable addresses give `'unicast'`.
  *
  * An IPv4 address mapped to IPv6 (`'::ffff:127.0.0.1'`) is classified as the
- * IPv4 address. Useful to block requests to internal addresses, for example
- * against server-side request forgery (SSRF).
+ * IPv4 address.
+ * Useful to block requests to internal addresses, for example against
+ * server-side request forgery (SSRF).
  * @param ip - The IP address (see `isIp` for the accepted forms).
  * @returns The range name, or `undefined` if the string is not an IP address.
  * @example

@@ -1,13 +1,14 @@
 /**
  * Calculates the arithmetic mean of an iterable of numbers, in a single pass
- * and without materializing an intermediate array — so it works on any
- * iterable (generators, `Set`s, …), not just arrays. When the second argument
- * is omitted, the elements are averaged directly. When a `getValue` function is
- * provided, each element is mapped through it first and the resulting numbers
- * are averaged.
+ * and without materializing an intermediate array, so it works on any iterable
+ * (generators, `Set`s, ...), not just arrays.
+ * When the second argument is omitted, the elements are averaged directly.
+ * When a `getValue` function is provided, each element is mapped through it
+ * first and the resulting numbers are averaged.
  *
  * Returns `NaN` for an empty input.
- * @param items - The iterable to average. Not mutated.
+ * @param items - The iterable to average.
+ * Not mutated.
  * @param getValue - Optional selector that produces the numeric value to
  * average from each element.
  * @returns The arithmetic mean, or `NaN` if `items` is empty.
@@ -20,7 +21,7 @@
  * mean(new Set([1, 2, 3]));
  * // 2
  * @example
- * // With a selector — average a numeric field of objects
+ * // With a selector: average a numeric field of objects
  * mean([{a: 1}, {a: 2}, {a: 3}], (item) => item.a);
  * // 2
  * @example

@@ -1,8 +1,9 @@
 import {isSubsetWith} from 'es-toolkit/array';
 
 /**
- * Checks whether every element of `subset` is also present in `superset`. The
- * strategy used for the equality check depends on the optional third argument:
+ * Checks whether every element of `subset` is also present in `superset`.
+ * The strategy used for the equality check depends on the optional third
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (the same semantics
  *   as `Set.prototype.has`).
@@ -20,7 +21,7 @@ import {isSubsetWith} from 'es-toolkit/array';
  * arrayIsSubset([1, 2, 3, 4, 5], [2, 4]);
  * // true
  * @example
- * // With a mapper — compare by a derived key
+ * // With a mapper: compare by a derived key
  * arrayIsSubset(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 2}],

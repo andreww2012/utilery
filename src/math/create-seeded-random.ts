@@ -11,13 +11,15 @@ const hashString = (text: string) => {
 /**
  * Creates a seeded pseudo-random number generator: a function that, like
  * `Math.random`, returns numbers from `0` (inclusive) to `1` (exclusive), but
- * always the same sequence for the same seed. Useful for reproducible
- * shuffles, tests, procedural content or a "puzzle of the day".
+ * always the same sequence for the same seed.
+ * Useful for reproducible shuffles, tests, procedural content or a "puzzle of
+ * the day".
  *
  * Pass it as the `random` option of `arrayShuffle`, `arraySample`, `random`,
- * `randomIntInclusive` and `randomIntExclusive`. The seed is a number (its
- * integer part is used) or a string. Uses the fast Mulberry32 algorithm: good
- * for simulations and games, but not cryptographically secure.
+ * `randomIntInclusive` and `randomIntExclusive`.
+ * The seed is a number (its integer part is used) or a string.
+ * Uses the fast Mulberry32 algorithm: good for simulations and games, but not
+ * cryptographically secure.
  * @param seed - The seed: the same seed gives the same sequence.
  * @returns A function returning the next number of the sequence.
  * @example

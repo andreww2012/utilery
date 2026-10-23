@@ -3,7 +3,7 @@ import type {Truthy} from '../types/truthy.ts';
 /**
  * Checks whether `value` is truthy and acts as a type guard that subtracts the
  * falsy members (`false`, `0`, `0n`, `''`, `null`, `undefined`) from its type.
- * Unlike `array.filter(Boolean)` — whose return type is unchanged — filtering
+ * Unlike `array.filter(Boolean)` (whose return type is unchanged), filtering
  * with `isTruthy` narrows the resulting element type.
  *
  * Note that falsy *literals* can only be removed from union types: `isTruthy`

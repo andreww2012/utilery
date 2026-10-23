@@ -2,15 +2,17 @@ import {findLastKey} from 'es-toolkit/compat';
 import {findKey} from 'es-toolkit/object';
 
 /**
- * Returns the key of the first property whose value satisfies `predicate` —
- * the object analog of `Array.prototype.find`, returning the key instead of the
- * value. Returns `undefined` when no property matches.
+ * Returns the key of the first property whose value satisfies `predicate`, the
+ * object analog of `Array.prototype.find`, returning the key instead of the
+ * value.
+ * Returns `undefined` when no property matches.
  *
  * Pass `true` as the third argument to scan from the last key to the first.
  * @param object - The object to search.
  * @param predicate - Invoked as `(value, key, object)`; the first key for which
  * it returns `true` is returned.
- * @param isFromRight - When `true`, scans keys from last to first. Defaults to `false`.
+ * @param isFromRight - When `true`, scans keys from last to first.
+ * Defaults to `false`.
  * @returns The matching key, or `undefined` if none matches.
  * @example
  * // First key whose value passes the predicate

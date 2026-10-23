@@ -4,9 +4,10 @@ import type {DelimiterCase} from 'string-ts';
 /**
  * Converts a string to a **custom delimiter case** by splitting it into words and
  * joining them with `delimiter`, preserving each word's original case
- * (`('fooBar', '.')` → `'foo.Bar'`). Unlike `toKebabCase`/`toSnakeCase`, the case
- * of the words is left untouched. A string literal is typed as the exact result;
- * a non-literal `string` returns `string`.
+ * (`('fooBar', '.')` → `'foo.Bar'`).
+ * Unlike `toKebabCase`/`toSnakeCase`, the case of the words is left untouched.
+ * A string literal is typed as the exact result; a non-literal `string` returns
+ * `string`.
  * @param value - The string to convert.
  * @param delimiter - The delimiter to join the words with.
  * @returns The delimiter-cased string.

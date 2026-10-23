@@ -19,21 +19,25 @@ const chunkBySizes = <T>(array: readonly T[], sizes: readonly number[]) => {
 };
 
 /**
- * Splits an array into smaller arrays. The chunking strategy depends on the
- * second argument:
+ * Splits an array into smaller arrays.
+ * The chunking strategy depends on the second argument:
  *
  * - When a positive integer `size` is passed, the array is split into
  *   consecutive chunks of at most `size` elements.
  * - When an array of `sizes` is passed, the array is split into exactly one
- *   chunk per size, in order. A chunk is shorter (or empty) when the array
- *   runs out, and the elements past the sum of the sizes are left out. Use
- *   `Infinity` as the last size to collect the rest. A literal tuple of sizes
- *   gives a tuple of chunks.
+ *   chunk per size, in order.
+ *   A chunk is shorter (or empty) when the array runs out, and the elements
+ *   past the sum of the sizes are left out.
+ *   Use `Infinity` as the last size to collect the rest.
+ *   A literal tuple of sizes gives a tuple of chunks.
  * - When an iteratee `(value) => key` is passed, a new chunk is started
  *   whenever the derived key differs from the previous element's key by strict
- *   inequality — i.e. the result is the runs of consecutive same-key elements.
- * @param array - The array to split. Not mutated.
- * @param size - A positive integer chunk size. The other overloads take an array of chunk `sizes` (non-negative integers or `Infinity`) or an `iteratee` mapping each element to its comparison key.
+ *   inequality, i.e. the result is the runs of consecutive same-key elements.
+ * @param array - The array to split.
+ * Not mutated.
+ * @param size - A positive integer chunk size.
+ * The other overloads take an array of chunk `sizes` (non-negative integers or `Infinity`) or an
+ * `iteratee` mapping each element to its comparison key.
  * @returns A new two-dimensional array of chunks.
  * @throws {Error} When `size` is not a positive integer.
  * @throws {RangeError} When one of the chunk sizes is not a non-negative integer or `Infinity`.

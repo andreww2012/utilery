@@ -8,15 +8,18 @@ type CloneDeepCustomizer<T> = (
 ) => unknown;
 
 /**
- * Creates a deep clone of the given value. Handles primitives, plain objects,
- * arrays, typed arrays, `Date`, `RegExp`, `Map`, `Set`, `ArrayBuffer`,
- * `DataView`, `Error`, `File`, `Blob`, and circular references.
+ * Creates a deep clone of the given value.
+ * Handles primitives, plain objects, arrays, typed arrays, `Date`, `RegExp`,
+ * `Map`, `Set`, `ArrayBuffer`, `DataView`, `Error`, `File`, `Blob`, and
+ * circular references.
  *
  * When the second argument is omitted, the value is cloned with the default
- * strategy. When a `cloneValue` function is provided, it is invoked for every
- * visited value and may return a replacement — returning `undefined` falls back
- * to the default strategy.
- * @param value - The value to clone. Not mutated.
+ * strategy.
+ * When a `cloneValue` function is provided, it is invoked for every visited
+ * value and may return a replacement; returning `undefined` falls back to the
+ * default strategy.
+ * @param value - The value to clone.
+ * Not mutated.
  * @param cloneValue - Optional customizer invoked as
  * `(value, key, root, stack)` for each visited value.
  * @returns A deep clone of `value`.
@@ -31,7 +34,7 @@ type CloneDeepCustomizer<T> = (
  * cloneDeep(new Map([['k', 1]]));
  * // new Map([['k', 1]])
  * @example
- * // With a customizer — double every numeric leaf
+ * // With a customizer: double every numeric leaf
  * cloneDeep({a: 1, b: {c: 2}}, (value) => {
  *   if (typeof value === 'number') {
  *     return value * 2;

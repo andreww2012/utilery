@@ -2,13 +2,15 @@ import {partition} from 'es-toolkit/iterator';
 
 /**
  * Splits the elements of an iterable into two arrays: the elements for which
- * `predicate` returns `true`, and the rest. The order is kept in both arrays.
+ * `predicate` returns `true`, and the rest.
+ * The order is kept in both arrays.
  * Consumes the whole iterable, so never use it on an infinite one.
  *
  * The iterable counterpart of `array/arrayPartition`.
  * @param iterable - The iterable to split.
  * @param predicate - Called with `(value, index)`; `true` sends the element to the first array.
- * @returns A `[matched, unmatched]` tuple. A type guard narrows both arrays.
+ * @returns A `[matched, unmatched]` tuple.
+ * A type guard narrows both arrays.
  * @example
  * iterablePartition(new Set([1, 2, 3, 4]), (value) => value % 2 === 0);
  * // [[2, 4], [1, 3]]

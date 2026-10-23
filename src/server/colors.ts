@@ -8,9 +8,9 @@ const plainWhenUnsupported =
     isColorSupported() ? style(text) : text;
 
 const plainWhenUnsupportedFactory =
-  <Args extends unknown[]>(createStyle: (...args: Args) => ColorFunction) =>
-  (...args: Args) =>
-    plainWhenUnsupported(createStyle(...args));
+  <Arguments extends unknown[]>(createStyle: (...parameters: Arguments) => ColorFunction) =>
+  (...callArguments: Arguments) =>
+    plainWhenUnsupported(createStyle(...callArguments));
 
 const {ansi256, bgAnsi256, rgb, bgRgb, hex, bgHex, ...styles} = colorsBase;
 
@@ -20,9 +20,10 @@ const {ansi256, bgAnsi256, rgb, bgRgb, hex, bgHex, ...styles} = colorsBase;
  * `greenBright`, etc.), background colors (`bgRed`, etc.) and custom colors
  * (`hex`, `rgb`, `ansi256` and their `bg*` versions, which return a style).
  *
- * Styles can be nested. When colors are not supported (see
- * `isColorSupported`: output piped to a file, `NO_COLOR`, `FORCE_COLOR=0`,
- * etc.), the text is returned unchanged; set `FORCE_COLOR=1` to always color.
+ * Styles can be nested.
+ * When colors are not supported (see `isColorSupported`: output piped to a
+ * file, `NO_COLOR`, `FORCE_COLOR=0`, etc.), the text is returned unchanged; set
+ * `FORCE_COLOR=1` to always color.
  * @example
  * console.log(colors.red('Error:'), colors.bold('file not found'));
  * console.log(colors.green(`all ${colors.bold('5')} tests passed`));

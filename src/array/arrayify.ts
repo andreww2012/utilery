@@ -11,22 +11,24 @@ type ArrayifyEachMember<T, ShouldWrapNullish extends boolean> = T extends null |
 
 /**
  * Ensures a value is an array: returns it unchanged when it already is one,
- * wraps it in a single-element array otherwise, and — by default — returns an
- * empty array for nullish input (`null` / `undefined`). Note that this *wraps*
- * rather than *converts* — passing an iterable like a `Set` yields `[set]`, not
- * its spread contents (use `Array.from` for that).
+ * wraps it in a single-element array otherwise, and (by default) returns an
+ * empty array for nullish input (`null` / `undefined`).
+ * Note that this *wraps* rather than *converts*: passing an iterable like a
+ * `Set` yields `[set]`, not its spread contents (use `Array.from` for that).
  *
  * Two things make it sharper than a plain cast: precise typing (an existing
- * array — including a tuple — keeps its exact type, any other value widens to
+ * array, including a tuple, keeps its exact type, any other value widens to
  * `value[]`), and nullish values collapse to `[]` rather than being wrapped as
- * `[null]` / `[undefined]`. Pass `shouldWrapNullish: true` to opt back into
- * wrapping nullish values like any other value.
+ * `[null]` / `[undefined]`.
+ * Pass `shouldWrapNullish: true` to opt back into wrapping nullish values like
+ * any other value.
  *
  * A union mixing arrays with other values is typed member by member: its tuples
  * keep their types, and its other values become single-element tuples.
  * @param value - The value to ensure is an array.
  * @param shouldWrapNullish - When `true`, a nullish `value` is wrapped (`[value]`)
- * like any other value instead of collapsing to `[]`. Defaults to `false`.
+ * like any other value instead of collapsing to `[]`.
+ * Defaults to `false`.
  * @returns The original array, a new single-element array wrapping `value`, or
  * an empty array when `value` is nullish and `shouldWrapNullish` is `false`.
  * @example
@@ -43,7 +45,7 @@ type ArrayifyEachMember<T, ShouldWrapNullish extends boolean> = T extends null |
  * const [name, options] = arrayify(formatter);
  * // name: 'oxfmt' | 'dprint', options: {language: string} | undefined
  * @example
- * // Wraps rather than converts — a Set is not spread
+ * // Wraps rather than converts: a Set is not spread
  * arrayify(new Set([1, 2, 3]));
  * // [Set(3) {1, 2, 3}]
  * @example

@@ -5,7 +5,7 @@
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
 [`string-ts`][string-ts] provides string helpers whose result **type** tracks the runtime value (e.g. `toCamelCase('foo-bar')` is typed `'fooBar'`, not `string`).
-Where `es-toolkit` already ships a Unicode-aware runtime for the same operation, we keep that runtime and layer `string-ts`'s literal type on top — its own runtime is ASCII-only and mangles accented/CJK input.
+Where `es-toolkit` already ships a Unicode-aware runtime for the same operation, we keep that runtime and layer `string-ts`'s literal type on top: its own runtime is ASCII-only and mangles accented/CJK input.
 The pure `String.prototype` wrappers re-export `string-ts` directly (their runtime **is** the native method, so it stays Unicode-safe).
 
 | Original function and name          | Status | Our function group and name      | Notes                                                                                                            |
@@ -58,12 +58,12 @@ The pure `String.prototype` wrappers re-export `string-ts` directly (their runti
 | `replaceKeys`                       | ✅     | `object/replaceKeys`             | Shallow substring replacement on keys                                                                            |
 | `deepTransformKeys`                 | ✅     | `object/transformKeysDeep`       | Renamed; deep `(key) => key` mapper                                                                              |
 
-**Types.** Each utility above already returns the precise type, so `string-ts`'s types are consumed implicitly — they are not re-exported as standalone types.
+**Types.** Each utility above already returns the precise type, so `string-ts`'s types are consumed implicitly: they are not re-exported as standalone types.
 Exceptions and rationale:
 
-- **Net-new, added to `unutils/types`**: `ToConstantCaseKeys`, `ToConstantCaseKeysDeep` (renamed from `ConstantKeys` / `DeepConstantKeys`) — completing the `To*CaseKeys` family, which `type-fest` provides for every case except constant.
+- **Net-new, added to `unutils/types`**: `ToConstantCaseKeys`, `ToConstantCaseKeysDeep` (renamed from `ConstantKeys` / `DeepConstantKeys`), completing the `To*CaseKeys` family, which `type-fest` provides for every case except constant.
 - **Already provided by `type-fest`** under `unutils/types`: the case types (`CamelCase` → `ToCamelCase`, etc.), `Words` → `ToWords`, `Trim`, `Replace`, `Split` → `StringSplit`, `Join` → `ArrayJoin`, `Slice` → `StringSlice`, `Repeat` → `StringRepeat`, and the `*Keys` / `Deep*Keys` families → `To*CaseKeys` / `To*CaseKeysDeep`.
-- **Not re-exported** (the runtime utility already returns the precise type, and these aren't useful enough at the pure type level to warrant a standalone export — `type-fest` ships none of them either): `CharAt`, `Concat`, `StartsWith`, `EndsWith`, `Includes`, `Length`, `PadStart`, `PadEnd`, `ReplaceAll`, `Reverse`, `TrimStart`, `TrimEnd`, `ReplaceKeys`.
+- **Not re-exported** (the runtime utility already returns the precise type, and these aren't useful enough at the pure type level to warrant a standalone export, and `type-fest` ships none of them either): `CharAt`, `Concat`, `StartsWith`, `EndsWith`, `Includes`, `Length`, `PadStart`, `PadEnd`, `ReplaceAll`, `Reverse`, `TrimStart`, `TrimEnd`, `ReplaceKeys`.
 - **Not added**: `TitleCase` (the `toTitleCase` util already yields the precise type), `Truncate` (util not added), and the low-level char-class helpers `Digit(s)`, `Letter(s)`, `LowerLetter(s)`, `UpperLetter(s)`, `Separator(s)`, `IsDigit`, `IsLetter`, `IsLower`, `IsUpper`, `IsSeparator`, `IsSpecial` (`type-fest` already ships `LowercaseLetter` / `UppercaseLetter` / `DigitCharacter` and `IsLowercase` / `IsUppercase` for the common cases).
 
 [string-ts]: https://github.com/gustavoguichard/string-ts

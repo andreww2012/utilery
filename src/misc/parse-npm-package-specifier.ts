@@ -17,13 +17,16 @@ const parseSafe = (specifier: string) => {
 /**
  * Splits an npm package specifier, like an import specifier or an argument of
  * `npm install`, into the package name, the version and the path inside the
- * package. Scoped packages are supported.
+ * package.
+ * Scoped packages are supported.
  *
  * Returns `undefined` for relative and absolute paths, specifiers with a
  * protocol (like `node:fs`), empty strings, and specifiers missing a part
- * (`'@scope'`, `'lodash@'`). Beyond that, the name is not validated.
+ * (`'@scope'`, `'lodash@'`).
+ * Beyond that, the name is not validated.
  * @param specifier - The npm package specifier.
- * @returns The `name`, `version` (`undefined` if none) and `path` (an empty string or starting with `/`), or `undefined` if it is not a package specifier.
+ * @returns The `name`, `version` (`undefined` if none) and `path` (an empty string or starting with
+ * `/`), or `undefined` if it is not a package specifier.
  * @example
  * parseNpmPackageSpecifier('@scope/package@1.2.3/sub/path');
  * // {name: '@scope/package', version: '1.2.3', path: '/sub/path'}

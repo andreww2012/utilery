@@ -2,11 +2,14 @@ import type {BitIndex} from './is-bit-index.ts';
 
 /**
  * Checks whether the bit at the given index is `1` in the 32-bit integer
- * representation of `value`. Bit `0` is the least significant one.
+ * representation of `value`.
+ * Bit `0` is the least significant one.
  *
  * Handy for reading bit flags, where each bit of a number stores one boolean.
- * @param value - The number to read the bit from. Treated as a 32-bit integer, so negative numbers work too.
- * @param bitIndex - The index of the bit, from `0` to `31`. Check a dynamic number with `isBitIndex` first.
+ * @param value - The number to read the bit from.
+ * Treated as a 32-bit integer, so negative numbers work too.
+ * @param bitIndex - The index of the bit, from `0` to `31`.
+ * Check a dynamic number with `isBitIndex` first.
  * @returns `true` if the bit is `1`, otherwise `false`.
  * @example
  * // 0b0101

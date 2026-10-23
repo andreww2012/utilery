@@ -12,8 +12,7 @@ let file: string;
 beforeAll(async () => {
   directory = await mkdtemp(path.join(tmpdir(), 'unutils-path-type-'));
   file = path.join(directory, 'file.txt');
-  await writeFile(file, 'text');
-  await mkdir(path.join(directory, 'nested'));
+  await Promise.all([writeFile(file, 'text'), mkdir(path.join(directory, 'nested'))]);
 });
 
 afterAll(async () => {
@@ -22,17 +21,23 @@ afterAll(async () => {
 
 describe('server/isFile, server/isDirectory', () => {
   it('detects files and directories', async () => {
-    await expect(isFile(file)).resolves.toBe(true);
-    await expect(isFile(directory)).resolves.toBe(false);
-    await expect(isDirectory(directory)).resolves.toBe(true);
-    await expect(isDirectory(file)).resolves.toBe(false);
+    await Promise.all([
+      expect(isFile(file)).resolves.toBe(true),
+      expect(isFile(directory)).resolves.toBe(false),
+      expect(isDirectory(directory)).resolves.toBe(true),
+      expect(isDirectory(file)).resolves.toBe(false),
+    ]);
+
     expect(isFileSync(file)).toBe(true);
     expect(isDirectorySync(file)).toBe(false);
   });
 
   it('returns `false` for a missing path or one going through a file', async () => {
-    await expect(isFile(path.join(directory, 'missing'))).resolves.toBe(false);
-    await expect(isDirectory(path.join(file, 'child'))).resolves.toBe(false);
+    await Promise.all([
+      expect(isFile(path.join(directory, 'missing'))).resolves.toBe(false),
+      expect(isDirectory(path.join(file, 'child'))).resolves.toBe(false),
+    ]);
+
     expect(isFileSync(path.join(file, 'child'))).toBe(false);
     expect(isDirectorySync(path.join(directory, 'missing'))).toBe(false);
   });
@@ -40,13 +45,18 @@ describe('server/isFile, server/isDirectory', () => {
 
 describe.skipIf(process.platform === 'win32')('server/isSymlink', () => {
   it('detects symbolic links, even broken ones', async () => {
-    await symlink(file, path.join(directory, 'link'));
-    await symlink(path.join(directory, 'missing'), path.join(directory, 'broken-link'));
+    await Promise.all([
+      symlink(file, path.join(directory, 'link')),
+      symlink(path.join(directory, 'missing'), path.join(directory, 'broken-link')),
+    ]);
 
-    await expect(isSymlink(path.join(directory, 'link'))).resolves.toBe(true);
-    await expect(isSymlink(path.join(directory, 'broken-link'))).resolves.toBe(true);
-    await expect(isSymlink(file)).resolves.toBe(false);
-    await expect(isFile(path.join(directory, 'link'))).resolves.toBe(true);
+    await Promise.all([
+      expect(isSymlink(path.join(directory, 'link'))).resolves.toBe(true),
+      expect(isSymlink(path.join(directory, 'broken-link'))).resolves.toBe(true),
+      expect(isSymlink(file)).resolves.toBe(false),
+      expect(isFile(path.join(directory, 'link'))).resolves.toBe(true),
+    ]);
+
     expect(isSymlinkSync(path.join(directory, 'link'))).toBe(true);
     expect(isSymlinkSync(path.join(directory, 'missing'))).toBe(false);
   });

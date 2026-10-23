@@ -1,9 +1,10 @@
 import {unionBy, unionWith} from 'es-toolkit/array';
 
 /**
- * Returns the union of two arrays — all unique elements from both `firstArray`
- * and `secondArray`, preserving order of first appearance. The strategy used
- * for the equality check depends on the optional third argument:
+ * Returns the union of two arrays: all unique elements from both `firstArray`
+ * and `secondArray`, preserving order of first appearance.
+ * The strategy used for the equality check depends on the optional third
+ * argument:
  *
  * - When omitted, items are compared using `SameValueZero` (the same semantics
  *   as `Set.prototype.has`).
@@ -11,15 +12,17 @@ import {unionBy, unionWith} from 'es-toolkit/array';
  *   custom comparator (delegates to `unionWith`).
  * - When a unary function `(value) => key` is passed, both arrays are mapped
  *   through it and the resulting keys are compared (delegates to `unionBy`).
- * @param firstArray - The first array. Not mutated.
- * @param secondArray - The second array. Not mutated.
+ * @param firstArray - The first array.
+ * Not mutated.
+ * @param secondArray - The second array.
+ * Not mutated.
  * @returns A new array containing all unique elements from both arrays.
  * @example
  * // Basic equality (SameValueZero)
  * arrayUnion([1, 2, 3], [3, 4, 5]);
  * // [1, 2, 3, 4, 5]
  * @example
- * // With a mapper — compare by a derived key
+ * // With a mapper: compare by a derived key
  * arrayUnion(
  *   [{id: 1}, {id: 2}],
  *   [{id: 2}, {id: 3}],

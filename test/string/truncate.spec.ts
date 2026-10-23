@@ -1,4 +1,4 @@
-// cspell:ignore neighbo neighborino nutils
+// cspell:ignore neighbo neighborino
 import {truncate} from '../../src/string/truncate.ts';
 
 describe('string/truncate', () => {
@@ -18,7 +18,7 @@ describe('string/truncate', () => {
         position: 'start',
         omission: '…',
       }),
-    ).toBe('…nutils/src/index.ts');
+    ).toBe('…nutils/src/index.ts'); // cspell:disable-line
     expect(truncate('ABCDEF', {length: 5, position: 'start'})).toBe('...EF');
   });
 

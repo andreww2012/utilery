@@ -9,7 +9,8 @@ const HTTP_DATE_START_REGEX = /^[a-z]/i;
  *
  * The header holds either a number of seconds (`'120'`) or an HTTP date
  * (`'Wed, 21 Oct 2026 07:28:00 GMT'`); a date in the past gives `0`.
- * @param header - The header value (`null` and `undefined` are accepted, as returned by `Headers#get`).
+ * @param header - The header value (`null` and `undefined` are accepted, as returned by
+ * `Headers#get`).
  * @param now - The current time, to compare a date against (defaults to `Date.now()`).
  * @returns The delay in milliseconds, or `undefined` if the header is missing or invalid.
  * @example

@@ -4,12 +4,13 @@ type GetValue<T> = (element: T, index: number, array: readonly T[]) => number | 
 
 /**
  * Finds the element of an array with the smallest value returned by `getValue`.
- * `getValue` can return numbers, bigints, or both. When several elements share
- * the smallest value, the first one is returned. An element whose value is
- * `NaN` is returned right away, matching `Math.min`.
+ * `getValue` can return numbers, bigints, or both.
+ * When several elements share the smallest value, the first one is returned.
+ * An element whose value is `NaN` is returned right away, matching `Math.min`.
  *
  * To find the smallest number or bigint itself, use `math/min`.
- * @param items - The array to search. Not mutated.
+ * @param items - The array to search.
+ * Not mutated.
  * @param getValue - Returns the value to compare for each element.
  * @returns The element with the smallest value, or `undefined` if `items` is empty
  * (a non-empty tuple never gives `undefined`).

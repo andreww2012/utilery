@@ -2,11 +2,12 @@ import {isFile as isFileBase, isFileSync as isFileSyncBase} from 'path-type';
 import {falseIfMissingSync, returnFalseIfMissing} from './_shared.ts';
 
 /**
- * Checks whether the path points to a file. Symbolic links are followed: a
- * link to a file gives `true`.
+ * Checks whether the path points to a file.
+ * Symbolic links are followed: a link to a file gives `true`.
  *
  * A missing path (or one going through a file, like `file.txt/child`) gives
- * `false`. Any other error, like permission denied, is rethrown.
+ * `false`.
+ * Any other error, like permission denied, is rethrown.
  * @param path - The path to check.
  * @returns `true` if the path is a file, otherwise `false`.
  * @example

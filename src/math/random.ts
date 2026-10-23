@@ -2,16 +2,18 @@ import {resolveRandomArguments} from '../_internal/random-integer.ts';
 
 /**
  * Returns a random number (not necessarily an integer) from `minimum`
- * (inclusive) to `maximum` (exclusive). Called with a single number, the range
- * is from `0` to it.
+ * (inclusive) to `maximum` (exclusive).
+ * Called with a single number, the range is from `0` to it.
  *
- * Throws an `Error` when `maximum` is not greater than `minimum`. Uses
- * `Math.random` (not cryptographically secure) unless another generator is
+ * Throws an `Error` when `maximum` is not greater than `minimum`.
+ * Uses `Math.random` (not cryptographically secure) unless another generator is
  * passed, like a seeded one from `createSeededRandom`.
- * @param minimum - The inclusive lower bound, or the exclusive upper bound when it is the only number.
+ * @param minimum - The inclusive lower bound, or the exclusive upper bound when it is the only
+ * number.
  * @param maximum - The exclusive upper bound.
  * @param options - Options.
- * @param options.random - A function returning numbers from `0` to `1`, used instead of `Math.random`.
+ * @param options.random - A function returning numbers from `0` to `1`, used instead of
+ * `Math.random`.
  * @returns A random number within the range.
  * @example
  * random(1.5, 2.5);

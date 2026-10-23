@@ -1,11 +1,11 @@
 import {arraySwapIndexes} from '../../src/array/array-swap-indexes.ts';
 
 describe('array/arraySwapIndexes', () => {
-  it('swaps the elements at the two indices', () => {
+  it('swaps the elements at the two indexes', () => {
     expect(arraySwapIndexes([1, 2, 3, 4], 0, 2)).toStrictEqual([3, 2, 1, 4]);
   });
 
-  it('counts negative indices from the end', () => {
+  it('counts negative indexes from the end', () => {
     expect(arraySwapIndexes([1, 2, 3, 4], 0, -1)).toStrictEqual([4, 2, 3, 1]);
   });
 

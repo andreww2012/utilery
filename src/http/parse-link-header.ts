@@ -23,10 +23,12 @@ export interface LinkHeaderEntry {
 
 /**
  * Parses the `Link` HTTP header (RFC 8288), used for pagination by APIs like
- * GitHub's, into a list of links. A link with several relations
- * (`rel="next last"`) is listed once per relation. Parameters are unquoted,
- * and commas inside quoted values are handled.
- * @param header - The header value (`null` and `undefined` are accepted, as returned by `Headers#get`).
+ * GitHub's, into a list of links.
+ * A link with several relations (`rel="next last"`) is listed once per
+ * relation.
+ * Parameters are unquoted, and commas inside quoted values are handled.
+ * @param header - The header value (`null` and `undefined` are accepted, as returned by
+ * `Headers#get`).
  * @returns The links, or an empty array if the header is missing or invalid.
  * @example
  * parseLinkHeader('<https://api.example.com/items?page=2>; rel="next", <https://api.example.com/items?page=5>; rel="last"');

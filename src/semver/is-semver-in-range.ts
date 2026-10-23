@@ -5,10 +5,10 @@ import {satisfies} from 'verkit';
  * comparators (`>=1.2.0 <2`), unions (`^1 || ^2`), hyphen ranges
  * (`1.0.0 - 2.0.0`), wildcards (`1.x`), tilde and caret ranges.
  *
- * As in npm, prereleases only match a range that names a prerelease of the
- * same `major.minor.patch` (`3.0.0-rc.1` does not satisfy `>=2`); pass
- * `{includePrerelease: true}` to match them like any other version. An invalid
- * version or range gives `false`.
+ * As in npm, prereleases only match a range that names a prerelease of the same
+ * `major.minor.patch` (`3.0.0-rc.1` does not satisfy `>=2`); pass
+ * `{includePrerelease: true}` to match them like any other version.
+ * An invalid version or range gives `false`.
  * @param version - The version to check (a string or the result of `parseSemver`).
  * @param range - The range to check against.
  * @param options - Options.
@@ -29,5 +29,5 @@ import {satisfies} from 'verkit';
  * isSemverInRange('3.0.0-rc.1', '>=2', {includePrerelease: true});
  * // true
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export…from` would inherit the upstream docs
+// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
 export const isSemverInRange = satisfies;

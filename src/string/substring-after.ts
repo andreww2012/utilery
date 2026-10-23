@@ -1,7 +1,7 @@
 /**
- * Gets the part of a string after the first occurrence of a delimiter. When
- * the delimiter is missing, returns `fallback`, which defaults to the whole
- * string.
+ * Gets the part of a string after the first occurrence of a delimiter.
+ * When the delimiter is missing, returns `fallback`, which defaults to the
+ * whole string.
  * @param text - The string to search.
  * @param delimiter - The substring to search for.
  * @param fallback - What to return when the delimiter is missing (defaults to `text`).

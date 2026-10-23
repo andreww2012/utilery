@@ -8,6 +8,6 @@ export default {
     'src/*/*.global.ts', // Side-effect-only entrypoints, intentionally not re-exported from the group barrel
   ],
   ignore: ['test/published-dts/scenarios/**'],
-  tags: ['-knipignore'],
+  tags: ['-knipignore'], // cspell:disable-line
   treatConfigHintsAsErrors: true,
 } satisfies KnipConfig;

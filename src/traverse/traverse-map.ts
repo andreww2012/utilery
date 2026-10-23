@@ -6,8 +6,8 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
  * with every mutation applied via the context, leaving the input untouched.
  *
  * The result keeps the input's static shape (`T`); leaf-type changes made
- * through `context.update` are not reflected in the type. Hardened against
- * prototype pollution.
+ * through `context.update` are not reflected in the type.
+ * Hardened against prototype pollution.
  * @param value - The (possibly nested) value to map over.
  * @param callback - Invoked as `(context, node)` for every node; use `context.update` to transform.
  * @param options - Traversal options (`immutable`, `includeSymbols`, `maxDepth`, ...).

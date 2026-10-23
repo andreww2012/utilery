@@ -26,15 +26,17 @@ const toBaseOptions = (options: SlugifyOptions = {}) => ({
 
 /**
  * Turns text into a URL-friendly slug: lowercase ASCII letters and digits
- * joined with dashes, like `'deja-vu'` for `'Déjà Vu!'`. The result never
- * contains characters outside ASCII: `preserveCharacters` only keeps ASCII
- * characters, and others are transliterated like the rest of the text.
+ * joined with dashes, like `'deja-vu'` for `'Déjà Vu!'`.
+ * The result never contains characters outside ASCII: `preserveCharacters` only
+ * keeps ASCII characters, and others are transliterated like the rest of the
+ * text.
  *
  * Text in any script is transliterated: accented letters lose their accents,
- * German umlauts become `ae`/`oe`/`ue` and `ß` becomes `ss`, Cyrillic and
- * Greek are romanized, Chinese becomes Pinyin syllables, Japanese and Korean
- * are romanized too, and emoji become their names. `&` becomes `and`, camelCase
- * words are split, and apostrophes in contractions are dropped.
+ * German umlauts become `ae`/`oe`/`ue` and `ß` becomes `ss`, Cyrillic and Greek
+ * are romanized, Chinese becomes Pinyin syllables, Japanese and Korean are
+ * romanized too, and emoji become their names.
+ * `&` becomes `and`, camelCase words are split, and apostrophes in contractions
+ * are dropped.
  *
  * Highlights of the options:
  *

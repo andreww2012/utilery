@@ -3,13 +3,15 @@ import {inRange as inRangeNumber} from 'es-toolkit/math';
 
 /**
  * Checks whether a number or a bigint is within the `[minimum, maximum)` range
- * (the lower bound is inclusive, the upper bound is exclusive). When only one
- * bound is passed, it is the upper bound and the lower bound is `0`.
+ * (the lower bound is inclusive, the upper bound is exclusive).
+ * When only one bound is passed, it is the upper bound and the lower bound is
+ * `0`.
  *
  * All arguments must be of the same type: either all numbers or all bigints.
  * Throws when `minimum` is not less than `maximum`.
  * @param value - The value to check.
- * @param minimum - The inclusive lower bound (or the exclusive upper bound when it is the only bound).
+ * @param minimum - The inclusive lower bound (or the exclusive upper bound when it is the only
+ * bound).
  * @param maximum - The exclusive upper bound.
  * @returns `true` if `value` is within the range, otherwise `false`.
  * @example

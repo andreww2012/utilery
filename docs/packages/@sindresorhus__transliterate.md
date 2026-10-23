@@ -6,4 +6,4 @@ A dependency of [`@sindresorhus/slugify`](@sindresorhus__slugify.md) that `strin
 
 | Original function group and name                                     | Status | Our function group and name | Notes                                                                      |
 | -------------------------------------------------------------------- | ------ | --------------------------- | -------------------------------------------------------------------------- |
-| [`transliterate`](https://github.com/sindresorhus/transliterate#api) | ❌     | —                           | Used inside `string/slugify` only; `string/deburr` covers removing accents |
+| [`transliterate`](https://github.com/sindresorhus/transliterate#api) | ❌     | -                           | Used inside `string/slugify` only; `string/deburr` covers removing accents |

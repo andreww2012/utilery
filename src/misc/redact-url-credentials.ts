@@ -4,9 +4,10 @@ const URL_CREDENTIALS_REGEX = /^([a-z][\d+\-.a-z]*:\/\/)[^#/?]*@/i;
 
 /**
  * Hides the credentials (`user:password@` or a token like `token@`) of a URL,
- * replacing them with `***`, so that the URL can be logged or shown in an
- * error message. The rest of the URL is kept as is; a URL without credentials
- * is returned unchanged.
+ * replacing them with `***`, so that the URL can be logged or shown in an error
+ * message.
+ * The rest of the URL is kept as is; a URL without credentials is returned
+ * unchanged.
  * @param url - The URL (a string or a `URL` object).
  * @returns The URL with its credentials replaced with `***`.
  * @example

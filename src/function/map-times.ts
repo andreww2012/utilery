@@ -2,9 +2,10 @@ import {times} from 'es-toolkit/compat';
 
 /**
  * Invokes `iteratee` `count` times, passing the zero-based call index each
- * time, and collects the results into an array. A clearer, intent-revealing
- * alternative to `Array.from({length: count}, (_, index) => …)`. A `count` of
- * `0` or below yields an empty array.
+ * time, and collects the results into an array.
+ * A clearer, intent-revealing alternative to
+ * `Array.from({length: count}, (_, index) => ...)`.
+ * A `count` of `0` or below yields an empty array.
  * @param count - How many times to invoke `iteratee`.
  * @param iteratee - Called once per index with the current index (`0` to
  * `count - 1`); its return value becomes the corresponding array element.

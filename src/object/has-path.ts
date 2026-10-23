@@ -1,9 +1,10 @@
 import {has, hasIn} from 'es-toolkit/compat';
+import type {MaybeArray} from '../types/maybe-array.ts';
 
 /**
- * Checks whether a value exists at the given deep path of an object. The path
- * may be a single key, a dot/bracket path string like `'a.b[0].c'`, or an
- * array of segments.
+ * Checks whether a value exists at the given deep path of an object.
+ * The path may be a single key, a dot/bracket path string like `'a.b[0].c'`, or
+ * an array of segments.
  *
  * By default only the object's own (and nested own) properties are considered.
  * Pass `{inherited: true}` to also count properties found on the prototype
@@ -11,7 +12,8 @@ import {has, hasIn} from 'es-toolkit/compat';
  * @param object - The object to query.
  * @param path - The path to check, as a key, a path string, or an array of segments.
  * @param options - Optional behavior flags.
- * @param options.inherited When `true`, inherited (prototype-chain) properties also count. Defaults to `false`.
+ * @param options.inherited When `true`, inherited (prototype-chain) properties also count.
+ * Defaults to `false`.
  * @returns `true` if a value exists at `path`, otherwise `false`.
  * @example
  * // Own nested property
@@ -34,11 +36,11 @@ import {has, hasIn} from 'es-toolkit/compat';
  */
 export const hasPath = (
   object: unknown,
-  path: PropertyKey | PropertyKey[],
+  path: MaybeArray<PropertyKey>,
   options?: {
     /**
      * When `true`, inherited (prototype-chain) properties also count.
-     * When `false` (the default), only own properties are considered.
+     * When `false` (the default), only own properties are considered
      */
     inherited?: boolean;
   },

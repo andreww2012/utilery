@@ -1,10 +1,10 @@
 /**
- * Counts how many times each key appears in an iterable, using a mapper function
- * to derive the key from each item. Works on any `Iterable` — arrays, `Map`s, `Set`s,
- * generators, and custom iterators.
+ * Counts how many times each key appears in an iterable, using a mapper function to
+ * derive the key from each item.
+ * Works on any `Iterable`: arrays, `Map`s, `Set`s, generators, and custom iterators.
  * @param iterable - The iterable to count items from.
- * @param mapper - Returns the key to count for each item. Receives the item and its
- * zero-based iteration index.
+ * @param mapper - Returns the key to count for each item.
+ * Receives the item and its zero-based iteration index.
  * @returns A `Map` from each key to the number of times it appeared.
  * @example
  * // Count word frequencies in an array
@@ -19,7 +19,7 @@
  * countBy(['a', 'b', 'c', 'd', 'e'], (_item, index) => (index < 3 ? 'first' : 'rest'));
  * // Map { 'first' => 3, 'rest' => 2 }
  * @example
- * // Count Map entries — a Map iterates as [key, value] pairs
+ * // Count Map entries: a Map iterates as [key, value] pairs
  * const scores = new Map([['alice', 90], ['bob', 75], ['carol', 90]]);
  * countBy(scores, ([, score]) => (score >= 90 ? 'A' : 'B'));
  * // Map { 'A' => 2, 'B' => 1 }

@@ -6,8 +6,10 @@ const LOCALHOST_REGEX = /^(?:[^.]+\.)*localhost\.?$/i;
 /**
  * Checks whether a host name points to the local machine: `localhost`, its
  * subdomains (like `app.localhost`), or a loopback IP address (`127.0.0.0/8`,
- * `::1` and their IPv4-mapped IPv6 forms). IPv6 addresses in square brackets,
- * as returned by `URL#hostname`, are supported. No DNS lookup is done.
+ * `::1` and their IPv4-mapped IPv6 forms).
+ * IPv6 addresses in square brackets, as returned by `URL#hostname`, are
+ * supported.
+ * No DNS lookup is done.
  * @param hostname - The host name, without a port.
  * @returns `true` if the host name points to the local machine, otherwise `false`.
  * @example

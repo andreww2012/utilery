@@ -1,9 +1,8 @@
-// cspell:ignore ståle
 import {decodeUriComponentSafe} from '../../src/string/decode-uri-component-safe.ts';
 
 describe('string/decodeUriComponentSafe', () => {
   it('decodes valid sequences', () => {
-    expect(decodeUriComponentSafe('st%C3%A5le')).toBe('ståle');
+    expect(decodeUriComponentSafe('st%C3%A5le')).toBe('ståle'); // cspell:disable-line
     expect(decodeUriComponentSafe('a%20b%2Fc')).toBe('a b/c');
   });
 

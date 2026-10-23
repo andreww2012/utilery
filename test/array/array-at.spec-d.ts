@@ -17,7 +17,7 @@ describe('array/arrayAt', () => {
     expectTypeOf(arrayAt(['a', 'b', 'c'], 0)).toEqualTypeOf<string | undefined>();
   });
 
-  it('returns an array when given an array of indices', () => {
+  it('returns an array when given an array of indexes', () => {
     expectTypeOf(arrayAt(['a', 'b', 'c'], [0, 2])).toEqualTypeOf<(string | undefined)[]>();
   });
 });

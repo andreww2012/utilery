@@ -12,7 +12,7 @@
  *   await fetch(url, {signal: controller.signal});
  * } catch (error) {
  *   if (isAbortError(error)) {
- *     return; // cancelled by the user
+ *     return; // canceled by the user
  *   }
  *   throw error;
  * }

@@ -2,16 +2,26 @@
 import {truncate as truncateEnd} from 'es-toolkit/compat';
 
 interface BaseTruncateOptions {
-  /** The maximum length of the result, including the omission. Defaults to `30` */
+  /**
+   * The maximum length of the result, including the omission.
+   * Defaults to `30`
+   */
   length?: number;
-  /** The string that replaces the removed part. Defaults to `'...'` */
+
+  /**
+   * The string that replaces the removed part.
+   * Defaults to `'...'`
+   */
   omission?: string;
 }
 
 /** Options of `truncate` */
 export type TruncateOptions =
   | (BaseTruncateOptions & {
-      /** Where to remove characters. Defaults to `'end'` */
+      /**
+       * Where to remove characters.
+       * Defaults to `'end'`
+       */
       position?: 'end';
       /** Cuts at the last match of this pattern before the limit, to keep words whole */
       separator?: string | RegExp;
@@ -20,16 +30,18 @@ export type TruncateOptions =
 
 /**
  * Shortens a string to a maximum length, replacing the removed part with an
- * omission (`'...'` by default). Strings that fit are returned as is. The
- * length is counted in code points, so emoji are never split in half.
+ * omission (`'...'` by default).
+ * Strings that fit are returned as is.
+ * The length is counted in code points, so emoji are never split in half.
  *
  * The removed part is at the end by default; pass `position: 'start'` to keep
- * the end (like the end of a long path), or `'middle'` to keep both ends
- * (like a file name with its extension). With the default `'end'` position, a
- * `separator` makes the cut happen before its last match within the limit, to
- * avoid cutting a word in half.
+ * the end (like the end of a long path), or `'middle'` to keep both ends (like
+ * a file name with its extension).
+ * With the default `'end'` position, a `separator` makes the cut happen before
+ * its last match within the limit, to avoid cutting a word in half.
  * @param text - The string to truncate.
- * @param options - `length` (`30` by default), `omission` (`'...'` by default), `position` (`'end'` by default) and `separator`.
+ * @param options - `length` (`30` by default), `omission` (`'...'` by default), `position` (`'end'`
+ * by default) and `separator`.
  * @returns The string, shortened if needed.
  * @example
  * truncate('hi-diddly-ho there, neighborino');

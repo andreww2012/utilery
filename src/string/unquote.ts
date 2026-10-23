@@ -2,9 +2,10 @@ const DEFAULT_QUOTES = ['"', "'", '`'] as const;
 
 /**
  * Removes one pair of matching quotes around a string, like the ones around a
- * value in a config file or a command line argument. A string that is not
- * wrapped in the same quote on both ends is returned as is. Escaped quotes
- * inside are not unescaped.
+ * value in a config file or a command line argument.
+ * A string that is not wrapped in the same quote on both ends is returned as
+ * is.
+ * Escaped quotes inside are not unescaped.
  * @param text - The string to unquote.
  * @param quotes - The quote characters to remove (defaults to `"`, `'` and `` ` ``).
  * @returns The string without the surrounding quotes.

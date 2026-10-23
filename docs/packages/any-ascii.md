@@ -9,4 +9,4 @@ Its data table is large (about 550 kB), so it only ends up in a bundle that uses
 
 | Original function group and name                              | Status | Our function group and name | Notes                                                                                    |
 | ------------------------------------------------------------- | ------ | --------------------------- | ---------------------------------------------------------------------------------------- |
-| [`anyAscii`](https://github.com/anyascii/anyascii#javascript) | ❌     | —                           | Used inside `string/slugify` only, for the text its transliteration leaves outside ASCII |
+| [`anyAscii`](https://github.com/anyascii/anyascii#javascript) | ❌     | -                           | Used inside `string/slugify` only, for the text its transliteration leaves outside ASCII |

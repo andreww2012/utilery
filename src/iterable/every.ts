@@ -2,7 +2,8 @@
  * Tests whether every element of an iterable satisfies the predicate.
  * Iteration short-circuits on the first `false`, so the iterable is consumed
  * only up to (and including) that element.
- * @param iterable - The iterable to test. Consumed at most once.
+ * @param iterable - The iterable to test.
+ * Consumed at most once.
  * @param predicate - Receives each value and returns whether it satisfies the
  * condition.
  * @returns `true` if every element matches (including for an empty iterable),
@@ -20,7 +21,7 @@
  * every([], () => false);
  * // true
  * @example
- * // Works on any iterable — here, a generator
+ * // Works on any iterable: here, a generator
  * function* counts() { yield 1; yield 2; yield 3; }
  * every(counts(), (value) => value > 0);
  * // true

@@ -1,9 +1,9 @@
 import {destr} from 'destr';
 
 /**
- * Parses a JSON string into a value, throwing on anything malformed — the
- * stricter, fail-fast counterpart of {@link jsonParseSafe}. A faster, safer
- * drop-in for `JSON.parse`.
+ * Parses a JSON string into a value, throwing on anything malformed: the
+ * stricter, fail-fast counterpart of {@link jsonParseSafe}.
+ * A faster, safer drop-in for `JSON.parse`.
  *
  * Beyond plain `JSON.parse`:
  * - Non-string input is returned untouched (e.g. an already-parsed object).
@@ -15,9 +15,12 @@ import {destr} from 'destr';
  *
  * Unlike {@link jsonParseSafe}, invalid JSON, non-JSON strings, and suspected
  * prototype pollution all throw rather than falling back.
- * @param value - The value to parse. Strings are parsed; anything else is returned as-is.
- * @returns The parsed value, typed as the `T` type argument (`unknown` by default; a purely type-level assertion) — assert or validate the shape at the call site.
- * @throws {SyntaxError | Error} A `SyntaxError` for malformed or non-JSON strings, or an `Error` on suspected prototype pollution.
+ * @param value - The value to parse.
+ * Strings are parsed; anything else is returned as-is.
+ * @returns The parsed value, typed as the `T` type argument (`unknown` by default; a purely
+ * type-level assertion); assert or validate the shape at the call site.
+ * @throws {SyntaxError | Error} A `SyntaxError` for malformed or non-JSON strings, or an `Error` on
+ * suspected prototype pollution.
  * @example
  * // Parsing JSON
  * jsonParse('{"a": 1, "b": [2, 3]}');

@@ -42,9 +42,9 @@ describe('function/flow', () => {
     });
 
     it('matches pipe with a reversed list', () => {
-      const fns = [addOne, timesTwo];
+      const functions = [addOne, timesTwo];
 
-      expect(flow(fns)(3 as never)).toBe(flow(fns.toReversed(), true)(3 as never));
+      expect(flow(functions)(3 as never)).toBe(flow(functions.toReversed(), true)(3 as never));
     });
   });
 });

@@ -6,10 +6,13 @@ import Negotiator from 'negotiator';
  * respecting quality values (`br;q=1.0, gzip;q=0.8`) and refusals (`;q=0`).
  *
  * Pass the encodings the server supports, in its own order of preference for
- * ties. `'identity'` (no encoding) is acceptable unless the client refuses
- * it, so include it to fall back to no compression.
- * @param acceptEncoding - The `Accept-Encoding` header value (a missing header accepts only `identity`).
- * @param available - The encodings the server supports. Without it, the encoding the client prefers is returned as is, which can be `'*'` (any).
+ * ties.
+ * `'identity'` (no encoding) is acceptable unless the client refuses it, so
+ * include it to fall back to no compression.
+ * @param acceptEncoding - The `Accept-Encoding` header value (a missing header accepts only
+ * `identity`).
+ * @param available - The encodings the server supports.
+ * Without it, the encoding the client prefers is returned as is, which can be `'*'` (any).
  * @returns The encoding to use, or `undefined` if none is acceptable.
  * @example
  * getPreferredEncoding('gzip, deflate, br', ['br', 'gzip']);

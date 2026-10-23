@@ -3,37 +3,26 @@ import type {CSpellSettings} from 'cspell';
 const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
   names: [
     'andreww',
-    'unutils',
-    'verkit',
-    'sonarjs',
-    'destr',
-    'yieldable',
-    'ark',
     'arkregex',
-    'arktype',
+    'braintree',
     'cleye',
+    'destr',
+    'htmlescape',
     'nanoid',
     'neotraverse',
-    'braintree',
-    'htmlescape',
-    'isexe',
     'puka',
     'sindresorhus',
+    'sonarjs',
     'toposort',
     'tusbar',
+    'unutils',
+    'verkit',
+    'yieldable',
   ],
-  misc: ['knipignore', 'rearg', 'GHSA', 'unstub', 'nocase', 'nothrow', 'PATHEXT', 'LOCALAPPDATA'],
-  englishIshWords: [
-    'arrayify',
-    'combinators',
-    'customizer',
-    'deburr',
-    'iteratees',
-    'nullary',
-    'stringifiers',
-    'thenables',
-  ],
+  misc: ['unstub'],
+  englishIshWords: ['arrayify', 'combinators', 'customizer', 'deburr', 'nullary'],
   typeFest: ['jsonify', 'jsonifiable', 'arrayable', 'asyncify', 'optionalize'],
+  upstreamNamesWithFlaggedWords: ['ArrayIndices', 'filterArrayIndices', 'indicesOf', 'swapIndices'],
 };
 
 export default {
@@ -47,8 +36,10 @@ export default {
     'test/published-side-effects/__snapshots__/**', // Built code of bundled packages
     '.agents/guidelines.md', // Copied from an external source
     '.all-contributorsrc',
+    'CHANGELOG.md', // Generated from changesets
   ],
   dictionaries: ['npm', 'node', 'typescript', 'fullstack'],
   words: Object.values(GLOBALLY_IGNORED_WORDS).flat(),
+  flagWords: ['indices->indexes'], // cspell:disable-line
   overrides: [],
 } satisfies CSpellSettings;

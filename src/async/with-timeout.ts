@@ -5,10 +5,10 @@ import {promiseTry} from './promise-try.ts';
  * a `DOMException` named `'TimeoutError'` (see `isTimeoutError`) when the
  * function takes longer than `milliseconds`.
  *
- * The function receives an `AbortSignal` that is aborted on timeout, so that
- * it can stop its work, like by passing the signal to `fetch`. Pass your own
- * `signal` to also stop earlier: the promise then rejects with its reason, and
- * the function's signal is aborted too.
+ * The function receives an `AbortSignal` that is aborted on timeout, so that it
+ * can stop its work, like by passing the signal to `fetch`.
+ * Pass your own `signal` to also stop earlier: the promise then rejects with
+ * its reason, and the function's signal is aborted too.
  * @param run - The function to run; it receives a signal that is aborted on timeout.
  * @param milliseconds - The time limit.
  * @param options - Options.

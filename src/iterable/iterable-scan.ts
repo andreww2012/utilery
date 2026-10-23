@@ -2,8 +2,9 @@ import {scan} from 'es-toolkit/iterator';
 
 /**
  * Lazily yields the running accumulation of an iterable, like `reduce` that
- * emits every intermediate result. `initialValue` is yielded first, then the
- * accumulator after each element, so `n` elements give `n + 1` values.
+ * emits every intermediate result.
+ * `initialValue` is yielded first, then the accumulator after each element, so
+ * `n` elements give `n + 1` values.
  * @param iterable - The iterable to accumulate over.
  * @param reducer - Called with `(accumulator, value, index)`; returns the next accumulator.
  * @param initialValue - The initial accumulator, yielded first.

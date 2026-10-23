@@ -7,12 +7,13 @@ import type {ObjectKeys} from 'es-toolkit/types';
  *
  * The selection can be made in three ways via the second argument:
  *
- * - An array of top-level keys — precisely typed as `Pick<T, K>`.
- * - An array of deep path strings like `'a.b.c'` — selects nested properties
+ * - An array of top-level keys: precisely typed as `Pick<T, K>`.
+ * - An array of deep path strings like `'a.b.c'`: selects nested properties
  *   (typed loosely as `Partial<T>`).
- * - A `(value, key) => boolean` predicate — keeps the properties for which it
+ * - A `(value, key) => boolean` predicate: keeps the properties for which it
  *   returns `true` (delegates to `pickBy`).
- * @param object - The source object. Not mutated.
+ * @param object - The source object.
+ * Not mutated.
  * @param keys - The keys/paths to keep, or a `(value, key) => boolean` predicate selecting them.
  * @returns A new object containing only the selected properties.
  * @example
@@ -24,7 +25,7 @@ import type {ObjectKeys} from 'es-toolkit/types';
  * pick({a: {b: 1, c: 2}}, ['a.b']);
  * // {a: {b: 1}}
  * @example
- * // With a predicate — keep string-valued properties
+ * // With a predicate: keep string-valued properties
  * pick({a: 1, b: 'keep', c: 3}, (value) => typeof value === 'string');
  * // {b: 'keep'}
  */

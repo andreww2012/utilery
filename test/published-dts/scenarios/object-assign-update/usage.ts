@@ -1,7 +1,7 @@
 import {objectAssign, objectUpdate} from 'unutils/object';
 
 // Resolving the published types must pull the bundled `ts-extras` + `type-fest`
-// type graph in cleanly (a bare re-export can ship an unresolvable import).
+// type graph in cleanly (a bare re-export can ship an unresolvable import)
 const merged = objectAssign({a: 1}, {b: 2});
 void merged.a;
 void merged.b;

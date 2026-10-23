@@ -1,4 +1,3 @@
-// cspell:ignore QUFB
 import {uint8ArrayToBase64} from '../../src/bytes/uint8-array-to-base64.ts';
 
 describe('bytes/uint8ArrayToBase64', () => {
@@ -19,6 +18,6 @@ describe('bytes/uint8ArrayToBase64', () => {
   it('encodes large arrays', () => {
     const bytes = new Uint8Array(100_000).fill(65);
 
-    expect(uint8ArrayToBase64(bytes)).toBe(`${'QUFB'.repeat(33_333)}QQ==`);
+    expect(uint8ArrayToBase64(bytes)).toBe(`${'QUFB'.repeat(33_333)}QQ==`); // cspell:disable-line
   });
 });

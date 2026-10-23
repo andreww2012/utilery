@@ -4,13 +4,14 @@ import {type SemVer, tryParse} from 'verkit';
 export type ParsedSemver = SemVer;
 
 /**
- * Parses a semantic version string into its parts. A leading `v` and
- * surrounding whitespace are allowed; build metadata (after `+`) is split by
- * dots, and numeric prerelease identifiers become numbers.
+ * Parses a semantic version string into its parts.
+ * A leading `v` and surrounding whitespace are allowed; build metadata (after
+ * `+`) is split by dots, and numeric prerelease identifiers become numbers.
  *
  * Returns `undefined` for an invalid version, including incomplete ones like
- * `'1.2'`. Pass `{loose: true}` to also accept common mistakes, like a leading
- * `=` or a missing `-` before the prerelease (`'1.2.3beta'`).
+ * `'1.2'`.
+ * Pass `{loose: true}` to also accept common mistakes, like a leading `=` or a
+ * missing `-` before the prerelease (`'1.2.3beta'`).
  * @param version - The version string to parse.
  * @param options - Options.
  * @param options.loose - Accept common syntax mistakes (defaults to `false`).

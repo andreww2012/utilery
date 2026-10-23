@@ -7,25 +7,26 @@ type RegexFlags = NonNullable<Parameters<typeof regex>[1]>;
 /* eslint-disable ts/naming-convention, ts/no-namespace, ts/no-redeclare, import/export -- value+namespace declaration merge attaching arkregex's lowercase type-level helpers to `regexTyped` */
 
 /**
- * A typed drop-in for `new RegExp()`. At runtime it is exactly
- * `new RegExp(source, flags)`; all of its value is in the types — the source is
- * parsed at the type level to infer the matched string, positional captures and
- * named captures, and `.test()` narrows its argument to the inferred pattern.
+ * A typed drop-in for `new RegExp()`.
+ * At runtime it is exactly `new RegExp(source, flags)`; all of its value is in
+ * the types: the source is parsed at the type level to infer the matched
+ * string, positional captures and named captures, and `.test()` narrows its
+ * argument to the inferred pattern.
  *
  * Invalid patterns (e.g. referencing a group that does not exist) become type
  * errors instead of failing at runtime.
  *
  * Companion type-level helpers are available on the same symbol:
- * - `regexTyped.infer<Source, Flags>` — the inferred pattern type, without constructing anything.
- * - `regexTyped.validate<Source, Flags>` — the validated source, or an error message type.
- * - `regexTyped.parse<Source, Flags>` — the full parse result.
+ * - `regexTyped.infer<Source, Flags>`: the inferred pattern type, without constructing anything.
+ * - `regexTyped.validate<Source, Flags>`: the validated source, or an error message type.
+ * - `regexTyped.parse<Source, Flags>`: the full parse result.
  *
- * The source must be a string *literal* — inference relies on the literal type,
+ * The source must be a string *literal*: inference relies on the literal type,
  * so a dynamically built (widened `string`) source is rejected at the type level.
  * For a pattern too long or complex for TypeScript to infer, manually type it
  * with `regexTyped.as<Pattern, Context>(source, flags)`.
  *
- * Note: with the `g` or `y` flag, the returned `RegExp` is stateful — `.test()`
+ * Note: with the `g` or `y` flag, the returned `RegExp` is stateful: `.test()`
  * and `.exec()` advance `lastIndex` between calls, exactly like a native `RegExp`.
  * @example
  * const ok = regexTyped('^ok$', 'i');
@@ -44,7 +45,7 @@ export const regexTyped = regex;
 
 // Re-expose `arkregex`'s type-level namespace helpers under `regexTyped` (a bare
 // value alias above does not carry the merged namespace). Names are lowercase to
-// mirror arkregex's public API (`regexTyped.infer<...>` etc.).
+// mirror arkregex's public API (`regexTyped.infer<...>` etc.)
 export declare namespace regexTyped {
   export type infer<Source extends string, Flags extends RegexFlags = ''> = regex.infer<
     Source,

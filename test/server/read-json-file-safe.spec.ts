@@ -8,10 +8,12 @@ let directory: string;
 
 beforeAll(async () => {
   directory = await mkdtemp(path.join(tmpdir(), 'unutils-read-json-file-safe-'));
-  await writeFile(path.join(directory, 'valid.json'), '{"a": 1, "b": [true, null]}');
-  await writeFile(path.join(directory, 'with-bom.json'), '\u{FEFF}{"a": 1}'); // cspell:disable-line
-  await writeFile(path.join(directory, 'invalid.json'), '{a: 1}');
-  await writeFile(path.join(directory, 'polluted.json'), '{"__proto__": {"isAdmin": true}}');
+  await Promise.all([
+    writeFile(path.join(directory, 'valid.json'), '{"a": 1, "b": [true, null]}'),
+    writeFile(path.join(directory, 'with-bom.json'), '\u{FEFF}{"a": 1}'), // cspell:disable-line
+    writeFile(path.join(directory, 'invalid.json'), '{a: 1}'),
+    writeFile(path.join(directory, 'polluted.json'), '{"__proto__": {"isAdmin": true}}'),
+  ]);
 });
 
 afterAll(async () => {
@@ -39,8 +41,10 @@ describe('server/readJsonFileSafe', () => {
   it('throws a SyntaxError with the file path for invalid JSON', async () => {
     const filePath = path.join(directory, 'invalid.json');
 
-    await expect(readJsonFileSafe(filePath)).rejects.toThrow(SyntaxError);
-    await expect(readJsonFileSafe(filePath)).rejects.toThrow(filePath);
+    await Promise.all([
+      expect(readJsonFileSafe(filePath)).rejects.toThrow(SyntaxError),
+      expect(readJsonFileSafe(filePath)).rejects.toThrow(filePath),
+    ]);
   });
 
   it('throws on suspected prototype pollution', async () => {

@@ -1,11 +1,11 @@
 /**
  * Makes a promise reject as soon as an `AbortSignal` is aborted, with the
  * signal's reason (a `DOMException` named `'AbortError'` by default), instead
- * of waiting for the promise to settle. Useful to stop waiting for work that
- * cannot be cancelled itself.
+ * of waiting for the promise to settle.
+ * Useful to stop waiting for work that cannot be canceled itself.
  *
- * The work behind the promise is not stopped: only waiting for it is. A signal
- * that is already aborted rejects right away, and without a signal the
+ * The work behind the promise is not stopped: only waiting for it is.
+ * A signal that is already aborted rejects right away, and without a signal the
  * promise is returned as is.
  * @param promise - The promise to wait for.
  * @param signal - The signal that stops the waiting.

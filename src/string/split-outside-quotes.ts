@@ -10,8 +10,9 @@ const DEFAULT_BRACKETS: Readonly<Record<string, string>> = {
 /** Options of `splitOutsideQuotes` */
 export interface SplitOutsideQuotesOptions {
   /**
-   * Quote characters to respect, or `false` for none. Quotes are kept in the
-   * result. Defaults to `true`: `"`, `'` and `` ` ``
+   * Quote characters to respect, or `false` for none.
+   * Quotes are kept in the result.
+   * Defaults to `true`: `"`, `'` and `` ` ``
    */
   quotes?: readonly string[] | boolean;
 
@@ -22,22 +23,24 @@ export interface SplitOutsideQuotesOptions {
   brackets?: Readonly<Record<string, string>> | boolean;
 
   /**
-   * Throws a `SyntaxError` for an unclosed bracket instead of splitting inside it. Defaults to `false`
+   * Throws a `SyntaxError` for an unclosed bracket instead of splitting inside it.
+   * Defaults to `false`
    */
   strict?: boolean;
 }
 
 /**
  * Splits a string by a separator character, except where it appears inside
- * quotes or brackets, like the commas in `'a, "b, c", fn(d, e)'`. Parts are not
- * trimmed, and empty parts are kept.
+ * quotes or brackets, like the commas in `'a, "b, c", fn(d, e)'`.
+ * Parts are not trimmed, and empty parts are kept.
  *
  * A separator preceded by a backslash is not split on, and the backslash is
- * removed (`'a\\,b'` gives `['a,b']`). An unclosed quote is treated as a
- * plain character.
+ * removed (`'a\\,b'` gives `['a,b']`).
+ * An unclosed quote is treated as a plain character.
  * @param text - The string to split.
  * @param separator - A single separator character: one UTF-16 code unit, so not an emoji.
- * @param options - `quotes` and `brackets` to respect (all common ones by default); `strict`: throw on an unclosed bracket.
+ * @param options - `quotes` and `brackets` to respect (all common ones by default); `strict`: throw
+ * on an unclosed bracket.
  * @returns The parts of the string.
  * @throws {TypeError} If `separator` is not a single UTF-16 code unit.
  * @example

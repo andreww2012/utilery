@@ -1,7 +1,7 @@
 import {arraySwapIndexes} from '../../src/array/array-swap-indexes.ts';
 
 describe('array/arraySwapIndexes', () => {
-  it('swaps the element types at the two literal indices of a tuple', () => {
+  it('swaps the element types at the two literal indexes of a tuple', () => {
     expectTypeOf(arraySwapIndexes(['a', 1, true] as const, 0, 2)).toEqualTypeOf<[true, 1, 'a']>();
   });
 

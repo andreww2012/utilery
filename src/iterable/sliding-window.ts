@@ -1,23 +1,26 @@
 /**
- * Lazily yields fixed-size sliding windows over any `Iterable` — arrays,
- * `Map`s, `Set`s, generators, and custom iterators. The window slides by
- * `step` positions between yields, so windows may overlap (`step < size`),
- * butt against each other (`step === size`), or skip elements
+ * Lazily yields fixed-size sliding windows over any `Iterable`: arrays, `Map`s,
+ * `Set`s, generators, and custom iterators.
+ * The window slides by `step` positions between yields, so windows may overlap
+ * (`step < size`), butt against each other (`step === size`), or skip elements
  * (`step > size`).
  *
  * By default, only full windows of exactly `size` elements are yielded; any
- * trailing items that can't form a full window are dropped. Setting
- * `partialWindows: true` continues yielding progressively shorter windows
- * until the buffer is exhausted, matching Kotlin's `windowed` semantics.
+ * trailing items that can't form a full window are dropped.
+ * Setting `partialWindows: true` continues yielding progressively shorter
+ * windows until the buffer is exhausted, matching Kotlin's `windowed`
+ * semantics.
  *
  * The result is a lazy generator: callers can short-circuit (e.g. with
  * `break` or `.next()`) without materializing the rest, which makes the
  * function safe to use on very large or infinite iterables.
- * @param iterable - The iterable to walk. Consumed at most once.
- * @param size - The number of elements per window. Must be a positive
- * integer.
- * @param step - How far the window advances between yields. Must be a
- * positive integer. Defaults to `1`.
+ * @param iterable - The iterable to walk.
+ * Consumed at most once.
+ * @param size - The number of elements per window.
+ * Must be a positive integer.
+ * @param step - How far the window advances between yields.
+ * Must be a positive integer.
+ * Defaults to `1`.
  * @param options - Optional behavior toggles.
  * @param options.partialWindows - When `true`, also yields shorter trailing
  * windows for every starting position that has at least one element.
@@ -37,7 +40,7 @@
  * [...slidingWindow([1, 2, 3, 4, 5, 6], 3, 2, {partialWindows: true})];
  * // [[1, 2, 3], [3, 4, 5], [5, 6]]
  * @example
- * // Works on any iterable — here, a generator of an unknown length
+ * // Works on any iterable: here, a generator of an unknown length
  * function* lines() { yield 'a'; yield 'b'; yield 'c'; yield 'd'; }
  * [...slidingWindow(lines(), 2)];
  * // [['a', 'b'], ['b', 'c'], ['c', 'd']]

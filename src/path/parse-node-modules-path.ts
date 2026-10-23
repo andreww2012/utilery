@@ -4,11 +4,13 @@ const NODE_MODULES_PATH_REGEX =
 
 /**
  * Splits the path of a file inside `node_modules` into the `node_modules`
- * directory, the package name and the path inside the package. For nested
- * dependencies, the innermost package is used. Works with both `/` and `\`
- * separators.
+ * directory, the package name and the path inside the package.
+ * For nested dependencies, the innermost package is used.
+ * Works with both `/` and `\` separators.
  * @param path - The file path.
- * @returns The `directory` (ending with a separator), the package `name` and the `subpath` (`undefined` for the package directory itself), or `undefined` if the path is not inside `node_modules`.
+ * @returns The `directory` (ending with a separator), the package `name` and the `subpath`
+ * (`undefined` for the package directory itself), or `undefined` if the path is not inside
+ * `node_modules`.
  * @example
  * parseNodeModulesPath('/repo/node_modules/@scope/package/dist/index.js');
  * // {directory: '/repo/node_modules/', name: '@scope/package', subpath: 'dist/index.js'}

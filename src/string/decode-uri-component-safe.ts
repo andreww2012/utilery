@@ -2,10 +2,10 @@
 import decodeUriComponent from 'decode-uri-component';
 
 /**
- * Decodes a percent-encoded URI component, like `decodeURIComponent`, but
- * never throws: a malformed sequence, like a lone `%` or broken UTF-8 bytes,
- * is kept as is while the rest is still decoded. Useful for paths and query
- * values that come from users.
+ * Decodes a percent-encoded URI component, like `decodeURIComponent`, but never
+ * throws: a malformed sequence, like a lone `%` or broken UTF-8 bytes, is kept
+ * as is while the rest is still decoded.
+ * Useful for paths and query values that come from users.
  * @param encoded - The percent-encoded string.
  * @returns The decoded string.
  * @example

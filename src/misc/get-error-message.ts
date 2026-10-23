@@ -25,7 +25,8 @@ const getMessage = (error: unknown, fallback: string) => {
  * Pass `{includeCode: true}` to append the `code` property of the error (like
  * Node's `'ENOENT'`) in parentheses, unless the message already contains it.
  * @param error - The caught value.
- * @param fallbackOrOptions - The message to use when `error` has no meaningful one (defaults to `'Unknown error'`), or the options: `fallback` and `includeCode` (defaults to `false`).
+ * @param fallbackOrOptions - The message to use when `error` has no meaningful one (defaults to
+ * `'Unknown error'`), or the options: `fallback` and `includeCode` (defaults to `false`).
  * @returns The message.
  * @example
  * // Errors and error-like objects

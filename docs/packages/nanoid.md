@@ -13,4 +13,4 @@
 | [`random`](https://github.com/ai/nanoid#custom-random-bytes-generator)          | ✅     | `misc/randomBytes`          | Secure random-bytes helper; pairs with `nanoidFactory`'s `random` option                                 |
 
 The bundled build resolves nanoid's isomorphic (`crypto.getRandomValues`) implementation via a local
-patch, so every entrypoint — including the main barrel — works in both Node.js and the browser.
+patch, so every entrypoint, including the main barrel, works in both Node.js and the browser.

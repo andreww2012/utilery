@@ -22,12 +22,13 @@ const toMatcher = (pattern: string | RegExp, options?: GlobOptions) => {
 
 /**
  * Creates a function that checks whether a path passes include and exclude
- * patterns, like the `include`/`exclude` options of build tools. Patterns are
- * globs (see `globToRegex`) or regular expressions.
+ * patterns, like the `include`/`exclude` options of build tools.
+ * Patterns are globs (see `globToRegex`) or regular expressions.
  *
- * A path passes when it matches no `exclude` pattern, and any `include`
- * pattern (all paths are included when there are none). Backslashes in paths
- * are turned into `/` before matching, so Windows paths work with `/` globs.
+ * A path passes when it matches no `exclude` pattern, and any `include` pattern
+ * (all paths are included when there are none).
+ * Backslashes in paths are turned into `/` before matching, so Windows paths
+ * work with `/` globs.
  * @param patterns - The patterns: globs or regular expressions.
  * @param patterns.include - Paths to keep: a pattern or a list of them (all paths when missing).
  * @param patterns.exclude - Paths to drop: a pattern or a list of them.

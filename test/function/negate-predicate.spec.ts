@@ -1,6 +1,6 @@
 import {negatePredicate} from '../../src/function/negate-predicate.ts';
 
-const isString = (value: unknown): value is string => typeof value === 'string';
+const isString = (value: unknown) => typeof value === 'string';
 
 describe('function/negatePredicate', () => {
   it('basic test', () => {

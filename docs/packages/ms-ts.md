@@ -6,4 +6,4 @@
 | --------------------------------------------------- | ------ | --------------------------- | ------------------------------------------------- |
 | [`ms`](https://github.com/andreww2012/ms-ts#readme) | ✅     | `misc/ms`                   | Compile-time-checked milliseconds identity helper |
 | [`Ms`](https://github.com/andreww2012/ms-ts#readme) | ✅     | `types/Ms`                  | Duration string → milliseconds type               |
-| `AllUnits`                                          | ❌     | —                           | Internal support type; not exposed publicly       |
+| `AllUnits`                                          | ❌     | -                           | Internal support type; not exposed publicly       |
