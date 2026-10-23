@@ -2,42 +2,30 @@ import {isSubsetWith} from 'es-toolkit/array';
 
 /**
  * Checks whether every element of `subset` is also present in `superset`.
- * The strategy used for the equality check depends on the optional third
- * argument:
- *
- * - When omitted, items are compared using `SameValueZero` (the same semantics
- *   as `Set.prototype.has`).
- * - When a binary function `(a, b) => boolean` is passed, it is used as a
- *   custom comparator (delegates to `isSubsetWith`).
- * - When a unary function `(value) => key` is passed, both arrays are mapped
- *   through it and the resulting keys are compared.
+ * Elements are compared with `SameValueZero`, like `Set.prototype.has`: to
+ * compare them another way, pass a comparator or a key function as the third
+ * argument.
  *
  * An empty `subset` is always a subset (returns `true`).
  * @param superset - The array that may contain all elements of `subset`.
  * @param subset - The array to check against `superset`.
  * @returns `true` if every element of `subset` is present in `superset`, otherwise `false`.
  * @example
- * // Basic equality (SameValueZero)
  * arrayIsSubset([1, 2, 3, 4, 5], [2, 4]);
  * // true
+ */
+export function arrayIsSubset<T>(superset: readonly T[], subset: readonly T[]): boolean;
+
+/**
+ * Checks whether every element of `subset` is also present in `superset`,
+ * comparing elements with a custom function.
+ * An empty `subset` is always a subset (returns `true`).
+ * @param superset - The array that may contain all elements of `subset`.
+ * @param subset - The array to check against `superset`.
+ * @param areItemsEqual - Tells whether two elements are equal: `x` is from `superset` and `y` from
+ * `subset`.
+ * @returns `true` if every element of `subset` is present in `superset`, otherwise `false`.
  * @example
- * // With a mapper: compare by a derived key
- * arrayIsSubset(
- *   [{id: 1}, {id: 2}, {id: 3}],
- *   [{id: 2}],
- *   (item) => item.id,
- * );
- * // true
- * @example
- * // With a mapper across heterogeneous arrays
- * arrayIsSubset(
- *   [{id: 1}, {id: 2}, {id: 3}],
- *   [2],
- *   (item) => (typeof item === 'object' ? item.id : item),
- * );
- * // true
- * @example
- * // With a custom comparator
  * arrayIsSubset(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 4}],
@@ -45,16 +33,40 @@ import {isSubsetWith} from 'es-toolkit/array';
  * );
  * // false
  */
-export function arrayIsSubset<T>(superset: readonly T[], subset: readonly T[]): boolean;
 export function arrayIsSubset<T, U>(
   superset: readonly T[],
   subset: readonly U[],
   areItemsEqual: (x: T, y: U) => boolean,
 ): boolean;
+
+/**
+ * Checks whether every element of `subset` is also present in `superset`,
+ * comparing the keys a function maps the elements of both arrays to.
+ * An empty `subset` is always a subset (returns `true`).
+ * @param superset - The array that may contain all elements of `subset`.
+ * @param subset - The array to check against `superset`.
+ * @param mapper - Maps an element of either array to the key to compare.
+ * @returns `true` if the key of every element of `subset` is among the keys of `superset`,
+ * otherwise `false`.
+ * @example
+ * arrayIsSubset(
+ *   [{id: 1}, {id: 2}, {id: 3}],
+ *   [{id: 2}],
+ *   (item) => item.id,
+ * );
+ * // true
+ * @example
+ * // Across arrays of different types
+ * arrayIsSubset(
+ *   [{id: 1}, {id: 2}, {id: 3}],
+ *   [2],
+ *   (item) => (typeof item === 'object' ? item.id : item),
+ * );
+ * // true
+ */
 export function arrayIsSubset<T, U>(
   superset: readonly T[],
   subset: readonly U[],
-  // eslint-disable-next-line ts/unified-signatures -- merging signatures results in less strict type inference for the provided function
   mapper: (value: T | U) => unknown,
 ): boolean;
 export function arrayIsSubset<T>(

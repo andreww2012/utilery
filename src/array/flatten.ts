@@ -36,6 +36,25 @@ import type {ExtractNestedArrayType} from '../_internal/types.ts';
  * // [1, 2, 3, 4]
  */
 export function flatten<T>(array: readonly T[]): ExtractNestedArrayType<T>[];
+
+/**
+ * Flattens a nested array to the given `depth`.
+ * Negative, `NaN`, and non-integer `depth` values follow
+ * `Array.prototype.flat` semantics (negative/`NaN` → no flattening, non-integer
+ * → floored).
+ * @param array - The array to flatten.
+ * @param depth - How many levels to flatten.
+ * `Infinity` flattens fully.
+ * @returns A new array with the elements flattened to `depth`.
+ * @example
+ * // Depth of 1: matches `Array.prototype.flat`
+ * flatten([1, [2, [3, [4]]]], 1);
+ * // [1, 2, [3, [4]]]
+ * @example
+ * // Depth of 0 returns a shallow copy
+ * flatten([1, [2, 3]], 0);
+ * // [1, [2, 3]]
+ */
 export function flatten<T, D extends number>(array: readonly T[], depth: D): FlatArray<T[], D>[];
 export function flatten<T>(array: readonly T[], depth?: number): unknown[] {
   return depth == null || depth === Number.POSITIVE_INFINITY

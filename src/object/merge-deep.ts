@@ -40,8 +40,8 @@ interface MergeDeepOptions<T, S> {
  * Mutated unless `{copy: true}` is set.
  * @param source - The object whose properties are merged into `target`.
  * @param options - Optional behavior flags.
- * @param options.mergeValues Custom per-property merge resolver.
- * @param options.copy When `true`, returns a new object instead of mutating `target`.
+ * @param options.mergeValues - Custom per-property merge resolver.
+ * @param options.copy - When `true`, returns a new object instead of mutating `target`.
  * @returns The merged object: the mutated `target`, or a new object when `{copy: true}`.
  * @example
  * // Deep merge (mutating, the default)

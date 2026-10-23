@@ -8,7 +8,7 @@ import {objectHasIn} from 'ts-extras';
  * It also guards against prototype-pollution keys (`__proto__`, `constructor`).
  *
  * To narrow the **key** instead of the object (e.g. when validating a union of
- * candidate keys), use {@link isKeyIn}.
+ * candidate keys), use `isKeyIn`.
  * @param key - The property key to look for.
  * @param object - The object to check.
  * @returns `true` if `key` is in `object` (own or inherited); narrows `object`

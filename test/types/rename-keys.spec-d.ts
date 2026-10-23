@@ -18,4 +18,17 @@ describe('types/RenameKeys', () => {
   it('ignores map entries for keys missing in the object', () => {
     expectTypeOf<RenameKeys<{a: 1}, {b: 'x'}>>().toEqualTypeOf<{a: 1}>();
   });
+
+  it('makes a merged key optional only when all of its keys are optional', () => {
+    expectTypeOf<RenameKeys<{a?: 1; b: 2}, {a: 'x'; b: 'x'}>>().toEqualTypeOf<{
+      x: 1 | 2 | undefined;
+    }>();
+    expectTypeOf<RenameKeys<{a?: 1; b?: 2}, {a: 'x'; b: 'x'}>>().toEqualTypeOf<{x?: 1 | 2}>();
+  });
+
+  it('makes a merged key readonly when any of its keys is readonly', () => {
+    expectTypeOf<RenameKeys<{readonly a: 1; b: 2}, {a: 'x'; b: 'x'}>>().toEqualTypeOf<{
+      readonly x: 1 | 2;
+    }>();
+  });
 });

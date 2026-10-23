@@ -11,7 +11,7 @@ import type {ObjectKeys} from 'es-toolkit/types';
  * - An array of deep path strings like `'a.b.c'`: selects nested properties
  *   (typed loosely as `Partial<T>`).
  * - A `(value, key) => boolean` predicate: keeps the properties for which it
- *   returns `true` (delegates to `pickBy`).
+ *   returns `true`.
  * @param object - The source object.
  * Not mutated.
  * @param keys - The keys/paths to keep, or a `(value, key) => boolean` predicate selecting them.
@@ -33,6 +33,22 @@ export function pick<T extends object, K extends keyof T>(
   object: T,
   keys: readonly K[],
 ): Pick<T, K>;
+
+/**
+ * Creates a new object with only the selected properties of `object`, chosen
+ * by deep path strings or a predicate.
+ * @param object - The source object.
+ * Not mutated.
+ * @param selector - Deep path strings like `'a.b.c'` of the properties to keep, or a
+ * `(value, key) => boolean` predicate that returns `true` for them.
+ * @returns A new object containing only the selected properties, typed loosely as `Partial<T>`.
+ * @example
+ * pick({a: {b: 1, c: 2}}, ['a.b']);
+ * // {a: {b: 1}}
+ * @example
+ * pick({a: 1, b: 'keep', c: 3}, (value) => typeof value === 'string');
+ * // {b: 'keep'}
+ */
 export function pick<T extends object>(
   object: T,
   selector: readonly PropertyKey[] | ((value: T[keyof T], key: ObjectKeys<T>) => boolean),

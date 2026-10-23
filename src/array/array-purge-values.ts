@@ -4,33 +4,28 @@ import {pullAllBy, pullAllWith} from 'es-toolkit/compat';
 /**
  * **Mutates** `array`, removing every element equal to one of the given
  * `values`, and returns it.
- * The strategy used for the equality check depends on the optional third
- * argument:
- *
- * - When omitted, items are compared using `SameValueZero` (delegates to
- *   `pull`).
- * - When a binary function `(a, b) => boolean` is passed, it is used as a
- *   custom comparator (delegates to `pullAllWith`).
- * - When a unary function `(value) => key` is passed, both the array and the
- *   values are mapped through it and the resulting keys are compared (delegates
- *   to `pullAllBy`).
+ * Elements are compared with `SameValueZero`, like `Set.prototype.has`: to
+ * compare them another way, pass a comparator or a key function as the third
+ * argument.
  * @param array - The array to mutate.
  * @param values - The values to remove.
  * @returns The mutated input `array`.
  * @example
- * // Basic equality (SameValueZero)
  * arrayPurgeValues([1, 2, 3, 1, 2], [1, 2]);
  * // [3]
+ */
+export function arrayPurgeValues<T>(array: T[], values: readonly T[]): T[];
+
+/**
+ * **Mutates** `array`, removing every element equal to one of the given
+ * `values`, and returns it.
+ * Elements are compared with a custom function.
+ * @param array - The array to mutate.
+ * @param values - The values to remove.
+ * @param areItemsEqual - Tells whether two elements are equal: `a` is from `array` and `b` from
+ * `values`.
+ * @returns The mutated input `array`.
  * @example
- * // With a mapper: compare by a derived key
- * arrayPurgeValues(
- *   [{id: 1}, {id: 2}, {id: 3}],
- *   [{id: 2}],
- *   (item) => item.id,
- * );
- * // [{id: 1}, {id: 3}]
- * @example
- * // With a custom comparator
  * arrayPurgeValues(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 2}],
@@ -38,16 +33,31 @@ import {pullAllBy, pullAllWith} from 'es-toolkit/compat';
  * );
  * // [{id: 1}, {id: 3}]
  */
-export function arrayPurgeValues<T>(array: T[], values: readonly T[]): T[];
 export function arrayPurgeValues<T, U>(
   array: T[],
   values: readonly U[],
   areItemsEqual: (a: T, b: U) => boolean,
 ): T[];
+
+/**
+ * **Mutates** `array`, removing every element equal to one of the given
+ * `values`, and returns it.
+ * Elements are compared by the keys a function maps them to.
+ * @param array - The array to mutate.
+ * @param values - The values to remove.
+ * @param mapper - Maps an element of `array` or `values` to the key to compare.
+ * @returns The mutated input `array`.
+ * @example
+ * arrayPurgeValues(
+ *   [{id: 1}, {id: 2}, {id: 3}],
+ *   [{id: 2}],
+ *   (item) => item.id,
+ * );
+ * // [{id: 1}, {id: 3}]
+ */
 export function arrayPurgeValues<T, U>(
   array: T[],
   values: readonly U[],
-  // eslint-disable-next-line ts/unified-signatures -- merging signatures results in less strict type inference for the provided function
   mapper: (value: T | U) => unknown,
 ): T[];
 export function arrayPurgeValues<T>(

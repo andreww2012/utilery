@@ -31,11 +31,25 @@ type Transpose<K extends unknown[]> = {[I in keyof K]: K[I][]};
  * arrayTranspose([[1, 2], [3, 4], [5, 6]], (a, b, c) => a + b + c);
  * // [9, 12]
  * @example
- * // Equivalent to a variadic `zip`: wrap the arrays in an outer array
+ * // Works as a variadic "zip": wrap the arrays in an outer array
  * arrayTranspose([[1, 2, 3], ['a', 'b', 'c']]);
- * // [[1, 'a'], [2, 'b'], [3, 'c']]  (i.e. zip([1, 2, 3], ['a', 'b', 'c']))
+ * // [[1, 'a'], [2, 'b'], [3, 'c']]
  */
 export function arrayTranspose<T extends unknown[]>(rows: readonly [...T][]): Transpose<T>;
+
+/**
+ * Transposes a 2D array and folds each resulting column into a single value.
+ * When the rows have different lengths, the iteratee receives `undefined` for
+ * positions with no source value.
+ * @param rows - The matrix to transpose.
+ * Not mutated.
+ * @param iteratee - Receives the values of one column (one value per row) and returns the folded
+ * value.
+ * @returns A new array with one folded value per column.
+ * @example
+ * arrayTranspose([[1, 2], [3, 4], [5, 6]], (a, b, c) => a + b + c);
+ * // [9, 12]
+ */
 export function arrayTranspose<T, R>(rows: readonly T[][], iteratee: (...values: T[]) => R): R[];
 export function arrayTranspose<T>(
   rows: readonly T[][],

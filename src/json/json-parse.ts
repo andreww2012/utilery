@@ -2,7 +2,7 @@ import {destr} from 'destr';
 
 /**
  * Parses a JSON string into a value, throwing on anything malformed: the
- * stricter, fail-fast counterpart of {@link jsonParseSafe}.
+ * stricter, fail-fast counterpart of `jsonParseSafe`.
  * A faster, safer drop-in for `JSON.parse`.
  *
  * Beyond plain `JSON.parse`:
@@ -13,7 +13,7 @@ import {destr} from 'destr';
  * - Keys that could trigger prototype pollution (`__proto__`,
  *   `constructor.prototype`) cause a throw instead of silently polluting.
  *
- * Unlike {@link jsonParseSafe}, invalid JSON, non-JSON strings, and suspected
+ * Unlike `jsonParseSafe`, invalid JSON, non-JSON strings, and suspected
  * prototype pollution all throw rather than falling back.
  * @param value - The value to parse.
  * Strings are parsed; anything else is returned as-is.

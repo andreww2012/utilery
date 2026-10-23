@@ -81,7 +81,7 @@ const omitPathIn = (
  *   copied: the rest of the result is shared with `object`.
  *   A key named `*` cannot be addressed in a path.
  * - A `(value, key) => boolean` predicate: removes the properties for which it
- *   returns `true` (delegates to `omitBy`).
+ *   returns `true`.
  * @param object - The source object.
  * Not mutated.
  * @param keys - The keys/paths to remove, or a `(value, key) => boolean` predicate selecting them.
@@ -107,6 +107,23 @@ export function omit<T extends object, K extends keyof T>(
   object: T,
   keys: readonly K[],
 ): Omit<T, K>;
+
+/**
+ * Creates a new object with the selected properties of `object` removed, chosen
+ * by deep path strings or a predicate.
+ * Deep paths work as described for the array of keys, including `*` segments.
+ * @param object - The source object.
+ * Not mutated.
+ * @param selector - Deep path strings like `'a.b.c'` of the properties to remove, or a
+ * `(value, key) => boolean` predicate that returns `true` for them.
+ * @returns A new object without the selected properties, typed loosely as `Partial<T>`.
+ * @example
+ * omit({users: [{name: 'Ada', password: 'x'}]}, ['users.*.password']);
+ * // {users: [{name: 'Ada'}]}
+ * @example
+ * omit({a: 1, b: 'drop', c: 3}, (value) => typeof value === 'string');
+ * // {a: 1, c: 3}
+ */
 export function omit<T extends object>(
   object: T,
   selector: readonly PropertyKey[] | ((value: T[keyof T], key: ObjectKeys<T>) => boolean),

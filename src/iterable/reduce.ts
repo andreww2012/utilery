@@ -1,32 +1,39 @@
+/**
+ * Reduces an iterable to a single accumulated value by applying the reducer
+ * function to each element, like `Array.prototype.reduce` without an initial
+ * value.
+ * The first yielded element is the starting accumulator, and the reducer runs
+ * from the second element on.
+ * @param iterable - The iterable to reduce.
+ * Consumed exactly once.
+ * It must yield at least one value.
+ * @param reducer - Receives the running accumulator and the current value;
+ * returns the next accumulator.
+ * @returns The final accumulated value.
+ * @throws {TypeError} If the iterable is empty.
+ * @example
+ * reduce([10, 20, 30], (acc, value) => acc + value);
+ * // 60
+ * @example
+ * // Throws on an empty iterable
+ * reduce([] as number[], (acc, value) => acc + value);
+ * // Throws TypeError
+ */
 export function reduce<T>(iterable: Iterable<T>, reducer: (accumulator: T, value: T) => T): T;
-export function reduce<T, A>(
-  iterable: Iterable<T>,
-  reducer: (accumulator: A, value: T) => A,
-  initialValue: A,
-): A;
 
 /**
  * Reduces an iterable to a single accumulated value by applying the reducer
- * function to each element.
- * When `initialValue` is omitted, the first yielded element is used as the
- * starting accumulator and the reducer runs from the second element onward.
+ * function to each element, starting from `initialValue`.
  * @param iterable - The iterable to reduce.
  * Consumed exactly once.
  * @param reducer - Receives the running accumulator and the current value;
  * returns the next accumulator.
- * @param initialValue - Optional starting accumulator.
- * If omitted, the first element of the iterable is used and the iterable must
- * yield at least one value.
- * @returns The final accumulated value.
- * @throws {TypeError} If `initialValue` is omitted and the iterable is empty.
+ * @param initialValue - The starting accumulator.
+ * @returns The final accumulated value, or `initialValue` for an empty iterable.
  * @example
  * // Sum with an initial value
  * reduce([1, 2, 3], (acc, value) => acc + value, 0);
  * // 6
- * @example
- * // Sum without an initial value (uses the first element)
- * reduce([10, 20, 30], (acc, value) => acc + value);
- * // 60
  * @example
  * // Build a Map from an iterable
  * reduce(
@@ -35,11 +42,12 @@ export function reduce<T, A>(
  *   new Map<string, number>(),
  * );
  * // Map { 'a' => 1, 'bb' => 2, 'ccc' => 3 }
- * @example
- * // Throws on an empty iterable when no initial value is given
- * reduce([] as number[], (acc, value) => acc + value);
- * // Throws TypeError
  */
+export function reduce<T, A>(
+  iterable: Iterable<T>,
+  reducer: (accumulator: A, value: T) => A,
+  initialValue: A,
+): A;
 export function reduce<T, A>(
   iterable: Iterable<T>,
   reducer: (accumulator: A, value: T) => A,

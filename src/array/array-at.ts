@@ -79,6 +79,25 @@ type ArrayElementAt<
  * // []
  */
 export function arrayAt<T>(array: readonly T[], indexes: number[]): (T | undefined)[];
+
+/**
+ * Reads one element from an array by index, like `Array.prototype.at`, but
+ * with a precise type for literal indexes into tuples.
+ * @param array - The array to read from.
+ * Not mutated.
+ * @param index - The index to read.
+ * A negative value is counted from the end of the array.
+ * @returns The element at that index, or `undefined` if out of bounds.
+ * For a tuple indexed by an in-bounds literal, the precise element type.
+ * @example
+ * arrayAt(['a', 'b', 'c'], -1);
+ * // 'c'
+ * @example
+ * // A literal index into a tuple yields a precise type (no `| undefined`)
+ * const tuple = ['abc', 123, true] as const;
+ * arrayAt(tuple, 0);
+ * // 'abc' (type: 'abc')
+ */
 export function arrayAt<ArrayType extends readonly unknown[], Index extends number>(
   array: ArrayType,
   index: Index,

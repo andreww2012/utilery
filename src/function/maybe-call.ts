@@ -2,7 +2,15 @@
  * A value that is either provided directly or produced lazily by a function.
  * Handy for options that accept "a value or a getter", letting callers defer
  * the computation (or react to arguments) without forcing every caller to pass
- * a function
+ * a function.
+ * Use `maybeCall` to get the value.
+ * @example
+ * interface ButtonOptions {
+ *   label: MaybeFn<string>;
+ *   isDisabled?: MaybeFn<boolean, [user: User]>;
+ * }
+ * const label = maybeCall(options.label);
+ * const isDisabled = maybeCall(options.isDisabled, currentUser);
  */
 export type MaybeFn<Return, Params extends readonly unknown[] = []> =
   | ((...parameters: Params) => Return)

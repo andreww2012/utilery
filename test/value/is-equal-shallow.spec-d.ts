@@ -8,4 +8,10 @@ describe('value/isEqualShallow', () => {
       expectTypeOf(value).toEqualTypeOf<{kind: 'a'}>();
     }
   });
+
+  it('narrows with one argument when the types are given', () => {
+    const modes: ('a' | 'b')[] = ['a', 'b'];
+
+    expectTypeOf(modes.filter(isEqualShallow<'a' | 'b', 'a'>('a'))).toEqualTypeOf<'a'[]>();
+  });
 });

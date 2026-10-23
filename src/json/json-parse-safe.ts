@@ -2,7 +2,7 @@ import {destr} from 'destr';
 
 /**
  * Parses a JSON string into a value, never throwing: the forgiving
- * counterpart of {@link jsonParse}.
+ * counterpart of `jsonParse`.
  *
  * Beyond plain `JSON.parse`:
  * - Non-string input is returned untouched (e.g. an already-parsed object).
@@ -13,7 +13,7 @@ import {destr} from 'destr';
  *   `constructor.prototype`) are dropped (with a `console.warn`) instead of
  *   polluting the result.
  *
- * Unlike {@link jsonParse}, malformed or non-JSON strings never throw: the
+ * Unlike `jsonParse`, malformed or non-JSON strings never throw: the
  * original string is returned unchanged, making this convenient when the input
  * may or may not be JSON.
  * @param value - The value to parse.

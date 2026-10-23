@@ -8,4 +8,18 @@ describe('object/freezeDeep', () => {
     expect(Object.isFrozen(object.user)).toBe(true);
     expect(Object.isFrozen(object.user.tags)).toBe(true);
   });
+
+  it('skips the properties of nested values that are already frozen', () => {
+    const inner = Object.freeze({settings: {}});
+    freezeDeep({inner});
+
+    expect(Object.isFrozen(inner.settings)).toBe(false);
+  });
+
+  it('visits the properties of a root that is already frozen', () => {
+    const object = Object.freeze({settings: {}});
+    freezeDeep(object);
+
+    expect(Object.isFrozen(object.settings)).toBe(true);
+  });
 });

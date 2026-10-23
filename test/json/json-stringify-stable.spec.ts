@@ -19,4 +19,32 @@ describe('json/jsonStringifyStable', () => {
       '{"value":12345678901234567890}',
     );
   });
+
+  it('throws a `TypeError` on a circular reference when `circularValue` is `Error` or `TypeError`', () => {
+    const value: Record<string, unknown> = {};
+    value.self = value;
+
+    expect(() => jsonStringifyStable.configure({circularValue: Error})(value)).toThrow(TypeError);
+    expect(() => jsonStringifyStable.configure({circularValue: TypeError})(value)).toThrow(
+      TypeError,
+    );
+  });
+
+  it('writes `null` for a circular reference when `circularValue` is `null`', () => {
+    const value: Record<string, unknown> = {};
+    value.self = value;
+
+    expect(jsonStringifyStable.configure({circularValue: null})(value)).toBe('{"self":null}');
+  });
+
+  it('leaves out a circular reference when `circularValue` is `undefined`, or writes `null` in an array', () => {
+    const object: Record<string, unknown> = {a: 1};
+    object.self = object;
+    const array: unknown[] = [1];
+    array.push(array);
+    const stringify = jsonStringifyStable.configure({circularValue: undefined});
+
+    expect(stringify(object)).toBe('{"a":1}');
+    expect(stringify(array)).toBe('[1,null]');
+  });
 });

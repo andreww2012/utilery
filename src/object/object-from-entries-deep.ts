@@ -11,7 +11,7 @@ import {setByPath} from './set-by-path.ts';
  *
  * Entries are applied in order; a later entry writing to the same path
  * overwrites an earlier one.
- * Delegates the per-path writes to `setByPath`.
+ * Paths are written the same way as by `setByPath`.
  * @param entries - An iterable of `[path, value]` pairs.
  * @returns A new object assembled from the entries.
  * @example

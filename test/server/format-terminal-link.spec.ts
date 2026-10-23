@@ -40,6 +40,16 @@ describe('server/formatTerminalFileLink', () => {
       }),
     ).toBe('/REPO/A.TS');
   });
+
+  it('links to the file and the position whatever the custom label is', () => {
+    expect(
+      formatTerminalFileLink('/repo/a.ts', {
+        enabled: true,
+        line: 2,
+        formatter: () => 'here',
+      }),
+    ).toBe('\u{1B}]8;;file:///repo/a.ts#L2\u{7}here\u{1B}]8;;\u{7}');
+  });
 });
 
 describe('server/isTerminalLinkSupported', () => {

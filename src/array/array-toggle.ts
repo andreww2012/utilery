@@ -19,7 +19,7 @@ import {arrayPurgeValues} from './array-purge-values.ts';
  * When `false`, it is only removed.
  * When omitted, it is toggled.
  * @param options - Optional behavior flags.
- * @param options.copy When `true`, returns a new array instead of mutating `array`.
+ * @param options.copy - When `true`, returns a new array instead of mutating `array`.
  * @returns The mutated `array`, or a new array when `{copy: true}`.
  * @example
  * // Toggle a value (mutating, the default)

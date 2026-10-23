@@ -1,10 +1,16 @@
 // cspell:ignore unflatten
-import {type ParseOperations, type ParseOptions, defaultParseOperations, unflatten} from 'devalue';
+import {type ParseOperations, defaultParseOperations, unflatten} from 'devalue';
 
 /**
  * Options accepted by {@link structuredParse}
  */
-export type StructuredParseOptions = ParseOptions;
+export interface StructuredParseOptions {
+  /**
+   * Overrides of the ways the value is built back up.
+   * Omitted members fall back to {@link STRUCTURED_PARSE_DEFAULT_OPERATIONS}
+   */
+  operations?: Partial<StructuredParseOperations>;
+}
 
 /**
  * Every way {@link structuredParse} builds the revived value back up: creating

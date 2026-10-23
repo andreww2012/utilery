@@ -1,8 +1,23 @@
-import {regex} from 'arkregex';
-
-export type {Regex as RegexTyped} from 'arkregex';
+import {type Regex, regex} from 'arkregex';
 
 type RegexFlags = NonNullable<Parameters<typeof regex>[1]>;
+
+type RegexContext = Regex extends Regex<string, infer Context> ? Context : never;
+
+/**
+ * A `RegExp` whose type knows the strings it matches (`Pattern`) and its
+ * flags and captures (`Context`), as returned by `regexTyped`.
+ * `.test()` narrows its argument to `Pattern`, and `.exec()` returns typed
+ * positional and named captures.
+ * @example
+ * const ok: RegexTyped<'ok' | 'oK' | 'Ok' | 'OK', {flags: 'i'}> = regexTyped('^ok$', 'i');
+ * @example
+ * const isHexColor = (pattern: RegexTyped<`#${string}`>, value: string) => pattern.test(value);
+ */
+export type RegexTyped<
+  Pattern extends string = string,
+  Context extends RegexContext = RegexContext,
+> = Regex<Pattern, Context>;
 
 /* eslint-disable ts/naming-convention, ts/no-namespace, ts/no-redeclare, import/export -- value+namespace declaration merge attaching arkregex's lowercase type-level helpers to `regexTyped` */
 
@@ -28,9 +43,13 @@ type RegexFlags = NonNullable<Parameters<typeof regex>[1]>;
  *
  * Note: with the `g` or `y` flag, the returned `RegExp` is stateful: `.test()`
  * and `.exec()` advance `lastIndex` between calls, exactly like a native `RegExp`.
+ * @param src - The pattern, as a string literal.
+ * @param flags - The `RegExp` flags, like `'gi'`.
+ * @returns A `RegExp` typed as `RegexTyped` with the inferred pattern and captures.
+ * @throws {SyntaxError} When the pattern or the flags are invalid at runtime.
  * @example
  * const ok = regexTyped('^ok$', 'i');
- * // Regex<'ok' | 'oK' | 'Ok' | 'OK', {flags: 'i'}>
+ * // RegexTyped<'ok' | 'oK' | 'Ok' | 'OK', {flags: 'i'}>
  * @example
  * const semver = regexTyped('^(\\d+)\\.(\\d+)\\.(\\d+)$');
  * // captures inferred as [`${number}`, `${number}`, `${number}`]

@@ -7,7 +7,7 @@ import {sortedIndexOf as sortedIndexOfFirst, sortedLastIndexOf} from 'es-toolkit
  * get the *last* one.
  *
  * Consolidates the first-match and last-match variants behind a single options argument.
- * Unlike {@link sortedArrayInsertionIndex}, this searches for an existing value rather
+ * Unlike `sortedArrayInsertionIndex`, this searches for an existing value rather
  * than an insertion point, so it only accepts directly comparable elements.
  * @param sortedArray - The already-sorted array to search.
  * Not mutated.

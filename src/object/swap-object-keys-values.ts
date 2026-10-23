@@ -7,7 +7,7 @@ import {invert, invertBy} from 'es-toolkit/compat';
  *
  * Pass a `groupValueBy` iteratee to instead group every original key under its
  * (optionally transformed) value: each entry becomes an **array** of the keys
- * that mapped to it, so nothing is lost on collisions (delegates to `invertBy`).
+ * that mapped to it, so nothing is lost on collisions.
  * @param object - The source object.
  * Not mutated.
  * @param groupValueBy - Optional iteratee `(value) => key` deriving the grouping

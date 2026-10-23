@@ -13,9 +13,8 @@ type IntersectAll<Sources extends readonly unknown[]> = Sources extends readonly
 interface AssignDefaultsOptions {
   /**
    * When `true`, recurses into nested objects so missing keys are filled at
-   * every depth (delegates to `defaultsDeep`).
-   * When `false` (the default), only top-level keys are filled (delegates to
-   * `defaults`)
+   * every depth.
+   * When `false` (the default), only top-level keys are filled
    */
   deep?: boolean;
 
@@ -32,17 +31,16 @@ interface AssignDefaultsOptions {
  * applied left to right, where the first defined value for a key wins.
  * Keys already present and defined on `target` are never overwritten.
  *
- * By default the `target` is **mutated** in place (delegates to `defaults`).
- * Pass `{deep: true}` to fill missing keys recursively (delegates to
- * `defaultsDeep`).
- * Pass `{copy: true}` to leave the `target` untouched and get a new object back
- * (delegates to `toDefaulted`); the two options compose.
+ * By default the `target` is **mutated** in place.
+ * Pass `{deep: true}` to fill missing keys recursively.
+ * Pass `{copy: true}` to leave the `target` untouched and get a new object back;
+ * the two options compose.
  * @param target - The object receiving defaults.
  * Mutated unless `{copy: true}` is set.
  * @param source - A single defaults object, or an array of them applied left to right.
  * @param options - Optional behavior flags.
- * @param options.deep When `true`, fills missing keys recursively.
- * @param options.copy When `true`, returns a new object instead of mutating `target`.
+ * @param options.deep - When `true`, fills missing keys recursively.
+ * @param options.copy - When `true`, returns a new object instead of mutating `target`.
  * @returns The defaulted object: the mutated `target`, or a new object when `{copy: true}`.
  * @example
  * // Fill missing top-level keys (mutating, the default)

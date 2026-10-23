@@ -1,7 +1,7 @@
 import {mapWithFeedback} from 'remeda';
 
 /**
- * Like {@link arrayMap}, but threads an accumulator through the iteration: each
+ * Like `arrayMap`, but threads an accumulator through the iteration: each
  * output element is the accumulator value *after* processing the corresponding
  * input element (a prefix scan).
  * Unlike a `reduce`, which yields only the final accumulator, this returns every

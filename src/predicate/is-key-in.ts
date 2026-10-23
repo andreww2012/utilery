@@ -9,7 +9,7 @@ import {keyIn} from 'ts-extras';
  * The argument order mirrors the native `key in object` expression.
  * It also guards against prototype-pollution keys (`__proto__`, `constructor`).
  *
- * To narrow the **object** instead of the key, use {@link isIn}.
+ * To narrow the **object** instead of the key, use `isIn`.
  * @param key - The property key (often a union of candidates) to look for.
  * @param object - The object to check.
  * @returns `true` if `key` is in `object` (own or inherited); narrows `key` to

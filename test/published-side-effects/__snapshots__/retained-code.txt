@@ -1,11 +1,11 @@
 import { createRequire } from "node:module";
+import "node:child_process";
 import "node:path";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import process$1 from "node:process";
 import "node:url";
 import os from "node:os";
-import "node:child_process";
 import "node:util";
 
 // node_modules/es-toolkit/dist/_internal/globalThis.mjs
@@ -27,33 +27,6 @@ function mapValues(object, getNewValue) {
 	}
 	return result;
 }
-
-// node_modules/ts-extras/distribution/is-finite.mjs
-Number.isFinite;
-
-// node_modules/ts-extras/distribution/is-integer.mjs
-Number.isInteger;
-
-// node_modules/ts-extras/distribution/is-safe-integer.mjs
-Number.isSafeInteger;
-
-// node_modules/es-toolkit/dist/compat/function/bindKey.mjs
-function bindKey(object, key, ...partialArgs) {
-	const bound = function(...providedArgs) {
-		const args = [];
-		let startIndex = 0;
-		for (let i = 0; i < partialArgs.length; i++) {
-			const arg = partialArgs[i];
-			if (arg === bindKey.placeholder) args.push(providedArgs[startIndex++]);
-			else args.push(arg);
-		}
-		for (let i = startIndex; i < providedArgs.length; i++) args.push(providedArgs[i]);
-		if (this instanceof bound) return new object[key](...args);
-		return object[key].apply(object, args);
-	};
-	return bound;
-}
-bindKey.placeholder = Symbol("bindKey.placeholder");
 
 // _virtual/_rolldown/runtime.mjs
 var __create = Object.create;
@@ -152,6 +125,24 @@ require_toposort();
 new globalThis.TextDecoder("utf8");
 new globalThis.TextEncoder();
 Array.from({ length: 256 }, (_, index) => index.toString(16).padStart(2, "0"));
+
+// node_modules/es-toolkit/dist/compat/function/bindKey.mjs
+function bindKey(object, key, ...partialArgs) {
+	const bound = function(...providedArgs) {
+		const args = [];
+		let startIndex = 0;
+		for (let i = 0; i < partialArgs.length; i++) {
+			const arg = partialArgs[i];
+			if (arg === bindKey.placeholder) args.push(providedArgs[startIndex++]);
+			else args.push(arg);
+		}
+		for (let i = startIndex; i < providedArgs.length; i++) args.push(providedArgs[i]);
+		if (this instanceof bound) return new object[key](...args);
+		return object[key].apply(object, args);
+	};
+	return bound;
+}
+bindKey.placeholder = Symbol("bindKey.placeholder");
 
 // node_modules/mimic-function/index.mjs
 Object.getOwnPropertyDescriptor(Function.prototype, "toString");
@@ -4769,6 +4760,15 @@ function escapeChar(char) {
 	return UNESCAPED_SEPARATORS.includes(char) ? `\\${char}` : char;
 }
 new RegExp(`[${SEPARATORS.map(escapeChar).join("")}]`, "g");
+
+// node_modules/ts-extras/distribution/is-finite.mjs
+Number.isFinite;
+
+// node_modules/ts-extras/distribution/is-integer.mjs
+Number.isInteger;
+
+// node_modules/ts-extras/distribution/is-safe-integer.mjs
+Number.isSafeInteger;
 
 // node_modules/arkregex/out/regex.mjs
 const regex$1 = ((src, flags) => new RegExp(src, flags));

@@ -21,8 +21,6 @@ type SplitAt<T extends readonly unknown[], Index extends number> = number extend
  * @param array - The array (or tuple) to split.
  * Not mutated.
  * @param index - The index at which to split (negative counts from the end).
- * Alternatively, pass a predicate `(value, index, array) => boolean` to split at
- * the first matching element; when nothing matches, the second part is empty.
  * @returns A `[before, after]` pair.
  * @example
  * // Split at an index
@@ -49,6 +47,23 @@ export function arraySplit<T extends readonly unknown[], Index extends number>(
   array: T,
   index: Index,
 ): SplitAt<T, Index>;
+
+/**
+ * Splits an array into a `[before, after]` pair at the first element matching
+ * a predicate: that element begins the second part.
+ * @param array - The array (or tuple) to split.
+ * Not mutated.
+ * @param predicate - Returns `true` for the element that should begin the second part.
+ * @returns A `[before, after]` pair.
+ * When nothing matches, the second part is empty.
+ * @example
+ * arraySplit([1, 2, 3, 4, 1], (value) => value > 2);
+ * // [[1, 2], [3, 4, 1]]
+ * @example
+ * // No match: the second part is empty
+ * arraySplit([1, 2, 3], (value) => value > 10);
+ * // [[1, 2, 3], []]
+ */
 export function arraySplit<T extends readonly unknown[]>(
   array: T,
   predicate: (value: T[number], index: number, array: T) => boolean,

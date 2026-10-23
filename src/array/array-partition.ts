@@ -14,9 +14,6 @@ type ArrayPredicate<T> = (value: T, index: number, array: readonly T[]) => boole
  * placed into the group of the **first** predicate it satisfies, and a final
  * group collects the elements that matched none.
  * The result therefore has one more group than the number of predicates.
- *
- * The type-guard narrowing and the unbounded predicate count are added on top
- * via the signatures below.
  * @param array - The array to partition.
  * Not mutated.
  * @param predicate - A predicate `(value, index, array) => boolean`.
@@ -47,6 +44,22 @@ export function arrayPartition<T>(
   array: readonly T[],
   predicate: ArrayPredicate<T>,
 ): [matched: T[], unmatched: T[]];
+
+/**
+ * Splits `array` into groups based on several predicates, preserving the
+ * original order within each group.
+ * Each element is placed into the group of the **first** predicate it
+ * satisfies, and a final group collects the elements that matched none.
+ * @param array - The array to partition.
+ * Not mutated.
+ * @param predicate - The predicate `(value, index, array) => boolean` of the first group.
+ * @param morePredicates - The predicates of the next groups, in order.
+ * @returns An array of `morePredicates.length + 2` groups: one per predicate, in order, plus a
+ * trailing group of unmatched elements.
+ * @example
+ * arrayPartition([1, 2, 3, 4, 5, 6], (value) => value % 2 === 0, (value) => value % 3 === 0);
+ * // [[2, 4, 6], [3], [1, 5]]
+ */
 export function arrayPartition<T>(
   array: readonly T[],
   predicate: ArrayPredicate<T>,

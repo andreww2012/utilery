@@ -8,4 +8,9 @@ describe('json/jsonParseLossless', () => {
     expect(parsed.big).toBeInstanceOf(NumberLossless);
     expect(parsed.big.toString()).toBe('12345678901234567890');
   });
+
+  it('throws from `NumberLossless#valueOf` for a number that does not fit in a `number`', () => {
+    expect(() => new NumberLossless('1e500').valueOf()).toThrow(Error);
+    expect(() => new NumberLossless('1e-500').valueOf()).toThrow(Error);
+  });
 });

@@ -2,7 +2,14 @@ import type {IntRange} from '../types/int-range.ts';
 
 /**
  * The index of a bit in a 32-bit integer: an integer from `0` (the least
- * significant bit) to `31`
+ * significant bit) to `31`.
+ * Use `isBitIndex` to check a dynamic number.
+ * @example
+ * const READ: BitIndex = 0;
+ * const WRITE: BitIndex = 1;
+ * @example
+ * // @ts-expect-error: out of range
+ * const invalid: BitIndex = 32;
  */
 export type BitIndex = IntRange<0, 32>;
 

@@ -3,43 +3,31 @@ import {differenceBy, differenceWith} from 'es-toolkit/array';
 /**
  * Returns the difference of two arrays: the elements from `firstArray` that are
  * *not* present in `secondArray`.
- * The strategy used for the equality check depends on the optional third
- * argument:
- *
- * - When omitted, items are compared using `SameValueZero` (the same
- *   semantics as `Set.prototype.has`).
- * - When a binary function `(a, b) => boolean` is passed, it is used as a
- *   custom comparator (delegates to `differenceWith`).
- * - When a unary function `(value) => key` is passed, both arrays are mapped
- *   through it and the resulting keys are compared (delegates to
- *   `differenceBy`).
+ * Elements are compared with `SameValueZero`, like `Set.prototype.has`: to
+ * compare them another way, pass a comparator or a key function as the third
+ * argument.
  * @param firstArray - The array whose elements may appear in the result.
  * Not mutated.
  * @param secondArray - The array of elements to exclude.
  * @returns A new array containing the elements from `firstArray` that do not appear in
  * `secondArray`.
  * @example
- * // Basic equality (SameValueZero)
  * arrayDifference([1, 2, 3, 4, 5], [2, 4]);
  * // [1, 3, 5]
+ */
+export function arrayDifference<T>(firstArray: readonly T[], secondArray: readonly T[]): T[];
+
+/**
+ * Returns the elements from `firstArray` that are *not* present in
+ * `secondArray`, comparing elements with a custom function.
+ * @param firstArray - The array whose elements may appear in the result.
+ * Not mutated.
+ * @param secondArray - The array of elements to exclude.
+ * @param areItemsEqual - Tells whether two elements are equal: `x` is from `firstArray` and `y`
+ * from `secondArray`.
+ * @returns A new array containing the elements from `firstArray` that do not appear in
+ * `secondArray`.
  * @example
- * // With a mapper: compare by a derived key
- * arrayDifference(
- *   [{id: 1}, {id: 2}, {id: 3}],
- *   [{id: 2}, {id: 4}],
- *   (item) => item.id,
- * );
- * // [{id: 1}, {id: 3}]
- * @example
- * // With a mapper across heterogeneous arrays
- * arrayDifference(
- *   [{id: 1}, {id: 2}, {id: 3}],
- *   [2, 4],
- *   (item) => (typeof item === 'object' ? item.id : item),
- * );
- * // [{id: 1}, {id: 3}]
- * @example
- * // With a custom comparator
  * arrayDifference(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [{id: 2}, {id: 4}],
@@ -47,16 +35,41 @@ import {differenceBy, differenceWith} from 'es-toolkit/array';
  * );
  * // [{id: 1}, {id: 3}]
  */
-export function arrayDifference<T>(firstArray: readonly T[], secondArray: readonly T[]): T[];
 export function arrayDifference<T, U>(
   firstArray: readonly T[],
   secondArray: readonly U[],
   areItemsEqual: (x: T, y: U) => boolean,
 ): T[];
+
+/**
+ * Returns the elements from `firstArray` that are *not* present in
+ * `secondArray`, comparing the keys a function maps the elements of both
+ * arrays to.
+ * @param firstArray - The array whose elements may appear in the result.
+ * Not mutated.
+ * @param secondArray - The array of elements to exclude.
+ * @param mapper - Maps an element of either array to the key to compare.
+ * @returns A new array containing the elements from `firstArray` whose keys do not appear among
+ * the keys of `secondArray`.
+ * @example
+ * arrayDifference(
+ *   [{id: 1}, {id: 2}, {id: 3}],
+ *   [{id: 2}, {id: 4}],
+ *   (item) => item.id,
+ * );
+ * // [{id: 1}, {id: 3}]
+ * @example
+ * // Across arrays of different types
+ * arrayDifference(
+ *   [{id: 1}, {id: 2}, {id: 3}],
+ *   [2, 4],
+ *   (item) => (typeof item === 'object' ? item.id : item),
+ * );
+ * // [{id: 1}, {id: 3}]
+ */
 export function arrayDifference<T, U>(
   firstArray: readonly T[],
   secondArray: readonly U[],
-  // eslint-disable-next-line ts/unified-signatures -- merging signatures results in less strict type inference for the provided function
   mapper: (value: T | U) => unknown,
 ): T[];
 export function arrayDifference<T>(

@@ -1,12 +1,66 @@
 // cspell:ignore aepfel fooatunicorn strasse Straße ueber Äpfel über Привет
-import slugifyBase, {type Options} from '@sindresorhus/slugify';
+import slugifyBase from '@sindresorhus/slugify';
 import BUILTIN_REPLACEMENTS from '@sindresorhus/slugify/overridable-replacements.js';
 import transliterate from '@sindresorhus/transliterate';
 import anyAscii from 'any-ascii';
-import type {OmitStrict} from '../types/omit-strict.ts';
 
 /** Options of `slugify` and `createUniqueSlugify` */
-export type SlugifyOptions = OmitStrict<Options, 'transliterate'>;
+export interface SlugifyOptions {
+  /**
+   * The string that joins the words.
+   * Defaults to `'-'`
+   */
+  readonly separator?: string;
+
+  /**
+   * Makes the slug lowercase.
+   * Defaults to `true`
+   */
+  readonly lowercase?: boolean;
+
+  /**
+   * Splits camelCase words, so that `'fooBar'` becomes `'foo-bar'` instead of
+   * `'foobar'`.
+   * Defaults to `true`
+   */
+  readonly decamelize?: boolean;
+
+  /**
+   * `[from, to]` pairs replaced before anything else, like `[['@', 'at']]`.
+   * A pair with the same `from` as a built-in one replaces it: the built-in
+   * ones are `&` → `and`, `🦄` → `unicorn` and `♥` → `love`.
+   * Put spaces around `to`, like `' at '`, to make it a separate word
+   */
+  readonly customReplacements?: readonly [string, string][];
+
+  /**
+   * Keeps an underscore at the start of the text, like in the name of a hidden
+   * file.
+   * Defaults to `false`
+   */
+  readonly preserveLeadingUnderscore?: boolean;
+
+  /**
+   * Keeps a dash at the end of the text, like while the user is still typing a
+   * slug.
+   * Defaults to `false`
+   */
+  readonly preserveTrailingDash?: boolean;
+
+  /**
+   * ASCII characters to keep, like `['#']`.
+   * It must not contain `separator`.
+   * The apostrophe of a word-final `'s` or `'t` is dropped anyway
+   */
+  readonly preserveCharacters?: string[];
+
+  /**
+   * The language of the text, for language-specific transliteration, like
+   * `'sv'` for Swedish, where `ä` becomes `a` instead of `ae`
+   */
+  // eslint-disable-next-line sonar/no-redundant-optional -- allows an explicit `undefined` with `exactOptionalPropertyTypes`
+  readonly locale?: string | undefined;
+}
 
 /** Transliterates text the way the package would, then turns whatever is left into ASCII */
 const toAscii = (text: string, options: SlugifyOptions = {}) =>

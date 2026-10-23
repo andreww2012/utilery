@@ -27,4 +27,13 @@ describe('string/wrapText', () => {
       expect(line).toContain('\u{1B}[31m');
     });
   });
+
+  it('fills every line up to the width, breaking words anywhere, without `wordWrap`', () => {
+    expect(wrapText('The quick brown fox', 8, {wordWrap: false})).toBe('The quic\nk brown\nfox');
+  });
+
+  it('removes the whitespace around every line unless `trim` is `false`', () => {
+    expect(wrapText('  a b  ', 3)).toBe('a b');
+    expect(wrapText('  a b  ', 3, {trim: false})).toBe('  a\n b \n ');
+  });
 });

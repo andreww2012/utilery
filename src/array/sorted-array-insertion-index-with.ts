@@ -9,7 +9,7 @@ import {sortedIndexWith} from 'remeda';
  * becomes `false`, in the range `0..sortedArray.length`.
  *
  * This is the most general member of the `sortedArrayInsertionIndex*` family:
- * unlike {@link sortedArrayInsertionIndex} it takes no search value and is not
+ * unlike `sortedArrayInsertionIndex` it takes no search value and is not
  * limited to `number`/`string` keys, so it can locate a boundary for any
  * comparable condition.
  * @param sortedArray - The already-sorted array to search.

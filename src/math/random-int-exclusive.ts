@@ -12,8 +12,6 @@ import {randomInteger, resolveRandomArguments} from '../_internal/random-integer
  * The upper bound is excluded, matching array indexing and the `nextInt(n)`
  * convention of Java/Go/Ruby.
  * For an inclusive upper bound use `randomIntInclusive`.
- * Internally the exclusive `[a, b)` integer range is the inclusive `[a, b - 1]`
- * range.
  * Uses `Math.random` (not cryptographically secure) unless another generator is
  * passed, like a seeded one from `createSeededRandom`.
  * The range must be non-empty (`maximum` greater than `minimum`, or `maximum`

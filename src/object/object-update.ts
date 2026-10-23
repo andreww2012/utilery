@@ -1,4 +1,27 @@
-import {objectUpdate as objectUpdateBase} from 'ts-extras';
+import type {ExactShape} from '../types/exact-shape.ts';
+import type {IsUnion} from '../types/is-union.ts';
+import type {WritableKeysOf} from '../types/writable-keys-of.ts';
+
+// The keys that `source` may set to `undefined` while `target` does not allow it
+type UnsafeUndefinedKeys<Target extends object, Source extends object> = {
+  [Key in keyof Source]-?: Key extends WritableKeysOf<Target>
+    ? undefined extends Source[Key]
+      ? undefined extends Target[Key]
+        ? never
+        : Key
+      : never
+    : never;
+}[keyof Source];
+
+type UpdatableShape<Target extends object, Source extends object> =
+  IsUnion<Target> extends true
+    ? never
+    : {[Key in keyof Source]: Key extends WritableKeysOf<Target> ? Target[Key] : never} & Record<
+        UnsafeUndefinedKeys<Target, Source>,
+        never
+      >;
+
+type KnownKeySource<Source extends object> = keyof Source extends never ? never : Source;
 
 /**
  * Applies a type-checked partial update to `target` in place, **mutating** and
@@ -24,5 +47,7 @@ import {objectUpdate as objectUpdateBase} from 'ts-extras';
  * objectUpdate(user, {email: 'ada@example.com'}); // unknown key
  * objectUpdate(user, {age: '42'}); // wrong value type
  */
-// eslint-disable-next-line unicorn/prefer-export-from -- re-declared to attach rewritten JSDoc; an `export ... from` would inherit the upstream docs
-export const objectUpdate = objectUpdateBase;
+export const objectUpdate = <Target extends object, Source extends object>(
+  target: Target,
+  source: KnownKeySource<Source> & ExactShape<UpdatableShape<Target, Source>, Source>,
+): Target => Object.assign(target, source);

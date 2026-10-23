@@ -8,9 +8,9 @@ import {uniqBy, uniqWith} from 'es-toolkit/array';
  * - When omitted, items are compared using `SameValueZero` (the same semantics
  *   as `Set.prototype.has`).
  * - When a binary function `(a, b) => boolean` is passed, it is used as a
- *   custom comparator (delegates to `uniqWith`).
+ *   custom comparator.
  * - When a unary function `(value) => key` is passed, items are mapped through
- *   it and the resulting keys are compared (delegates to `uniqBy`).
+ *   it and the resulting keys are compared.
  * @param array - The array to deduplicate.
  * Not mutated.
  * @returns A new array containing only the first occurrence of each unique element.
@@ -28,12 +28,33 @@ import {uniqBy, uniqWith} from 'es-toolkit/array';
  * // [{id: 1}, {id: 2}]
  */
 export function arrayUnique<T>(array: readonly T[]): T[];
+
+/**
+ * Returns a new array with duplicate elements removed, comparing elements with
+ * a custom function.
+ * @param array - The array to deduplicate.
+ * Not mutated.
+ * @param areItemsEqual - Tells whether two elements are equal: `a` is an earlier element and `b` a
+ * later one.
+ * @returns A new array containing only the first occurrence of each unique element.
+ * @example
+ * arrayUnique([{id: 1}, {id: 2}, {id: 1}], (a, b) => a.id === b.id);
+ * // [{id: 1}, {id: 2}]
+ */
 export function arrayUnique<T>(array: readonly T[], areItemsEqual: (a: T, b: T) => boolean): T[];
-export function arrayUnique<T>(
-  array: readonly T[],
-  // eslint-disable-next-line ts/unified-signatures -- merging signatures results in less strict type inference for the provided function
-  mapper: (value: T) => unknown,
-): T[];
+
+/**
+ * Returns a new array with duplicate elements removed, comparing the keys a
+ * function maps them to.
+ * @param array - The array to deduplicate.
+ * Not mutated.
+ * @param mapper - Maps an element to the key to compare.
+ * @returns A new array containing only the first element for each unique key.
+ * @example
+ * arrayUnique([{id: 1, v: 'a'}, {id: 2, v: 'b'}, {id: 1, v: 'c'}], (item) => item.id);
+ * // [{id: 1, v: 'a'}, {id: 2, v: 'b'}]
+ */
+export function arrayUnique<T>(array: readonly T[], mapper: (value: T) => unknown): T[];
 export function arrayUnique<T>(
   array: readonly T[],
   fn?: ((value: T) => unknown) | ((a: T, b: T) => boolean),

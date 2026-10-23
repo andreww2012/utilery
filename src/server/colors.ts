@@ -1,6 +1,13 @@
-import {type ColorFunction, colors as colorsBase} from 'es-toolkit/server';
+import {colors as colorsBase} from 'es-toolkit/server';
 import {mapValues} from '../object/map-values.ts';
 import {isColorSupported} from './is-color-supported.ts';
+
+/**
+ * A function that styles text, like the ones in `colors`.
+ * @example
+ * const highlight: ColorFunction = (text) => colors.bold(colors.yellow(text));
+ */
+export type ColorFunction = (text: string) => string;
 
 const plainWhenUnsupported =
   (style: ColorFunction): ColorFunction =>
@@ -40,5 +47,3 @@ export const colors = Object.freeze({
   hex: plainWhenUnsupportedFactory(hex),
   bgHex: plainWhenUnsupportedFactory(bgHex),
 });
-
-export {type ColorFunction} from 'es-toolkit/server';

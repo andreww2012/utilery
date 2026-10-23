@@ -12,7 +12,7 @@ import type {MaybeArray} from '../types/maybe-array.ts';
  * @param object - The object to query.
  * @param path - The path to check, as a key, a path string, or an array of segments.
  * @param options - Optional behavior flags.
- * @param options.inherited When `true`, inherited (prototype-chain) properties also count.
+ * @param options.inherited - When `true`, inherited (prototype-chain) properties also count.
  * Defaults to `false`.
  * @returns `true` if a value exists at `path`, otherwise `false`.
  * @example

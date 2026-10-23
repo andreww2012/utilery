@@ -56,7 +56,7 @@ interface DirectoryFile<Contents> {
  * receive raw `Buffer`s.
  * @param directoryPath - Path to the directory.
  * @param options - Which files to read and how.
- * @param options.asBinary When `true`, the contents are raw `Buffer`s; otherwise UTF-8 strings.
+ * @param options.asBinary - When `true`, the contents are raw `Buffer`s; otherwise UTF-8 strings.
  * Defaults to `false`.
  * @returns The files with their paths and contents, or `null` if the directory does not exist.
  * @example

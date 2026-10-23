@@ -7,6 +7,11 @@ export class CyclicDependencyError<T = unknown> extends Error {
   /** The nodes of the cycle, starting and ending with the same node */
   readonly cycle: T[];
 
+  /**
+   * Creates the error `topologicalSort` throws when the dependencies form a cycle.
+   * @param cycle - The nodes of the cycle, starting and ending with the same node.
+   * @param options - The standard error options, like `cause`.
+   */
   constructor(cycle: T[], options?: ErrorOptions) {
     super(`Cyclic dependency: ${cycle.map(String).join(' -> ')}`, options);
     this.cycle = cycle;
@@ -45,12 +50,11 @@ const findCycle = <T>(nodes: readonly T[], dependenciesOf: ReadonlyMap<T, readon
  * Nodes can be any values (compared by identity); dependencies that are missing
  * from `nodes` are added to the result too.
  * Independent nodes keep their order as far as possible.
- *
- * Throws a `CyclicDependencyError` when the dependencies form a cycle; its
- * `cycle` property lists the nodes of the cycle.
  * @param nodes - The nodes to sort.
  * @param getDependencies - Returns the nodes a node depends on.
  * @returns The nodes, each after all its dependencies.
+ * @throws {CyclicDependencyError} When the dependencies form a cycle.
+ * Its `cycle` property lists the nodes of the cycle.
  * @example
  * const dependencies = {app: ['ui', 'utils'], ui: ['utils'], utils: []};
  * topologicalSort(['app', 'ui', 'utils'], (name) => dependencies[name]);

@@ -47,6 +47,28 @@ export function flatMap<T, U>(
   array: readonly T[],
   iteratee: (item: T, index: number, array: readonly T[]) => U,
 ): ExtractNestedArrayType<U>[];
+
+/**
+ * Maps each element through `iteratee` and flattens the resulting arrays to the
+ * given `depth`.
+ * Negative, `NaN`, and non-integer `depth` values follow
+ * `Array.prototype.flat` semantics (negative/`NaN` → no flattening, non-integer
+ * → floored).
+ * @param array - The array to map and flatten.
+ * @param iteratee - Produces the new array elements.
+ * Receives the item, its index, and the source array.
+ * @param depth - How many levels to flatten.
+ * `Infinity` flattens fully.
+ * @returns A new array with the mapped elements, flattened to `depth`.
+ * @example
+ * // Depth of 1: matches `Array.prototype.flatMap`
+ * flatMap([1, 2, 3], (n) => [[n, n]], 1);
+ * // [[1, 1], [2, 2], [3, 3]]
+ * @example
+ * // Depth of 0 just maps: no flattening
+ * flatMap([1, 2], (n) => [n, n], 0);
+ * // [[1, 1], [2, 2]]
+ */
 export function flatMap<T, U, D extends number>(
   array: readonly T[],
   iteratee: (item: T, index: number, array: readonly T[]) => U,

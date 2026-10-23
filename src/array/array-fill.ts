@@ -13,7 +13,8 @@ import {fill, toFilled} from 'es-toolkit/array';
  * Defaults to the array's length.
  * Negative indexes are counted from the end of the array.
  * @param options - Optional behavior flags.
- * @param options.copy Set to `true` to avoid mutating the input and receive a fresh array instead.
+ * @param options.copy - Set to `true` to avoid mutating the input and receive a fresh array
+ * instead.
  * Defaults to `false`.
  * @returns Either the (now-mutated) input array, or a new array when `copy` is `true`.
  * @example
