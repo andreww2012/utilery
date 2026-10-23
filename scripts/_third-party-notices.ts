@@ -10,7 +10,8 @@ const DIST_NODE_MODULES = path.join(ROOT, 'dist', 'node_modules');
 export const DIST_PNPM = path.join(DIST_NODE_MODULES, '.pnpm');
 export const NOTICES_PATH = path.join(ROOT, 'THIRD_PARTY_NOTICES.md');
 
-const LICENSE_TEXT_HEADING_REGEX = /^### `([^`]+)`$/gm;
+// The package name in a license text heading, like `### `name``
+const LICENSE_TEXT_PACKAGE_NAME_REGEX = /(?<=^### `)[^`]+(?=`$)/gm;
 
 // The packages of a pnpm virtual store directory, like `dist/node_modules/.pnpm`
 export const collectStorePackageNames = (storePath: string) => {
@@ -46,10 +47,13 @@ const collectAllBundledPackageNames = () =>
       ]),
   );
 
-// The license texts below the table are written by hand, so nothing else notices a missing one
-export const findPackagesWithoutLicenseText = (noticesText: string) => {
-  const documented = new Set(
-    Array.from(noticesText.matchAll(LICENSE_TEXT_HEADING_REGEX), ([, name]) => name),
-  );
-  return [...collectAllBundledPackageNames()].filter((name) => !documented.has(name)).toSorted();
+// The license texts below the table are written by hand, so nothing else notices a missing one or
+// one left behind by a package that is no longer bundled
+export const findLicenseTextMismatches = (noticesText: string) => {
+  const documented = new Set(noticesText.match(LICENSE_TEXT_PACKAGE_NAME_REGEX));
+  const bundled = collectAllBundledPackageNames();
+  return {
+    missing: [...bundled].filter((name) => !documented.has(name)).toSorted(),
+    unused: [...documented].filter((name) => !bundled.has(name)).toSorted(),
+  };
 };

@@ -9,7 +9,7 @@ import {
   NOTICES_PATH,
   ROOT,
   collectStorePackageNames,
-  findPackagesWithoutLicenseText,
+  findLicenseTextMismatches,
 } from './_third-party-notices.ts';
 
 const NODE_MODULES = path.join(ROOT, 'node_modules');
@@ -103,10 +103,15 @@ const run = () => {
     );
   }
 
-  const missing = findPackagesWithoutLicenseText(noticesText);
+  const {missing, unused} = findLicenseTextMismatches(noticesText);
   if (missing.length > 0) {
     throw new Error(
       `Add the license texts of these bundled packages to ${NOTICES_PATH}: ${missing.join(', ')}.`,
+    );
+  }
+  if (unused.length > 0) {
+    throw new Error(
+      `Remove the license texts of these packages that are no longer bundled from ${NOTICES_PATH}: ${unused.join(', ')}.`,
     );
   }
 
