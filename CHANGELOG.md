@@ -1,4 +1,4 @@
-# unutils
+# utilery
 
 ## 0.2.0
 

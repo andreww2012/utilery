@@ -1,4 +1,4 @@
-import {parseNpmPackageSpecifier} from 'unutils/misc';
+import {parseNpmPackageSpecifier} from 'utilery/misc';
 
 const parsed = parseNpmPackageSpecifier('@scope/package@1.2.3/sub');
 const name: string | undefined = parsed?.name;

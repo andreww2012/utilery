@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - feat/scoped-package-publishing # Publishes the scoped package
 
 permissions:
   contents: write
@@ -134,8 +133,7 @@ jobs:
         uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Chooses the scoped vs. unscoped name by branch, without touching
-          # `package.json`; see `scripts/publish.ts` for why
+          # Restores the files that publishing changes; see `scripts/publish.ts`
           publish-script: node scripts/publish.ts
           pr-title: 'chore: release v${{ env.NEW_VERSION }}'
           commit-message: 'chore: release v${{ env.NEW_VERSION }}'

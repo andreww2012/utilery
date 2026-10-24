@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "andreww2012/unutils",
+      "repo": "andreww2012/utilery",
       "disableThanks": true,
       "template": "\n\n- {commit} - {summary}"
     }

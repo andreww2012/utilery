@@ -1,4 +1,4 @@
-import type {ElementFromSelector, ElementFromSelectorStrict, ElementFromTagName} from 'unutils/dom';
+import type {ElementFromSelector, ElementFromSelectorStrict, ElementFromTagName} from 'utilery/dom';
 
 const app: ElementFromSelector<'div#app'> = document.createElement('div');
 void app;

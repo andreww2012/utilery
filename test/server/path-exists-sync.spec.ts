@@ -7,7 +7,7 @@ import {pathExistsSync} from '../../src/server/path-exists.ts';
 let directory: string;
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-path-exists-sync-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-path-exists-sync-'));
   await writeFile(path.join(directory, 'file.txt'), 'text');
 });
 

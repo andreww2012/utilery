@@ -7,7 +7,7 @@ import {writeJsonFile, writeJsonFileSync} from '../../src/server/write-json-file
 let directory: string;
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-write-json-file-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-write-json-file-'));
 });
 
 afterAll(async () => {

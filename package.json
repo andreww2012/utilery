@@ -1,5 +1,5 @@
 {
-  "name": "unutils",
+  "name": "utilery",
   "version": "0.2.0",
   "description": "A big collection of utilities coming from different utility libraries and us, targeting modern environments.",
   "keywords": [
@@ -10,13 +10,13 @@
     "stdlib",
     "es-toolkit"
   ],
-  "homepage": "https://github.com/andreww2012/unutils",
+  "homepage": "https://github.com/andreww2012/utilery",
   "bugs": {
-    "url": "https://github.com/andreww2012/unutils/issues/new"
+    "url": "https://github.com/andreww2012/utilery/issues/new"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andreww2012/unutils.git"
+    "url": "git+https://github.com/andreww2012/utilery.git"
   },
   "license": "MIT",
   "author": "andreww2012",

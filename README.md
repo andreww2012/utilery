@@ -1,6 +1,6 @@
 <!-- cspell:ignore jsonrepair jsondiffpatch hyperjump unpatch lerp unflatten -->
 
-# unutils [![npm](https://img.shields.io/npm/v/unutils)](https://npmx.dev/unutils)
+# utilery [![npm](https://img.shields.io/npm/v/utilery)](https://npmx.dev/utilery)
 
 A growing collection of general-purpose utilities and TypeScript types, mostly consolidated from existing popular packages with improved UX/DX, bug fixes and improvements in functionality.
 
@@ -19,9 +19,9 @@ Minimum supported runtimes:
 - Browsers: all [Baseline widely available](https://web-platform-dx.github.io/baseline) features are implemented (see [the corresponding `browserslist` browsers list](https://browsersl.ist/#q=baseline+widely+available))
 
 ```sh
-pnpm i -D unutils
-npm i -D unutils
-yarn add -D unutils
+pnpm i -D utilery
+npm i -D utilery
+yarn add -D utilery
 ```
 
 ## Usage
@@ -29,13 +29,13 @@ yarn add -D unutils
 Import any function or type from the main entrypoint (except for runtime-specific utilities):
 
 ```ts
-import {mapKeys} from 'unutils';
+import {mapKeys} from 'utilery';
 ```
 
 or from a specific entrypoint:
 
 ```ts
-import {every} from 'unutils/iterable';
+import {every} from 'utilery/iterable';
 ```
 
 See individual symbols' JSDoc for detailed documentation.
@@ -82,7 +82,7 @@ Entrypoints whose name ends in `.global` export nothing at all.
 They are imported for their effect instead: each one augments an existing *global* type, so the improvement reaches every call site in your project without a single one of them changing.
 
 ```ts
-import 'unutils/dom/query-selector-typed.global';
+import 'utilery/dom/query-selector-typed.global';
 
 document.querySelector('button#submit'); // HTMLButtonElement | null
 ```
@@ -107,7 +107,7 @@ Where several of them augment the same thing, import at most one, otherwise thei
 ### Packages
 
 Each bundled package has its own page under [`docs/packages/`](./docs/packages/), listing every
-utility it provides and how it maps into `unutils` (renames, consolidations, and what was skipped).
+utility it provides and how it maps into `utilery` (renames, consolidations, and what was skipped).
 
 | Package                                                                  | What we take from it                                                                                                                                                                    |
 | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -125,17 +125,17 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 | [`find-up-simple`](./docs/packages/find-up-simple.md)                    | Finding a file or directory in parent directories (`server/findUp`)                                                                                                                     |
 | [`htmlescape`](./docs/packages/htmlescape.md)                            | JSON safe to embed in a `<script>` tag (`json/jsonStringifyForHtml`)                                                                                                                    |
 | [`http-link-header`](./docs/packages/http-link-header.md)                | Parsing the `Link` HTTP header (`http/parseLinkHeader`)                                                                                                                                 |
-| [`ipaddr.js`](./docs/packages/ipaddr.js.md)                              | IP address validation and ranges (the `net` group / `unutils/net`)                                                                                                                      |
+| [`ipaddr.js`](./docs/packages/ipaddr.js.md)                              | IP address validation and ranges (the `net` group / `utilery/net`)                                                                                                                      |
 | [`leven`](./docs/packages/leven.md)                                      | Levenshtein distance and "did you mean" suggestions                                                                                                                                     |
 | [`lossless-json`](./docs/packages/lossless-json.md)                      | Precision-preserving JSON parse/stringify (`bigint` and decimals)                                                                                                                       |
 | [`ms-ts`](./docs/packages/ms-ts.md)                                      | Compile-time duration-string → milliseconds conversion (`ms` / `Ms`)                                                                                                                    |
-| [`nanoid`](./docs/packages/nanoid.md)                                    | Secure, URL-safe unique ID generation (the `id` group / `unutils/id`)                                                                                                                   |
+| [`nanoid`](./docs/packages/nanoid.md)                                    | Secure, URL-safe unique ID generation (the `id` group / `utilery/id`)                                                                                                                   |
 | [`negotiator`](./docs/packages/negotiator.md)                            | Content encoding negotiation (`http/getPreferredEncoding`)                                                                                                                              |
-| [`neotraverse`](./docs/packages/neotraverse.md)                          | Recursive visitor traversal of nested values (the `traverse` group / `unutils/traverse`)                                                                                                |
+| [`neotraverse`](./docs/packages/neotraverse.md)                          | Recursive visitor traversal of nested values (the `traverse` group / `utilery/traverse`)                                                                                                |
 | [`p-memoize`](./docs/packages/p-memoize.md)                              | Memoizing async functions without caching rejections (`function/memoizeAsync`)                                                                                                          |
 | [`parse-package-name`](./docs/packages/parse-package-name.md)            | Splitting npm package specifiers (`misc/parseNpmPackageSpecifier`)                                                                                                                      |
 | [`path-type`](./docs/packages/path-type.md)                              | Checking whether a path is a file, a directory or a symbolic link                                                                                                                       |
-| [`picomatch`](./docs/packages/picomatch.md)                              | Glob matching (the `glob` group / `unutils/glob`)                                                                                                                                       |
+| [`picomatch`](./docs/packages/picomatch.md)                              | Glob matching (the `glob` group / `utilery/glob`)                                                                                                                                       |
 | [`pretty-bytes`](./docs/packages/pretty-bytes.md)                        | Human-readable sizes in bytes (`misc/formatBytes`)                                                                                                                                      |
 | [`pretty-ms`](./docs/packages/pretty-ms.md)                              | Human-readable duration formatting, including the colon notation (`misc/formatDuration`)                                                                                                |
 | [`puka`](./docs/packages/puka.md)                                        | Quoting shell arguments for POSIX shells and `cmd.exe` (`server/quoteShellArgument`)                                                                                                    |
@@ -146,14 +146,14 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 | [`string-ts`](./docs/packages/string-ts.md)                              | Type-level-aware string helpers: literal-preserving case conversion, native-method wrappers and object-key transforms                                                                   |
 | [`string-width`](./docs/packages/string-width.md)                        | Terminal column width of a string (`string/getStringWidth`)                                                                                                                             |
 | [`strip-ansi`](./docs/packages/strip-ansi.md)                            | Removing ANSI escape codes (`string/stripAnsi`)                                                                                                                                         |
-| [`@thi.ng/binary`](./docs/packages/@thi.ng__binary.md)                   | Bit manipulation of 32-bit integers: most of the `bitwise` group / `unutils/bitwise`                                                                                                    |
+| [`@thi.ng/binary`](./docs/packages/@thi.ng__binary.md)                   | Bit manipulation of 32-bit integers: most of the `bitwise` group / `utilery/bitwise`                                                                                                    |
 | [`toposort`](./docs/packages/toposort.md)                                | Topological sorting (`array/topologicalSort`)                                                                                                                                           |
 | [`ts-extras`](./docs/packages/ts-extras.md)                              | Thin, strongly-typed wrappers over native methods                                                                                                                                       |
 | [`@tusbar/cache-control`](./docs/packages/@tusbar__cache-control.md)     | Parsing and formatting the `Cache-Control` HTTP header                                                                                                                                  |
-| [`type-fest`](./docs/packages/type-fest.md)                              | Type-only utility types (the `types` group / `unutils/types`)                                                                                                                           |
-| [`typed-query-selector`](./docs/packages/typed-query-selector.md)        | Infers the element type from a CSS selector literal (the `dom` group / `unutils/dom`)                                                                                                   |
-| [`uint8array-extras`](./docs/packages/uint8array-extras.md)              | `Uint8Array` conversions, Base64 and hex (the `bytes` group / `unutils/bytes`)                                                                                                          |
-| [`verkit`](./docs/packages/verkit.md)                                    | Semantic versions and npm-style ranges (the `semver` group / `unutils/semver`)                                                                                                          |
+| [`type-fest`](./docs/packages/type-fest.md)                              | Type-only utility types (the `types` group / `utilery/types`)                                                                                                                           |
+| [`typed-query-selector`](./docs/packages/typed-query-selector.md)        | Infers the element type from a CSS selector literal (the `dom` group / `utilery/dom`)                                                                                                   |
+| [`uint8array-extras`](./docs/packages/uint8array-extras.md)              | `Uint8Array` conversions, Base64 and hex (the `bytes` group / `utilery/bytes`)                                                                                                          |
+| [`verkit`](./docs/packages/verkit.md)                                    | Semantic versions and npm-style ranges (the `semver` group / `utilery/semver`)                                                                                                          |
 | [`which`](./docs/packages/which.md)                                      | Finding an executable in `PATH` (`server/findExecutable`)                                                                                                                               |
 | [`wrap-ansi`](./docs/packages/wrap-ansi.md)                              | Wrapping styled text to a width (`string/wrapText`)                                                                                                                                     |
 | [`write-json-file`](./docs/packages/write-json-file.md)                  | Atomic JSON file writing that keeps the indentation (`server/writeJsonFile`)                                                                                                            |
@@ -164,7 +164,7 @@ utility it provides and how it maps into `unutils` (renames, consolidations, and
 <summary>Under consideration</summary>
 
 Candidate libraries on the radar.
-These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/patch) not yet provided: adding them would expand `unutils` beyond parsing and serialization.
+These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/patch) not yet provided: adding them would expand `utilery` beyond parsing and serialization.
 
 | Library                                             | Axis                            | Status | Notes                                                                                            |
 | --------------------------------------------------- | ------------------------------- | ------ | ------------------------------------------------------------------------------------------------ |
@@ -395,7 +395,7 @@ Bundled packages are licensed under their own terms, see [`THIRD_PARTY_NOTICES.m
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/andreww2012"><img src="https://avatars.githubusercontent.com/u/6554045?v=4?s=70" width="70px;" alt="Andrew Kazakov"/><br /><sub><b>Andrew Kazakov</b></sub></a><br /><a href="https://github.com/andreww2012/unutils/commits?author=andreww2012" title="Code">💻</a> <a href="https://github.com/andreww2012/unutils/commits?author=andreww2012" title="Documentation">📖</a> <a href="#infra-andreww2012" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-andreww2012" title="Maintenance">🚧</a> <a href="#tool-andreww2012" title="Tools">🔧</a> <a href="https://github.com/andreww2012/unutils/commits?author=andreww2012" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/andreww2012"><img src="https://avatars.githubusercontent.com/u/6554045?v=4?s=70" width="70px;" alt="Andrew Kazakov"/><br /><sub><b>Andrew Kazakov</b></sub></a><br /><a href="https://github.com/andreww2012/utilery/commits?author=andreww2012" title="Code">💻</a> <a href="https://github.com/andreww2012/utilery/commits?author=andreww2012" title="Documentation">📖</a> <a href="#infra-andreww2012" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-andreww2012" title="Maintenance">🚧</a> <a href="#tool-andreww2012" title="Tools">🔧</a> <a href="https://github.com/andreww2012/utilery/commits?author=andreww2012" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
   <tfoot>

@@ -1,4 +1,4 @@
-import {regexTyped} from 'unutils/regex';
+import {regexTyped} from 'utilery/regex';
 
 type Inferred = regexTyped.infer<'^ok$', 'i'>;
 const okValue: Inferred = 'oK';

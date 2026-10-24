@@ -1,6 +1,6 @@
-import {charAt, stringConcat, toCamelCase} from 'unutils/string';
-import {toConstantCaseKeysDeep, toKebabCaseKeys} from 'unutils/object';
-import type {ToConstantCaseKeys} from 'unutils/types';
+import {charAt, stringConcat, toCamelCase} from 'utilery/string';
+import {toConstantCaseKeysDeep, toKebabCaseKeys} from 'utilery/object';
+import type {ToConstantCaseKeys} from 'utilery/types';
 
 // Converter preserves the literal type (es-toolkit runtime + bundled `string-ts` type)
 const camel = toCamelCase('foo-bar');
@@ -28,6 +28,6 @@ const constantDeep = toConstantCaseKeysDeep({fooBar: {bazQux: 1}});
 const deepValue: number = constantDeep.FOO_BAR.BAZ_QUX;
 void deepValue;
 
-// Net-new type added to `unutils/types`
+// Net-new type added to `utilery/types`
 const keys: ToConstantCaseKeys<{fooBar: 1}> = {FOO_BAR: 1};
 void keys;

@@ -1,6 +1,6 @@
-import {arrayHasMaxElements} from 'unutils';
-import {arrayHasMaxElements as arrayHasMaxElementsFromArray} from 'unutils/array';
-import type {ArrayWithMaxLength} from 'unutils/types';
+import {arrayHasMaxElements} from 'utilery';
+import {arrayHasMaxElements as arrayHasMaxElementsFromArray} from 'utilery/array';
+import type {ArrayWithMaxLength} from 'utilery/types';
 
 declare const values: number[];
 

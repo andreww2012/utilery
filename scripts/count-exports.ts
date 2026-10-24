@@ -214,7 +214,7 @@ const formatText = (
   const subpathWidth = max(perSubpath.map(({subpath}) => subpath.length)) || 0;
 
   const lines = [
-    'unutils export counts',
+    'utilery export counts',
     '',
     `Overall${COLUMN_GAP}${formatCounts(overall)}`,
     '',

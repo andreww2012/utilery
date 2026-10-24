@@ -1,4 +1,4 @@
-import 'unutils/dom/query-selector-typed-strict.global';
+import 'utilery/dom/query-selector-typed-strict.global';
 
 const submit: HTMLButtonElement | null = document.querySelector('button#submit');
 void submit;

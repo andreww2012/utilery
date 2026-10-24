@@ -1,5 +1,5 @@
 ---
-'unutils': minor
+'utilery': minor
 ---
 
 Added a new `net` group for IP addresses, based on [`ipaddr.js`](https://npmx.dev/ipaddr.js):

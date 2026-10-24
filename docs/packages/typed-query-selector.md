@@ -14,8 +14,8 @@ additionally exposed through ordinary functions that need no globals at all.
 | `parser` → `ParseSelector`         | ✅     | `dom/ElementFromSelector`                        | Renamed after what it resolves to rather than how                                                                                                 |
 | `parser` → `StrictlyParseSelector` | ✅     | `dom/ElementFromSelectorStrict`                  | Renamed; resolves a malformed selector to `never` instead of falling back                                                                         |
 | `parser` → `TagNameToElement`      | ✅     | `dom/ElementFromTagName`                         | Renamed; bare tag name → element type                                                                                                             |
-| `.` (default augmentation)         | ✅     | `unutils/dom/query-selector-typed.global`        | Re-declared against our own types. Ours also emits a real (empty) module, so a plain `import '...'` works without the type-only-import workaround |
-| `strict`                           | ✅     | `unutils/dom/query-selector-typed-strict.global` | Same, for the strict parser. Mutually exclusive with the entry above                                                                              |
+| `.` (default augmentation)         | ✅     | `utilery/dom/query-selector-typed.global`        | Re-declared against our own types. Ours also emits a real (empty) module, so a plain `import '...'` works without the type-only-import workaround |
+| `strict`                           | ✅     | `utilery/dom/query-selector-typed-strict.global` | Same, for the strict parser. Mutually exclusive with the entry above                                                                              |
 
 ## Additions
 

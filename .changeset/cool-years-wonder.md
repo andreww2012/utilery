@@ -1,5 +1,5 @@
 ---
-'unutils': minor
+'utilery': minor
 ---
 
 Added a new `bitwise` group for bit flags and other bit manipulation of 32-bit integers. Bit indexes are typed as `BitIndex` (an integer from 0 to 31), so out-of-range literals and enum members fail at compile time, and `isBitIndex` checks dynamic numbers:

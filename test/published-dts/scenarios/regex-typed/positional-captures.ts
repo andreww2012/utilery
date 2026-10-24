@@ -1,4 +1,4 @@
-import {regexTyped} from 'unutils/regex';
+import {regexTyped} from 'utilery/regex';
 
 const match = regexTyped('^(\\d+)$').exec('5');
 if (match) {

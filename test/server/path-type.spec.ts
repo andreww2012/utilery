@@ -10,7 +10,7 @@ let directory: string;
 let file: string;
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-path-type-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-path-type-'));
   file = path.join(directory, 'file.txt');
   await Promise.all([writeFile(file, 'text'), mkdir(path.join(directory, 'nested'))]);
 });

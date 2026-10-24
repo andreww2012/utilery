@@ -1,4 +1,4 @@
-import {closestTyped, querySelectorAllTyped, querySelectorTyped} from 'unutils/dom';
+import {closestTyped, querySelectorAllTyped, querySelectorTyped} from 'utilery/dom';
 
 const submit: HTMLButtonElement | null = querySelectorTyped('button#submit');
 void submit;

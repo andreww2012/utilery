@@ -1,5 +1,5 @@
 ---
-'unutils': minor
+'utilery': minor
 ---
 
 Added a new `http` group for parsing and formatting HTTP headers:

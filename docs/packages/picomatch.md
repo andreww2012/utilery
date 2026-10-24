@@ -2,7 +2,7 @@
 
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
-The `glob` group / `unutils/glob`.
+The `glob` group / `utilery/glob`.
 
 | Original function group and name                                  | Status | Our function group and name | Notes                                                                                                                |
 | ----------------------------------------------------------------- | ------ | --------------------------- | -------------------------------------------------------------------------------------------------------------------- |

@@ -7,7 +7,7 @@ import {readJsonFileSafe} from '../../src/server/read-json-file-safe.ts';
 let directory: string;
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-read-json-file-safe-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-read-json-file-safe-'));
   await Promise.all([
     writeFile(path.join(directory, 'valid.json'), '{"a": 1, "b": [true, null]}'),
     writeFile(path.join(directory, 'with-bom.json'), '\u{FEFF}{"a": 1}'), // cspell:disable-line

@@ -1,4 +1,4 @@
-import {closestTyped, querySelectorAllTyped, querySelectorTyped} from 'unutils/dom';
+import {closestTyped, querySelectorAllTyped, querySelectorTyped} from 'utilery/dom';
 
 interface MyWidget extends HTMLElement {
   value: number;

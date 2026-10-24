@@ -1,5 +1,5 @@
 ---
-'unutils': minor
+'utilery': minor
 ---
 
 Utilities with a newer native counterpart now call it where it is available, with the same results everywhere:

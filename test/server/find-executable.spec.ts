@@ -9,7 +9,7 @@ let second: string;
 let searchPath: string;
 
 beforeAll(async () => {
-  const root = await mkdtemp(path.join(tmpdir(), 'unutils-find-executable-'));
+  const root = await mkdtemp(path.join(tmpdir(), 'utilery-find-executable-'));
   first = path.join(root, 'first');
   second = path.join(root, 'second');
   await Promise.all(

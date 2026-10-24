@@ -1,5 +1,5 @@
 Creates the exit handler on the first call of `onExit`, `load` or `unload` instead of on import.
-Creating it defines a property on `globalThis`, and importing `unutils/server` must not change
+Creating it defines a property on `globalThis`, and importing `utilery/server` must not change
 globals: the package is bundled for `writeJsonFile` (through `write-file-atomic`), and our bundled
 modules evaluate it as soon as they are imported.
 

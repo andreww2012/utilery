@@ -7,10 +7,10 @@ import {readFileSafe} from '../../src/server/read-file-safe.ts';
 let directory: string;
 let existingFile: string;
 const MISSING_FILE = 'does-not-exist.txt';
-const TEXT_CONTENTS = 'hello, unutils 👋 — multibyte';
+const TEXT_CONTENTS = 'hello, utilery 👋 — multibyte';
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-read-file-safe-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-read-file-safe-'));
   existingFile = path.join(directory, 'file.txt');
 
   await writeFile(existingFile, TEXT_CONTENTS, 'utf8');

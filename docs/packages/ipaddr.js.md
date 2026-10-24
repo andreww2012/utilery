@@ -2,7 +2,7 @@
 
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
-The `net` group / `unutils/net`.
+The `net` group / `utilery/net`.
 
 | Original function group and name                                                                                            | Status | Our function group and name | Notes                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------- | ------ | --------------------------- | ----------------------------------------------------------------------------------- |

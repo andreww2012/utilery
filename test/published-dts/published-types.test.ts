@@ -125,7 +125,7 @@ beforeAll(() => {
     );
   }
 
-  consumerDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'unutils-dts-consumer-'));
+  consumerDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'utilery-dts-consumer-'));
   const packed = execSync(`pnpm pack --pack-destination ${JSON.stringify(consumerDirectory)}`, {
     cwd: rootPath,
     encoding: 'utf8',
@@ -143,7 +143,7 @@ beforeAll(() => {
   fs.mkdirSync(modulesDirectory);
   execSync(`tar -xzf ${JSON.stringify(tarballPath)} -C node_modules`, {cwd: consumerDirectory});
   // npm/pnpm pack into a top-level `package/` directory
-  fs.renameSync(path.join(modulesDirectory, 'package'), path.join(modulesDirectory, 'unutils'));
+  fs.renameSync(path.join(modulesDirectory, 'package'), path.join(modulesDirectory, 'utilery'));
 
   scenarioFiles.forEach((file) => {
     const destination = path.join(consumerDirectory, file);
@@ -210,7 +210,7 @@ describe('published DTS consumer', () => {
   // of `@ark/util` once did, which added `ArkEnv` to the globals of every consumer
   it('keeps globals and other modules unchanged outside `*.global` entry points', () => {
     // The compiler resolves symlinks, like the one to the temporary directory on macOS
-    const packageDirectory = fs.realpathSync(path.join(consumerDirectory, 'node_modules/unutils'));
+    const packageDirectory = fs.realpathSync(path.join(consumerDirectory, 'node_modules/utilery'));
     const {exports} = jsonParse<{exports: Record<string, unknown>}>(
       fs.readFileSync(path.join(packageDirectory, 'package.json'), 'utf8'),
     );
@@ -219,7 +219,7 @@ describe('published DTS consumer', () => {
       consumerPath,
       Object.keys(exports)
         .filter((subpath) => subpath !== './package.json' && !subpath.endsWith(GLOBAL_SUFFIX))
-        .map((subpath) => `import ${JSON.stringify(path.posix.join('unutils', subpath))};`)
+        .map((subpath) => `import ${JSON.stringify(path.posix.join('utilery', subpath))};`)
         .join('\n'),
     );
     const packageFiles = ts

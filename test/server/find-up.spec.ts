@@ -9,7 +9,7 @@ let root: string;
 let deep: string;
 
 beforeAll(async () => {
-  root = await mkdtemp(path.join(tmpdir(), 'unutils-find-up-'));
+  root = await mkdtemp(path.join(tmpdir(), 'utilery-find-up-'));
   deep = path.join(root, 'a', 'b', 'c');
   await mkdir(deep, {recursive: true});
   await Promise.all([

@@ -1,5 +1,5 @@
 ---
-'unutils': patch
+'utilery': patch
 ---
 
 `jsonStringifyAsync` now matches `JSON.stringify` in more cases:

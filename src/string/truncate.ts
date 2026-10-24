@@ -50,7 +50,7 @@ export type TruncateOptions =
  * // 'hi-diddly-ho there,...'
  * @example
  * // Keep the end or both ends
- * truncate('/home/user/projects/unutils/src/index.ts', {length: 20, position: 'start', omission: '…'});
+ * truncate('/home/user/projects/utilery/src/index.ts', {length: 20, position: 'start', omission: '…'});
  * // '…nutils/src/index.ts'
  * truncate('a-very-long-file-name.tar.gz', {length: 15, position: 'middle', omission: '…'});
  * // 'a-very-….tar.gz'

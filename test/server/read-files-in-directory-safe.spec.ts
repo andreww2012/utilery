@@ -8,7 +8,7 @@ import {readFilesInDirectorySafe} from '../../src/server/read-files-in-directory
 let directory: string;
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-read-files-in-directory-safe-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-read-files-in-directory-safe-'));
   await mkdir(path.join(directory, 'nested', 'deeper'), {recursive: true});
   await Promise.all([
     writeFile(path.join(directory, 'b.json'), '{}'),
@@ -83,7 +83,7 @@ describe('server/readFilesInDirectorySafe', () => {
   });
 
   it.skipIf(process.platform === 'win32')('skips symbolic links', async () => {
-    const linkDirectory = await mkdtemp(path.join(tmpdir(), 'unutils-read-files-links-'));
+    const linkDirectory = await mkdtemp(path.join(tmpdir(), 'utilery-read-files-links-'));
     await writeFile(path.join(linkDirectory, 'file.txt'), 'text');
     await symlink(path.join(linkDirectory, 'file.txt'), path.join(linkDirectory, 'link.txt'));
 
@@ -97,7 +97,7 @@ describe('server/readFilesInDirectorySafe', () => {
   });
 
   it('skips a file deleted after the directory was listed', async () => {
-    const changingDirectory = await mkdtemp(path.join(tmpdir(), 'unutils-read-files-deleted-'));
+    const changingDirectory = await mkdtemp(path.join(tmpdir(), 'utilery-read-files-deleted-'));
     await Promise.all([
       writeFile(path.join(changingDirectory, 'kept.txt'), 'kept'),
       writeFile(path.join(changingDirectory, 'deleted.txt'), 'deleted'),

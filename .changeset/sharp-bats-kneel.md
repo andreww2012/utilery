@@ -1,5 +1,5 @@
 ---
-'unutils': minor
+'utilery': minor
 ---
 
 Added new utilities:

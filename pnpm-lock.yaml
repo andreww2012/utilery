@@ -174,12 +174,12 @@ overrides:
 
 patchedDependencies:
   '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
-  arkregex: f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6
+  arkregex: 6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
   remeda: 967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e
-  safe-stable-stringify: 12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839
-  signal-exit: 1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd
+  safe-stable-stringify: a29b39ed0612fa3d3aa6139a2728db67fb9bb9a4154361a5ffab93192e0ef4c4
+  signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
   which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
   write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
   yieldable-json: 99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88
@@ -283,7 +283,7 @@ importers:
         version: 0.3.3
       arkregex:
         specifier: 0.0.14
-        version: 0.0.14(patch_hash=f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6)
+        version: 0.0.14(patch_hash=6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623)
       cleye:
         specifier: 2.7.0
         version: 2.7.0
@@ -418,7 +418,7 @@ importers:
         version: 1.2.15
       safe-stable-stringify:
         specifier: 3.0.0
-        version: 3.0.0(patch_hash=12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839)
+        version: 3.0.0(patch_hash=a29b39ed0612fa3d3aa6139a2728db67fb9bb9a4154361a5ffab93192e0ef4c4)
       split-string:
         specifier: 6.1.0
         version: 6.1.0
@@ -6745,7 +6745,7 @@ snapshots:
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
-      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+      signal-exit: 4.1.0(patch_hash=74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead)
     optionalDependencies:
       '@types/node': 22.20.5
 
@@ -6757,7 +6757,7 @@ snapshots:
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
-      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+      signal-exit: 4.1.0(patch_hash=74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead)
     optionalDependencies:
       '@types/node': 22.20.5
 
@@ -7981,7 +7981,7 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arkregex@0.0.14(patch_hash=f22e35236001a036f72a2eef05fa94faa65777c6e978fce19c5aa5ea5841f3b6):
+  arkregex@0.0.14(patch_hash=6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623):
     dependencies:
       '@ark/util': 0.56.8
 
@@ -9109,7 +9109,7 @@ snapshots:
   foreground-child@3.3.1:
     dependencies:
       cross-spawn: 7.0.6
-      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+      signal-exit: 4.1.0(patch_hash=74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead)
 
   format@0.2.2: {}
 
@@ -10703,7 +10703,7 @@ snapshots:
     dependencies:
       regexp-tree: 0.1.27
 
-  safe-stable-stringify@3.0.0(patch_hash=12ddf0850af421ca9f82a67497a6ac8f65cc62faab9a218837cd3bbc3d696839): {}
+  safe-stable-stringify@3.0.0(patch_hash=a29b39ed0612fa3d3aa6139a2728db67fb9bb9a4154361a5ffab93192e0ef4c4): {}
 
   safer-buffer@2.1.2: {}
 
@@ -10725,7 +10725,7 @@ snapshots:
 
   shell-quote@1.12.0: {}
 
-  signal-exit@4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd): {}
+  signal-exit@4.1.0(patch_hash=74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead): {}
 
   sigstore@4.1.1(supports-color@9.4.0):
     dependencies:
@@ -11316,11 +11316,11 @@ snapshots:
   write-file-atomic@6.0.0(patch_hash=91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25):
     dependencies:
       imurmurhash: 0.1.4
-      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+      signal-exit: 4.1.0(patch_hash=74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead)
 
   write-file-atomic@7.0.1:
     dependencies:
-      signal-exit: 4.1.0(patch_hash=1a0e435696b7d455c2169ad0331fbcbbefd71980076cc13fea8468b79e4b1ccd)
+      signal-exit: 4.1.0(patch_hash=74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead)
 
   write-json-file@7.0.0:
     dependencies:

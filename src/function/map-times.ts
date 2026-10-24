@@ -15,8 +15,8 @@ import {times} from 'es-toolkit/compat';
  * // [0, 2, 4]
  * @example
  * // Build a fixed-size array of a constant value
- * mapTimes(2, () => 'unutils');
- * // ['unutils', 'unutils']
+ * mapTimes(2, () => 'utilery');
+ * // ['utilery', 'utilery']
  */
 export const mapTimes = <Result>(count: number, iteratee: (index: number) => Result): Result[] =>
   times(count, iteratee);

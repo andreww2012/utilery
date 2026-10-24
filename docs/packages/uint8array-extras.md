@@ -3,7 +3,7 @@
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
 Conversions between `Uint8Array`, strings, Base64 and hex that work in every environment, unlike Node's `Buffer` and the `btoa`/`atob` pair (Latin-1 only).
-The `bytes` group / `unutils/bytes`.
+The `bytes` group / `utilery/bytes`.
 Our Base64 and hex functions call the native `Uint8Array#toBase64`, `Uint8Array.fromBase64`, `Uint8Array#toHex` and `Uint8Array.fromHex` where they are available, with the same results everywhere.
 
 | Original function group and name                                    | Status | Our function group and name | Notes                                                                                                                                              |

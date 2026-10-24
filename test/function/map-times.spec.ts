@@ -6,7 +6,7 @@ describe('function/mapTimes', () => {
   });
 
   it('can build a fixed-size array of a constant value', () => {
-    expect(mapTimes(2, () => 'unutils')).toStrictEqual(['unutils', 'unutils']);
+    expect(mapTimes(2, () => 'utilery')).toStrictEqual(['utilery', 'utilery']);
   });
 
   it('returns an empty array for a count of zero or below', () => {

@@ -1,4 +1,4 @@
-import type {PartialDeep} from 'unutils/types';
+import type {PartialDeep} from 'utilery/types';
 
 const value: PartialDeep<{a: {b: number}}> = {a: {}};
 void value;

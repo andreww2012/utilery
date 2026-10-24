@@ -15,7 +15,8 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'sonarjs',
     'toposort',
     'tusbar',
-    'unutils',
+    'unutils', // The old package name
+    'utilery',
     'verkit',
     'yieldable',
   ],

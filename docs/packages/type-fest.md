@@ -4,7 +4,7 @@
 
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
-`type-fest` ships only **types** (no runtime), re-exported here under the `unutils/types` entry point and bundled like every other dependency.
+`type-fest` ships only **types** (no runtime), re-exported here under the `utilery/types` entry point and bundled like every other dependency.
 Every public export is included except the two `type-fest` itself deprecates.
 Names are renamed where the bare type-fest name fails the "understand it by name" test (group-by-group).
 Each type carries a behavioral `.spec-d.ts` pinning its contract (so an implementation swap can't silently change semantics); the `*Options` configuration companions are re-exported from their parent type's file and aren't separately tested.

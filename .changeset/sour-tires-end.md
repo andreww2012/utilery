@@ -1,5 +1,5 @@
 ---
-'unutils': minor
+'utilery': minor
 ---
 
 Added a new `bytes` group of `Uint8Array` conversions, Base64 and hex encoding, from [`uint8array-extras`](https://npmx.dev/uint8array-extras):

@@ -2,7 +2,7 @@ Changes only the type declarations:
 
 - Imports the `@ark/util` types from the files that declare them (`@ark/util/internal/*.js`)
   instead of the package root. The root also re-exports `registry.ts`, and our declaration build
-  then kept its `declare global` block, so importing `unutils` or `unutils/regex` added a global
+  then kept its `declare global` block, so importing `utilery` or `utilery/regex` added a global
   `ArkEnv` type to the consumer's project. With `skipLibCheck: false`, a consumer that also uses
   `arktype` then got `TS2300: Duplicate identifier 'prototypes'`.
 - Renames the `s` namespace to `sOps`, as the comment in `out/state.d.ts` explains.
@@ -171,7 +171,7 @@ index d3e1f5bc2c1ff6ce7ecb99e582bae16546a6e04e..fe4e3210ca1669fb264a64cafd17d949
  export type StartAnchorMarker = AnchorMarker<"^">;
  export type EndAnchorMarker = AnchorMarker<"$">;
 -export declare namespace s {
-+// [unutils patch] This namespace (and all `sOps.` references + its import
++// [utilery patch] This namespace (and all `sOps.` references + its import
 +// specifiers across out/*.d.ts) was renamed from `s` to `sOps`. arkregex uses
 +// `s` as BOTH a type-only namespace AND a type-parameter name (`<s extends State>`).
 +// That dual declaration-space usage is valid TypeScript, but when tsdown's

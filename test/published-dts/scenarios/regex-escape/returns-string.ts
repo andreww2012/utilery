@@ -1,4 +1,4 @@
-import {regexEscape} from 'unutils/regex';
+import {regexEscape} from 'utilery/regex';
 
 const escaped: string = regexEscape('a.b*c');
 void escaped;

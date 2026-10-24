@@ -1,7 +1,7 @@
 Exports the `stringify` function directly. The package instead defines it on `globalThis` on
 import, so that its CommonJS and ES module entry points share one instance. We bundle a single copy
 of the package, so there is nothing to share, and:
-- Importing `unutils/json` must not change globals.
+- Importing `utilery/json` must not change globals.
 - The `sideEffects` field of our `package.json` lets bundlers drop the bare `import '../index.js'`
   of the ES module wrapper, which then reads `undefined` from `globalThis` and throws on import.
 

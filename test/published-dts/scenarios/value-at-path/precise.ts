@@ -1,4 +1,4 @@
-import type {ValueAtPath} from 'unutils/types';
+import type {ValueAtPath} from 'utilery/types';
 
 const found: ValueAtPath<{a: {b: number}}, 'a.b'> = 1;
 void found;

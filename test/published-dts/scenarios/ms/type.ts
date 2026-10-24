@@ -1,4 +1,4 @@
-import type {Ms} from 'unutils/types';
+import type {Ms} from 'utilery/types';
 
 // Exact-literal round trip: both assignments compile only if `Ms<'42m'>` is the
 // literal `2_520_000` and not the widened `number`

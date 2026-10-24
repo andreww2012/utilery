@@ -13,12 +13,12 @@ describe('string/truncate', () => {
 
   it('truncates the start', () => {
     expect(
-      truncate('/home/user/projects/unutils/src/index.ts', {
+      truncate('/home/user/projects/utilery/src/index.ts', {
         length: 20,
         position: 'start',
         omission: '…',
       }),
-    ).toBe('…nutils/src/index.ts'); // cspell:disable-line
+    ).toBe('…tilery/src/index.ts'); // cspell:disable-line
     expect(truncate('ABCDEF', {length: 5, position: 'start'})).toBe('...EF');
   });
 

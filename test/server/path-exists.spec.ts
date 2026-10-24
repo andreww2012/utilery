@@ -7,7 +7,7 @@ import {pathExists} from '../../src/server/path-exists.ts';
 let directory: string;
 
 beforeAll(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'unutils-path-exists-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'utilery-path-exists-'));
   await Promise.all([
     writeFile(path.join(directory, 'file.txt'), 'text'),
     mkdir(path.join(directory, 'nested')),

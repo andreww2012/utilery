@@ -1,4 +1,4 @@
-import {regexTyped} from 'unutils/regex';
+import {regexTyped} from 'utilery/regex';
 
 const ok = regexTyped('^ok$', 'i');
 const value = 'x' as string;
