@@ -1,4 +1,5 @@
 import type {TaggedUnion} from 'type-fest';
+import type {PrettifyObject} from '../_internal/types.ts';
 
 /**
  * A discriminated union: one object type per entry of `UnionMembers`, with the
@@ -15,4 +16,4 @@ import type {TaggedUnion} from 'type-fest';
 export type DiscriminatedUnion<
   TagKey extends string,
   UnionMembers extends Record<string, Record<string, unknown>>,
-> = TaggedUnion<TagKey, UnionMembers>;
+> = PrettifyObject<TaggedUnion<TagKey, UnionMembers>>;

@@ -10,4 +10,15 @@ describe('types/RequireAtLeastOne', () => {
       EmptyObject extends RequireAtLeastOne<{a?: 1; b?: 2}> ? true : false
     >().toEqualTypeOf<false>();
   });
+
+  it('is a union of single object types', () => {
+    expectTypeOf<RequireAtLeastOne<{a?: 1; b?: 2; c: 3}, 'a' | 'b'>>().toEqualTypeOf<
+      {a: 1; b?: 2; c: 3} | {a?: 1; b: 2; c: 3}
+    >();
+  });
+
+  it('gives `any` for `any`', () => {
+    // eslint-disable-next-line ts/no-explicit-any -- the type under test
+    expectTypeOf<RequireAtLeastOne<any>>().toBeAny();
+  });
 });

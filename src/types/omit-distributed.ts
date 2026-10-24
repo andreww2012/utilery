@@ -1,4 +1,5 @@
 import type {DistributedOmit, KeysOfUnion} from 'type-fest';
+import type {Prettify} from './prettify.ts';
 
 /**
  * Removes keys from each member of a union of object types, keeping the union.
@@ -14,7 +15,6 @@ import type {DistributedOmit, KeysOfUnion} from 'type-fest';
  * type D = OmitDistributed<A | B, 'foo'>;
  * //=> {kind: 'a'; a: number} | {kind: 'b'; b: string}
  */
-export type OmitDistributed<ObjectType, KeyType extends KeysOfUnion<ObjectType>> = DistributedOmit<
-  ObjectType,
-  KeyType
+export type OmitDistributed<ObjectType, KeyType extends KeysOfUnion<ObjectType>> = Prettify<
+  DistributedOmit<ObjectType, KeyType>
 >;

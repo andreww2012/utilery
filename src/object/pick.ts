@@ -1,6 +1,7 @@
 import {pick as pickKeys} from 'es-toolkit/compat';
 import {pickBy} from 'es-toolkit/object';
 import type {ObjectKeys} from 'es-toolkit/types';
+import type {Prettify} from '../types/prettify.ts';
 
 /**
  * Creates a new object with only the selected properties of `object`.
@@ -32,7 +33,7 @@ import type {ObjectKeys} from 'es-toolkit/types';
 export function pick<T extends object, K extends keyof T>(
   object: T,
   keys: readonly K[],
-): Pick<T, K>;
+): Prettify<Pick<T, K>>;
 
 /**
  * Creates a new object with only the selected properties of `object`, chosen
@@ -52,7 +53,7 @@ export function pick<T extends object, K extends keyof T>(
 export function pick<T extends object>(
   object: T,
   selector: readonly PropertyKey[] | ((value: T[keyof T], key: ObjectKeys<T>) => boolean),
-): Partial<T>;
+): Prettify<Partial<T>>;
 export function pick<T extends object>(
   object: T,
   selector: readonly PropertyKey[] | ((value: T[keyof T], key: ObjectKeys<T>) => boolean),

@@ -1,4 +1,5 @@
 import type {SetNonNullable as SetNonNullableBase} from 'type-fest';
+import type {Prettify} from './prettify.ts';
 
 /**
  * Removes `null` and `undefined` from the given properties of an object type
@@ -12,7 +13,6 @@ import type {SetNonNullable as SetNonNullableBase} from 'type-fest';
  * type B = SetNonNullable<Foo>;
  * //=> {a: number; b: string; c?: boolean}
  */
-export type SetNonNullable<
-  BaseType,
-  Keys extends keyof BaseType = keyof BaseType,
-> = SetNonNullableBase<BaseType, Keys>;
+export type SetNonNullable<BaseType, Keys extends keyof BaseType = keyof BaseType> = Prettify<
+  SetNonNullableBase<BaseType, Keys>
+>;

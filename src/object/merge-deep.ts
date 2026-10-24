@@ -1,5 +1,6 @@
 import {cloneDeep, merge, mergeWith, toMerged} from 'es-toolkit/object';
 import type {Merge} from 'es-toolkit/types';
+import type {PrettifyObject} from '../_internal/types.ts';
 
 type MergeValues<T, S> = (
   targetValue: unknown,
@@ -70,7 +71,7 @@ export function mergeDeep<
 export function mergeDeep<
   T extends Record<PropertyKey, unknown>,
   S extends Record<PropertyKey, unknown>,
->(target: T, source: S, options?: MergeDeepOptions<T, S>): T & S;
+>(target: T, source: S, options?: MergeDeepOptions<T, S>): PrettifyObject<T & S>;
 export function mergeDeep<
   T extends Record<PropertyKey, unknown>,
   S extends Record<PropertyKey, unknown>,

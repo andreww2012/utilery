@@ -1,4 +1,5 @@
 import type {NonEmptyObject as NonEmptyObjectBase} from 'type-fest';
+import type {PrettifyObject} from '../_internal/types.ts';
 
 /**
  * An object type that must have at least one of the properties of `T`: handy
@@ -11,4 +12,4 @@ import type {NonEmptyObject as NonEmptyObjectBase} from 'type-fest';
  * // @ts-expect-error: no properties
  * const empty: UserUpdate = {};
  */
-export type NonEmptyObject<T extends object> = NonEmptyObjectBase<T>;
+export type NonEmptyObject<T extends object> = PrettifyObject<NonEmptyObjectBase<T>>;

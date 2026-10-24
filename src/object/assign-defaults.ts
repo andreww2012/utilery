@@ -1,5 +1,6 @@
 import {defaults, defaultsDeep, toDefaulted} from 'es-toolkit/compat';
 import {cloneDeep} from 'es-toolkit/object';
+import type {PrettifyObject} from '../_internal/types.ts';
 import {arrayify} from '../array/arrayify.ts';
 import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
 
@@ -64,12 +65,12 @@ export function assignDefaults<T extends object, const Sources extends readonly 
   target: T,
   source: Sources,
   options?: AssignDefaultsOptions,
-): NonNullable<T & IntersectAll<Sources>>;
+): PrettifyObject<T & IntersectAll<Sources>>;
 export function assignDefaults<T extends object, S extends object>(
   target: T,
   source: S,
   options?: AssignDefaultsOptions,
-): NonNullable<T & S>;
+): PrettifyObject<T & S>;
 export function assignDefaults(
   target: object,
   source: MaybeReadonlyArray<object>,

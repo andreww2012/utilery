@@ -1,4 +1,5 @@
 import type {ConditionalPick} from 'type-fest';
+import type {Prettify} from './prettify.ts';
 
 /**
  * Keeps only the properties of an object type whose values are assignable to
@@ -17,4 +18,4 @@ import type {ConditionalPick} from 'type-fest';
  * type Data = PickConditional<User, Primitive>;
  * //=> {name: string; age: number}
  */
-export type PickConditional<Base, Condition> = ConditionalPick<Base, Condition>;
+export type PickConditional<Base, Condition> = Prettify<ConditionalPick<Base, Condition>>;

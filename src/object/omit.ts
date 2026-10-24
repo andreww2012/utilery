@@ -3,6 +3,7 @@ import {omitBy} from 'es-toolkit/object';
 import type {ObjectKeys} from 'es-toolkit/types';
 import {isArray} from '../predicate/is-array.ts';
 import {isPlainObject} from '../predicate/is-plain-object.ts';
+import type {Prettify} from '../types/prettify.ts';
 import {toPathSegments} from './to-path-segments.ts';
 
 const WILDCARD = '*';
@@ -106,7 +107,7 @@ const omitPathIn = (
 export function omit<T extends object, K extends keyof T>(
   object: T,
   keys: readonly K[],
-): Omit<T, K>;
+): Prettify<Omit<T, K>>;
 
 /**
  * Creates a new object with the selected properties of `object` removed, chosen
@@ -127,7 +128,7 @@ export function omit<T extends object, K extends keyof T>(
 export function omit<T extends object>(
   object: T,
   selector: readonly PropertyKey[] | ((value: T[keyof T], key: ObjectKeys<T>) => boolean),
-): Partial<T>;
+): Prettify<Partial<T>>;
 export function omit<T extends object>(
   object: T,
   selector: readonly PropertyKey[] | ((value: T[keyof T], key: ObjectKeys<T>) => boolean),

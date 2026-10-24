@@ -1,4 +1,5 @@
 import type {RequireAtLeastOne as RequireAtLeastOneBase} from 'type-fest';
+import type {PrettifyObject} from '../_internal/types.ts';
 
 /**
  * Requires at least one of the given keys of an object type (all of them by
@@ -14,4 +15,4 @@ import type {RequireAtLeastOne as RequireAtLeastOneBase} from 'type-fest';
 export type RequireAtLeastOne<
   ObjectType,
   KeysType extends keyof ObjectType = keyof ObjectType,
-> = RequireAtLeastOneBase<ObjectType, KeysType>;
+> = PrettifyObject<RequireAtLeastOneBase<ObjectType, KeysType>>;

@@ -51,6 +51,19 @@ All without zero dependencies because all external dependencies are bundled.
   The exception is a function whose body is a cast (`value as T`): the cast already gives the type, so don't repeat it.
 - Use `Maybe(Readonly)Array` instead of `T | (readonly) T[]`.
   JSDoc prose and type tests that show the union shape on purpose may keep the spelled-out form.
+- When the editor hover of a value shows its type as an intersection of object types (`{a: number} & {b: string}`) or as a type that hides its properties (`Pick<{a: number; b: string}, 'a'>`, upstream helpers like `_RequireAtLeastOne<...>`), wrap the type in `Prettify`, so that the hover shows a single object type.
+  This applies to return types and exported types (example: `src/object/object-from-keys.ts`).
+  Check the hover of a call result, a narrowed value or a type alias that uses the type (`type Example = Utility<...>`): signature hovers show types as written, and a variable of a union type shows the name of the type.
+  `Prettify` maps over the properties, so it turns `any` into `{[key: string]: any}`, `unknown` into `{}`, and a function into an object without call signatures.
+  When the type can be one of them, use `PrettifyObject` from `src/_internal/types.ts`, which keeps them as they are (example: `src/types/require-at-least-one.ts`).
+  Test the result with `toEqualTypeOf<{...}>()`: it fails for an intersection, while `.branded.toEqualTypeOf` doesn't.
+  Don't wrap:
+  - Parameter types: signature hovers show the `Prettify<...>` around them, which only adds noise.
+  - Type predicates (`value is ...`): narrowing must keep the original type.
+  - Deep types, like `PartialDeep`: `Prettify` only flattens the top level, and `PrettifyDeep` is slow on big types.
+  - Intersections on purpose, like brands or `Type & {}`, and class instances, like DOM elements: `Prettify` turns them into plain objects without private members.
+  - Intersections of a type with only optional properties and a mapped type with no properties, like `{a?: never} & Omit<{a?: 1}, 'a'>` (example: `RequireAllOrNone`).
+    The intersection accepts objects like `EmptyObject`, but the flat `{a?: never}` rejects objects that share no property with it, because of the [weak type check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection).
 - Until v1, breaking changes are fine: renaming released utilities, moving them to another group, changing their behavior.
   Don't keep a worse name or group only because it's already released.
   Still mark breaking commits with `!` and describe the change in a changeset (a minor bump while on 0.x).

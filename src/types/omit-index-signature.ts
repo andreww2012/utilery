@@ -1,4 +1,5 @@
 import type {OmitIndexSignature as OmitIndexSignatureBase} from 'type-fest';
+import type {Prettify} from './prettify.ts';
 
 /**
  * Removes the index signatures, like `[key: string]: unknown`, from an object
@@ -16,4 +17,4 @@ import type {OmitIndexSignature as OmitIndexSignatureBase} from 'type-fest';
  * type A = OmitIndexSignature<Example>;
  * //=> {foo: 'bar'; qux?: 'baz'}
  */
-export type OmitIndexSignature<ObjectType> = OmitIndexSignatureBase<ObjectType>;
+export type OmitIndexSignature<ObjectType> = Prettify<OmitIndexSignatureBase<ObjectType>>;

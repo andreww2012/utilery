@@ -1,4 +1,5 @@
 import type {DistributedPick, KeysOfUnion} from 'type-fest';
+import type {Prettify} from './prettify.ts';
 
 /**
  * Keeps only the given keys of each member of a union of object types, keeping
@@ -17,7 +18,6 @@ import type {DistributedPick, KeysOfUnion} from 'type-fest';
  *   picked.foo.bar; // string
  * }
  */
-export type PickDistributed<ObjectType, KeyType extends KeysOfUnion<ObjectType>> = DistributedPick<
-  ObjectType,
-  KeyType
+export type PickDistributed<ObjectType, KeyType extends KeysOfUnion<ObjectType>> = Prettify<
+  DistributedPick<ObjectType, KeyType>
 >;

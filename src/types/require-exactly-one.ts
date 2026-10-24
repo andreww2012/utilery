@@ -1,4 +1,5 @@
 import type {RequireExactlyOne as RequireExactlyOneBase} from 'type-fest';
+import type {PrettifyObject} from '../_internal/types.ts';
 
 /**
  * Requires exactly one of the given keys of an object type (all of them by
@@ -15,4 +16,4 @@ import type {RequireExactlyOne as RequireExactlyOneBase} from 'type-fest';
 export type RequireExactlyOne<
   ObjectType,
   KeysType extends keyof ObjectType = keyof ObjectType,
-> = RequireExactlyOneBase<ObjectType, KeysType>;
+> = PrettifyObject<RequireExactlyOneBase<ObjectType, KeysType>>;

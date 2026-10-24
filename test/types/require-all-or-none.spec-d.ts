@@ -7,4 +7,10 @@ describe('types/RequireAllOrNone', () => {
       EmptyObject extends RequireAllOrNone<{a?: 1; b?: 2}> ? true : false
     >().toEqualTypeOf<true>();
   });
+
+  it('accepts objects without the keys when the type has no other keys', () => {
+    expectTypeOf<
+      {c: 1} extends RequireAllOrNone<{a?: 1; b?: 2}> ? true : false
+    >().toEqualTypeOf<true>();
+  });
 });

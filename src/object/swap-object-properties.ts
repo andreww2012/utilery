@@ -1,4 +1,5 @@
 import {type SwappedProps, swapProps} from 'remeda';
+import type {Prettify} from '../types/prettify.ts';
 
 /**
  * Returns a new object with the values of two properties exchanged.
@@ -23,4 +24,4 @@ export const swapObjectProperties = <T extends object, Key1 extends keyof T, Key
   object: T,
   key1: Key1,
   key2: Key2,
-): SwappedProps<T, Key1, Key2> => swapProps(object, key1, key2);
+): Prettify<SwappedProps<T, Key1, Key2>> => swapProps(object, key1, key2);

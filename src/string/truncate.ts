@@ -1,5 +1,6 @@
 // cspell:ignore neighbo neighborino nutils
 import {truncate as truncateEnd} from 'es-toolkit/compat';
+import type {Prettify} from '../types/prettify.ts';
 
 interface BaseTruncateOptions {
   /**
@@ -16,7 +17,7 @@ interface BaseTruncateOptions {
 }
 
 /** Options of `truncate` */
-export type TruncateOptions =
+export type TruncateOptions = Prettify<
   | (BaseTruncateOptions & {
       /**
        * Where to remove characters.
@@ -26,7 +27,8 @@ export type TruncateOptions =
       /** Cuts at the last match of this pattern before the limit, to keep words whole */
       separator?: string | RegExp;
     })
-  | (BaseTruncateOptions & {position: 'start' | 'middle'; separator?: never});
+  | (BaseTruncateOptions & {position: 'start' | 'middle'; separator?: never})
+>;
 
 /**
  * Shortens a string to a maximum length, replacing the removed part with an

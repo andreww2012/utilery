@@ -1,4 +1,5 @@
 import type {PickIndexSignature as PickIndexSignatureBase} from 'type-fest';
+import type {Prettify} from './prettify.ts';
 
 /**
  * Keeps only the index signatures, like `[key: string]: unknown`, of an object
@@ -13,4 +14,4 @@ import type {PickIndexSignature as PickIndexSignatureBase} from 'type-fest';
  * type A = PickIndexSignature<Example>;
  * //=> {[key: string]: unknown; [key: `data-${string}`]: string}
  */
-export type PickIndexSignature<ObjectType> = PickIndexSignatureBase<ObjectType>;
+export type PickIndexSignature<ObjectType> = Prettify<PickIndexSignatureBase<ObjectType>>;
