@@ -1,8 +1,9 @@
 import {mergeDeep} from '../../src/object/merge-deep.ts';
+import {isArray} from '../../src/predicate/is-array.ts';
 
 const concatArrays = (targetValue: unknown, sourceValue: unknown) => {
-  return Array.isArray(targetValue) && Array.isArray(sourceValue)
-    ? [...(targetValue as unknown[]), ...(sourceValue as unknown[])]
+  return isArray(targetValue) && isArray(sourceValue)
+    ? [...targetValue, ...sourceValue]
     : undefined;
 };
 

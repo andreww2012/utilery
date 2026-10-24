@@ -1,3 +1,4 @@
+import {isArray} from '../../src/predicate/is-array.ts';
 import {cloneShallow} from '../../src/value/clone-shallow.ts';
 
 describe('value/cloneShallow', () => {
@@ -12,7 +13,13 @@ describe('value/cloneShallow', () => {
 
   it('applies a customizer invoked for the root value', () => {
     const cloned = cloneShallow([1, 2, 3], (value) =>
-      Array.isArray(value) ? value.map((item) => item * 2) : undefined,
+      isArray(value)
+        ? value.map(
+            (item) =>
+              // eslint-disable-next-line ts/no-explicit-any
+              (item as any) * 2,
+          )
+        : undefined,
     );
 
     expect(cloned).toStrictEqual([2, 4, 6]);

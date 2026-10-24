@@ -70,28 +70,6 @@ export default eslintConfig({
       },
     },
   },
-  extraConfigs: [
-    {
-      // The package docs intentionally use a `Package:` prefix in their title
-      files: ['docs/packages/*.md'],
-      rules: {
-        'markdown-preferences/no-heading-trailing-punctuation': 'off',
-      },
-    },
-    {
-      files: ['src/**/*.global.ts'],
-      rules: {
-        'ts/method-signature-style': [2, 'method'],
-      },
-    },
-    {
-      files: ['src/**/*.ts'],
-      ignores: ['src/_internal/**', 'src/**/_*.ts'],
-      rules: {
-        'local/explicit-module-boundary-types': 2,
-      },
-    },
-  ],
   configs: {
     format: {
       // Other files are formatted by oxfmt itself
@@ -171,4 +149,26 @@ export default eslintConfig({
     rxjs: false,
     zod: false,
   },
+  extraConfigs: [
+    {
+      // The package docs intentionally use a `Package:` prefix in their title
+      files: ['docs/packages/*.md'],
+      rules: {
+        'markdown-preferences/no-heading-trailing-punctuation': 'off',
+      },
+    },
+    {
+      files: ['src/**/*.global.ts'],
+      rules: {
+        'ts/method-signature-style': [2, 'method'],
+      },
+    },
+    {
+      files: ['src/**/*.ts'],
+      ignores: ['src/_internal/**', 'src/**/_*.ts'],
+      rules: {
+        'local/explicit-module-boundary-types': 2,
+      },
+    },
+  ],
 });

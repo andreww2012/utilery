@@ -1,3 +1,4 @@
+import {isArray} from '../predicate/is-array.ts';
 import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
 
 // Distributes over a union, so its array members keep their own types instead of becoming elements
@@ -84,5 +85,5 @@ export function arrayify(value: unknown, shouldWrapNullish = false): unknown {
     return shouldWrapNullish ? [value] : [];
   }
 
-  return Array.isArray(value) ? (value as unknown[]) : [value];
+  return isArray(value) ? value : [value];
 }
