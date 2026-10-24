@@ -8,6 +8,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'cleye',
     'destr',
     'htmlescape',
+    'isexe',
     'nanoid',
     'neotraverse',
     'puka',

@@ -22,4 +22,8 @@ export default defineConfig({
     profile: 'esm-only',
   },
   publint: true,
+  // Writes `exports` and `inlinedDependencies`
+  // (https://github.com/e18e/ecosystem-issues/issues/237) to `package.json`.
+  // It also removes `main` there, so `publishConfig` adds it back when publishing
+  exports: true,
 });

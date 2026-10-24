@@ -1,20 +1,13 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import tsEslintPlugin from '@typescript-eslint/eslint-plugin';
 import {eslintConfig} from 'eslint-config-un';
 import {Alphabet} from 'eslint-plugin-perfectionist/alphabet';
 import oxfmtConfig from './oxfmt.config.ts';
+import packageJson from './package.json' with {type: 'json'};
 
-const PACKAGE_DOC_EXTENSION_REGEX = /\.md$/;
-
-// Every bundled package has its own doc, like `@antfu__utils.md` for `@antfu/utils`.
-// DefinitelyTyped uses the same naming, like `@types/antfu__utils`
-const bundledPackages = fs
-  .readdirSync(path.join(import.meta.dirname, 'docs/packages'))
-  .flatMap((fileName) => {
-    const typesName = fileName.replace(PACKAGE_DOC_EXTENSION_REGEX, '');
-    return [typesName.replace('__', '/'), `@types/${typesName}`];
-  });
+const bundledPackages = Object.keys(packageJson.inlinedDependencies).flatMap((name) => [
+  name,
+  `@types/${name.replace('@', '').replace('/', '__')}`,
+]);
 
 const explicitModuleBoundaryTypes = tsEslintPlugin.rules['explicit-module-boundary-types'];
 

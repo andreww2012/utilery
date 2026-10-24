@@ -3,9 +3,8 @@
 import fs from 'node:fs';
 import {regexEscape} from '../src/regex/regex-escape.ts';
 import {
-  DIST_PNPM,
   NOTICES_PATH,
-  collectStorePackageNames,
+  collectBundledPackages,
   findLicenseTextMismatches,
   readInstalledPackageJson,
 } from './_third-party-notices.ts';
@@ -22,9 +21,6 @@ const TABLE_REGION_REGEX = new RegExp(
 // Grouping parentheses SPDX allows around a whole expression, e.g. `(MIT OR CC0-1.0)`
 const WRAPPING_PARENS_REGEX = /^\((.*)\)$/;
 
-// eslint-disable-next-line unicorn/no-array-sort
-const collectBundledPackageNames = () => [...collectStorePackageNames(DIST_PNPM)].sort();
-
 interface PackageRow {
   packageCell: string;
   versionCell: string;
@@ -38,8 +34,9 @@ const TABLE_HEADER: Readonly<PackageRow> = {
 };
 
 const buildTable = () => {
-  const rows = collectBundledPackageNames().map<PackageRow>((name) => {
-    const {version, license} = readInstalledPackageJson(name);
+  const rows = collectBundledPackages().map<PackageRow>((bundledPackage) => {
+    const {name, version} = bundledPackage;
+    const {license} = readInstalledPackageJson(bundledPackage);
     if (!license) {
       throw new Error(`Package "${name}" is missing a "license" field in its package.json.`);
     }
@@ -69,10 +66,6 @@ const buildTable = () => {
 };
 
 const run = () => {
-  if (!fs.existsSync(DIST_PNPM)) {
-    throw new Error(`Missing "${DIST_PNPM}". Run \`pnpm build\` before generating the notices.`);
-  }
-
   const noticesText = fs.readFileSync(NOTICES_PATH, 'utf8');
   if (!TABLE_REGION_REGEX.test(noticesText)) {
     throw new Error(

@@ -4,8 +4,8 @@ import path from 'node:path';
 import {cli} from 'cleye';
 import ts from 'typescript';
 import * as v from 'valibot';
+import packageJson from '../package.json' with {type: 'json'};
 import {arrayUnique} from '../src/array/array-unique.ts';
-import {jsonParse} from '../src/json/json-parse.ts';
 import {max} from '../src/math/max.ts';
 import {pick} from '../src/object/pick.ts';
 import {allUnionMembers} from '../src/ts/all-union-members.ts';
@@ -30,8 +30,8 @@ const quoteList = (values: readonly string[]) => values.map((value) => `'${value
 // Separates the columns in the text output
 const COLUMN_GAP = '  ';
 
-const DIST_PREFIX_REGEX = /^\.\/dist\//;
-const DTS_EXTENSION_REGEX = /\.d\.mts$/;
+const DIST_PREFIX = './dist/';
+const MJS_EXTENSION_REGEX = /\.mjs$/;
 
 const FLAGS_SCHEMA = v.object({
   type: v.pipe(
@@ -54,20 +54,16 @@ interface Subpath {
   sourceEntry: string;
 }
 
-const readSubpaths = (): Subpath[] => {
-  const packageJson = jsonParse<{exports: Record<string, string | {types: string}>}>(
-    fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'),
-  );
-
-  return Object.entries(packageJson.exports).flatMap(([subpath, condition]) => {
-    // Entries like `./package.json` point to a non-code file directly
-    if (typeof condition === 'string') {
+const readSubpaths = (): Subpath[] =>
+  Object.entries(packageJson.exports).flatMap(([subpath, target]) => {
+    // Entries like `./package.json` point to a non-code file outside `dist/`
+    if (!target.startsWith(DIST_PREFIX)) {
       return [];
     }
 
     const sourceEntry = path.join(
       __dirname,
-      condition.types.replace(DIST_PREFIX_REGEX, 'src/').replace(DTS_EXTENSION_REGEX, '.ts'),
+      target.replace(DIST_PREFIX, 'src/').replace(MJS_EXTENSION_REGEX, '.ts'),
     );
     if (!fs.existsSync(sourceEntry)) {
       throw new Error(`Could not find the source file of "${subpath}": ${sourceEntry}`);
@@ -75,7 +71,6 @@ const readSubpaths = (): Subpath[] => {
 
     return {subpath, sourceEntry};
   });
-};
 
 const resolveRelativeModule = (fromFile: string, specifier: string) => {
   const base = path.resolve(path.dirname(fromFile), specifier);

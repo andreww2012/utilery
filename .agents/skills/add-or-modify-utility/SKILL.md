@@ -41,7 +41,7 @@ A module whose only purpose is a global type augmentation (`declare global`, exp
 Example: `src/dom/query-selector-typed.global.ts`.
 
 - It must NOT be re-exported from `src/<group-name>/index.ts`.
-- It needs its own `package.json` `exports` entry and a row in the "List of entrypoints" table in `README.md`.
+- It needs a row in the "List of entrypoints" table in `README.md`, and `nr build` adds its `package.json` `exports` entry.
 - Note that an external package's `declare global` cannot be re-exported.
   `import type {} from 'the-package'` is erased from the declaration output, and a plain value import fails when the package ships no runtime code.
   Re-declare the augmentation against our own types instead.
@@ -84,7 +84,7 @@ Then pick the right group for the utility.
 If there isn't a group that fits, create a new one.
 The new group must be added to the "List of entrypoints" in `README.md`.
 All groups' symbols should be re-exported in `src/index.ts`, unless the group targets specific JS runtime environments like browsers or Node.js.
-All groups automatically get their own entrypoint (`/<group-name>`) which should be declared in `package.json`'s `exports` field.
+All groups automatically get their own entrypoint (`/<group-name>`), which `nr build` adds to `package.json`'s `exports` field.
 
 > [!TIP]
 > If you are choosing between "custom implementation" and "pure-export from a package" AND the implementations are identical, and you're inclining to go for the former "because it saves bundle size", this is WRONG: all external libraries' imports are bundled anyway.
@@ -92,8 +92,9 @@ All groups automatically get their own entrypoint (`/<group-name>`) which should
 
 ### Adding from a package
 
-If the package is not in dependencies, it should be installed as a dev dependency.
-Its license text must be copied to `THIRD_PARTY_NOTICES.md`.
+If the package is not in dependencies, install it with `pnpm i -D --save-catalog-name=bundled <package>`.
+It gets its own page in `docs/packages/`, linked from the "Packages" table in `README.md`.
+Copy the license texts of the package and of the new packages it depends on (see `inlinedDependencies` in `package.json` after `nr build`) to `THIRD_PARTY_NOTICES.md`.
 
 If you're not asked about specific utilities, you should add all utilities that are supposed to be public, from all entrypoints.
 However, a section corresponding to the package in `README.md` should include *all* such utilities.

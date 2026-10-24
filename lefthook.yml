@@ -8,15 +8,15 @@ pre-push:
     cspell:
       run: pnpm exec cspell --exclude '**/.*' --no-must-find-files {push_files}
     knip:
-      run: nr knip
+      run: pnpm knip
     types:
-      run: nr ts
+      run: pnpm ts
 
 post-merge: &install-on-lockfile-change
   commands:
     install:
       glob: '{pnpm-lock.yaml,pnpm-workspace.yaml,patches/*}'
-      run: ni
+      run: pnpm install
 post-checkout: *install-on-lockfile-change
 
 pre-commit:
@@ -26,6 +26,17 @@ pre-commit:
     oxfmt:
       run: pnpm exec oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
+    build:
+      # The build writes `exports` and `inlinedDependencies` to `package.json`. It reads the working
+      # tree, so unstaged changes in `src/` can get into them, which CI then reports
+      glob: '{src/**,package.json,pnpm-lock.yaml,pnpm-workspace.yaml}'
+      # Staging the whole file would also commit its unstaged changes
+      run: |
+        if ! git diff --quiet package.json; then
+          echo 'Stage or stash the changes in package.json first'
+          exit 1
+        fi
+        pnpm build && git add package.json
 
 commit-msg:
   commands:

@@ -15,6 +15,9 @@ All without zero dependencies because all external dependencies are bundled.
   Other modules, including the code of bundled packages, must not do anything on import that matters even when their exports are unused (patch globals or prototypes, add listeners, etc.)
   `nr test:side-effects` snapshots the code that bundlers can't drop: when the snapshot changes (often after bumping a bundled package), check that the new code doesn't do that.
 - Likewise, only the types of `*.global.ts` modules may change globals or other modules (`declare global`, `declare module '...'`, `/// <reference ...>`, etc.)
+- Packages that `src/` imports are bundled, and they belong to the `bundled` catalog in `pnpm-workspace.yaml`.
+  `nr build` lists them, along with the packages they depend on, in `inlinedDependencies` of `package.json`: run it after adding, removing or bumping one, and keep the updated field.
+  Until you run it, ESLint reports imports of a new one as missing from `dependencies`, which the build fixes.
 - When you bump the version of a bundled package, describe only the changes we make ourselves: utilities added, removed or renamed, and behavior changes we make in our code or by patching the package (`patches/`).
   Upstream changes are covered by a link to the full upstream diff between the old and the new version (e.g. a GitHub compare link), which you always add.
   They include fixes, behavior and type changes of utilities we already export, even when our wrappers had to be adjusted to them (e.g. a wrapper signature updated to match a new upstream type).

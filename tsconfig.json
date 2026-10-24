@@ -1,6 +1,6 @@
 // Based on https://www.totaltypescript.com/tsconfig-cheat-sheet
 {
-  "include": ["src", "scripts"],
+  "include": ["src", "scripts", "package.json"],
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
