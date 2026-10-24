@@ -45,6 +45,7 @@ describe('server/formatTerminalFileLink', () => {
   it('links to the file and the position whatever the custom label is', () => {
     expect(
       formatTerminalFileLink('/repo/a.ts', {
+        cwd: '/repo',
         enabled: true,
         line: 2,
         formatter: () => 'here',
