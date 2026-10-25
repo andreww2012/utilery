@@ -1,0 +1,54 @@
+Escapes backslashes and single quotes in the strings that `serialize` writes in single quotes.
+Without it, a quote inside a string ends the literal, so different values give the same output:
+`["a','b"]` and `['a', 'b']` both become `['a','b']`.
+
+The latest release (1.53.0) still has this bug.
+
+diff --git a/dist/util/serialize/serializeString.js b/dist/util/serialize/serializeString.js
+index a1e6840b956bc19b35c31faf0de5dec497dc3a81..ce3913fd851422fea8ef96b1ab29ba0b2bda1152 100644
+--- a/dist/util/serialize/serializeString.js
++++ b/dist/util/serialize/serializeString.js
+@@ -2,8 +2,9 @@
+ /**
+ * Serializes a string into a single-quoted string literal.
+ *
+-* The string is not escaped; the output is intended for hashing and
+-* change detection, not for parsing or re-evaluation.
++* Backslashes and single quotes are escaped, so a quote inside the string never ends the
++* literal; the output is intended for hashing and change detection, not for parsing or
++* re-evaluation.
+ *
+ * @param value - The string to serialize.
+ * @returns The serialized string.
+@@ -12,6 +13,6 @@
+ * serializeString('abc'); // "'abc'"
+ */
+ function serializeString(value) {
+-	return `'${value}'`;
++	return `'${value.replaceAll("\\", "\\\\").replaceAll("'", "\\'")}'`;
+ }
+ exports.serializeString = serializeString;
+diff --git a/dist/util/serialize/serializeString.mjs b/dist/util/serialize/serializeString.mjs
+index 4cb4110194d4c324bfeef6aa48255a1292220f8b..f8ba75a04fab36fb91f911cfd0508456b5c72bee 100644
+--- a/dist/util/serialize/serializeString.mjs
++++ b/dist/util/serialize/serializeString.mjs
+@@ -2,8 +2,9 @@
+ /**
+ * Serializes a string into a single-quoted string literal.
+ *
+-* The string is not escaped; the output is intended for hashing and
+-* change detection, not for parsing or re-evaluation.
++* Backslashes and single quotes are escaped, so a quote inside the string never ends the
++* literal; the output is intended for hashing and change detection, not for parsing or
++* re-evaluation.
+ *
+ * @param value - The string to serialize.
+ * @returns The serialized string.
+@@ -12,6 +13,6 @@
+ * serializeString('abc'); // "'abc'"
+ */
+ function serializeString(value) {
+-	return `'${value}'`;
++	return `'${value.replaceAll("\\", "\\\\").replaceAll("'", "\\'")}'`;
+ }
+ export { serializeString };

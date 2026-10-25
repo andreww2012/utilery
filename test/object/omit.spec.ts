@@ -80,6 +80,18 @@ describe('object/omit', () => {
       expect(omit({'a.b': 1, a: {b: 2}}, ['a.b'])).toStrictEqual({a: {b: 2}});
     });
 
+    it('shares the other values when removing a key containing a dot', () => {
+      const input = {
+        'a.b': 1,
+        c: {d: Object.assign(Object.create(null) as Record<string, unknown>, {e: 1})},
+      };
+      const result = omit(input, ['a.b', 'c.d.e']);
+
+      expect(result.c).not.toBe(input.c);
+      expect(Object.getPrototypeOf(result.c?.d)).toBeNull();
+      expect(omit(input, ['a.b']).c).toBe(input.c);
+    });
+
     it('keeps the prototype of a copied object', () => {
       const dictionary = Object.assign(Object.create(null) as Record<string, unknown>, {
         a: 1,

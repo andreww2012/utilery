@@ -1,3 +1,6 @@
+import {lerp} from 'es-toolkit/math';
+import {clamp} from './clamp.ts';
+
 /**
  * Linearly interpolates between `min` and `max` by the factor `t`
  * (`min + (max - min) * t`).
@@ -29,7 +32,5 @@
  * interpolate(0, 10, 1.5, true);
  * // 10
  */
-export const interpolate = (min: number, max: number, t: number, shouldClamp = false): number => {
-  const factor = shouldClamp ? Math.min(Math.max(t, 0), 1) : t;
-  return min + (max - min) * factor;
-};
+export const interpolate = (min: number, max: number, t: number, shouldClamp = false): number =>
+  lerp(min, max, shouldClamp ? clamp(t, 0, 1) : t);

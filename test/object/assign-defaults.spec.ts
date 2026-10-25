@@ -40,4 +40,22 @@ describe('object/assignDefaults', () => {
     expect(target).toStrictEqual({a: {x: 1}});
     expect(result).toStrictEqual({a: {x: 1, y: 2}});
   });
+
+  it('copies errors and null-prototype objects as they are when {copy: true}', () => {
+    const error = assignDefaults(new Error('x'), {code: 1}, {copy: true});
+
+    expect(error).toBeInstanceOf(Error);
+    expect(error.message).toBe('x');
+    expect(error.code).toBe(1);
+
+    const dictionary = Object.assign(Object.create(null) as Record<string, unknown>, {a: 1});
+    const target = {dictionary, cause: new TypeError('y')};
+    const result = assignDefaults(target, {b: 2}, {copy: true});
+
+    expect(Object.getPrototypeOf(result.dictionary)).toBeNull();
+    expect(result.dictionary).not.toBe(dictionary);
+    expect(result.cause).toBeInstanceOf(TypeError);
+    expect(result.cause).not.toBe(target.cause);
+    expect(Object.getPrototypeOf(assignDefaults(dictionary, {b: 2}, {copy: true}))).toBeNull();
+  });
 });

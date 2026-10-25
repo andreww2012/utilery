@@ -11,6 +11,10 @@ describe('math/mapRange', () => {
     expect(mapRange(5, [0, 10], [100, 0])).toBe(50);
   });
 
+  it('maps the end of the input range to exactly the end of the output range', () => {
+    expect(mapRange(10, [0, 10], [1e20, 1])).toBe(1);
+  });
+
   it('extrapolates beyond the output range by default', () => {
     expect(mapRange(15, [0, 10], [0, 100])).toBe(150);
   });

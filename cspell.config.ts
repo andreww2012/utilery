@@ -22,7 +22,7 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'yieldable',
   ],
   misc: ['unstub'],
-  englishIshWords: ['arrayify', 'combinators', 'customizer', 'deburr', 'nullary'],
+  englishIshWords: ['arrayify', 'combinators', 'customizer', 'deburr', 'lerp', 'nullary'],
   typeFest: ['jsonify', 'jsonifiable', 'arrayable', 'asyncify', 'optionalize'],
   upstreamNamesWithFlaggedWords: ['ArrayIndices', 'filterArrayIndices', 'indicesOf', 'swapIndices'],
 };

@@ -108,6 +108,8 @@
 | [`map/some`](https://es-toolkit.dev/reference/map/some.html)                                   | ✅     | `map/mapSome`                      | Renamed for `map`-prefix consistency                                                                 |
 | [`math/clamp`](https://es-toolkit.dev/reference/math/clamp.html)                               | ✅     | `math/clamp` *(same)*              | -                                                                                                    |
 | [`math/inRange`](https://es-toolkit.dev/reference/math/inRange.html)                           | ✅     | `math/isInRange`                   | Renamed for clarity: same exclusive-upper-bound semantics                                            |
+| [`math/inverseLerp`](https://es-toolkit.dev/reference/math/inverseLerp.html)                   | ✅     | `math/interpolateInverse`          | Renamed as the inverse of `interpolate`; pass `true` as fourth arg to clamp the result to `[0, 1]`   |
+| [`math/lerp`](https://es-toolkit.dev/reference/math/lerp.html)                                 | ✅     | `math/interpolate`                 | Renamed for clarity; pass `true` as fourth arg to clamp `t` to `[0, 1]`                              |
 | [`math/meanBy`](https://es-toolkit.dev/reference/math/meanBy.html)                             | ✅     | `math/mean`                        | Pass a selector `(item) => number` as second arg                                                     |
 | [`math/mean`](https://es-toolkit.dev/reference/math/mean.html)                                 | ✅     | `math/mean` *(same)*               | Consolidated with `meanBy`; accepts any iterable (single-pass)                                       |
 | [`math/medianBy`](https://es-toolkit.dev/reference/math/medianBy.html)                         | ✅     | `math/median`                      | Pass a selector `(item) => number` as second arg                                                     |
@@ -209,6 +211,7 @@
 | [`string/pad`](https://es-toolkit.dev/reference/string/pad.html)                               | ✅     | `string/stringPad`                 | Pads both sides; use native `padStart` / `padEnd` for one-sided padding                              |
 | [`string/pascalCase`](https://es-toolkit.dev/reference/string/pascalCase.html)                 | ✅     | `string/toPascalCase`              | -                                                                                                    |
 | [`string/reverseString`](https://es-toolkit.dev/reference/string/reverseString.html)           | ✅     | `string/stringReverse`             | -                                                                                                    |
+| [`string/sentenceCase`](https://es-toolkit.dev/reference/string/sentenceCase.html)             | ✅     | `string/toSentenceCase`            | Also capitalizes a first letter outside the BMP                                                      |
 | [`string/snakeCase`](https://es-toolkit.dev/reference/string/snakeCase.html)                   | ✅     | `string/toSnakeCase`               | -                                                                                                    |
 | [`string/startCase`](https://es-toolkit.dev/reference/string/startCase.html)                   | ✅     | `string/toTitleCase`               | Replaced by `remeda`'s `toTitleCase` (precisely typed; preserves consecutive capitals by default)    |
 | [`string/trim`](https://es-toolkit.dev/reference/string/trim.html)                             | ❌     | *(native)*                         | Use `string.trim()`                                                                                  |
@@ -223,7 +226,13 @@
 | [`utility/attemptAsync`](https://es-toolkit.dev/reference/util/attemptAsync.html)              | ✅     | `function/attemptAsync`            | -                                                                                                    |
 | [`utility/defer`](https://es-toolkit.dev/reference/util/defer.html)                            | ✅     | `function/toDisposable`            | Renamed for clarity (lodash's `defer` means "run later"); consolidated with `deferAsync`             |
 | [`utility/deferAsync`](https://es-toolkit.dev/reference/util/deferAsync.html)                  | ✅     | `function/toDisposable`            | Pass an async callback to get an `AsyncDisposable`                                                   |
+| [`utility/hash`](https://es-toolkit.dev/reference/util/hash.html)                              | ❌     | *(use `serializeStable`)*          | Hash the `value/serializeStable` string, for example with `crypto.subtle.digest`                     |
 | [`utility/invariant`](https://es-toolkit.dev/reference/util/invariant.html)                    | ✅     | `misc/invariant`                   | -                                                                                                    |
+| [`utility/Queue`](https://es-toolkit.dev/reference/util/Queue.html)                            | ✅     | `misc/Queue` *(same)*              | -                                                                                                    |
+| [`utility/serialize`](https://es-toolkit.dev/reference/util/serialize.html)                    | ✅     | `value/serializeStable`            | Renamed for clarity; patched to escape quotes in strings (see the note below)                        |
+
+> **Note:** Our bundled copy is [patched](../../patches/es-toolkit.patch) for a bug that its latest release (1.53.0) still has.
+> Without the patch, `serialize` doesn't escape quotes in strings, so different values can give the same result: `["a','b"]` and `['a', 'b']` both become `['a','b']`.
 
 ## `es-toolkit/bigint`
 
@@ -267,6 +276,12 @@ The returned iterators need the global `Iterator` (Baseline 2025).
 | `iterator/uniqBy`                | ✅     | `iterable/iterableUnique`           | The mapper is optional                                           |
 | `iterator/zip`                   | ✅     | `iterable/iterableTranspose`        | Renamed like `array/arrayTranspose`; takes an array of iterables |
 
+## `es-toolkit/query-string`
+
+| Original function group and name                                                         | Status | Our function group and name | Notes                                               |
+| ---------------------------------------------------------------------------------------- | ------ | --------------------------- | --------------------------------------------------- |
+| [`query-string/stringify`](https://es-toolkit.dev/reference/query-string/stringify.html) | ✅     | `misc/formatQueryString`    | Renamed for clarity, like `http/formatCacheControl` |
+
 ## `es-toolkit/types`
 
 Every type here is already covered by an existing one, mostly from [`type-fest`](./type-fest.md).
@@ -275,8 +290,11 @@ Every type here is already covered by an existing one, mostly from [`type-fest`]
 | -------------------------------- | ------ | ------------------------------ | ------------------------------------------------------------------------------ |
 | `types/DeepPartial`              | ❌     | `types/PartialDeep`            | -                                                                              |
 | `types/DeepReadonly`             | ❌     | `types/ReadonlyDeep`           | -                                                                              |
+| `types/DistributiveOmit`         | ❌     | `types/OmitDistributed`        | -                                                                              |
 | `types/EmptyObject`              | ❌     | `types/EmptyObject`            | -                                                                              |
+| `types/IsAny`                    | ❌     | `types/IsAny`                  | -                                                                              |
 | `types/IsEqual`                  | ❌     | `types/IsEqual`                | -                                                                              |
+| `types/IsUnknown`                | ❌     | `types/IsUnknown`              | -                                                                              |
 | `types/JSONValue`                | ❌     | `types/JsonValue`              | -                                                                              |
 | `types/Merge`                    | ❌     | `types/MergeDeep`              | Not the same: describes what `object/mergeDeep` returns, which already uses it |
 | `types/NonEmptyArray`            | ❌     | `types/NonEmptyTuple`          | -                                                                              |

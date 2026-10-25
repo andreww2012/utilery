@@ -19,7 +19,7 @@ catalogs:
     destr: 2.0.5
     devalue: 6.0.3
     env-paths: 4.0.0
-    es-toolkit: 1.52.0
+    es-toolkit: 1.53.0
     find-up-simple: 1.0.1
     htmlescape: 1.1.1
     http-link-header: 1.1.4
@@ -100,6 +100,7 @@ patchedDependencies:
   '@sindresorhus/slugify': patches/@sindresorhus__slugify.patch
   arkregex: patches/arkregex.patch
   decode-uri-component: patches/decode-uri-component.patch
+  es-toolkit: patches/es-toolkit.patch
   ipaddr.js: patches/ipaddr.js.patch
   # Must include a version since multiple nanoid versions are present in the dep tree
   nanoid@6: patches/nanoid.patch

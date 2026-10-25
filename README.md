@@ -1,4 +1,4 @@
-<!-- cspell:ignore jsonrepair jsondiffpatch hyperjump unpatch lerp unflatten -->
+<!-- cspell:ignore jsonrepair jsondiffpatch hyperjump unpatch unflatten -->
 
 # utilery [![npm](https://img.shields.io/npm/v/utilery)](https://npmx.dev/utilery)
 
@@ -283,6 +283,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `math/createSeededRandom`             | Seeded `Math.random` replacement (Mulberry32) from a number or a string seed, for reproducible results                                                                                                                  |
 | `math/findClosestNumber`              | Value closest to a target number; the earlier one on a tie                                                                                                                                                              |
 | `math/interpolate`                    | Renamed `lerp`; `(min, max, t, clamp = false)`; extrapolates unless `clamp` is `true`                                                                                                                                   |
+| `math/interpolateInverse`             | Renamed `inverseLerp`; `(min, max, value, clamp = false)`; the inverse of `interpolate`, `0` when `min` equals `max`                                                                                                    |
 | `math/isInRange`                      | Renamed `inRange`; number and bigint overloads                                                                                                                                                                          |
 | `math/mapRange`                       | Renamed `remap`; `(value, inputRange, outputRange, clamp = false)`; affine range remap, extrapolates unless `clamp`                                                                                                     |
 | `math/max`                            | Single-pass over any iterable of numbers and/or bigints; returns `undefined` for an empty input                                                                                                                         |
@@ -362,6 +363,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `string/toKebabCase`                  | kebab-case; es-toolkit runtime + `string-ts` literal type                                                                                                                                                               |
 | `string/toLowerCase`                  | Space-joined lower-case words; es-toolkit runtime + `string-ts` literal type                                                                                                                                            |
 | `string/toPascalCase`                 | PascalCase; es-toolkit runtime + `string-ts` literal type                                                                                                                                                               |
+| `string/toSentenceCase`               | Sentence case; es-toolkit runtime (also capitalizes a first letter outside the BMP) + `string-ts` literal type                                                                                                          |
 | `string/toSnakeCase`                  | snake_case; es-toolkit runtime + `string-ts` literal type                                                                                                                                                               |
 | `string/toTitleCase`                  | Title-cases a string (via `remeda`'s `toTitleCase`); literal inputs get the precise title-cased type; preserves consecutive capitals by default. Replaces `toStartCase`                                                 |
 | `string/toUpperCase`                  | Space-joined UPPER-CASE words; es-toolkit runtime + `string-ts` literal type                                                                                                                                            |
@@ -373,6 +375,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `value/cloneShallow`                  | Consolidates `clone`/`cloneWith`; optional customizer                                                                                                                                                                   |
 | `value/isEqual`                       | Consolidates `isEqual`/`isEqualWith`; optional customizer                                                                                                                                                               |
 | `value/isObjectMatching`              | Consolidates `isMatch`/`isMatchWith`; deep partial match; optional customizer                                                                                                                                           |
+| `value/serializeStable`               | Renamed `serialize`: a string of any value that doesn't depend on key or insertion order; patched to escape quotes in strings, so they can't make different values collide                                              |
 | `value/typeOf`                        | Enhanced `typeof`: lowercase for primitives and `null`, the `Symbol.toStringTag` class tag for objects (`Array`, `Date`, ...)                                                                                           |
 
 ### Custom types

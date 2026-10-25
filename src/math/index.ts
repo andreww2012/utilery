@@ -7,6 +7,7 @@ export {createSeededRandom} from './create-seeded-random.ts';
 export {findClosestNumber} from './find-closest-number.ts';
 export {floor} from './floor.ts';
 export {interpolate} from './interpolate.ts';
+export {interpolateInverse} from './interpolate-inverse.ts';
 export {isInRange} from './is-in-range.ts';
 export {mapRange} from './map-range.ts';
 export {max} from './max.ts';

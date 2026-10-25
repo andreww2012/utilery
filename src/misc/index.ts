@@ -4,6 +4,7 @@ export {
   type FormatDateForFileNameOptions,
 } from './format-date-for-file-name.ts';
 export {formatDuration, type FormatDurationOptions} from './format-duration.ts';
+export {formatQueryString} from './format-query-string.ts';
 export {formatRelativeTime, type FormatRelativeTimeOptions} from './format-relative-time.ts';
 export {generateMailtoLink} from './generate-mailto-link.ts';
 export {getErrorMessage} from './get-error-message.ts';
@@ -14,6 +15,7 @@ export {ms} from './ms.ts';
 export {parseBoolean, type ParseBooleanOptions} from './parse-boolean.ts';
 export {parseColonDuration} from './parse-colon-duration.ts';
 export {parseNpmPackageSpecifier} from './parse-npm-package-specifier.ts';
+export {Queue} from './queue.ts';
 export {randomBytes} from './random-bytes.ts';
 export {redactUrlCredentials} from './redact-url-credentials.ts';
 export {sanitizeUrl} from './sanitize-url.ts';

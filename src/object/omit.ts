@@ -137,15 +137,17 @@ export function omit<T extends object>(
     return omitBy(object, selector);
   }
 
-  const isDeepPath = (key: PropertyKey): key is string => isPathString(key) && !(key in object);
-
+  // A key that looks like a path would make the package deep-copy the whole object, even when
+  // the object has a property with that exact name
   const result = omitKeys(
     object,
-    selector.filter((key) => !isDeepPath(key)),
+    selector.filter((key) => !isPathString(key)),
   );
 
-  selector.forEach((key) => {
-    if (isDeepPath(key)) {
+  selector.filter(isPathString).forEach((key) => {
+    if (key in object) {
+      Reflect.deleteProperty(result, key);
+    } else {
       omitPathIn(result, toPathSegments(key));
     }
   });

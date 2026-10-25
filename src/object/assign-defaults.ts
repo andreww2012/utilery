@@ -1,4 +1,4 @@
-import {defaults, defaultsDeep, toDefaulted} from 'es-toolkit/compat';
+import {defaults, defaultsDeep} from 'es-toolkit/compat';
 import {cloneDeep} from 'es-toolkit/object';
 import type {PrettifyObject} from '../_internal/types.ts';
 import {arrayify} from '../array/arrayify.ts';
@@ -78,14 +78,7 @@ export function assignDefaults(
 ): object {
   const sources = arrayify(source);
   const {deep, copy} = options || {};
+  const result = copy ? cloneDeep(target) : target;
 
-  if (copy) {
-    return deep
-      ? (defaultsDeep(cloneDeep(target), ...sources) as object)
-      : toDefaulted(target, ...sources);
-  }
-
-  return deep
-    ? (defaultsDeep(target, ...sources) as object)
-    : (defaults(target, ...sources) as object);
+  return (deep ? defaultsDeep(result, ...sources) : defaults(result, ...sources)) as object;
 }

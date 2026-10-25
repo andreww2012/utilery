@@ -39,6 +39,7 @@ export {toDelimiterCase} from './to-delimiter-case.ts';
 export {toKebabCase} from './to-kebab-case.ts';
 export {toLowerCase} from './to-lower-case.ts';
 export {toPascalCase} from './to-pascal-case.ts';
+export {toSentenceCase} from './to-sentence-case.ts';
 export {toSnakeCase} from './to-snake-case.ts';
 export {toTitleCase} from './to-title-case.ts';
 export {toUpperCase} from './to-upper-case.ts';
