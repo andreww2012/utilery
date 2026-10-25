@@ -46,6 +46,7 @@ All without zero dependencies because all external dependencies are bundled.
   Never test where a utility or type comes from, e.g. by comparing it with the upstream one.
   Every bug you fix gets a regression test that fails without the fix, including bugs in types.
   A doc you correct because it described the behavior wrongly gets a test of the behavior it now describes.
+- Test types that depend on the `exactOptionalPropertyTypes` compiler option with it on from `test/published-dts/scenarios/<utility-name>.exact-optional-property-types/`: these directories share a `tsc` program with the option on.
 - Always document which non-native errors a utility may throw.
 - Give exported functions explicit return types.
   The exception is a function whose body is a cast (`value as T`): the cast already gives the type, so don't repeat it.

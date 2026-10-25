@@ -37,31 +37,52 @@ const scenarioFiles = fs
 
 const PATH_SEGMENT_SEPARATOR = /[/\\]/;
 const GLOBAL_SUFFIX = '.global';
+const EXACT_OPTIONAL_PROPERTY_TYPES_SUFFIX = '.exact-optional-property-types';
+
+const scenarioDirectories = [
+  ...new Set(scenarioFiles.map((file) => file.split(PATH_SEGMENT_SEPARATOR)[0] || '')),
+];
 
 // A `declare global` augmentation takes effect across the whole program, so two mutually
 // exclusive ones must never be compiled together: their overloads merge and the assertions
 // quietly stop meaning anything. Every `*.global` scenario directory therefore gets a `tsc`
-// program to itself, and all remaining scenarios share one. This scales to any number of
-// augmentations: the run count grows with them, not with the scenario count
-const isolatedDirectories = [
-  ...new Set(
-    scenarioFiles
-      .map((file) => file.split(PATH_SEGMENT_SEPARATOR)[0] || '')
-      .filter((directory) => directory.endsWith(GLOBAL_SUFFIX)),
-  ),
+// program to itself, and the scenarios that aren't isolated share one. This scales to any number
+// of augmentations: the run count grows with them, not with the scenario count
+const isolatedDirectories = scenarioDirectories
+  .filter((directory) => directory.endsWith(GLOBAL_SUFFIX))
   // eslint-disable-next-line unicorn/no-array-sort
-].sort();
+  .sort();
+
+// Types that depend on the `exactOptionalPropertyTypes` option are checked with it on in a
+// program shared by all `*.exact-optional-property-types` scenario directories
+const exactOptionalPropertyTypesDirectories = scenarioDirectories.filter((directory) =>
+  directory.endsWith(EXACT_OPTIONAL_PROPERTY_TYPES_SUFFIX),
+);
 
 const programs = [
   {
     name: 'shared',
     include: ['**/*.ts'],
-    exclude: isolatedDirectories.map((directory) => `${directory}/**`),
+    exclude: [...isolatedDirectories, ...exactOptionalPropertyTypesDirectories].map(
+      (directory) => `${directory}/**`,
+    ),
+    compilerOptions: CONSUMER_COMPILER_OPTIONS,
   },
+  ...(exactOptionalPropertyTypesDirectories.length > 0
+    ? [
+        {
+          name: 'exact-optional-property-types',
+          include: exactOptionalPropertyTypesDirectories.map((directory) => `${directory}/**/*.ts`),
+          exclude: [],
+          compilerOptions: {...CONSUMER_COMPILER_OPTIONS, exactOptionalPropertyTypes: true},
+        },
+      ]
+    : []),
   ...isolatedDirectories.map((directory) => ({
     name: directory,
     include: [`${directory}/**/*.ts`],
     exclude: [],
+    compilerOptions: CONSUMER_COMPILER_OPTIONS,
   })),
 ];
 
@@ -156,7 +177,7 @@ beforeAll(() => {
       path.join(consumerDirectory, tsconfigName),
       JSON.stringify(
         {
-          compilerOptions: CONSUMER_COMPILER_OPTIONS,
+          compilerOptions: program.compilerOptions,
           include: program.include,
           exclude: program.exclude,
         },

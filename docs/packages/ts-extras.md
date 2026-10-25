@@ -2,13 +2,13 @@
 
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
-Mostly thin, strongly-typed re-exports. `Unsafe` in a name flags that the stronger type relies on an unsound cast (e.g. `Object.keys` typed as `(keyof T)[]`).
+Mostly thin, strongly-typed re-exports. `Unsafe` in a name flags that the stronger type relies on an unsound cast (e.g. `Object.fromEntries` typed with the keys and values of the pairs).
 
 | Original function group and name | Status | Our function group and name            | Notes                                                                                            |
 | -------------------------------- | ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| [`objectKeys`][ts-extras]        | ✅     | `object/objectKeysUnsafe`              | Renamed; `Unsafe` flags the unsound `(keyof T)[]` cast                                           |
-| [`objectValues`][ts-extras]      | ✅     | `object/objectValuesUnsafe`            | Renamed                                                                                          |
-| [`objectEntries`][ts-extras]     | ✅     | `object/objectEntriesUnsafe`           | Renamed                                                                                          |
+| [`objectKeys`][ts-extras]        | ❌     | `object/objectKeysUnsafe`              | Replaced by our own code: arrays give no method names, unions give keys per member               |
+| [`objectValues`][ts-extras]      | ❌     | `object/objectValuesUnsafe`            | Replaced by our own code: optional values include `undefined`, unions give values per member     |
+| [`objectEntries`][ts-extras]     | ❌     | `object/objectEntriesUnsafe`           | Replaced by our own code: optional values include `undefined`, unions give entries per member    |
 | [`objectFromEntries`][ts-extras] | ✅     | `object/objectFromEntriesUnsafe`       | Renamed; shallow, distinct from `object/objectFromEntriesDeep`                                   |
 | [`objectHasOwn`][ts-extras]      | ✅     | `object/objectHasOwn` *(same)*         | -                                                                                                |
 | [`objectAssign`][ts-extras]      | ✅     | `object/objectAssign` *(same)*         | -                                                                                                |
