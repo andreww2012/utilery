@@ -3,7 +3,6 @@ import {isEmptyValue} from '../../src/predicate/is-empty-value.ts';
 describe('predicate/isEmptyValue', () => {
   it('basic test', () => {
     expect(isEmptyValue(null)).toBe(true);
-    // eslint-disable-next-line sonar/no-undefined-argument
     expect(isEmptyValue(undefined)).toBe(true);
     // eslint-disable-next-line ts/no-unnecessary-condition
     expect(isEmptyValue('')).toBe(true);
