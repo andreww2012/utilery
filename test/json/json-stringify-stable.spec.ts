@@ -1,4 +1,5 @@
 import {jsonStringifyStable} from '../../src/json/json-stringify-stable.ts';
+import {EXPLICIT_UNDEFINED} from '../exact-optional-property-types.ts';
 
 describe('json/jsonStringifyStable', () => {
   it('basic test', () => {
@@ -46,5 +47,18 @@ describe('json/jsonStringifyStable', () => {
 
     expect(stringify(object)).toBe('{"a":1}');
     expect(stringify(array)).toBe('[1,null]');
+  });
+
+  it('treats options set to `undefined` like missing ones', () => {
+    const stringify = jsonStringifyStable.configure({
+      bigint: EXPLICIT_UNDEFINED,
+      deterministic: EXPLICIT_UNDEFINED,
+      maximumBreadth: EXPLICIT_UNDEFINED,
+      maximumDepth: EXPLICIT_UNDEFINED,
+      strict: EXPLICIT_UNDEFINED,
+      safe: EXPLICIT_UNDEFINED,
+    });
+
+    expect(stringify({b: 1n, a: [1, 2]})).toBe('{"a":[1,2],"b":1}');
   });
 });

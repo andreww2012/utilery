@@ -1,4 +1,5 @@
 import {objectEntriesUnsafe} from '../../src/object/object-entries-unsafe.ts';
+import type {OptionalUndefined} from '../exact-optional-property-types.ts';
 
 declare const symbolKey: unique symbol;
 
@@ -49,10 +50,10 @@ describe('object/objectEntriesUnsafe', () => {
 
   it('includes `undefined` in the values of optional properties', () => {
     expectTypeOf(objectEntriesUnsafe<{a?: number; b: string}>).returns.toEqualTypeOf<
-      ['a' | 'b', number | string | undefined][]
+      ['a' | 'b', number | string | OptionalUndefined][]
     >();
     expectTypeOf(objectEntriesUnsafe<Partial<Record<'x' | 'y', string[]>>>).returns.toEqualTypeOf<
-      ['x' | 'y', string[] | undefined][]
+      ['x' | 'y', string[] | OptionalUndefined][]
     >();
   });
 
@@ -68,7 +69,7 @@ describe('object/objectEntriesUnsafe', () => {
   it('types the entries of arrays and tuples', () => {
     expectTypeOf(objectEntriesUnsafe(['a', 1] as const)).toEqualTypeOf<['0' | '1', 'a' | 1][]>();
     expectTypeOf(objectEntriesUnsafe<[1, 2?]>).returns.toEqualTypeOf<
-      ['0' | '1', 1 | 2 | undefined][]
+      ['0' | '1', 1 | 2 | OptionalUndefined][]
     >();
     expectTypeOf(objectEntriesUnsafe<string[]>).returns.toEqualTypeOf<[`${number}`, string][]>();
     expectTypeOf(objectEntriesUnsafe<[boolean, ...string[]]>).returns.toEqualTypeOf<

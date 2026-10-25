@@ -58,11 +58,12 @@ export type TruncateOptions = Prettify<
  * // 'a-very-….tar.gz'
  */
 export const truncate = (text: string, options: TruncateOptions = {}): string => {
-  if (options.position == null || options.position === 'end') {
-    return truncateEnd(text, options);
+  const {length = 30, omission = '...', position = 'end', separator} = options;
+  if (position === 'end') {
+    // The package writes an explicit `undefined` omission as `'undefined'`
+    return truncateEnd(text, {length, omission, ...(separator != null && {separator})});
   }
 
-  const {length = 30, omission = '...', position} = options;
   // eslint-disable-next-line ts/no-misused-spread -- code points, as for the `end` position
   const characters = [...text];
   if (characters.length <= length) {

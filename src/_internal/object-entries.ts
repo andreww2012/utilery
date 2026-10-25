@@ -1,8 +1,4 @@
-/**
- * `true` when the `exactOptionalPropertyTypes` compiler option is on: then an
- * optional property can't be set to `undefined` unless its type includes it
- */
-type IsExactOptionalPropertyTypes = {a?: undefined} extends {a?: never} ? false : true;
+import type {PropertyValue} from './types.ts';
 
 /** The keys that built-in collections get from their prototypes */
 type CollectionPrototypeKey<T> = T extends readonly unknown[]
@@ -39,10 +35,7 @@ type IncludedKey<T, Key = keyof T> = Key extends keyof T
   : never;
 
 /** The values that `Object.entries` and `Object.values` give for `T` */
-type EntryValue<T> = IsExactOptionalPropertyTypes extends true
-  ? Required<T>[IncludedKey<T>]
-  : // An optional property may be set to `undefined`, which `Required` removes
-    T[IncludedKey<T>];
+type EntryValue<T> = PropertyValue<T, IncludedKey<T>>;
 
 // `never` instead of `[never, never]` for an object without keys: generic code
 // checks the entries of `T extends object` against those of `object`, and

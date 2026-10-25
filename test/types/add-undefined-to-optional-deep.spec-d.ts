@@ -6,4 +6,10 @@ describe('types/AddUndefinedToOptionalDeep', () => {
       number | undefined
     >();
   });
+
+  it('lets optional properties at any depth be set to `undefined`', () => {
+    expectTypeOf<{a: undefined; b: {c: undefined}}>().toExtend<
+      AddUndefinedToOptionalDeep<{a?: number; b: {c?: string}}>
+    >();
+  });
 });

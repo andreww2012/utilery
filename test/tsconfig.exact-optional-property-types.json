@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig.json",
+  // Some users have the option on, which changes what optional properties accept and give
+  "extends": "./tsconfig.json",
+  "include": ["**/*.ts", "../src", "../scripts"],
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
+    "rootDir": "..",
+    "composite": false,
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": "../temp/tsbuild/test-exact-optional-property-types.tsbuildinfo",
+  },
+}

@@ -1,4 +1,5 @@
 import type {RenameKeys} from '../../src/types/rename-keys.ts';
+import type {OptionalUndefined} from '../exact-optional-property-types.ts';
 
 describe('types/RenameKeys', () => {
   it('renames keys according to the map and keeps the others', () => {
@@ -21,7 +22,7 @@ describe('types/RenameKeys', () => {
 
   it('makes a merged key optional only when all of its keys are optional', () => {
     expectTypeOf<RenameKeys<{a?: 1; b: 2}, {a: 'x'; b: 'x'}>>().toEqualTypeOf<{
-      x: 1 | 2 | undefined;
+      x: 1 | 2 | OptionalUndefined;
     }>();
     expectTypeOf<RenameKeys<{a?: 1; b?: 2}, {a: 'x'; b: 'x'}>>().toEqualTypeOf<{x?: 1 | 2}>();
   });

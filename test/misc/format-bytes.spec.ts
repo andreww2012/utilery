@@ -1,4 +1,5 @@
 import {formatBytes} from '../../src/misc/format-bytes.ts';
+import {EXPLICIT_UNDEFINED} from '../exact-optional-property-types.ts';
 
 describe('misc/formatBytes', () => {
   it('formats with decimal units by default', () => {
@@ -15,5 +16,9 @@ describe('misc/formatBytes', () => {
     expect(formatBytes(42, {signed: true})).toBe('+42 B');
     expect(formatBytes(1337, {locale: 'de'})).toBe('1,34 kB');
     expect(formatBytes(1337, {maximumFractionDigits: 1})).toBe('1.3 kB');
+  });
+
+  it('treats options set to `undefined` like missing ones', () => {
+    expect(formatBytes(1337, {space: EXPLICIT_UNDEFINED})).toBe('1.34 kB');
   });
 });

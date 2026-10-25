@@ -2,6 +2,8 @@ import type {OptionalizeUndefinedDeep} from '../../src/types/optionalize-undefin
 
 describe('types/OptionalizeUndefinedDeep', () => {
   it('basic test', () => {
-    expectTypeOf<OptionalizeUndefinedDeep<{a: number | undefined}>>().toEqualTypeOf<{a?: number}>();
+    expectTypeOf<OptionalizeUndefinedDeep<{a: number | undefined}>>().toEqualTypeOf<{
+      a?: number | undefined;
+    }>();
   });
 });

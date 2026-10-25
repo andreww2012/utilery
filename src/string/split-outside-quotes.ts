@@ -69,7 +69,7 @@ export const splitOutsideQuotes = (
     );
   }
 
-  const {quotes = true, brackets = true, strict} = options;
+  const {quotes = true, brackets = true, strict = false} = options;
   // Copied, as the package only types mutable options
   return splitString(text, {
     separator,

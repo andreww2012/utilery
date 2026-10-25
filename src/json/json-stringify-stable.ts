@@ -18,7 +18,7 @@ interface JsonStringifyStableOptions {
    * Defaults to `'[Circular: N]'`, where `N` is the depth of the referenced
    * ancestor, `0` being the root
    */
-  circularValue?: string | null | TypeErrorConstructor | ErrorConstructor;
+  circularValue?: string | null | TypeErrorConstructor | ErrorConstructor | undefined;
 
   /**
    * Sorts the keys of objects, so that equal objects give the same JSON: `true`

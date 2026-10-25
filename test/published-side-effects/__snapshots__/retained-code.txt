@@ -3257,7 +3257,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 	}
 	function getDeterministicOption(options) {
 		let value;
-		if (hasOwnProperty.call(options, "deterministic")) {
+		if (options.deterministic !== void 0) {
 			value = options.deterministic;
 			if (typeof value !== "boolean" && typeof value !== "function") throw new TypeError("The \"deterministic\" argument must be of type boolean or comparator function");
 		}
@@ -3265,7 +3265,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 	}
 	function getBigIntOption(options) {
 		let value;
-		if (hasOwnProperty.call(options, "bigint")) {
+		if (options.bigint !== void 0) {
 			value = options.bigint;
 			if (typeof value === "string") {
 				if (value !== "string") throw new TypeError("The \"bigint\" argument must be of type boolean or the string \"string\"");
@@ -3275,7 +3275,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 	}
 	function getBooleanOption(options, key, defaultValue) {
 		let value;
-		if (hasOwnProperty.call(options, key)) {
+		if (options[key] !== void 0) {
 			value = options[key];
 			if (typeof value !== "boolean") throw new TypeError(`The "${key}" argument must be of type boolean`);
 		}
@@ -3283,7 +3283,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 	}
 	function getPositiveIntegerOption(options, key) {
 		let value;
-		if (hasOwnProperty.call(options, key)) {
+		if (options[key] !== void 0) {
 			value = options[key];
 			if (typeof value !== "number") throw new TypeError(`The "${key}" argument must be of type number`);
 			if (!Number.isInteger(value)) throw new TypeError(`The "${key}" argument must be an integer`);
@@ -3301,7 +3301,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 		return replacerSet;
 	}
 	function getStrictOption(options) {
-		if (hasOwnProperty.call(options, "strict")) {
+		if (options.strict !== void 0) {
 			const value = options.strict;
 			if (typeof value !== "boolean") throw new TypeError("The \"strict\" argument must be of type boolean");
 			if (value) return (value) => {

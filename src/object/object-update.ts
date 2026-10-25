@@ -1,3 +1,4 @@
+import type {PropertyValue} from '../_internal/types.ts';
 import type {ExactShape} from '../types/exact-shape.ts';
 import type {IsUnion} from '../types/is-union.ts';
 import type {WritableKeysOf} from '../types/writable-keys-of.ts';
@@ -5,8 +6,8 @@ import type {WritableKeysOf} from '../types/writable-keys-of.ts';
 // The keys that `source` may set to `undefined` while `target` does not allow it
 type UnsafeUndefinedKeys<Target extends object, Source extends object> = {
   [Key in keyof Source]-?: Key extends WritableKeysOf<Target>
-    ? undefined extends Source[Key]
-      ? undefined extends Target[Key]
+    ? undefined extends PropertyValue<Source, Key>
+      ? undefined extends PropertyValue<Target, Key>
         ? never
         : Key
       : never

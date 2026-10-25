@@ -114,4 +114,7 @@ export const formatBytes: {
    * // '1,34 kB'
    */
   (bytes: number | bigint, options?: FormatBytesOptions): string;
-} = prettyBytes;
+} = (bytes, options) =>
+  // The package spreads the options over its defaults, where an explicit `undefined` would turn
+  // the space off
+  prettyBytes(bytes, {...options, space: options?.space ?? true});

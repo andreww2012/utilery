@@ -1,4 +1,5 @@
 import {objectValuesUnsafe} from '../../src/object/object-values-unsafe.ts';
+import type {OptionalUndefined} from '../exact-optional-property-types.ts';
 
 declare const symbolKey: unique symbol;
 
@@ -20,13 +21,15 @@ describe('object/objectValuesUnsafe', () => {
 
   it('includes `undefined` in the values of optional properties', () => {
     expectTypeOf(objectValuesUnsafe<{name: string; age?: number}>).returns.toEqualTypeOf<
-      (number | string | undefined)[]
+      (number | string | OptionalUndefined)[]
     >();
   });
 
   it('types the values of arrays and tuples', () => {
     expectTypeOf(objectValuesUnsafe(['a', 1] as const)).toEqualTypeOf<('a' | 1)[]>();
-    expectTypeOf(objectValuesUnsafe<[1, 2?]>).returns.toEqualTypeOf<(1 | 2 | undefined)[]>();
+    expectTypeOf(objectValuesUnsafe<[1, 2?]>).returns.toEqualTypeOf<
+      (1 | 2 | OptionalUndefined)[]
+    >();
     expectTypeOf(objectValuesUnsafe<string[]>).returns.toEqualTypeOf<string[]>();
     expectTypeOf(objectValuesUnsafe<string[] & {extra: number}>).returns.toEqualTypeOf<
       (number | string)[]

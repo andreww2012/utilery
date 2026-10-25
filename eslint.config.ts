@@ -112,6 +112,13 @@ export default eslintConfig({
         files: ['src/**/index.ts'],
       },
     },
+    sonar: {
+      overrides: {
+        // Not redundant with the `exactOptionalPropertyTypes` compiler option, which some users
+        // have: then only `?: T | undefined` lets them set the property to `undefined`
+        'sonar/no-redundant-optional': 0,
+      },
+    },
     ts: {
       allowDefaultProject: ['*.config.*ts'],
     },

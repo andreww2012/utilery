@@ -1,5 +1,6 @@
 // cspell:ignore fooatunicorn עברית हिन्दी 𝔘𝔫𝔦𝔠𝔬𝔡𝔢
 import {slugify} from '../../src/string/slugify.ts';
+import {EXPLICIT_UNDEFINED} from '../exact-optional-property-types.ts';
 
 describe('string/slugify', () => {
   it('turns Latin text into a slug', () => {
@@ -48,5 +49,16 @@ describe('string/slugify', () => {
   it('gives an empty string when there is nothing to keep', () => {
     expect(slugify('')).toBe('');
     expect(slugify('$#%')).toBe('');
+  });
+
+  it('treats options set to `undefined` like missing ones', () => {
+    expect(
+      slugify('Foo barBaz', {
+        separator: EXPLICIT_UNDEFINED,
+        lowercase: EXPLICIT_UNDEFINED,
+        decamelize: EXPLICIT_UNDEFINED,
+        preserveCharacters: EXPLICIT_UNDEFINED,
+      }),
+    ).toBe('foo-bar-baz');
   });
 });

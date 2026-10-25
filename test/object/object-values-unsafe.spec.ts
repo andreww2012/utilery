@@ -6,7 +6,7 @@ describe('object/objectValuesUnsafe', () => {
   });
 
   it('includes optional properties set to `undefined`', () => {
-    const user: {name: string; age?: number} = {name: 'Ada', age: undefined};
+    const user: {name: string; age?: number | undefined} = {name: 'Ada', age: undefined};
 
     expect(objectValuesUnsafe(user)).toStrictEqual(['Ada', undefined]);
   });

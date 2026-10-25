@@ -72,7 +72,7 @@ export const formatRelativeTime = (
   date: Date | number,
   options: FormatRelativeTimeOptions = {},
 ): string => {
-  const {now = Date.now(), locale, style, numeric = 'auto'} = options;
+  const {now = Date.now(), locale, style = 'long', numeric = 'auto'} = options;
   const differenceMs = Number(date) - Number(now);
   const [unit, unitMilliseconds] = UNITS.find(
     ([, milliseconds]) => Math.abs(differenceMs) >= milliseconds,

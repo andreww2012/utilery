@@ -25,3 +25,18 @@ export type WidenNonLiteral<S extends string, Cased extends string> = string ext
  */
 // eslint-disable-next-line ts/no-unsafe-function-type -- any function, which would lose its call signatures
 export type PrettifyObject<T> = PrettifyConditional<T, Function, object>;
+
+/**
+ * `true` when the `exactOptionalPropertyTypes` compiler option is on: then an
+ * optional property can't be set to `undefined` unless its type includes it
+ */
+export type IsExactOptionalPropertyTypes = {a?: undefined} extends {a?: never} ? false : true;
+
+/**
+ * The values that the property `Key` of `T` may hold, which include `undefined`
+ * for an optional property only without the `exactOptionalPropertyTypes`
+ * compiler option
+ */
+export type PropertyValue<T, Key extends keyof T> = IsExactOptionalPropertyTypes extends true
+  ? Required<T>[Key]
+  : T[Key];

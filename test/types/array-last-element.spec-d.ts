@@ -1,4 +1,5 @@
 import type {ArrayLastElement} from '../../src/types/array-last-element.ts';
+import type {OptionalUndefined} from '../exact-optional-property-types.ts';
 
 describe('types/ArrayLastElement', () => {
   it('basic test', () => {
@@ -7,7 +8,7 @@ describe('types/ArrayLastElement', () => {
 
   it('gives the union of the types that may be last, with `undefined` for an optional element', () => {
     expectTypeOf<ArrayLastElement<[string, number?]>>().toEqualTypeOf<
-      string | number | undefined
+      string | number | OptionalUndefined
     >();
   });
 });

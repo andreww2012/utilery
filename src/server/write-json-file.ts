@@ -9,7 +9,7 @@ export interface WriteJsonFileOptions {
    * Indentation as a string or a number of spaces; `undefined` for none.
    * Defaults to `2`
    */
-  indent?: string | number;
+  indent?: string | number | undefined;
 
   /**
    * Keeps the indentation of the existing file, if there is one; `indent` is
@@ -35,7 +35,12 @@ export interface WriteJsonFileOptions {
   mode?: number;
 }
 
-const DEFAULT_OPTIONS: Readonly<WriteJsonFileOptions> = {indent: 2, detectIndent: true};
+// An explicit `undefined` indent means none, so only a missing one gets the default
+const toBaseOptions = (options?: WriteJsonFileOptions) => ({
+  indent: 2,
+  ...options,
+  detectIndent: options?.detectIndent ?? true,
+});
 
 /**
  * Serializes a value as JSON and writes it to a file atomically: the data is
@@ -66,7 +71,7 @@ export const writeJsonFile = async (
   data: unknown,
   options?: WriteJsonFileOptions,
 ): Promise<void> => {
-  await writeJsonFileBase(filePath, data, {...DEFAULT_OPTIONS, ...options});
+  await writeJsonFileBase(filePath, data, toBaseOptions(options));
 };
 
 /**
@@ -82,5 +87,5 @@ export const writeJsonFileSync = (
   data: unknown,
   options?: WriteJsonFileOptions,
 ): void => {
-  writeJsonFileSyncBase(filePath, data, {...DEFAULT_OPTIONS, ...options});
+  writeJsonFileSyncBase(filePath, data, toBaseOptions(options));
 };

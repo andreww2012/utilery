@@ -6,14 +6,12 @@ interface StyleTextOptions {
    * it does not.
    * Defaults to `true`
    */
-  // eslint-disable-next-line sonar/no-redundant-optional -- allows an explicit `undefined` with `exactOptionalPropertyTypes`
   validateStream?: boolean | undefined;
 
   /**
    * The stream the text is written to, checked for color support.
    * Defaults to `process.stdout`
    */
-  // eslint-disable-next-line sonar/no-redundant-optional -- allows an explicit `undefined` with `exactOptionalPropertyTypes`
   stream?: NodeJS.WritableStream | undefined;
 }
 

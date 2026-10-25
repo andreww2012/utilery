@@ -58,7 +58,6 @@ export interface SlugifyOptions {
    * The language of the text, for language-specific transliteration, like
    * `'sv'` for Swedish, where `ä` becomes `a` instead of `ae`
    */
-  // eslint-disable-next-line sonar/no-redundant-optional -- allows an explicit `undefined` with `exactOptionalPropertyTypes`
   readonly locale?: string | undefined;
 }
 
@@ -67,13 +66,27 @@ const toAscii = (text: string, options: SlugifyOptions = {}) =>
   anyAscii(
     transliterate(text, {
       customReplacements: new Map([...BUILTIN_REPLACEMENTS, ...(options.customReplacements || [])]),
-      locale: options.locale,
+      ...(options.locale && {locale: options.locale}),
     }),
   );
 
-/** Options for the package once the text is already ASCII */
-const toBaseOptions = (options: SlugifyOptions = {}) => ({
+/**
+ * Options for the package once the text is already ASCII.
+ * The package spreads them over its defaults, so these get the defaults here:
+ * an explicit `undefined` would replace them
+ */
+const toBaseOptions = ({
+  separator = '-',
+  lowercase = true,
+  decamelize = true,
+  preserveCharacters = [],
+  ...options
+}: SlugifyOptions = {}) => ({
   ...options,
+  separator,
+  lowercase,
+  decamelize,
+  preserveCharacters,
   customReplacements: [],
   transliterate: false,
 });

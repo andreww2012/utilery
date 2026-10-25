@@ -1,5 +1,6 @@
 // cspell:ignore neighbo neighborino
 import {truncate} from '../../src/string/truncate.ts';
+import {EXPLICIT_UNDEFINED} from '../exact-optional-property-types.ts';
 
 describe('string/truncate', () => {
   it('truncates the end by default', () => {
@@ -41,5 +42,10 @@ describe('string/truncate', () => {
 
   it('gives only the omission when nothing fits', () => {
     expect(truncate('ABCDEF', {length: 2, position: 'middle'})).toBe('...');
+  });
+
+  it('treats options set to `undefined` like missing ones', () => {
+    expect(truncate('hello world', {length: 8, omission: EXPLICIT_UNDEFINED})).toBe('hello...');
+    expect(truncate('hello world', {length: 8, position: EXPLICIT_UNDEFINED})).toBe('hello...');
   });
 });

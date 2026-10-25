@@ -8,6 +8,14 @@ of the package, so there is nothing to share, and:
 Also replaces `export =` in `index.d.ts` with `export default`: our declaration build can't bundle
 CommonJS declaration syntax.
 
+Also adds `undefined` to the type of the `circularValue` option. The package supports it (circular
+references are left out), but with the `exactOptionalPropertyTypes` compiler option the type did
+not allow it.
+
+Also treats the other options set to `undefined` like missing ones, instead of throwing a
+`TypeError` for them: without `exactOptionalPropertyTypes`, the types allow such options, and
+callers often pass an option that may be `undefined`.
+
 diff --git a/esm/wrapper.mjs b/esm/wrapper.mjs
 index 40fb6916f96277278eaef7536d15d6f9e2e6b64a..5cc05a207e66e96d32590790f4376554d1a4aca6 100644
 --- a/esm/wrapper.mjs
@@ -25,9 +33,18 @@ index 40fb6916f96277278eaef7536d15d6f9e2e6b64a..5cc05a207e66e96d32590790f4376554
  export const configure = stringify.configure
  export default stringify
 diff --git a/index.d.ts b/index.d.ts
-index 955403b1cbb75dc14d59bab16f591137469d59b2..ca9bf39d7236ac6c2d8953d8524c16fa14e1294b 100644
+index 955403b1cbb75dc14d59bab16f591137469d59b2..be52f64d5897b68cb9a54e0ef0ec69815c820ecc 100644
 --- a/index.d.ts
 +++ b/index.d.ts
+@@ -16,7 +16,7 @@ declare namespace stringify {
+   export interface StringifyOptions {
+     bigint?: boolean | 'string',
+     /** Defaults to '[Circular: N]', where N is the ancestor depth, starting at 0 for the root. */
+-    circularValue?: string | null | TypeErrorConstructor | ErrorConstructor,
++    circularValue?: string | null | TypeErrorConstructor | ErrorConstructor | undefined,
+     deterministic?: boolean | ((a: string, b: string) => number),
+     maximumBreadth?: number,
+     maximumDepth?: number,
 @@ -25,4 +25,4 @@ declare namespace stringify {
    }
  }
@@ -35,9 +52,54 @@ index 955403b1cbb75dc14d59bab16f591137469d59b2..ca9bf39d7236ac6c2d8953d8524c16fa
 -export = stringify
 +export default stringify
 diff --git a/index.js b/index.js
-index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..23e9469bdbe98c39b547e283b18139e56a47aa79 100644
+index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74ec9bd070 100644
 --- a/index.js
 +++ b/index.js
+@@ -138,7 +138,7 @@ function getCircularValueOption (options) {
+ 
+ function getDeterministicOption (options) {
+   let value
+-  if (hasOwnProperty.call(options, 'deterministic')) {
++  if (options.deterministic !== undefined) {
+     value = options.deterministic
+     if (typeof value !== 'boolean' && typeof value !== 'function') {
+       throw new TypeError('The "deterministic" argument must be of type boolean or comparator function')
+@@ -149,7 +149,7 @@ function getDeterministicOption (options) {
+ 
+ function getBigIntOption (options) {
+   let value
+-  if (hasOwnProperty.call(options, 'bigint')) {
++  if (options.bigint !== undefined) {
+     value = options.bigint
+     if (typeof value === 'string') {
+       if (value !== 'string') {
+@@ -164,7 +164,7 @@ function getBigIntOption (options) {
+ 
+ function getBooleanOption (options, key, defaultValue) {
+   let value
+-  if (hasOwnProperty.call(options, key)) {
++  if (options[key] !== undefined) {
+     value = options[key]
+     if (typeof value !== 'boolean') {
+       throw new TypeError(`The "${key}" argument must be of type boolean`)
+@@ -175,7 +175,7 @@ function getBooleanOption (options, key, defaultValue) {
+ 
+ function getPositiveIntegerOption (options, key) {
+   let value
+-  if (hasOwnProperty.call(options, key)) {
++  if (options[key] !== undefined) {
+     value = options[key]
+     if (typeof value !== 'number') {
+       throw new TypeError(`The "${key}" argument must be of type number`)
+@@ -208,7 +208,7 @@ function getUniqueReplacerSet (replacerArray) {
+ }
+ 
+ function getStrictOption (options) {
+-  if (hasOwnProperty.call(options, 'strict')) {
++  if (options.strict !== undefined) {
+     const value = options.strict
+     if (typeof value !== 'boolean') {
+       throw new TypeError('The "strict" argument must be of type boolean')
 @@ -734,23 +734,12 @@ function configure (options) {
    return stringify
  }
@@ -46,7 +108,14 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..23e9469bdbe98c39b547e283b18139e5
 -  globalThis
 -)
 -const exportSymbol = Symbol.for('safe-stable-stringify@3.0.0')
--
++const stringify = configure()
++// @ts-expect-error
++stringify.configure = configure
++// @ts-expect-error
++stringify.stringify = stringify
++// @ts-expect-error
++stringify.default = stringify
+ 
 -if (sharedGlobal[exportSymbol] === undefined) {
 -  const stringify = configure()
 -  // @ts-expect-error
@@ -62,14 +131,6 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..23e9469bdbe98c39b547e283b18139e5
 -    writable: true
 -  })
 -}
-+const stringify = configure()
-+// @ts-expect-error
-+stringify.configure = configure
-+// @ts-expect-error
-+stringify.stringify = stringify
-+// @ts-expect-error
-+stringify.default = stringify
-+
 +module.exports = stringify
 diff --git a/wrapper.cjs b/wrapper.cjs
 index 4145fa51619e4e7f9f3e21270db5ec5819fca15d..d066735bfedbf49064b0f03b8699e5524643ac3d 100644

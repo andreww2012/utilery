@@ -331,7 +331,7 @@ patchedDependencies:
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
   remeda: 967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e
-  safe-stable-stringify: a29b39ed0612fa3d3aa6139a2728db67fb9bb9a4154361a5ffab93192e0ef4c4
+  safe-stable-stringify: c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba
   signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
   which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
   write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
@@ -571,7 +571,7 @@ importers:
         version: 1.2.15
       safe-stable-stringify:
         specifier: catalog:bundled
-        version: 3.0.0(patch_hash=a29b39ed0612fa3d3aa6139a2728db67fb9bb9a4154361a5ffab93192e0ef4c4)
+        version: 3.0.0(patch_hash=c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba)
       split-string:
         specifier: catalog:bundled
         version: 6.1.0
@@ -10856,7 +10856,7 @@ snapshots:
     dependencies:
       regexp-tree: 0.1.27
 
-  safe-stable-stringify@3.0.0(patch_hash=a29b39ed0612fa3d3aa6139a2728db67fb9bb9a4154361a5ffab93192e0ef4c4): {}
+  safe-stable-stringify@3.0.0(patch_hash=c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba): {}
 
   safer-buffer@2.1.2: {}
 

@@ -3,6 +3,7 @@ import {mkdtemp, readFile, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {writeJsonFile, writeJsonFileSync} from '../../src/server/write-json-file.ts';
+import {EXPLICIT_UNDEFINED} from '../exact-optional-property-types.ts';
 
 let directory: string;
 
@@ -57,5 +58,13 @@ describe('server/writeJsonFile', () => {
     await writeJsonFile(filePath, {a: 1, b: 2}, {replacer: ['a'] as const});
 
     await expect(readFile(filePath, 'utf8')).resolves.toBe('{\n  "a": 1\n}\n');
+  });
+
+  it('treats `detectIndent` set to `undefined` like a missing one', async () => {
+    const filePath = path.join(directory, 'undefined-options.json');
+    await writeFile(filePath, '{\n\t"old": 1\n}\n');
+    await writeJsonFile(filePath, {a: 1}, {detectIndent: EXPLICIT_UNDEFINED});
+
+    await expect(readFile(filePath, 'utf8')).resolves.toBe('{\n\t"a": 1\n}\n');
   });
 });

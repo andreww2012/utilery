@@ -31,7 +31,7 @@ export const getPreferredEncoding = (
   const negotiator: {
     encoding: (
       availableEncodings?: readonly string[],
-      options?: {preferred?: readonly string[]},
+      options?: {preferred?: readonly string[] | undefined},
     ) => string | undefined;
   } = new Negotiator({headers: {'accept-encoding': acceptEncoding || undefined}});
 
