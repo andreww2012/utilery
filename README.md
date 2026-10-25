@@ -48,6 +48,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `array`     | Array and tuple manipulation                            | ✅                 |
 | `async`     | Promises, mutexes, timeouts and concurrency             | ✅                 |
 | `bitwise`   | Bit flags and other bit manipulation of 32-bit integers | ✅                 |
+| `browser`   | Browser-only helpers (file downloads)                   | ❌                 |
 | `bytes`     | `Uint8Array` conversion, Base64 and hex encoding        | ✅                 |
 | `dom`       | Selector-typed DOM lookups                              | ❌                 |
 | `function`  | Function composition, currying and partial application  | ✅                 |
@@ -237,6 +238,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `bitwise/isBitIndex`                  | Type guard for `BitIndex`; narrows a dynamic number (a loop counter, a parsed value) before passing it to the bit utilities                                                                                             |
 | `bitwise/isBitSet`                    | Whether a bit of a 32-bit integer is `1`                                                                                                                                                                                |
 | `bitwise/setBit`                      | Consolidates `@thi.ng/binary`'s `bitSet`/`bitClear`: pass `false` as the third argument to set the bit to `0`                                                                                                           |
+| `browser/downloadFile`                | Saves a string, bytes, a `Blob`, a `fetch` response or a stream as a file, like a download link; `{picker: true}` shows a "Save as" dialog where the browser supports it (Chromium) and writes the file as a stream     |
 | `dom/closestTyped`                    | Typed `closest`; the matched ancestor's type is inferred from the selector literal                                                                                                                                      |
 | `dom/querySelectorAllTyped`           | Typed `querySelectorAll` returning a real array instead of a `NodeList`; optional search root                                                                                                                           |
 | `dom/querySelectorTyped`              | Typed `querySelector`; optional search root defaulting to `document`; `.as<T>()` for custom elements                                                                                                                    |
@@ -293,6 +295,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `math/range`                          | Number and bigint overloads                                                                                                                                                                                             |
 | `math/rangeRight`                     | Number and bigint overloads                                                                                                                                                                                             |
 | `math/sum`                            | Generalized to any iterable (single-pass); optional `(item, index) => number` selector                                                                                                                                  |
+| `misc/formatDateForFileName`          | Date and time for file names, like `2026-10-25_14-30-05`: no `:`, sorts in time order (except when clocks go back; use `{utc: true}` then); `{precision}` from `'day'` to `'millisecond'`; custom separators            |
 | `misc/formatRelativeTime`             | Relative time in any language via `Intl.RelativeTimeFormat` (`3 days ago`, `in 2 hours`, `yesterday`), with the largest fitting unit                                                                                    |
 | `misc/generateMailtoLink`             | Builds a percent-encoded `mailto:` link; recipients in the path by default (`{recipientsAsQueryParam}` for a `to` query param), `cc`/`bcc`/`subject`/`body` as params                                                   |
 | `misc/getErrorMessage`                | Message of a caught value of any type: an error's (or error-like object's) `message`, a string as is, other primitives as strings, otherwise a fallback; `{includeCode}` appends the error code                         |

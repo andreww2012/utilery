@@ -1,4 +1,8 @@
 export {formatBytes, type FormatBytesOptions} from './format-bytes.ts';
+export {
+  formatDateForFileName,
+  type FormatDateForFileNameOptions,
+} from './format-date-for-file-name.ts';
 export {formatDuration, type FormatDurationOptions} from './format-duration.ts';
 export {formatRelativeTime, type FormatRelativeTimeOptions} from './format-relative-time.ts';
 export {generateMailtoLink} from './generate-mailto-link.ts';

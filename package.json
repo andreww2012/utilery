@@ -29,6 +29,7 @@
     "./array": "./dist/array/index.mjs",
     "./async": "./dist/async/index.mjs",
     "./bitwise": "./dist/bitwise/index.mjs",
+    "./browser": "./dist/browser/index.mjs",
     "./bytes": "./dist/bytes/index.mjs",
     "./dom": "./dist/dom/index.mjs",
     "./dom/query-selector-typed-strict.global": "./dist/dom/query-selector-typed-strict.global.mjs",

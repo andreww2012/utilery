@@ -1,3 +1,4 @@
+import type {MaybePromise} from '../types/maybe-promise.ts';
 import {promiseTry} from './promise-try.ts';
 
 /**
@@ -26,7 +27,7 @@ import {promiseTry} from './promise-try.ts';
  * }
  */
 export const withTimeout = async <T>(
-  run: (signal: AbortSignal) => T | PromiseLike<T>,
+  run: (signal: AbortSignal) => MaybePromise<T>,
   milliseconds: number,
   options: {signal?: AbortSignal} = {},
 ): Promise<T> => {

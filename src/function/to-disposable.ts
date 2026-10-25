@@ -1,4 +1,5 @@
 import {defer, deferAsync} from 'es-toolkit/util';
+import type {MaybePromise} from '../types/maybe-promise.ts';
 
 /**
  * Wraps a cleanup callback into a disposable object, so the callback runs
@@ -33,9 +34,7 @@ import {defer, deferAsync} from 'es-toolkit/util';
  */
 export function toDisposable(callback: () => PromiseLike<void>): AsyncDisposable;
 export function toDisposable(callback: () => void): Disposable & AsyncDisposable;
-export function toDisposable(
-  callback: () => void | PromiseLike<void>,
-): Disposable & AsyncDisposable {
+export function toDisposable(callback: () => MaybePromise<void>): Disposable & AsyncDisposable {
   return {
     ...defer(() => {
       void callback();
