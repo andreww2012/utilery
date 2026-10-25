@@ -1,0 +1,33 @@
+Hex digits in percent-encoding ignore case, but the package turned only the uppercase forms of a
+truncated `%C2` and the UTF-16 byte order marks `%FE%FF` and `%FF%FE` into replacement characters
+(U+FFFD): `%c2`, `%fe%ff`, `%Fe%fF` and so on were kept as is. Now both checks compare the text in
+upper case. It's safe because `decode` only gets runs of ASCII `%XX` sequences. The latest release
+(0.5.1) still has this bug.
+
+diff --git a/index.js b/index.js
+index 4dfca40730089d0b7a8ad9818bc918240ca8cb89..d0539abd5399b5eefa3eb8f9ee2ccd19fcb7a84d 100644
+--- a/index.js
++++ b/index.js
+@@ -79,9 +79,9 @@ function decode(input) {
+ 
+ 			// Continuation byte or invalid lead byte — emit one `%XX` literally.
+ 			if (sequenceLength === 0) {
+-				const pair = input.slice(position, position + 6);
++				const pair = input.slice(position, position + 6).toUpperCase();
+ 
+-				// UTF-16 BOM byte pairs become two replacement characters.
++				// UTF-16 BOM byte pairs, in any case, become two replacement characters.
+ 				if (pair === '%FE%FF' || pair === '%FF%FE') {
+ 					output += '\uFFFD\uFFFD';
+ 					position += 6;
+@@ -122,8 +122,8 @@ function decode(input) {
+ 			// Missing continuation bytes or decode failure — emit the first byte literally.
+ 			const literal = input.slice(position, position + 3);
+ 
+-			// A truncated `%C2` becomes a replacement character.
+-			output += literal === '%C2' ? '\uFFFD' : literal;
++			// A truncated `%C2`, in any case, becomes a replacement character.
++			output += literal.toUpperCase() === '%C2' ? '\uFFFD' : literal;
+ 			position += 3;
+ 		}
+ 
