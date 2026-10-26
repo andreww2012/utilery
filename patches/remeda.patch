@@ -1,6 +1,146 @@
 Exports types that the package declares but does not export, so that our utilities can use them in
 their own signatures (like `OrderRule` in `arrayFirstBy`).
 
+Keeps a `__proto__` key from replacing the prototype of the object that `fromKeys` builds, and of
+the array copy that `setPath` makes for a `__proto__` segment: both now define such a key as an
+own property instead of assigning it. They convert the key like a property access does before
+the check, so a key that only converts to `__proto__`, like `["__proto__"]` from JSON, is caught
+too. The latest release (2.53.0) still has this bug.
+
+diff --git a/dist/fromKeys.cjs b/dist/fromKeys.cjs
+index bb35ae128ea198ee655ba8682bca7a9f593aad66..c4da7b0727351f832383a15a49d8d3c604721ea2 100644
+--- a/dist/fromKeys.cjs
++++ b/dist/fromKeys.cjs
+@@ -1,12 +1,28 @@
+ Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+ const require_purry = require("./purry.cjs");
+ //#region src/fromKeys.ts
++// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
++// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
++function toPropertyKey(key) {
++	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
++}
+ function fromKeys(...args) {
+ 	return require_purry.purry(fromKeysImplementation, args);
+ }
+ function fromKeysImplementation(data, mapper) {
+ 	const result = {};
+-	for (const [index, key] of data.entries()) result[key] = mapper(key, index, data);
++	for (const [index, key] of data.entries()) {
++		const value = mapper(key, index, data);
++		const propertyKey = toPropertyKey(key);
++		// An assignment would replace the prototype of the result for a `__proto__` key
++		if (propertyKey === "__proto__") Object.defineProperty(result, propertyKey, {
++			value: value,
++			writable: true,
++			enumerable: true,
++			configurable: true
++		});
++		else result[propertyKey] = value;
++	}
+ 	return result;
+ }
+ //#endregion
+diff --git a/dist/fromKeys.js b/dist/fromKeys.js
+index 428150705b1bc148115838907bae54219620c126..40df650ac361de9b6c5e1649066fdcac0306a162 100644
+--- a/dist/fromKeys.js
++++ b/dist/fromKeys.js
+@@ -1,11 +1,27 @@
+ import { purry } from "./purry.js";
+ //#region src/fromKeys.ts
++// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
++// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
++function toPropertyKey(key) {
++	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
++}
+ function fromKeys(...args) {
+ 	return purry(fromKeysImplementation, args);
+ }
+ function fromKeysImplementation(data, mapper) {
+ 	const result = {};
+-	for (const [index, key] of data.entries()) result[key] = mapper(key, index, data);
++	for (const [index, key] of data.entries()) {
++		const value = mapper(key, index, data);
++		const propertyKey = toPropertyKey(key);
++		// An assignment would replace the prototype of the result for a `__proto__` key
++		if (propertyKey === "__proto__") Object.defineProperty(result, propertyKey, {
++			value: value,
++			writable: true,
++			enumerable: true,
++			configurable: true
++		});
++		else result[propertyKey] = value;
++	}
+ 	return result;
+ }
+ //#endregion
+diff --git a/dist/setPath.cjs b/dist/setPath.cjs
+index 0ea2e3d974f640b28b307771b7ef012dbd8babc3..5b6c40acb3493f210b199f12f2a87e25f81df7ee 100644
+--- a/dist/setPath.cjs
++++ b/dist/setPath.cjs
+@@ -1,6 +1,11 @@
+ Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+ const require_purry = require("./purry.cjs");
+ //#region src/setPath.ts
++// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
++// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
++function toPropertyKey(key) {
++	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
++}
+ function setPath(...args) {
+ 	return require_purry.purry(setPathImplementation, args);
+ }
+@@ -9,7 +14,16 @@ function setPathImplementation(data, path, value) {
+ 	if (pivot === void 0) return value;
+ 	if (Array.isArray(data)) {
+ 		const copy = [...data];
+-		copy[pivot] = setPathImplementation(data[pivot], rest, value);
++		const pivotKey = toPropertyKey(pivot);
++		const pivotValue = setPathImplementation(data[pivotKey], rest, value);
++		// An assignment would replace the prototype of the result for a `__proto__` key
++		if (pivotKey === "__proto__") Object.defineProperty(copy, pivotKey, {
++			value: pivotValue,
++			writable: true,
++			enumerable: true,
++			configurable: true
++		});
++		else copy[pivotKey] = pivotValue;
+ 		return copy;
+ 	}
+ 	const { [pivot]: currentValue, ...remaining } = data;
+diff --git a/dist/setPath.js b/dist/setPath.js
+index 3ef55243c5dee6f27e9da9ebe95719c3230307ef..832f549f572aab666a9c8a9c5e47e90fb9c1d589 100644
+--- a/dist/setPath.js
++++ b/dist/setPath.js
+@@ -1,5 +1,10 @@
+ import { purry } from "./purry.js";
+ //#region src/setPath.ts
++// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
++// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
++function toPropertyKey(key) {
++	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
++}
+ function setPath(...args) {
+ 	return purry(setPathImplementation, args);
+ }
+@@ -8,7 +13,16 @@ function setPathImplementation(data, path, value) {
+ 	if (pivot === void 0) return value;
+ 	if (Array.isArray(data)) {
+ 		const copy = [...data];
+-		copy[pivot] = setPathImplementation(data[pivot], rest, value);
++		const pivotKey = toPropertyKey(pivot);
++		const pivotValue = setPathImplementation(data[pivotKey], rest, value);
++		// An assignment would replace the prototype of the result for a `__proto__` key
++		if (pivotKey === "__proto__") Object.defineProperty(copy, pivotKey, {
++			value: pivotValue,
++			writable: true,
++			enumerable: true,
++			configurable: true
++		});
++		else copy[pivotKey] = pivotValue;
+ 		return copy;
+ 	}
+ 	const { [pivot]: currentValue, ...remaining } = data;
 diff --git a/dist/index.d.cts b/dist/index.d.cts
 index c5618f1..f68b9d1 100644
 --- a/dist/index.d.cts

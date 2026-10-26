@@ -117,4 +117,3 @@ Please challenge & healthy criticize **at least** along the following axes:
 - Functionality should not be covered by already existing utilities.
 - There shouldn't be public npm package(s) that do the same job at least as good.
 - Review implementation for issues (general code review, performance, maintenance cost, etc.).
-- Implementation should re-use existing utilities if possible.

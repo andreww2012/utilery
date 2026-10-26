@@ -1,0 +1,72 @@
+Keeps a link parameter from replacing the prototype of the parsed link or from reading inherited
+properties. The parser assigns every parameter and treats any truthy value of `ref[attr]` as an
+earlier occurrence, so `__proto__="a"` sets the prototype of the link to
+`[Object.prototype, 'a']`, and `constructor=x` gives `constructor: [Object, 'x']`. Now only an own
+property counts as an earlier occurrence, and a `__proto__` parameter becomes an own property, also
+in the copies that `expandRelations` makes for each relation, which used `Object.assign`. The
+latest release (1.1.4) still has this bug.
+
+diff --git a/lib/link.js b/lib/link.js
+index 58d7f11fd9868077804c966e5d5035aafd703c3d..074375f84cb6c35b4aec61d12353a26d9197c524 100644
+--- a/lib/link.js
++++ b/lib/link.js
+@@ -55,6 +55,15 @@ function shallowCompareObjects( object1, object2 ) {
+   );
+ }
+ 
++// Sets `object[key]` as an own property: assigning a `__proto__` key would replace the prototype
++function setOwnValue( object, key, value ) {
++  if( key === '__proto__' ) {
++    Object.defineProperty( object, key, { value: value, writable: true, enumerable: true, configurable: true })
++  } else {
++    object[ key ] = value
++  }
++}
++
+ class Link {
+ 
+   /**
+@@ -230,21 +239,23 @@ class Link {
+           attrValue = value.slice( offset, end )
+           offset = end
+         }
+-        if( ref[ attr ] && Link.isSingleOccurenceAttr( attr ) ) {
++        // Only an own property is an earlier value: `constructor` or `__proto__` are inherited
++        var current = Object.prototype.hasOwnProperty.call( ref, attr ) ? ref[ attr ] : undefined
++        if( current && Link.isSingleOccurenceAttr( attr ) ) {
+           // Ignore multiples of attributes which may only appear once
+         } else if( attr[ attr.length - 1 ] === '*' ) {
+-          ref[ attr ] = Link.parseExtendedValue( attrValue )
++          setOwnValue( ref, attr, Link.parseExtendedValue( attrValue ) )
+         } else {
+           attrValue = attr === 'type' ?
+             attrValue.toLowerCase() : attrValue
+-          if( ref[ attr ] != null ) {
+-            if( Array.isArray( ref[ attr ] ) ) {
+-              ref[ attr ].push( attrValue )
++          if( current != null ) {
++            if( Array.isArray( current ) ) {
++              current.push( attrValue )
+             } else {
+-              ref[ attr ] = [ ref[ attr ], attrValue ]
++              setOwnValue( ref, attr, [ current, attrValue ] )
+             }
+           } else {
+-            ref[ attr ] = attrValue
++            setOwnValue( ref, attr, attrValue )
+           }
+         }
+         switch( value[offset] ) {
+@@ -320,7 +331,11 @@ Link.escapeQuotes = function( value ) {
+ Link.expandRelations = function( ref ) {
+   var rels = ref.rel.split( ' ' )
+   return rels.map( function( rel ) {
+-    var value = Object.assign( {}, ref )
++    // Unlike `Object.assign`, keeps a `__proto__` parameter from replacing the prototype of the copy
++    var value = {}
++    Object.keys( ref ).forEach( function( key ) {
++      setOwnValue( value, key, ref[ key ] )
++    })
+     value.rel = rel
+     return value
+   })

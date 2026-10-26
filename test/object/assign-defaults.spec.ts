@@ -1,4 +1,5 @@
 import {assignDefaults} from '../../src/object/assign-defaults.ts';
+import {expectOwnProtoKey, parseUntrusted} from '../own-proto-key.ts';
 
 describe('object/assignDefaults', () => {
   it('fills missing top-level keys and mutates the target by default', () => {
@@ -57,5 +58,15 @@ describe('object/assignDefaults', () => {
     expect(result.cause).toBeInstanceOf(TypeError);
     expect(result.cause).not.toBe(target.cause);
     expect(Object.getPrototypeOf(assignDefaults(dictionary, {b: 2}, {copy: true}))).toBeNull();
+  });
+
+  it('defines a __proto__ key as an own property instead of replacing the prototype', () => {
+    expectOwnProtoKey(assignDefaults({}, parseUntrusted(), {deep: true}));
+    expectOwnProtoKey(
+      assignDefaults({a: {}}, parseUntrusted('{"a": {"__proto__": {"isAdmin": true}}}'), {
+        deep: true,
+      }).a,
+    );
+    expectOwnProtoKey(assignDefaults(parseUntrusted(), {b: 1}, {copy: true}));
   });
 });

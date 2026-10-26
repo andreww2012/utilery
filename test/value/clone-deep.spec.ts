@@ -1,4 +1,5 @@
 import {cloneDeep} from '../../src/value/clone-deep.ts';
+import {expectOwnProtoKey, parseUntrusted} from '../own-proto-key.ts';
 
 describe('value/cloneDeep', () => {
   describe('without a customizer', () => {
@@ -108,5 +109,11 @@ describe('value/cloneDeep', () => {
       expect(seen).toContainEqual({value: source, key: undefined, root: source});
       expect(seen).toContainEqual({value: 1, key: 'a', root: source});
     });
+  });
+
+  it('copies a __proto__ key as an own property instead of replacing the prototype', () => {
+    expectOwnProtoKey(cloneDeep(parseUntrusted()));
+    expectOwnProtoKey(cloneDeep(parseUntrusted('{"a": {"__proto__": {"isAdmin": true}}}')).a);
+    expectOwnProtoKey(cloneDeep(parseUntrusted(), () => undefined));
   });
 });

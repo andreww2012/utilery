@@ -42,6 +42,8 @@ All without zero dependencies because all external dependencies are bundled.
 - Always check edge cases like:
   - Readonly array/object/Set/Map, tuples.
   - Multi-byte symbols, CJK, etc. - we should aim at full Unicode support unless it's explicitly not promised.
+  - Keys like `__proto__`, `constructor` and `prototype` that come from data, callbacks or paths, also in the code of bundled packages: writing them must never replace or reach a prototype.
+- Whenever you write code, re-use existing utilities AS MUCH AS POSSIBLE.
 - Tests check behavior: what a utility returns, throws or accepts, and what a type resolves to.
   Never test where a utility or type comes from, e.g. by comparing it with the upstream one.
   Every bug you fix gets a regression test that fails without the fix, including bugs in types.
@@ -50,8 +52,6 @@ All without zero dependencies because all external dependencies are bundled.
 - Always document which non-native errors a utility may throw.
 - Give exported functions explicit return types.
   The exception is a function whose body is a cast (`value as T`): the cast already gives the type, so don't repeat it.
-- Use `Maybe(Readonly)Array` instead of `T | (readonly) T[]`.
-  JSDoc prose and type tests that show the union shape on purpose may keep the spelled-out form.
 - When the editor hover of a value shows its type as an intersection of object types (`{a: number} & {b: string}`) or as a type that hides its properties (`Pick<{a: number; b: string}, 'a'>`, upstream helpers like `_RequireAtLeastOne<...>`), wrap the type in `Prettify`, so that the hover shows a single object type.
   This applies to return types and exported types (example: `src/object/object-from-keys.ts`).
   Check the hover of a call result, a narrowed value or a type alias that uses the type (`type Example = Utility<...>`): signature hovers show types as written, and a variable of a union type shows the name of the type.

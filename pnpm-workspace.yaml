@@ -101,12 +101,14 @@ patchedDependencies:
   arkregex: patches/arkregex.patch
   decode-uri-component: patches/decode-uri-component.patch
   es-toolkit: patches/es-toolkit.patch
+  http-link-header: patches/http-link-header.patch
   ipaddr.js: patches/ipaddr.js.patch
   # Must include a version since multiple nanoid versions are present in the dep tree
   nanoid@6: patches/nanoid.patch
   remeda: patches/remeda.patch
   safe-stable-stringify: patches/safe-stable-stringify.patch
   signal-exit: patches/signal-exit.patch
+  string-ts: patches/string-ts.patch
   # Must include a version since multiple which versions are present in the dep tree
   which@7: patches/which.patch
   # Must include a version since multiple write-file-atomic versions are present in the dep tree

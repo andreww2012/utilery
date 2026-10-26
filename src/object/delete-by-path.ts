@@ -12,7 +12,11 @@ export const deleteByPath: {
    * Nothing happens for `null` and `undefined`.
    * @param path - The path of the property, as a key, a path string, or an array of segments.
    * @returns `true` if the property is gone (including when it did not exist), or `false` if it
-   * cannot be deleted, like a non-configurable property or a key such as `'__proto__'`.
+   * cannot be deleted, like a non-configurable property or an inherited `__proto__`.
+   * A path that steps through an inherited `constructor` or `__proto__`, or into the `prototype`
+   * of a function, is refused with `false` too: it leads to a constructor or prototype that other
+   * objects share.
+   * Own keys with these names are data and work like any other key.
    * A property that holds `undefined` counts as missing and is kept, unless `path` is a string
    * with a single key.
    * @example

@@ -1,4 +1,5 @@
-import {objectAssign as objectAssignBase} from 'ts-extras';
+import type {objectAssign as objectAssignBase} from 'ts-extras';
+import {assignOwnProperties} from '../_internal/assign-own-properties.ts';
 
 /**
  * A strongly-typed `Object.assign`: copies the own enumerable properties of each `source` onto
@@ -15,6 +16,10 @@ export const objectAssign: {
    * the result is a conservative merge: keys present only on a source become
    * optional, and keys shared with the target widen to the union of both value
    * types.
+   *
+   * Unlike `Object.assign`, an own `__proto__` key of a source (which `JSON.parse`
+   * can create) becomes an own property of `target` instead of replacing its
+   * prototype.
    *
    * For a non-mutating merge into a fresh object, use `mergeObjects`.
    * @param target - The object to mutate and receive the copied properties.
@@ -34,4 +39,6 @@ export const objectAssign: {
     target: Parameters<typeof objectAssignBase<Target, Sources>>[0],
     ...sources: Sources
   ): ReturnType<typeof objectAssignBase<Target, Sources>>;
-} = objectAssignBase;
+} = (target: object, ...sources: readonly unknown[]) =>
+  // The runtime can't prove the merged type, just like for `Object.assign`
+  assignOwnProperties(target, sources) as never;

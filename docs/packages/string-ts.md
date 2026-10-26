@@ -58,6 +58,9 @@ The pure `String.prototype` wrappers re-export `string-ts` directly (their runti
 | `replaceKeys`                       | ✅     | `object/replaceKeys`             | Shallow substring replacement on keys                                                                            |
 | `deepTransformKeys`                 | ✅     | `object/transformKeysDeep`       | Renamed; deep `(key) => key` mapper                                                                              |
 
+> **Note:** Our bundled copy is [patched](../../patches/string-ts.patch) for a bug that its latest release (2.3.1) still has.
+> Without the patch, `replaceKeys` and `deepTransformKeys` replace the prototype of the result with the value of a key that is or becomes `__proto__`, instead of adding the key.
+
 **Types.** Each utility above already returns the precise type, so `string-ts`'s types are consumed implicitly: they are not re-exported as standalone types.
 Exceptions and rationale:
 

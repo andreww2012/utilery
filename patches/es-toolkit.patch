@@ -2,8 +2,1028 @@ Escapes backslashes and single quotes in the strings that `serialize` writes in 
 Without it, a quote inside a string ends the literal, so different values give the same output:
 `["a','b"]` and `['a', 'b']` both become `['a','b']`.
 
-The latest release (1.53.0) still has this bug.
+Keeps keys from data or callbacks from replacing the prototypes of the objects the package builds.
+Assigning a `__proto__` key, like `result[key] = value`, replaces the prototype of `result`
+instead of creating a property, so the result of
+`mapValues(JSON.parse('{"__proto__": {"isAdmin": true}}'), (value) => value)` has `isAdmin`.
+The new `_internal/setOwnValue` defines such a key as an own property, like lodash does, and the
+new `_internal/assignOwnValues` does the same for `Object.assign`. They replace the assignments in
+compat `clone`, `cloneDeepWith`, `defaultsDeep`, `invertBy`, `omit` and `pick`, and in `allKeyed`,
+`clone`, `cloneDeepWith`, `flattenObject`, `invert`, `mapKeys`, `mapKeysAsync`, `mapValues`,
+`mapValuesAsync`, `omitBy`, `pickBy` and `sortKeys`. The new `_internal/toPropertyKey` converts a
+key like a property access does before the check, so a key that only converts to `__proto__`,
+like `["__proto__"]` from JSON, is caught too.
 
+Makes compat `unset` refuse a path that steps through an inherited `constructor` or `__proto__`, or
+into the `prototype` of a function: they lead to a constructor or prototype that other objects
+share. Without it, `unset({}, 'constructor.prototype.toString')` deletes
+`Object.prototype.toString`, and `unset({}, 'constructor.keys')` deletes `Object.keys`, for the
+whole program. Own `constructor` and `__proto__` keys are data, so a path can go through them, and
+an own `__proto__` key can be deleted. It converts each key with `_internal/toPropertyKey` before
+checking it, so `[["constructor"], ["prototype"], "toString"]` is refused too.
+
+The latest release (1.53.0) still has these bugs.
+
+diff --git a/dist/_internal/assignOwnValues.js b/dist/_internal/assignOwnValues.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..23f298bcbf70c3d1df4bc630d614ab8304667ff0
+--- /dev/null
++++ b/dist/_internal/assignOwnValues.js
+@@ -0,0 +1,21 @@
++const require_setOwnValue = require("./setOwnValue.js");
++// src/_internal/assignOwnValues.ts
++/**
++* Copies the own enumerable properties of `source` to `target`, like `Object.assign`.
++*
++* Unlike `Object.assign`, it doesn't replace the prototype of `target` when `source` has an own
++* `__proto__` key, which data parsed with `JSON.parse` can have.
++*
++* @param target - The object to copy the properties to.
++* @param source - The object to copy the properties from.
++* @returns `target`.
++*/
++function assignOwnValues(target, source) {
++	const keys = Reflect.ownKeys(source);
++	for (let i = 0; i < keys.length; i++) {
++		const key = keys[i];
++		if (Object.prototype.propertyIsEnumerable.call(source, key)) require_setOwnValue.setOwnValue(target, key, source[key]);
++	}
++	return target;
++}
++exports.assignOwnValues = assignOwnValues;
+diff --git a/dist/_internal/assignOwnValues.mjs b/dist/_internal/assignOwnValues.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..566d5dff1ac6c5b2d8b71cdd0ba94305a3d76964
+--- /dev/null
++++ b/dist/_internal/assignOwnValues.mjs
+@@ -0,0 +1,21 @@
++import { setOwnValue } from "./setOwnValue.mjs";
++// src/_internal/assignOwnValues.ts
++/**
++* Copies the own enumerable properties of `source` to `target`, like `Object.assign`.
++*
++* Unlike `Object.assign`, it doesn't replace the prototype of `target` when `source` has an own
++* `__proto__` key, which data parsed with `JSON.parse` can have.
++*
++* @param target - The object to copy the properties to.
++* @param source - The object to copy the properties from.
++* @returns `target`.
++*/
++function assignOwnValues(target, source) {
++	const keys = Reflect.ownKeys(source);
++	for (let i = 0; i < keys.length; i++) {
++		const key = keys[i];
++		if (Object.prototype.propertyIsEnumerable.call(source, key)) setOwnValue(target, key, source[key]);
++	}
++	return target;
++}
++export { assignOwnValues };
+diff --git a/dist/_internal/setOwnValue.js b/dist/_internal/setOwnValue.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..4c59b5f26cfb2f076cf82691bce6d35f8d54c961
+--- /dev/null
++++ b/dist/_internal/setOwnValue.js
+@@ -0,0 +1,23 @@
++const require_toPropertyKey = require("./toPropertyKey.js");
++// src/_internal/setOwnValue.ts
++/**
++* Sets `object[key]` to `value` as an own property.
++*
++* Unlike an assignment, it doesn't replace the prototype of `object` when `key` is `__proto__`,
++* which data parsed with `JSON.parse` can have as an own key, also when `key` only converts to it.
++*
++* @param object - The object to set the property on.
++* @param key - The property key.
++* @param value - The property value.
++*/
++function setOwnValue(object, key, value) {
++	key = require_toPropertyKey.toPropertyKey(key);
++	if (key === "__proto__") Object.defineProperty(object, key, {
++		value,
++		writable: true,
++		enumerable: true,
++		configurable: true
++	});
++	else object[key] = value;
++}
++exports.setOwnValue = setOwnValue;
+diff --git a/dist/_internal/setOwnValue.mjs b/dist/_internal/setOwnValue.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..5c7e88ec538575a9110a53ee3d46b601d0a167fa
+--- /dev/null
++++ b/dist/_internal/setOwnValue.mjs
+@@ -0,0 +1,23 @@
++import { toPropertyKey } from "./toPropertyKey.mjs";
++// src/_internal/setOwnValue.ts
++/**
++* Sets `object[key]` to `value` as an own property.
++*
++* Unlike an assignment, it doesn't replace the prototype of `object` when `key` is `__proto__`,
++* which data parsed with `JSON.parse` can have as an own key, also when `key` only converts to it.
++*
++* @param object - The object to set the property on.
++* @param key - The property key.
++* @param value - The property value.
++*/
++function setOwnValue(object, key, value) {
++	key = toPropertyKey(key);
++	if (key === "__proto__") Object.defineProperty(object, key, {
++		value,
++		writable: true,
++		enumerable: true,
++		configurable: true
++	});
++	else object[key] = value;
++}
++export { setOwnValue };
+diff --git a/dist/_internal/toPropertyKey.js b/dist/_internal/toPropertyKey.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..da9e3522d7aea509e9f0711ace5ce803a22f6747
+--- /dev/null
++++ b/dist/_internal/toPropertyKey.js
+@@ -0,0 +1,16 @@
++// src/_internal/toPropertyKey.ts
++/**
++* Converts `key` to the property key that an access like `object[key]` uses, so that a check on
++* the result sees the key the access gets. Only objects need converting: `['__proto__']`,
++* `new String('__proto__')` or an object whose `toString` returns `'__proto__'` all access
++* `__proto__`, while a check like `key === '__proto__'` misses them. The conversion runs once, so
++* a `toString` can't return one key to the check and another to the access.
++*
++* @param key - The key to convert.
++* @returns The string or symbol that an access with `key` uses, or `key` itself if it isn't an object.
++*/
++function toPropertyKey(key) {
++	if (typeof key === "object" && key !== null || typeof key === "function") return Reflect.ownKeys({ [key]: void 0 })[0];
++	return key;
++}
++exports.toPropertyKey = toPropertyKey;
+diff --git a/dist/_internal/toPropertyKey.mjs b/dist/_internal/toPropertyKey.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..454bfbef5736182d74406135d1405cee05758882
+--- /dev/null
++++ b/dist/_internal/toPropertyKey.mjs
+@@ -0,0 +1,16 @@
++// src/_internal/toPropertyKey.ts
++/**
++* Converts `key` to the property key that an access like `object[key]` uses, so that a check on
++* the result sees the key the access gets. Only objects need converting: `['__proto__']`,
++* `new String('__proto__')` or an object whose `toString` returns `'__proto__'` all access
++* `__proto__`, while a check like `key === '__proto__'` misses them. The conversion runs once, so
++* a `toString` can't return one key to the check and another to the access.
++*
++* @param key - The key to convert.
++* @returns The string or symbol that an access with `key` uses, or `key` itself if it isn't an object.
++*/
++function toPropertyKey(key) {
++	if (typeof key === "object" && key !== null || typeof key === "function") return Reflect.ownKeys({ [key]: void 0 })[0];
++	return key;
++}
++export { toPropertyKey };
+diff --git a/dist/compat/object/clone.js b/dist/compat/object/clone.js
+index 200e034bdafc34c2c024ff5f4b7aa65de6de93c7..127e82c7bb5791f79534da34129a6b72c4e67c34 100644
+--- a/dist/compat/object/clone.js
++++ b/dist/compat/object/clone.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../../_internal/setOwnValue.js");
+ const require_isPrimitive = require("../../predicate/isPrimitive.js");
+ const require_getTag = require("../_internal/getTag.js");
+ const require_tags = require("../_internal/tags.js");
+@@ -134,7 +135,7 @@ function isCloneableObject(object) {
+ 	}
+ }
+ function copyOwnProperties(target, source) {
+-	for (const key in source) if (require_hasOwn.hasOwn(source, key)) target[key] = source[key];
++	for (const key in source) if (require_hasOwn.hasOwn(source, key)) require_setOwnValue.setOwnValue(target, key, source[key]);
+ }
+ function copySymbolProperties(target, source) {
+ 	const symbols = Object.getOwnPropertySymbols(source);
+@@ -145,7 +146,7 @@ function copySymbolProperties(target, source) {
+ }
+ function cloneStringObjectProperties(target, source) {
+ 	const stringLength = source.valueOf().length;
+-	for (const key in source) if (require_hasOwn.hasOwn(source, key) && (Number.isNaN(Number(key)) || Number(key) >= stringLength)) target[key] = source[key];
++	for (const key in source) if (require_hasOwn.hasOwn(source, key) && (Number.isNaN(Number(key)) || Number(key) >= stringLength)) require_setOwnValue.setOwnValue(target, key, source[key]);
+ }
+ function copyPrototype(target, source) {
+ 	const proto = Object.getPrototypeOf(source);
+diff --git a/dist/compat/object/clone.mjs b/dist/compat/object/clone.mjs
+index 2ee9c956aa067f078720a2c122a970b7297d51ef..b83a86f8f7089c6da1f2c88b2e5eb9e0bf7fb538 100644
+--- a/dist/compat/object/clone.mjs
++++ b/dist/compat/object/clone.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../../_internal/setOwnValue.mjs";
+ import { isPrimitive } from "../../predicate/isPrimitive.mjs";
+ import { getTag } from "../_internal/getTag.mjs";
+ import { argumentsTag, arrayBufferTag, arrayTag, booleanTag, dataViewTag, dateTag, float32ArrayTag, float64ArrayTag, int16ArrayTag, int32ArrayTag, int8ArrayTag, mapTag, numberTag, objectTag, regexpTag, setTag, stringTag, symbolTag, uint16ArrayTag, uint32ArrayTag, uint8ArrayTag, uint8ClampedArrayTag } from "../_internal/tags.mjs";
+@@ -134,7 +135,7 @@ function isCloneableObject(object) {
+ 	}
+ }
+ function copyOwnProperties(target, source) {
+-	for (const key in source) if (hasOwn(source, key)) target[key] = source[key];
++	for (const key in source) if (hasOwn(source, key)) setOwnValue(target, key, source[key]);
+ }
+ function copySymbolProperties(target, source) {
+ 	const symbols = Object.getOwnPropertySymbols(source);
+@@ -145,7 +146,7 @@ function copySymbolProperties(target, source) {
+ }
+ function cloneStringObjectProperties(target, source) {
+ 	const stringLength = source.valueOf().length;
+-	for (const key in source) if (hasOwn(source, key) && (Number.isNaN(Number(key)) || Number(key) >= stringLength)) target[key] = source[key];
++	for (const key in source) if (hasOwn(source, key) && (Number.isNaN(Number(key)) || Number(key) >= stringLength)) setOwnValue(target, key, source[key]);
+ }
+ function copyPrototype(target, source) {
+ 	const proto = Object.getPrototypeOf(source);
+diff --git a/dist/compat/object/cloneDeepWith.js b/dist/compat/object/cloneDeepWith.js
+index 9b5642008144ecd318ec047e64496e0bdc0b5af6..70b800060e13e63ef8247a248764036bdd8f45e4 100644
+--- a/dist/compat/object/cloneDeepWith.js
++++ b/dist/compat/object/cloneDeepWith.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../../_internal/setOwnValue.js");
+ const require_isPrimitive = require("../../predicate/isPrimitive.js");
+ const require_getSymbols = require("../_internal/getSymbols.js");
+ const require_getTag = require("../_internal/getTag.js");
+@@ -145,7 +146,7 @@ function copyProperties(target, source, objectToClone, stack, customizer) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const descriptor = Object.getOwnPropertyDescriptor(target, key);
+-		if (descriptor == null || descriptor.writable) target[key] = cloneDeepWithImpl(source[key], key, objectToClone, stack, customizer);
++		if (descriptor == null || descriptor.writable) require_setOwnValue.setOwnValue(target, key, cloneDeepWithImpl(source[key], key, objectToClone, stack, customizer));
+ 	}
+ }
+ function isCloneableObject(tag) {
+diff --git a/dist/compat/object/cloneDeepWith.mjs b/dist/compat/object/cloneDeepWith.mjs
+index 02a2647e7aa51718512f641f8812476a334e48d8..8acbf1a421218a3cc2dfe582cf215b0da8a90edf 100644
+--- a/dist/compat/object/cloneDeepWith.mjs
++++ b/dist/compat/object/cloneDeepWith.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../../_internal/setOwnValue.mjs";
+ import { isPrimitive } from "../../predicate/isPrimitive.mjs";
+ import { getSymbols } from "../_internal/getSymbols.mjs";
+ import { getTag } from "../_internal/getTag.mjs";
+@@ -145,7 +146,7 @@ function copyProperties(target, source, objectToClone, stack, customizer) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const descriptor = Object.getOwnPropertyDescriptor(target, key);
+-		if (descriptor == null || descriptor.writable) target[key] = cloneDeepWithImpl(source[key], key, objectToClone, stack, customizer);
++		if (descriptor == null || descriptor.writable) setOwnValue(target, key, cloneDeepWithImpl(source[key], key, objectToClone, stack, customizer));
+ 	}
+ }
+ function isCloneableObject(tag) {
+diff --git a/dist/compat/object/defaultsDeep.js b/dist/compat/object/defaultsDeep.js
+index 702b859eb77cc0245e03124f42c3528f65263079..5ae7e2bae88aae5002f0029638956096740b9d91 100644
+--- a/dist/compat/object/defaultsDeep.js
++++ b/dist/compat/object/defaultsDeep.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../../_internal/setOwnValue.js");
+ const require_isPlainObject = require("../predicate/isPlainObject.js");
+ const require_hasOwn = require("../_internal/hasOwn.js");
+ // src/compat/object/defaultsDeep.ts
+@@ -34,7 +35,7 @@ function defaultsDeepRecursive(target, source, stack) {
+ 		const sourceValue = source[key];
+ 		const targetValue = target[key];
+ 		if (targetValue === void 0 || !require_hasOwn.hasOwn(target, key)) {
+-			target[key] = handleMissingProperty(sourceValue, stack);
++			require_setOwnValue.setOwnValue(target, key, handleMissingProperty(sourceValue, stack));
+ 			continue;
+ 		}
+ 		if (stack.get(sourceValue) === targetValue) continue;
+diff --git a/dist/compat/object/defaultsDeep.mjs b/dist/compat/object/defaultsDeep.mjs
+index 72daa1eec244fa971b08f39e45e85eecf69810ab..0a007c57e5043e0284683871b8715c2d39b92dbb 100644
+--- a/dist/compat/object/defaultsDeep.mjs
++++ b/dist/compat/object/defaultsDeep.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../../_internal/setOwnValue.mjs";
+ import { isPlainObject } from "../predicate/isPlainObject.mjs";
+ import { hasOwn } from "../_internal/hasOwn.mjs";
+ // src/compat/object/defaultsDeep.ts
+@@ -34,7 +35,7 @@ function defaultsDeepRecursive(target, source, stack) {
+ 		const sourceValue = source[key];
+ 		const targetValue = target[key];
+ 		if (targetValue === void 0 || !hasOwn(target, key)) {
+-			target[key] = handleMissingProperty(sourceValue, stack);
++			setOwnValue(target, key, handleMissingProperty(sourceValue, stack));
+ 			continue;
+ 		}
+ 		if (stack.get(sourceValue) === targetValue) continue;
+diff --git a/dist/compat/object/invertBy.js b/dist/compat/object/invertBy.js
+index 53a1a1eea0dff5ae258b3e22f1d3197e014cbfbd..2134d5aa4b2345c5c4e61d4ac5b55a7c17836e56 100644
+--- a/dist/compat/object/invertBy.js
++++ b/dist/compat/object/invertBy.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../../_internal/setOwnValue.js");
+ const require_identity = require("../../function/identity.js");
+ const require_isNil = require("../../predicate/isNil.js");
+ const require_iteratee = require("../util/iteratee.js");
+@@ -37,7 +38,7 @@ function invertBy(object, iteratee$1) {
+ 		const value = object[key];
+ 		const valueStr = getString(value);
+ 		if (Array.isArray(result[valueStr])) result[valueStr].push(key);
+-		else result[valueStr] = [key];
++		else require_setOwnValue.setOwnValue(result, valueStr, [key]);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/compat/object/invertBy.mjs b/dist/compat/object/invertBy.mjs
+index 5a3f9203d95c6b2b4e94181b8984e023a29d8037..ae32f9ced2a567bb12ca1e0578aaf1bd90f4d134 100644
+--- a/dist/compat/object/invertBy.mjs
++++ b/dist/compat/object/invertBy.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../../_internal/setOwnValue.mjs";
+ import { identity } from "../../function/identity.mjs";
+ import { isNil } from "../../predicate/isNil.mjs";
+ import { iteratee } from "../util/iteratee.mjs";
+@@ -37,7 +38,7 @@ function invertBy(object, iteratee$1) {
+ 		const value = object[key];
+ 		const valueStr = getString(value);
+ 		if (Array.isArray(result[valueStr])) result[valueStr].push(key);
+-		else result[valueStr] = [key];
++		else setOwnValue(result, valueStr, [key]);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/compat/object/omit.js b/dist/compat/object/omit.js
+index de3c03039941f7478314bc9578bce50da2553a0f..f74144c313de392a047b867c5456f314b34f4761 100644
+--- a/dist/compat/object/omit.js
++++ b/dist/compat/object/omit.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../../_internal/setOwnValue.js");
+ const require_isPlainObject = require("../predicate/isPlainObject.js");
+ const require_isDeepKey = require("../_internal/isDeepKey.js");
+ const require_cloneDeepWith = require("./cloneDeepWith.js");
+@@ -56,7 +57,7 @@ function shallowCloneInOmit(obj) {
+ 	const keysToCopy = [...require_keysIn.keysIn(obj), ...require_getSymbolsIn.getSymbolsIn(obj)];
+ 	for (let i = 0; i < keysToCopy.length; i++) {
+ 		const key = keysToCopy[i];
+-		result[key] = obj[key];
++		require_setOwnValue.setOwnValue(result, key, obj[key]);
+ 	}
+ 	return result;
+ }
+@@ -65,10 +66,10 @@ function deepCloneInOmit(obj) {
+ 	const keysToCopy = [...require_keysIn.keysIn(obj), ...require_getSymbolsIn.getSymbolsIn(obj)];
+ 	for (let i = 0; i < keysToCopy.length; i++) {
+ 		const key = keysToCopy[i];
+-		result[key] = require_cloneDeepWith.cloneDeepWith(obj[key], (valueToClone) => {
++		require_setOwnValue.setOwnValue(result, key, require_cloneDeepWith.cloneDeepWith(obj[key], (valueToClone) => {
+ 			if (require_isPlainObject.isPlainObject(valueToClone)) return;
+ 			return valueToClone;
+-		});
++		}));
+ 	}
+ 	return result;
+ }
+diff --git a/dist/compat/object/omit.mjs b/dist/compat/object/omit.mjs
+index 6d8ac0a317f298555ffafbdf42e448044fbf53d2..e7357e7a4dbe0b97d3d10dc9ab3b2a8dcfdd5d81 100644
+--- a/dist/compat/object/omit.mjs
++++ b/dist/compat/object/omit.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../../_internal/setOwnValue.mjs";
+ import { isPlainObject } from "../predicate/isPlainObject.mjs";
+ import { isDeepKey } from "../_internal/isDeepKey.mjs";
+ import { cloneDeepWith } from "./cloneDeepWith.mjs";
+@@ -56,7 +57,7 @@ function shallowCloneInOmit(obj) {
+ 	const keysToCopy = [...keysIn(obj), ...getSymbolsIn(obj)];
+ 	for (let i = 0; i < keysToCopy.length; i++) {
+ 		const key = keysToCopy[i];
+-		result[key] = obj[key];
++		setOwnValue(result, key, obj[key]);
+ 	}
+ 	return result;
+ }
+@@ -65,10 +66,10 @@ function deepCloneInOmit(obj) {
+ 	const keysToCopy = [...keysIn(obj), ...getSymbolsIn(obj)];
+ 	for (let i = 0; i < keysToCopy.length; i++) {
+ 		const key = keysToCopy[i];
+-		result[key] = cloneDeepWith(obj[key], (valueToClone) => {
++		setOwnValue(result, key, cloneDeepWith(obj[key], (valueToClone) => {
+ 			if (isPlainObject(valueToClone)) return;
+ 			return valueToClone;
+-		});
++		}));
+ 	}
+ 	return result;
+ }
+diff --git a/dist/compat/object/pick.js b/dist/compat/object/pick.js
+index b7c2eb90b41915b035d93782cb6e0a780d4092cc..177e45393f26559621ba265a4c9c92ddb1a8481c 100644
+--- a/dist/compat/object/pick.js
++++ b/dist/compat/object/pick.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../../_internal/setOwnValue.js");
+ const require_isArrayLike = require("../predicate/isArrayLike.js");
+ const require_hasOwn = require("../_internal/hasOwn.js");
+ const require_get = require("./get.js");
+@@ -51,7 +52,7 @@ function pick(object, ...keysArr) {
+ 		for (const key of keys) {
+ 			const value = require_get.get(object, key);
+ 			if (value === void 0 && !require_has.has(object, key)) continue;
+-			if (typeof key === "string" && require_hasOwn.hasOwn(object, key)) result[key] = object[key];
++			if (typeof key === "string" && require_hasOwn.hasOwn(object, key)) require_setOwnValue.setOwnValue(result, key, object[key]);
+ 			else require_set.set(result, key, value);
+ 		}
+ 	}
+diff --git a/dist/compat/object/pick.mjs b/dist/compat/object/pick.mjs
+index 0204e8fc618619faff67999def8d948feb79ee02..d4d37b197282741af078952e7cbc4f667930f3f1 100644
+--- a/dist/compat/object/pick.mjs
++++ b/dist/compat/object/pick.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../../_internal/setOwnValue.mjs";
+ import { isArrayLike } from "../predicate/isArrayLike.mjs";
+ import { hasOwn } from "../_internal/hasOwn.mjs";
+ import { get } from "./get.mjs";
+@@ -51,7 +52,7 @@ function pick(object, ...keysArr) {
+ 		for (const key of keys) {
+ 			const value = get(object, key);
+ 			if (value === void 0 && !has(object, key)) continue;
+-			if (typeof key === "string" && hasOwn(object, key)) result[key] = object[key];
++			if (typeof key === "string" && hasOwn(object, key)) setOwnValue(result, key, object[key]);
+ 			else set(result, key, value);
+ 		}
+ 	}
+diff --git a/dist/compat/object/unset.js b/dist/compat/object/unset.js
+index a8429aeac76b5adafaf90b9ca6c00121a0299422..cf74708f8d5dba6df86d8cc3174af32a990f4cf4 100644
+--- a/dist/compat/object/unset.js
++++ b/dist/compat/object/unset.js
+@@ -1,9 +1,9 @@
++const require_toPropertyKey = require("../../_internal/toPropertyKey.js");
+ const require_isUnsafeProperty = require("../../_internal/isUnsafeProperty.js");
+ const require_hasOwn = require("../_internal/hasOwn.js");
+ const require_isDeepKey = require("../_internal/isDeepKey.js");
+ const require_toKey = require("../_internal/toKey.js");
+ const require_toPath = require("../util/toPath.js");
+-const require_get = require("./get.js");
+ // src/compat/object/unset.ts
+ /**
+ * Removes the property at the given path of the object.
+@@ -34,7 +34,7 @@ function unset(obj, path) {
+ 				if (Object.is(path === null || path === void 0 ? void 0 : path.valueOf(), -0)) path = "-0";
+ 				else path = String(path);
+ 			}
+-			if (require_isUnsafeProperty.isUnsafeProperty(path)) return false;
++			if (require_isUnsafeProperty.isUnsafeProperty(path) && !require_hasOwn.hasOwn(obj, path)) return false;
+ 			if ((obj === null || obj === void 0 ? void 0 : obj[path]) === void 0) return true;
+ 			try {
+ 				delete obj[path];
+@@ -44,7 +44,7 @@ function unset(obj, path) {
+ 			}
+ 		case "string":
+ 			if ((obj === null || obj === void 0 ? void 0 : obj[path]) === void 0 && require_isDeepKey.isDeepKey(path) && !require_hasOwn.hasOwn(obj, path)) return unsetWithPath(obj, require_toPath.toPath(path));
+-			if (require_isUnsafeProperty.isUnsafeProperty(path)) return false;
++			if (require_isUnsafeProperty.isUnsafeProperty(path) && !require_hasOwn.hasOwn(obj, path)) return false;
+ 			try {
+ 				delete obj[path];
+ 				return true;
+@@ -54,10 +54,19 @@ function unset(obj, path) {
+ 	}
+ }
+ function unsetWithPath(obj, path) {
+-	const parent = path.length === 1 ? obj : require_get.get(obj, path.slice(0, -1));
+-	const lastKey = path[path.length - 1];
+-	if ((parent === null || parent === void 0 ? void 0 : parent[lastKey]) === void 0) return true;
+-	if (require_isUnsafeProperty.isUnsafeProperty(lastKey)) return false;
++	let parent = obj;
++	for (let i = 0; i < path.length - 1; i++) {
++		const key = require_toPropertyKey.toPropertyKey(path[i]);
++		// An inherited `constructor` or `__proto__`, or the `prototype` of a function, leads to a
++		// constructor or prototype that other objects share, while own keys with these names are data
++		if ((key === "constructor" || key === "__proto__") && !require_hasOwn.hasOwn(parent, key)) return false;
++		if (key === "prototype" && typeof parent === "function") return false;
++		parent = parent[key];
++		if (parent == null) return true;
++	}
++	const lastKey = require_toPropertyKey.toPropertyKey(path[path.length - 1]);
++	if (parent[lastKey] === void 0) return true;
++	if (require_isUnsafeProperty.isUnsafeProperty(lastKey) && !require_hasOwn.hasOwn(parent, lastKey)) return false;
+ 	try {
+ 		delete parent[lastKey];
+ 		return true;
+diff --git a/dist/compat/object/unset.mjs b/dist/compat/object/unset.mjs
+index 2fa0c567217e73c7ffca32437f4b85ad67e4f126..3f08f0e6bd20ee086c15f29f7847264086186f56 100644
+--- a/dist/compat/object/unset.mjs
++++ b/dist/compat/object/unset.mjs
+@@ -1,9 +1,9 @@
++import { toPropertyKey } from "../../_internal/toPropertyKey.mjs";
+ import { isUnsafeProperty } from "../../_internal/isUnsafeProperty.mjs";
+ import { hasOwn } from "../_internal/hasOwn.mjs";
+ import { isDeepKey } from "../_internal/isDeepKey.mjs";
+ import { toKey } from "../_internal/toKey.mjs";
+ import { toPath } from "../util/toPath.mjs";
+-import { get } from "./get.mjs";
+ // src/compat/object/unset.ts
+ /**
+ * Removes the property at the given path of the object.
+@@ -34,7 +34,7 @@ function unset(obj, path) {
+ 				if (Object.is(path === null || path === void 0 ? void 0 : path.valueOf(), -0)) path = "-0";
+ 				else path = String(path);
+ 			}
+-			if (isUnsafeProperty(path)) return false;
++			if (isUnsafeProperty(path) && !hasOwn(obj, path)) return false;
+ 			if ((obj === null || obj === void 0 ? void 0 : obj[path]) === void 0) return true;
+ 			try {
+ 				delete obj[path];
+@@ -44,7 +44,7 @@ function unset(obj, path) {
+ 			}
+ 		case "string":
+ 			if ((obj === null || obj === void 0 ? void 0 : obj[path]) === void 0 && isDeepKey(path) && !hasOwn(obj, path)) return unsetWithPath(obj, toPath(path));
+-			if (isUnsafeProperty(path)) return false;
++			if (isUnsafeProperty(path) && !hasOwn(obj, path)) return false;
+ 			try {
+ 				delete obj[path];
+ 				return true;
+@@ -54,10 +54,19 @@ function unset(obj, path) {
+ 	}
+ }
+ function unsetWithPath(obj, path) {
+-	const parent = path.length === 1 ? obj : get(obj, path.slice(0, -1));
+-	const lastKey = path[path.length - 1];
+-	if ((parent === null || parent === void 0 ? void 0 : parent[lastKey]) === void 0) return true;
+-	if (isUnsafeProperty(lastKey)) return false;
++	let parent = obj;
++	for (let i = 0; i < path.length - 1; i++) {
++		const key = toPropertyKey(path[i]);
++		// An inherited `constructor` or `__proto__`, or the `prototype` of a function, leads to a
++		// constructor or prototype that other objects share, while own keys with these names are data
++		if ((key === "constructor" || key === "__proto__") && !hasOwn(parent, key)) return false;
++		if (key === "prototype" && typeof parent === "function") return false;
++		parent = parent[key];
++		if (parent == null) return true;
++	}
++	const lastKey = toPropertyKey(path[path.length - 1]);
++	if (parent[lastKey] === void 0) return true;
++	if (isUnsafeProperty(lastKey) && !hasOwn(parent, lastKey)) return false;
+ 	try {
+ 		delete parent[lastKey];
+ 		return true;
+diff --git a/dist/object/clone.js b/dist/object/clone.js
+index 5169b2baaee2260f8a6415ce33e717000fbe3f7c..a751d389ffabe52b079136ac76c07427355b4ac7 100644
+--- a/dist/object/clone.js
++++ b/dist/object/clone.js
+@@ -1,3 +1,4 @@
++const require_assignOwnValues = require("../_internal/assignOwnValues.js");
+ const require_isPrimitive = require("../predicate/isPrimitive.js");
+ const require_isTypedArray = require("../predicate/isTypedArray.js");
+ // src/object/clone.ts
+@@ -47,7 +48,7 @@ function clone(obj) {
+ 		if (obj instanceof AggregateError) newError = new Constructor(obj.errors, obj.message, { cause: obj.cause });
+ 		else newError = new Constructor(obj.message, { cause: obj.cause });
+ 		newError.stack = obj.stack;
+-		Object.assign(newError, obj);
++		require_assignOwnValues.assignOwnValues(newError, obj);
+ 		return newError;
+ 	}
+ 	if (typeof File !== "undefined" && obj instanceof File) return new Constructor([obj], obj.name, {
+@@ -56,7 +57,7 @@ function clone(obj) {
+ 	});
+ 	if (typeof obj === "object") {
+ 		const newObject = Object.create(prototype);
+-		return Object.assign(newObject, obj);
++		return require_assignOwnValues.assignOwnValues(newObject, obj);
+ 	}
+ 	return obj;
+ }
+diff --git a/dist/object/clone.mjs b/dist/object/clone.mjs
+index 7c3045c05b7c4066d697b739be2ac31af121536f..a95f314a7a4c9a736065d1c88473bcb16165282c 100644
+--- a/dist/object/clone.mjs
++++ b/dist/object/clone.mjs
+@@ -1,3 +1,4 @@
++import { assignOwnValues } from "../_internal/assignOwnValues.mjs";
+ import { isPrimitive } from "../predicate/isPrimitive.mjs";
+ import { isTypedArray } from "../predicate/isTypedArray.mjs";
+ // src/object/clone.ts
+@@ -47,7 +48,7 @@ function clone(obj) {
+ 		if (obj instanceof AggregateError) newError = new Constructor(obj.errors, obj.message, { cause: obj.cause });
+ 		else newError = new Constructor(obj.message, { cause: obj.cause });
+ 		newError.stack = obj.stack;
+-		Object.assign(newError, obj);
++		assignOwnValues(newError, obj);
+ 		return newError;
+ 	}
+ 	if (typeof File !== "undefined" && obj instanceof File) return new Constructor([obj], obj.name, {
+@@ -56,7 +57,7 @@ function clone(obj) {
+ 	});
+ 	if (typeof obj === "object") {
+ 		const newObject = Object.create(prototype);
+-		return Object.assign(newObject, obj);
++		return assignOwnValues(newObject, obj);
+ 	}
+ 	return obj;
+ }
+diff --git a/dist/object/cloneDeepWith.js b/dist/object/cloneDeepWith.js
+index 5bd96401ca437264125d80ed184e0ba62afb58b5..59458a1bd48dcc8428feb546d83108db6af46a69 100644
+--- a/dist/object/cloneDeepWith.js
++++ b/dist/object/cloneDeepWith.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ const require_isPrimitive = require("../predicate/isPrimitive.js");
+ const require_isTypedArray = require("../predicate/isTypedArray.js");
+ const require_getSymbols = require("../compat/_internal/getSymbols.js");
+@@ -149,7 +150,7 @@ function copyProperties(target, source, objectToClone = target, stack, cloneValu
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const descriptor = Object.getOwnPropertyDescriptor(target, key);
+-		if (descriptor == null || descriptor.writable) target[key] = cloneDeepWithImpl(source[key], key, objectToClone, stack, cloneValue);
++		if (descriptor == null || descriptor.writable) require_setOwnValue.setOwnValue(target, key, cloneDeepWithImpl(source[key], key, objectToClone, stack, cloneValue));
+ 	}
+ }
+ function isCloneableObject(object) {
+diff --git a/dist/object/cloneDeepWith.mjs b/dist/object/cloneDeepWith.mjs
+index 56f4f6c885a8ae0d89165e917b932dc2572cd468..b54a489c9e32eab6f1b78efd8c1131e188e73092 100644
+--- a/dist/object/cloneDeepWith.mjs
++++ b/dist/object/cloneDeepWith.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ import { isPrimitive } from "../predicate/isPrimitive.mjs";
+ import { isTypedArray } from "../predicate/isTypedArray.mjs";
+ import { getSymbols } from "../compat/_internal/getSymbols.mjs";
+@@ -149,7 +150,7 @@ function copyProperties(target, source, objectToClone = target, stack, cloneValu
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const descriptor = Object.getOwnPropertyDescriptor(target, key);
+-		if (descriptor == null || descriptor.writable) target[key] = cloneDeepWithImpl(source[key], key, objectToClone, stack, cloneValue);
++		if (descriptor == null || descriptor.writable) setOwnValue(target, key, cloneDeepWithImpl(source[key], key, objectToClone, stack, cloneValue));
+ 	}
+ }
+ function isCloneableObject(object) {
+diff --git a/dist/object/flattenObject.js b/dist/object/flattenObject.js
+index 6c4279705f868a75b77aaff4567dd48d42b8cb18..49e3959991bb632e41a24c1c811329b6c1138c52 100644
+--- a/dist/object/flattenObject.js
++++ b/dist/object/flattenObject.js
+@@ -1,3 +1,5 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
++const require_assignOwnValues = require("../_internal/assignOwnValues.js");
+ const require_isPlainObject = require("../predicate/isPlainObject.js");
+ // src/object/flattenObject.ts
+ /**
+@@ -46,14 +48,14 @@ function flattenObjectImpl(object, prefix, delimiter, preserveArrays) {
+ 		const value = object[key];
+ 		const prefixedKey = prefix ? `${prefix}${delimiter}${key}` : key;
+ 		if (require_isPlainObject.isPlainObject(value) && Object.keys(value).length > 0) {
+-			Object.assign(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
++			require_assignOwnValues.assignOwnValues(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
+ 			continue;
+ 		}
+ 		if (Array.isArray(value) && !preserveArrays && value.length > 0) {
+-			Object.assign(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
++			require_assignOwnValues.assignOwnValues(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
+ 			continue;
+ 		}
+-		result[prefixedKey] = value;
++		require_setOwnValue.setOwnValue(result, prefixedKey, value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/flattenObject.mjs b/dist/object/flattenObject.mjs
+index 60e0e43127eaf20f306a133f7feaff9118d98ce3..242764cf6b8a2132f2dca313b8f058a69e6e672f 100644
+--- a/dist/object/flattenObject.mjs
++++ b/dist/object/flattenObject.mjs
+@@ -1,3 +1,5 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
++import { assignOwnValues } from "../_internal/assignOwnValues.mjs";
+ import { isPlainObject } from "../predicate/isPlainObject.mjs";
+ // src/object/flattenObject.ts
+ /**
+@@ -46,14 +48,14 @@ function flattenObjectImpl(object, prefix, delimiter, preserveArrays) {
+ 		const value = object[key];
+ 		const prefixedKey = prefix ? `${prefix}${delimiter}${key}` : key;
+ 		if (isPlainObject(value) && Object.keys(value).length > 0) {
+-			Object.assign(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
++			assignOwnValues(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
+ 			continue;
+ 		}
+ 		if (Array.isArray(value) && !preserveArrays && value.length > 0) {
+-			Object.assign(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
++			assignOwnValues(result, flattenObjectImpl(value, prefixedKey, delimiter, preserveArrays));
+ 			continue;
+ 		}
+-		result[prefixedKey] = value;
++		setOwnValue(result, prefixedKey, value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/invert.js b/dist/object/invert.js
+index 977820af72a06d9b27ea869435495439cd405214..dd923b41a154909ad1aea19357b4104ee359db19 100644
+--- a/dist/object/invert.js
++++ b/dist/object/invert.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/object/invert.ts
+ /**
+ * Inverts the keys and values of an object. The keys of the input object become the values of the output object and vice versa.
+@@ -23,7 +24,7 @@ function invert(obj) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const value = obj[key];
+-		result[value] = key;
++		require_setOwnValue.setOwnValue(result, value, key);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/invert.mjs b/dist/object/invert.mjs
+index 6f1de50900919abb94a412488f29daa059d9eb78..17d2ea5e47c8098e292014de65d540e70b139784 100644
+--- a/dist/object/invert.mjs
++++ b/dist/object/invert.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/object/invert.ts
+ /**
+ * Inverts the keys and values of an object. The keys of the input object become the values of the output object and vice versa.
+@@ -23,7 +24,7 @@ function invert(obj) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const value = obj[key];
+-		result[value] = key;
++		setOwnValue(result, value, key);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/mapKeys.js b/dist/object/mapKeys.js
+index f08ddd53598d706a81b692ff994ca95ba88979a4..12e3a3147138e75d1edbcd407a206a15c8b8242c 100644
+--- a/dist/object/mapKeys.js
++++ b/dist/object/mapKeys.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/object/mapKeys.ts
+ /**
+ * Creates a new object with the same values as the given object, but with keys generated
+@@ -22,7 +23,7 @@ function mapKeys(object, getNewKey) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const value = object[key];
+-		result[getNewKey(value, key, object)] = value;
++		require_setOwnValue.setOwnValue(result, getNewKey(value, key, object), value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/mapKeys.mjs b/dist/object/mapKeys.mjs
+index 6368656d9b3da16fad15d8e4ea28d47f3ea34460..aa7f69ffc2e8c4b699588b6b0a0ab0c9cb243ed2 100644
+--- a/dist/object/mapKeys.mjs
++++ b/dist/object/mapKeys.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/object/mapKeys.ts
+ /**
+ * Creates a new object with the same values as the given object, but with keys generated
+@@ -22,7 +23,7 @@ function mapKeys(object, getNewKey) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const value = object[key];
+-		result[getNewKey(value, key, object)] = value;
++		setOwnValue(result, getNewKey(value, key, object), value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/mapKeysAsync.js b/dist/object/mapKeysAsync.js
+index 8aaf939a48bd1de630275ca2759e905ad6febf15..15409a7faa53f84991686519ad0782b8c608f030 100644
+--- a/dist/object/mapKeysAsync.js
++++ b/dist/object/mapKeysAsync.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ const require_limitAsync = require("../promise/limitAsync.js");
+ // src/object/mapKeysAsync.ts
+ /**
+@@ -24,7 +25,7 @@ async function mapKeysAsync(object, getNewKey, options) {
+ 	if (options?.concurrency) getNewKey = require_limitAsync.limitAsync(getNewKey, options.concurrency);
+ 	await Promise.all(keys.map(async (key) => {
+ 		const value = object[key];
+-		result[await getNewKey(value, key, object)] = value;
++		require_setOwnValue.setOwnValue(result, await getNewKey(value, key, object), value);
+ 	}));
+ 	return result;
+ }
+diff --git a/dist/object/mapKeysAsync.mjs b/dist/object/mapKeysAsync.mjs
+index 21f7ff396e61b28bd7d717a6f19987c496ed24fd..dcd1f128b0913c94c10e759d859444bf1242f999 100644
+--- a/dist/object/mapKeysAsync.mjs
++++ b/dist/object/mapKeysAsync.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ import { limitAsync } from "../promise/limitAsync.mjs";
+ // src/object/mapKeysAsync.ts
+ /**
+@@ -24,7 +25,7 @@ async function mapKeysAsync(object, getNewKey, options) {
+ 	if (options?.concurrency) getNewKey = limitAsync(getNewKey, options.concurrency);
+ 	await Promise.all(keys.map(async (key) => {
+ 		const value = object[key];
+-		result[await getNewKey(value, key, object)] = value;
++		setOwnValue(result, await getNewKey(value, key, object), value);
+ 	}));
+ 	return result;
+ }
+diff --git a/dist/object/mapValues.js b/dist/object/mapValues.js
+index 380bb9ff5e24f156654a23ff1ea2ea1fe9c94c55..a8d3b4af21a2c4e35373b8b70f5c5d95df50b897 100644
+--- a/dist/object/mapValues.js
++++ b/dist/object/mapValues.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/object/mapValues.ts
+ /**
+ * Creates a new object with the same keys as the given object, but with values generated
+@@ -23,7 +24,7 @@ function mapValues(object, getNewValue) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const value = object[key];
+-		result[key] = getNewValue(value, key, object);
++		require_setOwnValue.setOwnValue(result, key, getNewValue(value, key, object));
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/mapValues.mjs b/dist/object/mapValues.mjs
+index 48a5f091ecb668c2f4ae22d4ac7fb05eeb4daf0c..ed7be153a510ac834c431cdffb50b4c49172f7f1 100644
+--- a/dist/object/mapValues.mjs
++++ b/dist/object/mapValues.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/object/mapValues.ts
+ /**
+ * Creates a new object with the same keys as the given object, but with values generated
+@@ -23,7 +24,7 @@ function mapValues(object, getNewValue) {
+ 	for (let i = 0; i < keys.length; i++) {
+ 		const key = keys[i];
+ 		const value = object[key];
+-		result[key] = getNewValue(value, key, object);
++		setOwnValue(result, key, getNewValue(value, key, object));
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/mapValuesAsync.js b/dist/object/mapValuesAsync.js
+index 5a0954a19bfa1742aec5cc7c09bac7082faad610..a197f48ba743aafe616e71e8bf2ea271e9573da4 100644
+--- a/dist/object/mapValuesAsync.js
++++ b/dist/object/mapValuesAsync.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ const require_limitAsync = require("../promise/limitAsync.js");
+ // src/object/mapValuesAsync.ts
+ /**
+@@ -24,7 +25,7 @@ async function mapValuesAsync(object, getNewValue, options) {
+ 	const keys = Object.keys(object);
+ 	if (options?.concurrency) getNewValue = require_limitAsync.limitAsync(getNewValue, options.concurrency);
+ 	await Promise.all(keys.map(async (key) => {
+-		result[key] = await getNewValue(object[key], key, object);
++		require_setOwnValue.setOwnValue(result, key, await getNewValue(object[key], key, object));
+ 	}));
+ 	return result;
+ }
+diff --git a/dist/object/mapValuesAsync.mjs b/dist/object/mapValuesAsync.mjs
+index 4e537c80a71d1b350b5be87e182b78c852bdd67a..fb12fc8751c17000ba72a3f05cb86dd981e38e12 100644
+--- a/dist/object/mapValuesAsync.mjs
++++ b/dist/object/mapValuesAsync.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ import { limitAsync } from "../promise/limitAsync.mjs";
+ // src/object/mapValuesAsync.ts
+ /**
+@@ -24,7 +25,7 @@ async function mapValuesAsync(object, getNewValue, options) {
+ 	const keys = Object.keys(object);
+ 	if (options?.concurrency) getNewValue = limitAsync(getNewValue, options.concurrency);
+ 	await Promise.all(keys.map(async (key) => {
+-		result[key] = await getNewValue(object[key], key, object);
++		setOwnValue(result, key, await getNewValue(object[key], key, object));
+ 	}));
+ 	return result;
+ }
+diff --git a/dist/object/omitBy.js b/dist/object/omitBy.js
+index 5a68b41891018b901a4f555412ef19eef353a6a2..45384f64e86d2f171a6058b5c258959df6e90b98 100644
+--- a/dist/object/omitBy.js
++++ b/dist/object/omitBy.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/object/omitBy.ts
+ /**
+ * Creates a new object composed of the properties that do not satisfy the predicate function.
+@@ -25,7 +26,7 @@ function omitBy(obj, shouldOmit) {
+ 		const key = keys[i];
+ 		const objectKey = key;
+ 		const value = obj[objectKey];
+-		if (!shouldOmit(value, key)) result[objectKey] = value;
++		if (!shouldOmit(value, key)) require_setOwnValue.setOwnValue(result, objectKey, value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/omitBy.mjs b/dist/object/omitBy.mjs
+index 1303b4d72f157f91ac9857752720dfd6330a5c95..572632c67cb5e4580e457a826bb90234b889be80 100644
+--- a/dist/object/omitBy.mjs
++++ b/dist/object/omitBy.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/object/omitBy.ts
+ /**
+ * Creates a new object composed of the properties that do not satisfy the predicate function.
+@@ -25,7 +26,7 @@ function omitBy(obj, shouldOmit) {
+ 		const key = keys[i];
+ 		const objectKey = key;
+ 		const value = obj[objectKey];
+-		if (!shouldOmit(value, key)) result[objectKey] = value;
++		if (!shouldOmit(value, key)) setOwnValue(result, objectKey, value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/pickBy.js b/dist/object/pickBy.js
+index 3c200e553d203edc125ace81739b93128586f3aa..fb2bae4972690a3743cb0e12fe9b5073c57c538e 100644
+--- a/dist/object/pickBy.js
++++ b/dist/object/pickBy.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/object/pickBy.ts
+ /**
+ * Creates a new object composed of the properties that satisfy the predicate function.
+@@ -25,7 +26,7 @@ function pickBy(obj, shouldPick) {
+ 		const key = keys[i];
+ 		const objectKey = key;
+ 		const value = obj[objectKey];
+-		if (shouldPick(value, key)) result[objectKey] = value;
++		if (shouldPick(value, key)) require_setOwnValue.setOwnValue(result, objectKey, value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/pickBy.mjs b/dist/object/pickBy.mjs
+index a7baad03f7cf71bb7c037f024e437d69d4a817fa..bf112183fba9f3efcc25b4372991dc64544dd064 100644
+--- a/dist/object/pickBy.mjs
++++ b/dist/object/pickBy.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/object/pickBy.ts
+ /**
+ * Creates a new object composed of the properties that satisfy the predicate function.
+@@ -25,7 +26,7 @@ function pickBy(obj, shouldPick) {
+ 		const key = keys[i];
+ 		const objectKey = key;
+ 		const value = obj[objectKey];
+-		if (shouldPick(value, key)) result[objectKey] = value;
++		if (shouldPick(value, key)) setOwnValue(result, objectKey, value);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/sortKeys.js b/dist/object/sortKeys.js
+index 5144cfc28ae2d9ec722703e27fc8ba9d81509bd0..94116b327dc622e929d5e6f56b2a5c2b47fe90de 100644
+--- a/dist/object/sortKeys.js
++++ b/dist/object/sortKeys.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/object/sortKeys.ts
+ /**
+ * Creates a new object with the keys sorted.
+@@ -22,7 +23,7 @@ function sortKeys(object, compareKeys) {
+ 	const result = {};
+ 	for (let i = 0; i < sortedKeys.length; i++) {
+ 		const key = sortedKeys[i];
+-		result[key] = object[key];
++		require_setOwnValue.setOwnValue(result, key, object[key]);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/object/sortKeys.mjs b/dist/object/sortKeys.mjs
+index 245148bfc10193d39c30d66a2d1d1e6e9339cace..605366f879d8a33140be79e12a77befb465e2d76 100644
+--- a/dist/object/sortKeys.mjs
++++ b/dist/object/sortKeys.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/object/sortKeys.ts
+ /**
+ * Creates a new object with the keys sorted.
+@@ -22,7 +23,7 @@ function sortKeys(object, compareKeys) {
+ 	const result = {};
+ 	for (let i = 0; i < sortedKeys.length; i++) {
+ 		const key = sortedKeys[i];
+-		result[key] = object[key];
++		setOwnValue(result, key, object[key]);
+ 	}
+ 	return result;
+ }
+diff --git a/dist/promise/allKeyed.js b/dist/promise/allKeyed.js
+index 39d41215976d395ea6459f1f15bcb0bca864898c..29596677475503bceb7510d1412a857610527704 100644
+--- a/dist/promise/allKeyed.js
++++ b/dist/promise/allKeyed.js
+@@ -1,3 +1,4 @@
++const require_setOwnValue = require("../_internal/setOwnValue.js");
+ // src/promise/allKeyed.ts
+ /**
+ * Resolves an object of promises concurrently, returning an object with the same keys and resolved values.
+@@ -30,7 +31,7 @@ async function allKeyed(tasks) {
+ 	const keys = Object.keys(tasks);
+ 	const values = await Promise.all(keys.map((key) => tasks[key]));
+ 	const result = {};
+-	for (let i = 0; i < keys.length; i++) result[keys[i]] = values[i];
++	for (let i = 0; i < keys.length; i++) require_setOwnValue.setOwnValue(result, keys[i], values[i]);
+ 	return result;
+ }
+ exports.allKeyed = allKeyed;
+diff --git a/dist/promise/allKeyed.mjs b/dist/promise/allKeyed.mjs
+index 1e7eeb68a1f047c50fdbb1a42875f290c8895d90..57f1739fbd05299e111b1f3b16bea7d36e7ad5a9 100644
+--- a/dist/promise/allKeyed.mjs
++++ b/dist/promise/allKeyed.mjs
+@@ -1,3 +1,4 @@
++import { setOwnValue } from "../_internal/setOwnValue.mjs";
+ // src/promise/allKeyed.ts
+ /**
+ * Resolves an object of promises concurrently, returning an object with the same keys and resolved values.
+@@ -30,7 +31,7 @@ async function allKeyed(tasks) {
+ 	const keys = Object.keys(tasks);
+ 	const values = await Promise.all(keys.map((key) => tasks[key]));
+ 	const result = {};
+-	for (let i = 0; i < keys.length; i++) result[keys[i]] = values[i];
++	for (let i = 0; i < keys.length; i++) setOwnValue(result, keys[i], values[i]);
+ 	return result;
+ }
+ export { allKeyed };
 diff --git a/dist/util/serialize/serializeString.js b/dist/util/serialize/serializeString.js
 index a1e6840b956bc19b35c31faf0de5dec497dc3a81..ce3913fd851422fea8ef96b1ab29ba0b2bda1152 100644
 --- a/dist/util/serialize/serializeString.js

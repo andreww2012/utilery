@@ -136,6 +136,7 @@ export default eslintConfig({
       },
     },
     vitest: {
+      additionalAssertions: ['expectOwnProtoKey'],
       overrides: {
         'vitest/require-hook': (severity, options) => ({
           severity,

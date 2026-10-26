@@ -1,4 +1,5 @@
 import {swapObjectKeysValues} from '../../src/object/swap-object-keys-values.ts';
+import {KEY_CONVERSIONS, expectOwnProtoKey} from '../own-proto-key.ts';
 
 describe('object/swapObjectKeysValues', () => {
   it('swaps keys and values', () => {
@@ -15,4 +16,22 @@ describe('object/swapObjectKeysValues', () => {
       n2: ['b'],
     });
   });
+
+  it('defines a __proto__ key as an own property instead of replacing the prototype', () => {
+    expectOwnProtoKey(swapObjectKeysValues({a: '__proto__'}), 'a');
+    expectOwnProtoKey(
+      swapObjectKeysValues({a: '__proto__', b: '__proto__'}, (value) => value),
+      ['a', 'b'],
+    );
+  });
+
+  it.each(KEY_CONVERSIONS)(
+    'defines a __proto__ key given as %s as an own property',
+    (_, convert) => {
+      expectOwnProtoKey(
+        swapObjectKeysValues({a: convert('__proto__')}, (value) => value as never),
+        ['a'],
+      );
+    },
+  );
 });

@@ -1,4 +1,5 @@
 import {pick} from '../../src/object/pick.ts';
+import {expectOwnProtoKey, parseUntrusted} from '../own-proto-key.ts';
 
 describe('object/pick', () => {
   it('picks top-level keys', () => {
@@ -14,4 +15,24 @@ describe('object/pick', () => {
       b: 'keep',
     });
   });
+
+  it.each([
+    [
+      'keys',
+      (input: Record<string, unknown>): Record<string, unknown> => pick(input, ['__proto__', 'a']),
+    ],
+    [
+      'a predicate',
+      (input: Record<string, unknown>): Record<string, unknown> => pick(input, () => true),
+    ],
+  ] as const)(
+    'keeps an own __proto__ key from replacing the prototype of the result (%s)',
+    (_, pickFrom) => {
+      const result = pickFrom(parseUntrusted());
+
+      expectOwnProtoKey(result);
+
+      expect(result.a).toBe(1);
+    },
+  );
 });

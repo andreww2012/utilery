@@ -329,15 +329,17 @@ patchedDependencies:
   '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
   arkregex: 6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623
   decode-uri-component: 09bdfb22a9e5b1f8851b1f4c145594c0c640223bfaa1c9ed026f1dfc22c46366
-  es-toolkit: 3bc0636c4d9432e4228438d20ff3b9d67f1e6a515225e022fff158cbbad80731
+  es-toolkit: 93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b
+  http-link-header: 784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
-  remeda: 967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e
+  remeda: 237587874720cba535e5728d249425f91804ff7503dfc0d2c69fc80b15138401
   safe-stable-stringify: c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba
   signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
+  string-ts: 6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44
   which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
   write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
-  yieldable-json: 99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88
+  yieldable-json: 2ccaccee748a93dc7d7f8056736c23f13b05eebf5b2993490982d96e33bf0b4d
 
 importers:
 
@@ -468,7 +470,7 @@ importers:
         version: 4.0.0
       es-toolkit:
         specifier: catalog:bundled
-        version: 1.53.0(patch_hash=3bc0636c4d9432e4228438d20ff3b9d67f1e6a515225e022fff158cbbad80731)
+        version: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
       eslint:
         specifier: 10.13.0
         version: 10.13.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -501,7 +503,7 @@ importers:
         version: 1.1.1
       http-link-header:
         specifier: catalog:bundled
-        version: 1.1.4
+        version: 1.1.4(patch_hash=784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098)
       ipaddr.js:
         specifier: catalog:bundled
         version: 2.5.0(patch_hash=6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c)
@@ -567,7 +569,7 @@ importers:
         version: 1.3.0
       remeda:
         specifier: catalog:bundled
-        version: 2.53.0(patch_hash=967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e)
+        version: 2.53.0(patch_hash=237587874720cba535e5728d249425f91804ff7503dfc0d2c69fc80b15138401)
       rolldown:
         specifier: 1.2.15
         version: 1.2.15
@@ -579,7 +581,7 @@ importers:
         version: 6.1.0
       string-ts:
         specifier: catalog:bundled
-        version: 2.3.1
+        version: 2.3.1(patch_hash=6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44)
       string-width:
         specifier: catalog:bundled
         version: 8.3.0
@@ -630,7 +632,7 @@ importers:
         version: 7.0.0
       yieldable-json:
         specifier: catalog:bundled
-        version: 2.1.0(patch_hash=99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88)
+        version: 2.1.0(patch_hash=2ccaccee748a93dc7d7f8056736c23f13b05eebf5b2993490982d96e33bf0b4d)
       yn:
         specifier: catalog:bundled
         version: 5.1.0
@@ -6361,7 +6363,7 @@ snapshots:
   '@commitlint/ensure@21.2.4':
     dependencies:
       '@commitlint/types': 21.2.3
-      es-toolkit: 1.53.0(patch_hash=3bc0636c4d9432e4228438d20ff3b9d67f1e6a515225e022fff158cbbad80731)
+      es-toolkit: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
 
   '@commitlint/execute-rule@21.0.1': {}
 
@@ -6389,7 +6391,7 @@ snapshots:
       '@commitlint/resolve-extends': 21.2.3
       '@commitlint/types': 21.2.3
       cosmiconfig: 9.0.2(@typescript/typescript6@6.0.2)
-      es-toolkit: 1.53.0(patch_hash=3bc0636c4d9432e4228438d20ff3b9d67f1e6a515225e022fff158cbbad80731)
+      es-toolkit: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
       is-plain-obj: 4.1.0
       jiti: 2.7.0
       picocolors: 1.1.1
@@ -6418,7 +6420,7 @@ snapshots:
     dependencies:
       '@commitlint/config-validator': 21.2.3
       '@commitlint/types': 21.2.3
-      es-toolkit: 1.53.0(patch_hash=3bc0636c4d9432e4228438d20ff3b9d67f1e6a515225e022fff158cbbad80731)
+      es-toolkit: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
       global-directory: 5.0.0
       resolve-from: 5.0.0
 
@@ -8614,7 +8616,7 @@ snapshots:
 
   es-module-lexer@2.3.2: {}
 
-  es-toolkit@1.53.0(patch_hash=3bc0636c4d9432e4228438d20ff3b9d67f1e6a515225e022fff158cbbad80731): {}
+  es-toolkit@1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b): {}
 
   escalade@3.2.0: {}
 
@@ -9440,7 +9442,7 @@ snapshots:
 
   http-cache-semantics@4.3.0: {}
 
-  http-link-header@1.1.4: {}
+  http-link-header@1.1.4(patch_hash=784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098): {}
 
   http-proxy-agent@7.0.2(supports-color@9.4.0):
     dependencies:
@@ -10845,7 +10847,7 @@ snapshots:
       mdast-util-to-markdown: 2.2.0
       unified: 11.0.5
 
-  remeda@2.53.0(patch_hash=967762da89d143c74202905cd344f7f1c1a28295b22f652d736cf5c1cdce5d7e): {}
+  remeda@2.53.0(patch_hash=237587874720cba535e5728d249425f91804ff7503dfc0d2c69fc80b15138401): {}
 
   require-from-string@2.0.2: {}
 
@@ -11028,7 +11030,7 @@ snapshots:
 
   std-env@4.3.0: {}
 
-  string-ts@2.3.1: {}
+  string-ts@2.3.1(patch_hash=6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44): {}
 
   string-width@4.2.3:
     dependencies:
@@ -11565,7 +11567,7 @@ snapshots:
       y18n: 5.0.8
       yargs-parser: 22.0.0
 
-  yieldable-json@2.1.0(patch_hash=99ef03f3389c09deed4e4153be94aa67496efaa60c81aad372bc2ab182524c88): {}
+  yieldable-json@2.1.0(patch_hash=2ccaccee748a93dc7d7f8056736c23f13b05eebf5b2993490982d96e33bf0b4d): {}
 
   yn@5.1.0: {}
 

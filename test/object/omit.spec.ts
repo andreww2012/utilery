@@ -1,4 +1,8 @@
 import {omit} from '../../src/object/omit.ts';
+import {expectOwnProtoKey, parseUntrusted} from '../own-proto-key.ts';
+
+const parseWithProtoKey = () =>
+  parseUntrusted('{"__proto__": {"isAdmin": true}, "a": 1, "b": {"c": 1}}');
 
 describe('object/omit', () => {
   it('omits top-level keys', () => {
@@ -119,6 +123,24 @@ describe('object/omit', () => {
     expect(omit({a: 1, b: 'drop', c: 3}, (value) => typeof value === 'string')).toStrictEqual({
       a: 1,
       c: 3,
+    });
+  });
+
+  describe('an own __proto__ key', () => {
+    it.each([
+      ['top-level keys', (input: Record<string, unknown>) => omit(input, ['a'])],
+      ['deep paths', (input: Record<string, unknown>) => omit(input, ['b.c'])],
+      ['a predicate', (input: Record<string, unknown>) => omit(input, (value) => value === 1)],
+    ] as const)('keeps it from replacing the prototype of the result (%s)', (_, omitFrom) => {
+      expectOwnProtoKey(omitFrom(parseWithProtoKey()));
+    });
+
+    it('removes it when asked', () => {
+      const result = omit(parseWithProtoKey(), ['__proto__']);
+
+      expect(Object.hasOwn(result, '__proto__')).toBe(false);
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+      expect(result).toStrictEqual({a: 1, b: {c: 1}});
     });
   });
 });

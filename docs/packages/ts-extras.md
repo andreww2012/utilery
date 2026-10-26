@@ -11,8 +11,8 @@ Mostly thin, strongly-typed re-exports. `Unsafe` in a name flags that the strong
 | [`objectEntries`][ts-extras]     | ❌     | `object/objectEntriesUnsafe`           | Replaced by our own code: optional values include `undefined`, unions give entries per member    |
 | [`objectFromEntries`][ts-extras] | ✅     | `object/objectFromEntriesUnsafe`       | Renamed; shallow, distinct from `object/objectFromEntriesDeep`                                   |
 | [`objectHasOwn`][ts-extras]      | ✅     | `object/objectHasOwn` *(same)*         | -                                                                                                |
-| [`objectAssign`][ts-extras]      | ✅     | `object/objectAssign` *(same)*         | -                                                                                                |
-| [`objectUpdate`][ts-extras]      | ✅     | `object/objectUpdate` *(same)*         | Reimplemented with the same types: its signature can't be written out and checked                |
+| [`objectAssign`][ts-extras]      | ✅     | `object/objectAssign` *(same)*         | Reimplemented with the same types: an own `__proto__` key becomes a property, not the prototype  |
+| [`objectUpdate`][ts-extras]      | ✅     | `object/objectUpdate` *(same)*         | Reimplemented: its signature can't be written out; copies `__proto__` like `objectAssign`        |
 | [`objectHasIn`][ts-extras]       | ✅     | `predicate/isIn`                       | Renamed; `(key, object)` order (reads like `key in object`); narrows the object                  |
 | [`keyIn`][ts-extras]             | ✅     | `predicate/isKeyIn`                    | Renamed; `(key, object)` order; narrows the key to those present in the object                   |
 | [`arrayAt`][ts-extras]           | ✅     | `array/arrayAt`                        | Consolidated with es-toolkit's `at` (also accepts a list of indexes)                             |

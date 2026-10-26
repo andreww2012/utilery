@@ -1,4 +1,5 @@
 import {jsonParseAsync} from '../../src/json/json-parse-async.ts';
+import {PROTO_KEY_JSON, expectOwnProtoKey} from '../own-proto-key.ts';
 
 describe('json/jsonParseAsync', () => {
   it('parses asynchronously', async () => {
@@ -26,5 +27,13 @@ describe('json/jsonParseAsync', () => {
     await jsonParseAsync('{"a":"b"}');
 
     expect(globalThis).not.toHaveProperty('chunk');
+  });
+
+  it('parses a __proto__ key as an own property, like JSON.parse', async () => {
+    expectOwnProtoKey(await jsonParseAsync(PROTO_KEY_JSON));
+    expectOwnProtoKey(
+      ((await jsonParseAsync('{"a": {"__proto__": {"isAdmin": true}}}')) as {a: unknown}).a,
+    );
+    expectOwnProtoKey(await jsonParseAsync(PROTO_KEY_JSON, (key, value: unknown) => value));
   });
 });

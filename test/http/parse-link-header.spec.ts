@@ -1,5 +1,6 @@
 // cspell:ignore chstes nächstes
 import {parseLinkHeader} from '../../src/http/parse-link-header.ts';
+import {expectOwnProtoKey} from '../own-proto-key.ts';
 
 describe('http/parseLinkHeader', () => {
   it('parses links', () => {
@@ -33,5 +34,19 @@ describe('http/parseLinkHeader', () => {
     expect(parseLinkHeader("<a>; rel=next; title*=UTF-8'de'n%c3%a4chstes")).toStrictEqual([
       {uri: 'a', rel: 'next', 'title*': {language: 'de', encoding: null, value: 'nächstes'}},
     ]);
+  });
+
+  it('keeps parameters named like Object.prototype properties as own values', () => {
+    const [link] = parseLinkHeader('<https://example.com>; __proto__="a"; constructor=b');
+
+    expectOwnProtoKey(link, 'a');
+
+    expect(Object.getOwnPropertyDescriptor(link, 'constructor')?.value).toBe('b');
+
+    parseLinkHeader('<https://example.com>; rel="next prev"; __proto__="a"; __proto__="b"').forEach(
+      (entry) => {
+        expectOwnProtoKey(entry, ['a', 'b']);
+      },
+    );
   });
 });

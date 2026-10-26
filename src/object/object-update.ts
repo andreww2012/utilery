@@ -1,3 +1,4 @@
+import {assignOwnProperties} from '../_internal/assign-own-properties.ts';
 import type {PropertyValue} from '../_internal/types.ts';
 import type {ExactShape} from '../types/exact-shape.ts';
 import type {IsUnion} from '../types/is-union.ts';
@@ -36,6 +37,9 @@ type KnownKeySource<Source extends object> = keyof Source extends never ? never 
  * updates.
  * Union-typed targets are unsupported (narrow to a single variant first), and
  * `source` must expose at least one known key.
+ * Unlike `Object.assign`, an own `__proto__` key of `source` (which `JSON.parse`
+ * can create) becomes an own property of `target` instead of replacing its
+ * prototype.
  * @param target - The object to update in place.
  * @param source - A partial of `target` covering only its existing writable keys.
  * @returns The mutated `target`.
@@ -51,4 +55,4 @@ type KnownKeySource<Source extends object> = keyof Source extends never ? never 
 export const objectUpdate = <Target extends object, Source extends object>(
   target: Target,
   source: KnownKeySource<Source> & ExactShape<UpdatableShape<Target, Source>, Source>,
-): Target => Object.assign(target, source);
+): Target => assignOwnProperties(target, [source]);

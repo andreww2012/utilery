@@ -1,5 +1,6 @@
 import {mergeDeep} from '../../src/object/merge-deep.ts';
 import {isArray} from '../../src/predicate/is-array.ts';
+import {expectOwnProtoKey, parseUntrusted} from '../own-proto-key.ts';
 
 const concatArrays = (targetValue: unknown, sourceValue: unknown) => {
   return isArray(targetValue) && isArray(sourceValue)
@@ -37,5 +38,13 @@ describe('object/mergeDeep', () => {
 
     expect(result).toStrictEqual({list: [1, 2, 3]});
     expect(target).toStrictEqual({list: [1, 2]});
+  });
+
+  it('copies a __proto__ key of the target as an own property with {copy: true}', () => {
+    const result = mergeDeep(parseUntrusted(), {b: 1}, {copy: true});
+
+    expectOwnProtoKey(result);
+
+    expect(result.b).toBe(1);
   });
 });

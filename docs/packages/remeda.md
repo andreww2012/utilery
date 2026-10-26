@@ -7,6 +7,9 @@
 Only remeda's standalone, data-first functions are considered; the `pipe`/`purry`/lazy machinery and every data-last (curried) form are intentionally excluded. remeda overlaps `es-toolkit` heavily: those duplicated operations are marked *via `es-toolkit`* and documented in full in the `es-toolkit` table above.
 Non-array categories are still being triaged group-by-group, so many remeda-unique functions there are `🚧` for now.
 
+> **Note:** Our bundled copy is [patched](../../patches/remeda.patch) for a bug that its latest release (2.53.0) still has, and to export types that our signatures use.
+> Without the patch, `fromKeys` replaces the prototype of the result for a `__proto__` key, and so does `setPath` for a `__proto__` segment of an array, instead of adding the key.
+
 | Original function name                                              | Status | Our function group and name           | Notes                                                                                                      |
 | ------------------------------------------------------------------- | ------ | ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | [`add`](https://remedajs.com/docs/#add)                             | ❌     | *(native)*                            | Use `+`                                                                                                    |

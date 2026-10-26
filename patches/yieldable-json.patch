@@ -52,6 +52,12 @@ behave like `JSON.stringify`.
     or circular objects with a replacer array, overflow the call stack and crash
     the process.
 
+`yieldable-parser.js`:
+
+14. `parseAsync` assigns every key, so a `__proto__` key replaces the prototype
+    of the parsed object, while `JSON.parse` creates an own property: the result
+    of `parseAsync('{"__proto__": {"isAdmin": true}}')` has `isAdmin`.
+
 Drop each part once a release includes its fix.
 
 diff --git a/index.js b/index.js
@@ -108,6 +114,27 @@ index a0af3fd7f043422653410718aa9a812561bea608..17f92045b2605253cd16a7dc50a18b28
        return index;
      }
      innerAt += chunk.length + 1;
+diff --git a/yieldable-parser.js b/yieldable-parser.js
+index 39245f4cfd21911b299960330f09d889a337a56b..6ef764d31e01ca566c27f8f7a71355ecae6a916f 100755
+--- a/yieldable-parser.js
++++ b/yieldable-parser.js
+@@ -188,7 +188,15 @@ let parseWrapper = (text, reviver, intensity, cb) => {
+             key = yield *parseYield();
+             keyN = 0;
+             seek();
+-            returnObj[key] = yield *parseYield();
++            const value = yield *parseYield();
++            // Like `JSON.parse`, a `__proto__` key becomes an own property instead of
++            // replacing the prototype of the object
++            if (key === '__proto__') {
++              Object.defineProperty(returnObj, key,
++                {value, writable: true, enumerable: true, configurable: true});
++            } else {
++              returnObj[key] = value;
++            }
+             seek();
+             if (ch === '}') {
+               parseStr = parseStr.slice(at);
 diff --git a/yieldable-stringify.js b/yieldable-stringify.js
 index b3814f6dbf4d43eb9b80010f5fa762b49fd72a14..93cd26a052e7929fb0ffacb8f6e5ed4d94e2c5cc 100755
 --- a/yieldable-stringify.js

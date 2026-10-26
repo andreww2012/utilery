@@ -1,0 +1,90 @@
+Keeps a key from replacing the prototype of the object that `transformKeys` and
+`deepTransformKeys` build: assigning a `__proto__` key, which a transform can return and data
+parsed with `JSON.parse` can have, replaces the prototype of the result instead of creating a
+property. Both now define such a key as an own property, after converting the key like a property
+access does, so a key that only converts to `__proto__`, like `["__proto__"]`, is caught too.
+`replaceKeys` and our `transformKeysDeep` are affected, while the case conversions can't return
+`__proto__`. The latest release (2.3.1) still has this bug.
+
+diff --git a/dist/index.js b/dist/index.js
+index 6ea19206f72ad00d4288578d6c47cf1609f71d29..cd5804e3f62f53c7498394230f1ad69347040609 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -167,12 +167,26 @@ function camelCase(str) {
+ }
+ var toCamelCase = camelCase;
+ 
++// Sets `object[key]` as an own property: assigning a `__proto__` key would replace the prototype.
++// The key is converted like a property access does first, since `["__proto__"]` accesses
++// `__proto__` too
++function setOwnValue(object, key, value) {
++  if (typeof key === "object" && key !== null || typeof key === "function") {
++    key = Reflect.ownKeys({ [key]: void 0 })[0];
++  }
++  if (key === "__proto__") {
++    Object.defineProperty(object, key, { value, writable: true, enumerable: true, configurable: true });
++  } else {
++    object[key] = value;
++  }
++}
++
+ // src/utils/object-keys/transform-keys.ts
+ function transformKeys(obj, transform) {
+   if (typeOf(obj) !== "object") return obj;
+   const res = {};
+   for (const key in obj) {
+-    res[transform(key)] = obj[key];
++    setOwnValue(res, transform(key), obj[key]);
+   }
+   return res;
+ }
+@@ -207,7 +221,7 @@ function deepTransformKeys(obj, transform) {
+   }
+   const res = {};
+   for (const key in obj) {
+-    res[transform(key)] = deepTransformKeys(obj[key], transform);
++    setOwnValue(res, transform(key), deepTransformKeys(obj[key], transform));
+   }
+   return res;
+ }
+diff --git a/dist/index.mjs b/dist/index.mjs
+index ee1d742ef60d6bce0d7c0da99c5504d7dfbaff40..69e39d07c3831b6ad29a25213dcf8b5c7343d651 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -165,12 +165,26 @@ function camelCase(str) {
+ }
+ var toCamelCase = camelCase;
+ 
++// Sets `object[key]` as an own property: assigning a `__proto__` key would replace the prototype.
++// The key is converted like a property access does first, since `["__proto__"]` accesses
++// `__proto__` too
++function setOwnValue(object, key, value) {
++  if (typeof key === "object" && key !== null || typeof key === "function") {
++    key = Reflect.ownKeys({ [key]: void 0 })[0];
++  }
++  if (key === "__proto__") {
++    Object.defineProperty(object, key, { value, writable: true, enumerable: true, configurable: true });
++  } else {
++    object[key] = value;
++  }
++}
++
+ // src/utils/object-keys/transform-keys.ts
+ function transformKeys(obj, transform) {
+   if (typeOf(obj) !== "object") return obj;
+   const res = {};
+   for (const key in obj) {
+-    res[transform(key)] = obj[key];
++    setOwnValue(res, transform(key), obj[key]);
+   }
+   return res;
+ }
+@@ -205,7 +219,7 @@ function deepTransformKeys(obj, transform) {
+   }
+   const res = {};
+   for (const key in obj) {
+-    res[transform(key)] = deepTransformKeys(obj[key], transform);
++    setOwnValue(res, transform(key), deepTransformKeys(obj[key], transform));
+   }
+   return res;
+ }

@@ -16,6 +16,24 @@ const globalThis_ = typeof globalThis === "object" && globalThis || typeof windo
 // node_modules/es-toolkit/dist/_internal/DOMException.mjs
 typeof globalThis_.DOMException !== "undefined" && globalThis_.DOMException;
 
+// node_modules/es-toolkit/dist/_internal/toPropertyKey.mjs
+function toPropertyKey(key) {
+	if (typeof key === "object" && key !== null || typeof key === "function") return Reflect.ownKeys({ [key]: void 0 })[0];
+	return key;
+}
+
+// node_modules/es-toolkit/dist/_internal/setOwnValue.mjs
+function setOwnValue(object, key, value) {
+	key = toPropertyKey(key);
+	if (key === "__proto__") Object.defineProperty(object, key, {
+		value,
+		writable: true,
+		enumerable: true,
+		configurable: true
+	});
+	else object[key] = value;
+}
+
 // node_modules/es-toolkit/dist/object/mapValues.mjs
 function mapValues(object, getNewValue) {
 	const result = {};
@@ -23,7 +41,7 @@ function mapValues(object, getNewValue) {
 	for (let i = 0; i < keys.length; i++) {
 		const key = keys[i];
 		const value = object[key];
-		result[key] = getNewValue(value, key, object);
+		setOwnValue(result, key, getNewValue(value, key, object));
 	}
 	return result;
 }
@@ -2388,6 +2406,15 @@ var require_link = __commonJSMin(((exports, module) => {
 	function shallowCompareObjects(object1, object2) {
 		return Object.keys(object1).length === Object.keys(object2).length && Object.keys(object1).every((key) => key in object2 && object1[key] === object2[key]);
 	}
+	function setOwnValue(object, key, value) {
+		if (key === "__proto__") Object.defineProperty(object, key, {
+			value,
+			writable: true,
+			enumerable: true,
+			configurable: true
+		});
+		else object[key] = value;
+	}
 	var Link = class Link {
 		constructor(value) {
 			this.refs = [];
@@ -2481,13 +2508,14 @@ var require_link = __commonJSMin(((exports, module) => {
 					attrValue = value.slice(offset, end);
 					offset = end;
 				}
-				if (ref[attr] && Link.isSingleOccurenceAttr(attr)) {} else if (attr[attr.length - 1] === "*") ref[attr] = Link.parseExtendedValue(attrValue);
+				var current = Object.prototype.hasOwnProperty.call(ref, attr) ? ref[attr] : void 0;
+				if (current && Link.isSingleOccurenceAttr(attr)) {} else if (attr[attr.length - 1] === "*") setOwnValue(ref, attr, Link.parseExtendedValue(attrValue));
 				else {
 					attrValue = attr === "type" ? attrValue.toLowerCase() : attrValue;
-					if (ref[attr] != null) {
-						if (Array.isArray(ref[attr])) ref[attr].push(attrValue);
-						else ref[attr] = [ref[attr], attrValue];
-					} else ref[attr] = attrValue;
+					if (current != null) {
+						if (Array.isArray(current)) current.push(attrValue);
+						else setOwnValue(ref, attr, [current, attrValue]);
+					} else setOwnValue(ref, attr, attrValue);
 				}
 				switch (value[offset]) {
 					case ",":
@@ -2533,7 +2561,10 @@ var require_link = __commonJSMin(((exports, module) => {
 	};
 	Link.expandRelations = function(ref) {
 		return ref.rel.split(" ").map(function(rel) {
-			var value = Object.assign({}, ref);
+			var value = {};
+			Object.keys(ref).forEach(function(key) {
+				setOwnValue(value, key, ref[key]);
+			});
 			value.rel = rel;
 			return value;
 		});
@@ -2812,7 +2843,14 @@ var require_yieldable_parser = __commonJSMin(((exports) => {
 							key = yield* parseYield();
 							keyN = 0;
 							seek();
-							returnObj[key] = yield* parseYield();
+							const value = yield* parseYield();
+							if (key === "__proto__") Object.defineProperty(returnObj, key, {
+								value,
+								writable: true,
+								enumerable: true,
+								configurable: true
+							});
+							else returnObj[key] = value;
 							seek();
 							if (ch === "}") {
 								parseStr = parseStr.slice(at);

@@ -1,5 +1,6 @@
 import {isArray} from '../../src/predicate/is-array.ts';
 import {cloneShallow} from '../../src/value/clone-shallow.ts';
+import {expectOwnProtoKey, parseUntrusted} from '../own-proto-key.ts';
 
 describe('value/cloneShallow', () => {
   it('shallow clones, sharing nested references', () => {
@@ -23,5 +24,10 @@ describe('value/cloneShallow', () => {
     );
 
     expect(cloned).toStrictEqual([2, 4, 6]);
+  });
+
+  it('copies a __proto__ key as an own property instead of replacing the prototype', () => {
+    expectOwnProtoKey(cloneShallow(parseUntrusted()));
+    expectOwnProtoKey(cloneShallow(parseUntrusted(), () => undefined));
   });
 });

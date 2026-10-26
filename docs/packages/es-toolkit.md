@@ -231,8 +231,13 @@
 | [`utility/Queue`](https://es-toolkit.dev/reference/util/Queue.html)                            | ✅     | `misc/Queue` *(same)*              | -                                                                                                    |
 | [`utility/serialize`](https://es-toolkit.dev/reference/util/serialize.html)                    | ✅     | `value/serializeStable`            | Renamed for clarity; patched to escape quotes in strings (see the note below)                        |
 
-> **Note:** Our bundled copy is [patched](../../patches/es-toolkit.patch) for a bug that its latest release (1.53.0) still has.
-> Without the patch, `serialize` doesn't escape quotes in strings, so different values can give the same result: `["a','b"]` and `['a', 'b']` both become `['a','b']`.
+> **Note:** Our bundled copy is [patched](../../patches/es-toolkit.patch) for bugs that its latest release (1.53.0) still has.
+> Without the patch:
+>
+> - `serialize` doesn't escape quotes in strings, so different values can give the same result: `["a','b"]` and `['a', 'b']` both become `['a','b']`.
+> - Utilities that build objects from keys of data or callbacks replace the prototype of the result with the value of a `__proto__` key, which `JSON.parse` can create, instead of adding the key: `allKeyed`, `clone`, `cloneDeep`, `flattenObject`, `invert`, `mapKeys`, `mapKeysAsync`, `mapValues`, `mapValuesAsync`, `omitBy`, `pickBy`, `sortKeys`, and compat `clone`, `cloneDeep`, `defaultsDeep`, `invertBy`, `omit` and `pick`.
+> - Compat `unset` follows a path through an inherited `constructor`, so `unset({}, 'constructor.prototype.toString')` deletes `Object.prototype.toString`, and `unset({}, 'constructor.keys')` deletes `Object.keys`, for the whole program.
+>   It also refuses own `__proto__` keys, which are just data.
 
 ## `es-toolkit/bigint`
 
