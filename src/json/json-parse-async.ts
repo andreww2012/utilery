@@ -1,8 +1,9 @@
-import {parseAsync} from 'yieldable-json';
+// Not a named import: plain Node can't find all the named exports of this CommonJS package
+import yieldableJson from 'yieldable-json';
 
 // `@types/yieldable-json` types the reviver key as `number` (it is `string`, as in native
 // `JSON.parse`). Cast to a clean local signature so callers see correct types
-const parse = parseAsync as unknown as {
+interface ParseAsync {
   (
     text: string,
     reviver: (key: string, value: unknown) => unknown,
@@ -10,7 +11,7 @@ const parse = parseAsync as unknown as {
     callback: (error: Error | null, result: unknown) => void,
   ): void;
   (text: string, intensity: number, callback: (error: Error | null, result: unknown) => void): void;
-};
+}
 
 /**
  * Asynchronous, non-blocking `JSON.parse`: parses `text` while periodically
@@ -36,6 +37,7 @@ export const jsonParseAsync = (
   intensity = 1,
 ): Promise<unknown> =>
   new Promise((resolve, reject) => {
+    const parse = yieldableJson.parseAsync as unknown as ParseAsync;
     const callback = (error: Error | null, result: unknown) => {
       if (error) {
         reject(error);

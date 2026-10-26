@@ -1,8 +1,9 @@
-import {stringifyAsync} from 'yieldable-json';
+// Not a named import: plain Node can't find all the named exports of this CommonJS package
+import yieldableJson from 'yieldable-json';
 
 // `@types/yieldable-json` types the replacer key as `number` (it is `string`, as in native
 // `JSON.stringify`). Cast to a clean local signature so callers see correct types
-const stringify = stringifyAsync as unknown as (
+type StringifyAsync = (
   value: object,
   replacer: ((key: string, value: unknown) => unknown) | (number | string)[] | null,
   space: number | string,
@@ -36,11 +37,17 @@ export const jsonStringifyAsync = (
   intensity = 1,
 ): Promise<string> =>
   new Promise<string>((resolve, reject) => {
-    stringify(value, replacer, space, intensity, (error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
+    (yieldableJson.stringifyAsync as unknown as StringifyAsync)(
+      value,
+      replacer,
+      space,
+      intensity,
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      },
+    );
   });

@@ -3181,10 +3181,10 @@ var require_yieldable_json = __commonJSMin(((exports, module) => {
 require_yieldable_json();
 
 // json/json-parse-async.mjs
-require_yieldable_json().parseAsync;
+require_yieldable_json();
 
 // json/json-stringify-async.mjs
-require_yieldable_json().stringifyAsync;
+require_yieldable_json();
 
 // node_modules/htmlescape/htmlescape.mjs
 var require_htmlescape = __commonJSMin(((exports, module) => {
