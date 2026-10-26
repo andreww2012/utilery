@@ -34,6 +34,9 @@ const run = () => {
   const originalNoticesText = fs.readFileSync(THIRD_PARTY_NOTICES_PATH, 'utf8');
 
   try {
+    // `changeset publish` runs it too, but hides its output when it fails
+    // eslint-disable-next-line sonar/no-os-command-from-path -- `pnpm` is the pinned CI/dev toolchain, resolved from a trusted PATH.
+    execFileSync('pnpm', ['prepublishOnly'], {stdio: 'inherit'});
     // eslint-disable-next-line sonar/no-os-command-from-path -- `pnpm` is the pinned CI/dev toolchain, resolved from a trusted PATH.
     execFileSync('pnpm', ['exec', 'changeset', 'publish'], {stdio: 'inherit'});
   } finally {
