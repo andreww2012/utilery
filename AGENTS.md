@@ -18,6 +18,7 @@ All without zero dependencies because all external dependencies are bundled.
 - Packages that `src/` imports are bundled, and they belong to the `bundled` catalog in `pnpm-workspace.yaml`.
   `nr build` lists them, along with the packages they depend on, in `inlinedDependencies` of `package.json`: run it after adding, removing or bumping one, and keep the updated field.
   Until you run it, ESLint reports imports of a new one as missing from `dependencies`, which the build fixes.
+  When it lists several versions of one package, make them one with an override in `pnpm-workspace.yaml` (like `cross-spawn>which`), unless the code that uses them needs a version that the others don't match.
 - When you bump the version of a bundled package, describe only the changes we make ourselves: utilities added, removed or renamed, and behavior changes we make in our code or by patching the package (`patches/`).
   Upstream changes are covered by a link to the full upstream diff between the old and the new version (e.g. a GitHub compare link), which you always add.
   They include fixes, behavior and type changes of utilities we already export, even when our wrappers had to be adjusted to them (e.g. a wrapper signature updated to match a new upstream type).
@@ -26,6 +27,7 @@ All without zero dependencies because all external dependencies are bundled.
   This applies everywhere you describe the bump: changesets, commit messages, `README.md` and your replies, etc.
 - In changesets, link each upstream utility name to its docs page when it has one, and write enumerations of more than a few items as a (nested) Markdown list.
   Refer to our utilities and groups by their bare names: `getErrorMessage`, `bitwise`.
+  Start a changeset with what was done, in the past tense: "Added a new `foo` option to `bar`", not "`bar` gets a `foo` option".
   In a bump changeset, list every affected symbol, with the changes to describe nested under it.
   A symbol is affected when the upstream diff changes its behavior or types for calls our types allow, directly or through other utilities (name a whole group instead when the diff reaches most of it).
   Using the package is not enough: check each symbol against the diff, and leave out `, which affected:` when nothing is affected.

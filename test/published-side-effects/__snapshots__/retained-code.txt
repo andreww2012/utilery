@@ -699,7 +699,7 @@ var require_scan = __commonJSMin(((exports, module) => {
 require_scan();
 
 // node_modules/picomatch/lib/parse.mjs
-var require_parse = __commonJSMin(((exports, module) => {
+var require_parse$1 = __commonJSMin(((exports, module) => {
 	const constants = require_constants$1();
 	const utils = require_utils();
 	const { MAX_LENGTH, POSIX_REGEX_SOURCE, REGEX_NON_SPECIAL_CHARS, REGEX_SPECIAL_CHARS_BACKREF, REPLACEMENTS } = constants;
@@ -1685,12 +1685,12 @@ var require_parse = __commonJSMin(((exports, module) => {
 	};
 	module.exports = parse;
 }));
-require_parse();
+require_parse$1();
 
 // node_modules/picomatch/lib/picomatch.mjs
 var require_picomatch$1 = __commonJSMin(((exports, module) => {
 	const scan = require_scan();
-	const parse = require_parse();
+	const parse = require_parse$1();
 	const utils = require_utils();
 	const constants = require_constants$1();
 	const isObject = (val) => val && typeof val === "object" && !Array.isArray(val);
@@ -7692,6 +7692,46 @@ Object.freeze({
 	bgHex: plainWhenUnsupportedFactory(bgHex)
 });
 
+// node_modules/cross-spawn/lib/enoent.mjs
+var require_enoent = __commonJSMin(((exports, module) => {
+	const isWin = process.platform === "win32";
+	function notFoundError(original, syscall) {
+		return Object.assign(new Error(`${syscall} ${original.command} ENOENT`), {
+			code: "ENOENT",
+			errno: "ENOENT",
+			syscall: `${syscall} ${original.command}`,
+			path: original.command,
+			spawnargs: original.args
+		});
+	}
+	function hookChildProcess(cp, parsed) {
+		if (!isWin) return;
+		const originalEmit = cp.emit;
+		cp.emit = function(name, arg1) {
+			if (name === "exit") {
+				const err = verifyENOENT(arg1, parsed);
+				if (err) return originalEmit.call(cp, "error", err);
+			}
+			return originalEmit.apply(cp, arguments);
+		};
+	}
+	function verifyENOENT(status, parsed) {
+		if (isWin && status === 1 && !parsed.file) return notFoundError(parsed.original, "spawn");
+		return null;
+	}
+	function verifyENOENTSync(status, parsed) {
+		if (isWin && status === 1 && !parsed.file) return notFoundError(parsed.original, "spawnSync");
+		return null;
+	}
+	module.exports = {
+		hookChildProcess,
+		verifyENOENT,
+		verifyENOENTSync,
+		notFoundError
+	};
+}));
+require_enoent();
+
 // node_modules/isexe/dist/commonjs/index.min.mjs
 var require_index_min = __commonJSMin(((exports) => {
 	var a = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports);
@@ -7899,6 +7939,176 @@ var require_lib$1 = __commonJSMin(((exports, module) => {
 	which.sync = whichSync;
 }));
 require_lib$1();
+
+// node_modules/path-key/index.mjs
+var require_path_key = __commonJSMin(((exports, module) => {
+	const pathKey = (options = {}) => {
+		const environment = options.env || process.env;
+		if ((options.platform || process.platform) !== "win32") return "PATH";
+		return Object.keys(environment).reverse().find((key) => key.toUpperCase() === "PATH") || "Path";
+	};
+	module.exports = pathKey;
+	module.exports.default = pathKey;
+}));
+require_path_key();
+
+// node_modules/cross-spawn/lib/util/resolveCommand.mjs
+var require_resolveCommand = __commonJSMin(((exports, module) => {
+	const path = __require("path");
+	const which = require_lib$1();
+	const getPathKey = require_path_key();
+	function resolveCommandAttempt(parsed, withoutPathExt) {
+		const env = parsed.options.env || process.env;
+		const cwd = process.cwd();
+		const hasCustomCwd = parsed.options.cwd != null;
+		const shouldSwitchCwd = hasCustomCwd && process.chdir !== void 0 && !process.chdir.disabled;
+		if (shouldSwitchCwd) try {
+			process.chdir(parsed.options.cwd);
+		} catch (err) {}
+		let resolved;
+		try {
+			resolved = which.sync(parsed.command, {
+				path: env[getPathKey({ env })],
+				pathExt: withoutPathExt ? path.delimiter : void 0
+			});
+		} catch (e) {} finally {
+			if (shouldSwitchCwd) process.chdir(cwd);
+		}
+		if (resolved) resolved = path.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
+		return resolved;
+	}
+	function resolveCommand(parsed) {
+		return resolveCommandAttempt(parsed) || resolveCommandAttempt(parsed, true);
+	}
+	module.exports = resolveCommand;
+}));
+require_resolveCommand();
+
+// node_modules/cross-spawn/lib/util/escape.mjs
+var require_escape = __commonJSMin(((exports, module) => {
+	const metaCharsRegExp = /([()\][%!^"`<>&|;, *?])/g;
+	function escapeCommand(arg) {
+		arg = arg.replace(metaCharsRegExp, "^$1");
+		return arg;
+	}
+	function escapeArgument(arg, doubleEscapeMetaChars) {
+		arg = `${arg}`;
+		arg = arg.replace(/(?=(\\+?)?)\1"/g, "$1$1\\\"");
+		arg = arg.replace(/(?=(\\+?)?)\1$/, "$1$1");
+		arg = `"${arg}"`;
+		arg = arg.replace(metaCharsRegExp, "^$1");
+		if (doubleEscapeMetaChars) arg = arg.replace(metaCharsRegExp, "^$1");
+		return arg;
+	}
+	module.exports.command = escapeCommand;
+	module.exports.argument = escapeArgument;
+}));
+require_escape();
+
+// node_modules/shebang-regex/index.mjs
+var require_shebang_regex = __commonJSMin(((exports, module) => {
+	module.exports = /^#!(.*)/;
+}));
+require_shebang_regex();
+
+// node_modules/shebang-command/index.mjs
+var require_shebang_command = __commonJSMin(((exports, module) => {
+	const shebangRegex = require_shebang_regex();
+	module.exports = (string = "") => {
+		const match = string.match(shebangRegex);
+		if (!match) return null;
+		const [path, argument] = match[0].replace(/#! ?/, "").split(" ");
+		const binary = path.split("/").pop();
+		if (binary === "env") return argument;
+		return argument ? `${binary} ${argument}` : binary;
+	};
+}));
+require_shebang_command();
+
+// node_modules/cross-spawn/lib/util/readShebang.mjs
+var require_readShebang = __commonJSMin(((exports, module) => {
+	const fs = __require("fs");
+	const shebangCommand = require_shebang_command();
+	function readShebang(command) {
+		const size = 150;
+		const buffer = Buffer.alloc(size);
+		let fd;
+		try {
+			fd = fs.openSync(command, "r");
+			fs.readSync(fd, buffer, 0, size, 0);
+			fs.closeSync(fd);
+		} catch (e) {}
+		return shebangCommand(buffer.toString());
+	}
+	module.exports = readShebang;
+}));
+require_readShebang();
+
+// node_modules/cross-spawn/lib/parse.mjs
+var require_parse = __commonJSMin(((exports, module) => {
+	const path = __require("path");
+	const resolveCommand = require_resolveCommand();
+	const escape = require_escape();
+	const readShebang = require_readShebang();
+	const isWin = process.platform === "win32";
+	const isExecutableRegExp = /\.(?:com|exe)$/i;
+	const isCmdShimRegExp = /node_modules[\\/].bin[\\/][^\\/]+\.cmd$/i;
+	function detectShebang(parsed) {
+		parsed.file = resolveCommand(parsed);
+		const shebang = parsed.file && readShebang(parsed.file);
+		if (shebang) {
+			parsed.args.unshift(parsed.file);
+			parsed.command = shebang;
+			return resolveCommand(parsed);
+		}
+		return parsed.file;
+	}
+	function parseNonShell(parsed) {
+		if (!isWin) return parsed;
+		const commandFile = detectShebang(parsed);
+		const needsShell = !isExecutableRegExp.test(commandFile);
+		if (parsed.options.forceShell || needsShell) {
+			const needsDoubleEscapeMetaChars = isCmdShimRegExp.test(commandFile);
+			parsed.command = path.normalize(parsed.command);
+			parsed.command = escape.command(parsed.command);
+			parsed.args = parsed.args.map((arg) => escape.argument(arg, needsDoubleEscapeMetaChars));
+			parsed.args = [
+				"/d",
+				"/s",
+				"/c",
+				`"${[parsed.command].concat(parsed.args).join(" ")}"`
+			];
+			parsed.command = process.env.comspec || "cmd.exe";
+			parsed.options.windowsVerbatimArguments = true;
+		}
+		return parsed;
+	}
+	function parse(command, args, options) {
+		if (args && !Array.isArray(args)) {
+			options = args;
+			args = null;
+		}
+		args = args ? args.slice(0) : [];
+		options = Object.assign({}, options);
+		const parsed = {
+			command,
+			args,
+			options,
+			file: void 0,
+			original: {
+				command,
+				args
+			}
+		};
+		return options.shell ? parsed : parseNonShell(parsed);
+	}
+	module.exports = parse;
+}));
+require_parse();
+
+// server/exec.mjs
+require_enoent();
+require_parse();
 
 // server/find-executable.mjs
 require_lib$1();

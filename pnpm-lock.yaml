@@ -196,6 +196,9 @@ catalogs:
     clickable-path:
       specifier: 0.1.1
       version: 0.1.1
+    cross-spawn:
+      specifier: 7.0.6
+      version: 7.0.6
     decode-uri-component:
       specifier: 0.5.1
       version: 0.5.1
@@ -321,6 +324,7 @@ catalogs:
       version: 5.1.0
 
 overrides:
+  cross-spawn>which: 7.0.0
   eslint-plugin-sonarjs>typescript: npm:@typescript/typescript6@6.0.2
   nanoid@>=3 <3.3.17: 3.3.18
   postcss@>=8 <=8.5.17: 8.5.26
@@ -450,6 +454,9 @@ importers:
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
+      cross-spawn:
+        specifier: catalog:bundled
+        version: 7.0.6
       cspell:
         specifier: 10.4.0
         version: 10.4.0
@@ -4376,9 +4383,6 @@ packages:
     resolution: {integrity: sha512-4SrR7AdnY11LHfDKTZY1u6Ga3RuxZdl3YKWWShO5iyuG5h8QS4GD2tOb04peBJ5I7pXbR+CGBNEhTcwK+FzN3g==}
     engines: {node: '>=20'}
 
-  isexe@2.0.0:
-    resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-
   isexe@3.1.5:
     resolution: {integrity: sha512-6B3tLtFqtQS4ekarvLVMZ+X+VlvQekbe4taUkf/rhVO3d/h0M2rfARm/pXLcPEsjjMsFgrFgSrhQIxcSVrBz8w==}
     engines: {node: '>=18'}
@@ -5994,11 +5998,6 @@ packages:
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
     engines: {node: '>=12'}
-
-  which@2.0.2:
-    resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
-    engines: {node: '>= 8'}
-    hasBin: true
 
   which@4.0.0:
     resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
@@ -8416,7 +8415,7 @@ snapshots:
     dependencies:
       path-key: 3.1.1
       shebang-command: 2.0.0
-      which: 2.0.2
+      which: 7.0.0(patch_hash=a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5)
 
   crossws@0.4.16(srvx@1.0.7):
     optionalDependencies:
@@ -9553,8 +9552,6 @@ snapshots:
   is-plain-obj@4.1.0: {}
 
   is-safe-filename@0.1.1: {}
-
-  isexe@2.0.0: {}
 
   isexe@3.1.5: {}
 
@@ -11479,10 +11476,6 @@ snapshots:
   walk-up-path@4.0.0: {}
 
   whatwg-mimetype@3.0.0: {}
-
-  which@2.0.2:
-    dependencies:
-      isexe: 2.0.0
 
   which@4.0.0:
     dependencies:
