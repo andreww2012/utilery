@@ -27,16 +27,9 @@ pre-commit:
       run: pnpm exec oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
     build:
-      # The build writes `exports` and `inlinedDependencies` to `package.json`. It reads the working
-      # tree, so unstaged changes in `src/` can get into them, which CI then reports
+      # The build writes `exports` and `inlinedDependencies` to `package.json`, which CI checks
       glob: '{src/**,package.json,pnpm-lock.yaml,pnpm-workspace.yaml}'
-      # Staging the whole file would also commit its unstaged changes
-      run: |
-        if ! git diff --quiet package.json; then
-          echo 'Stage or stash the changes in package.json first'
-          exit 1
-        fi
-        pnpm build && git add package.json
+      run: node scripts/build-staged.ts
 
 commit-msg:
   commands:
