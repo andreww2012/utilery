@@ -2,7 +2,7 @@ import {remove} from 'es-toolkit/array';
 
 /**
  * **Mutates** `array`, removing every element the predicate returns `true` for, and returns the
- * removed elements.
+ * removed elements
  */
 export const arrayPurgeBy: {
   /**

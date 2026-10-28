@@ -3,7 +3,7 @@ import type {Truthy} from '../types/truthy.ts';
 
 /**
  * Returns a new array without the falsy elements: `false`, `null`, `undefined`, `0`, `-0`, `0n`,
- * `''` and `NaN`.
+ * `''` and `NaN`
  */
 export const arrayWithoutFalsy: {
   /**

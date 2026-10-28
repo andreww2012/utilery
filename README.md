@@ -108,8 +108,7 @@ Where several of them augment the same thing, import at most one, otherwise thei
 
 ### Packages
 
-Each bundled package has its own page under [`docs/packages/`](./docs/packages/), listing every
-utility it provides and how it maps into `utilery` (renames, consolidations, and what was skipped).
+Each bundled package has its own page under [`docs/packages/`](./docs/packages/), listing every utility it provides and how it maps into `utilery` (renames, consolidations, and what was skipped).
 The [`inlinedDependencies`](https://github.com/e18e/ecosystem-issues/issues/237) field of our `package.json` lists the exact versions of all bundled packages, including the ones they depend on.
 
 | Package                                                                  | What we take from it                                                                                                                                                                    |

@@ -1,4 +1,4 @@
-// cspell:ignore neighbo neighborino nutils
+// cspell:ignore neighbo neighborino tilery
 import {truncate as truncateEnd} from 'es-toolkit/compat';
 import type {Prettify} from '../types/prettify.ts';
 
@@ -53,7 +53,7 @@ export type TruncateOptions = Prettify<
  * @example
  * // Keep the end or both ends
  * truncate('/home/user/projects/utilery/src/index.ts', {length: 20, position: 'start', omission: '…'});
- * // '…nutils/src/index.ts'
+ * // '…tilery/src/index.ts'
  * truncate('a-very-long-file-name.tar.gz', {length: 15, position: 'middle', omission: '…'});
  * // 'a-very-….tar.gz'
  */

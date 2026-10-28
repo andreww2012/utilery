@@ -2,7 +2,7 @@ import {deepTransformKeys} from 'string-ts';
 
 /**
  * Returns a copy of a value with the keys of every object in it, including those nested in other
- * objects and in arrays, replaced by what a function returns for them.
+ * objects and in arrays, replaced by what a function returns for them
  */
 export const transformKeysDeep: {
   /**

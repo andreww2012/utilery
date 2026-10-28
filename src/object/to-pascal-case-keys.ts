@@ -2,7 +2,7 @@ import {type PascalKeys, pascalKeys} from 'string-ts';
 
 /**
  * Returns a new object with the top-level keys converted to PascalCase, both at runtime and in the
- * type.
+ * type
  */
 export const toPascalCaseKeys: {
   /**

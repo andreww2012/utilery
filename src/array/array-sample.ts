@@ -62,7 +62,7 @@ export function arraySample<T>(
     number | undefined,
     {withReplacement?: boolean; random?: () => number} | undefined,
   ] = typeof sizeOrOptions === 'number' ? [sizeOrOptions, options] : [undefined, sizeOrOptions];
-  // `undefined` for an empty array, which the single-element overload doesn't type, as before
+  // `undefined` for an empty array, which the type of the single-element overload leaves out
   const pickOne = () => array[Math.floor(random() * array.length)] as T;
 
   if (size == null) {

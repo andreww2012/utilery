@@ -2,7 +2,7 @@ import {type DelimiterKeys, delimiterKeys} from 'string-ts';
 
 /**
  * Returns a new object with the top-level keys split into words and joined with the given
- * delimiter, both at runtime and in the type.
+ * delimiter, both at runtime and in the type
  */
 export const toDelimiterCaseKeys: {
   /**

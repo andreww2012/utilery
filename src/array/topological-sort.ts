@@ -10,7 +10,7 @@ export class CyclicDependencyError<T = unknown> extends Error {
   /**
    * Creates the error `topologicalSort` throws when the dependencies form a cycle.
    * @param cycle - The nodes of the cycle, starting and ending with the same node.
-   * @param options - The standard error options, like `cause`.
+   * @param options - The standard error options, like `cause`
    */
   constructor(cycle: T[], options?: ErrorOptions) {
     super(`Cyclic dependency: ${cycle.map(String).join(' -> ')}`, options);

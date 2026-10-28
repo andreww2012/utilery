@@ -2,7 +2,7 @@ import {objectMap} from '@antfu/utils';
 
 /**
  * Creates a new object from the own enumerable string-keyed entries of an object, each turned into
- * a new `[key, value]` pair by a function.
+ * a new `[key, value]` pair by a function
  */
 export const mapEntries: {
   /**

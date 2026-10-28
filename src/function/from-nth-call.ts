@@ -2,7 +2,7 @@ import {after} from 'es-toolkit/function';
 
 /**
  * Wraps a function so that the first `n - 1` calls do nothing: it only starts calling `fn` from the
- * `n`-th call on.
+ * `n`-th call on
  */
 export const fromNthCall: {
   /**

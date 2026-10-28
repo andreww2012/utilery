@@ -44,6 +44,6 @@ interface EveryPredicate {
 
 /**
  * Combines predicates into one that passes when all of them pass.
- * For one that passes when any of them passes, use `somePredicate`.
+ * For one that passes when any of them passes, use `somePredicate`
  */
 export const everyPredicate: EveryPredicate = overEvery;

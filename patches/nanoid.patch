@@ -1,3 +1,7 @@
+Points the `default` export condition to the browser build, which our bundle then includes. The
+Node.js build fills the random bytes into a `Buffer`, which browsers lack, while the browser build
+only needs the global `crypto.getRandomValues`, which Node.js has too.
+
 diff --git a/package.json b/package.json
 index d24ceb8a4a377f5d83d08c19c7b60e77a42a0d72..799bcc17596bf71ff236ef2ed3c73338be81554c 100644
 --- a/package.json

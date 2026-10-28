@@ -4,7 +4,7 @@ import {supportsHyperlinks} from 'clickable-path';
 /**
  * Checks whether the terminal is likely to support clickable links (the OSC 8 escape sequence),
  * based on the environment: the terminal app and its version, `NO_COLOR`, CI and whether the stream
- * is a TTY.
+ * is a TTY
  */
 export const isTerminalLinkSupported: {
   /**

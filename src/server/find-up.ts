@@ -5,7 +5,7 @@ export type FindUpOptions = Options;
 
 /**
  * Finds a file or directory by name, looking in the starting directory first and then in each
- * parent directory, like Node.js does for `package.json`.
+ * parent directory, like Node.js does for `package.json`
  */
 export const findUp: {
   /**

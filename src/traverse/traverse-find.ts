@@ -3,7 +3,7 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
 
 /**
  * Returns the first node of `value` (depth-first) for which `predicate` is truthy, or `undefined`
- * if none match.
+ * if none match
  */
 export const traverseFind: {
   /**

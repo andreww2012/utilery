@@ -2,7 +2,7 @@ import {type ConstantKeys, constantKeys} from 'string-ts';
 
 /**
  * Returns a new object with the top-level keys converted to CONSTANT_CASE, both at runtime and in
- * the type.
+ * the type
  */
 export const toConstantCaseKeys: {
   /**

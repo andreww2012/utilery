@@ -3,7 +3,7 @@ import type {BitIndex} from './is-bit-index.ts';
 
 /**
  * Shifts the bits of the 32-bit integer representation of `value` to the left by `count` places,
- * moving the bits that fall off the left end to the right end (a circular shift).
+ * moving the bits that fall off the left end to the right end (a circular shift)
  */
 export const rotateBitsLeft: {
   /**

@@ -3,7 +3,7 @@ import type {StringSplit} from '../types/string-split.ts';
 
 /**
  * Splits a string by a delimiter, like `String.prototype.split`, but the result type is a tuple of
- * the parts when the string and the delimiter are literals.
+ * the parts when the string and the delimiter are literals
  */
 export const stringSplit: {
   /**

@@ -4,7 +4,7 @@ import decodeUriComponent from 'decode-uri-component';
 /**
  * Decodes a percent-encoded URI component, like `decodeURIComponent`, but never throws: most
  * malformed sequences, like a lone `%` or broken UTF-8 bytes, are kept as is while the rest is
- * still decoded.
+ * still decoded
  */
 export const decodeUriComponentSafe: {
   /**

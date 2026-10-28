@@ -2,7 +2,7 @@ import {isJSONObject} from 'es-toolkit/predicate';
 
 /**
  * Checks whether a value is a JSON object: a plain object (including one with a `null` prototype)
- * whose values are all JSON values (see `isJsonValue`), at any depth.
+ * whose values are all JSON values (see `isJsonValue`), at any depth
  */
 export const isJsonObject: {
   /**

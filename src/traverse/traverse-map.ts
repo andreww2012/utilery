@@ -3,7 +3,7 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
 
 /**
  * Like `traverseForEach`, but returns a deeply-cloned copy of `value` with every mutation applied
- * via the context, leaving the input untouched.
+ * via the context, leaving the input untouched
  */
 // The upstream function returns `any`, but it returns a clone of the value it was given
 export const traverseMap: {

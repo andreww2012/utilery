@@ -6,7 +6,7 @@
  * @param target - The object the native method belongs to, like `Map.prototype`.
  * @param key - The name of the native method.
  * @param standIn - A simple implementation of the native method.
- * @param tests - Declares the tests.
+ * @param tests - Declares the tests
  */
 export const describeWithAndWithoutNative = (
   target: object,

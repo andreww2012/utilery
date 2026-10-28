@@ -2,7 +2,7 @@ import {type Slice, slice} from 'string-ts';
 
 /**
  * Returns a part of a string, like `String.prototype.slice`, but the result type is the sliced
- * literal when the string and the indexes are literals.
+ * literal when the string and the indexes are literals
  */
 export const stringSlice: {
   /**

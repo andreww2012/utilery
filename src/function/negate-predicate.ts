@@ -2,7 +2,7 @@ import {not} from 'ts-extras';
 
 /**
  * Turns a type guard into its opposite: the new type guard returns `true` when the original one
- * returns `false`, narrowing the value to the types the original one excludes.
+ * returns `false`, narrowing the value to the types the original one excludes
  */
 export const negatePredicate: {
   /**

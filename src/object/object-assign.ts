@@ -3,7 +3,7 @@ import {assignOwnProperties} from '../_internal/assign-own-properties.ts';
 
 /**
  * A strongly-typed `Object.assign`: copies the own enumerable properties of each `source` onto
- * `target`, **mutating** and returning `target`.
+ * `target`, **mutating** and returning `target`
  */
 export const objectAssign: {
   /**

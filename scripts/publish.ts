@@ -13,7 +13,7 @@ const getCurrentBranch = () => {
     return githubRefNameEnv;
   }
 
-  // eslint-disable-next-line sonar/no-os-command-from-path -- `git` is part of the trusted CI/dev toolchain, resolved from a trusted PATH.
+  // eslint-disable-next-line sonar/no-os-command-from-path -- `git` is part of the trusted CI/dev toolchain, resolved from a trusted PATH
   return execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
     cwd: ROOT,
     encoding: 'utf8',
@@ -35,9 +35,9 @@ const run = () => {
 
   try {
     // `changeset publish` runs it too, but hides its output when it fails
-    // eslint-disable-next-line sonar/no-os-command-from-path -- `pnpm` is the pinned CI/dev toolchain, resolved from a trusted PATH.
+    // eslint-disable-next-line sonar/no-os-command-from-path -- `pnpm` is the pinned CI/dev toolchain, resolved from a trusted PATH
     execFileSync('pnpm', ['prepublishOnly'], {stdio: 'inherit'});
-    // eslint-disable-next-line sonar/no-os-command-from-path -- `pnpm` is the pinned CI/dev toolchain, resolved from a trusted PATH.
+    // eslint-disable-next-line sonar/no-os-command-from-path -- `pnpm` is the pinned CI/dev toolchain, resolved from a trusted PATH
     execFileSync('pnpm', ['exec', 'changeset', 'publish'], {stdio: 'inherit'});
   } finally {
     fs.writeFileSync(THIRD_PARTY_NOTICES_PATH, originalNoticesText);

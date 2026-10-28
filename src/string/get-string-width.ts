@@ -19,7 +19,7 @@ interface GetStringWidthOptions {
 /**
  * Gets the number of terminal columns a string takes when displayed, unlike its `length`: wide
  * characters (Chinese, Japanese, Korean, most emoji) take 2 columns, combining marks and zero-width
- * characters take none, and ANSI escape codes are ignored.
+ * characters take none, and ANSI escape codes are ignored
  */
 export const getStringWidth: {
   /**

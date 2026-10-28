@@ -2,7 +2,7 @@ import {type SnakeKeys, snakeKeys} from 'string-ts';
 
 /**
  * Returns a new object with the top-level keys converted to snake_case, both at runtime and in the
- * type.
+ * type
  */
 export const toSnakeCaseKeys: {
   /**

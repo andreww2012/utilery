@@ -47,6 +47,6 @@ interface BindLate {
 
 /**
  * Creates a function that calls the method `object[key]`, looking it up on
- * every call.
+ * every call
  */
 export const bindLate: BindLate = bindKey;

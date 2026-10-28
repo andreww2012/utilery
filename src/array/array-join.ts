@@ -3,7 +3,7 @@ import type {ArrayJoin} from '../types/array-join.ts';
 
 /**
  * Joins the elements of an array into a string, like `Array.prototype.join`, but the result type is
- * the joined literal when the elements and the delimiter are literals.
+ * the joined literal when the elements and the delimiter are literals
  */
 export const arrayJoin: {
   /**

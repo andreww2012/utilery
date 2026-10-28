@@ -3,7 +3,7 @@ import type {TraverseOptions} from './_shared.ts';
 
 /**
  * Returns every node of `value` (including the root and every intermediate container), depth-first,
- * as a flat array.
+ * as a flat array
  */
 export const traverseNodes: {
   /**

@@ -68,7 +68,7 @@ export const STRUCTURED_STRINGIFY_DEFAULT_OPERATIONS = defaultStringifyOperation
 
 /**
  * Given the own enumerable string keys of an array-like value, in property order (where array
- * indexes always come first), returns the leading run of them that are valid array indexes.
+ * indexes always come first), returns the leading run of them that are valid array indexes
  */
 export const structuredFilterArrayIndexes: {
   /**
@@ -127,7 +127,7 @@ export const StructuredStringifyError: {
    * @param keys - The segments of the path to the offending value, like
    * `['.user', '.avatar']`: they are joined into `path`.
    * @param value - The offending value.
-   * @param root - The value that was being serialized.
+   * @param root - The value that was being serialized
    */
   new (message: string, keys: string[], value?: unknown, root?: unknown): StructuredStringifyError;
 } = DevalueError;
@@ -135,7 +135,7 @@ export const StructuredStringifyError: {
 /**
  * Serializes a value into a string that round-trips through `structuredParse`, preserving types
  * `JSON.stringify` cannot (`Date`, `Map`, `Set`, `BigInt`, `RegExp`, typed arrays, etc.), as well
- * as circular and repeated references.
+ * as circular and repeated references
  */
 // Explicitly typed to narrow the upstream `any`s to `unknown`
 export const structuredStringify: {

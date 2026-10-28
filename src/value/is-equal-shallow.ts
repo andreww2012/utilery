@@ -109,7 +109,7 @@ interface IsEqualShallow {
 /**
  * Checks whether two values are shallowly equal: their own properties, elements or entries are
  * compared with `SameValueZero`.
- * With one argument, it returns a function that compares its argument with the given value.
+ * With one argument, it returns a function that compares its argument with the given value
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const isEqualShallow: IsEqualShallow = isShallowEqual;

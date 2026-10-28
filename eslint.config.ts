@@ -41,7 +41,8 @@ export default eslintConfig({
           ...explicitModuleBoundaryTypes,
           create: (context: Parameters<typeof explicitModuleBoundaryTypes.create>[0]) =>
             explicitModuleBoundaryTypes.create(
-              // Not a spread: the context is frozen and keeps most of its properties in the prototype
+              // Not a spread: the context is frozen and keeps most of its properties in the
+              // prototype
               Object.create(context, {
                 report: {
                   value: (descriptor: Parameters<typeof context.report>[0]) => {
@@ -104,8 +105,8 @@ export default eslintConfig({
       configModuleReplacements: {
         options: {
           allowed: [
-            // Unlike its suggested replacement, tells a missing command (`ENOENT`) from a failed one
-            // on Windows, where both make `cmd.exe` exit with `1`
+            // Unlike its suggested replacement, tells a missing command (`ENOENT`) from a failed
+            // one on Windows, where both make `cmd.exe` exit with `1`
             'cross-spawn',
             // Unlike their suggested replacements: `fast-string-width` (which `fast-wrap-ansi`
             // uses) miscounts zero-width characters, conjoining Hangul and tabs, and the native

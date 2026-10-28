@@ -3,7 +3,7 @@ import envPaths, {type Options, type Paths} from 'env-paths';
 
 /**
  * Gets the standard directories of the current operating system for storing an app's data, config,
- * cache, logs and temporary files.
+ * cache, logs and temporary files
  */
 export const getAppPaths: {
   /**

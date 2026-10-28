@@ -1,4 +1,4 @@
-import {execFileSync, execSync} from 'node:child_process';
+import {execSync, spawnSync} from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -186,17 +186,16 @@ beforeAll(() => {
       ),
     );
 
-    let output = '';
-    try {
-      execFileSync(tscBinPath, ['--project', tsconfigName, '--pretty', 'false'], {
-        cwd: consumerDirectory,
-        encoding: 'utf8',
-      });
-    } catch (error) {
-      output = (error as {stdout?: string}).stdout || '';
+    const {stdout, error} = spawnSync(
+      tscBinPath,
+      ['--project', tsconfigName, '--pretty', 'false'],
+      {cwd: consumerDirectory, encoding: 'utf8'},
+    );
+    if (error) {
+      throw error;
     }
 
-    recordErrors(output);
+    recordErrors(stdout);
   });
 }, 120_000);
 

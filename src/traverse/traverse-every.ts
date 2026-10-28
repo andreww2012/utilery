@@ -3,7 +3,7 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
 
 /**
  * Returns `true` if `predicate` is truthy for every node of `value`, stopping at the first node
- * that fails.
+ * that fails
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const traverseEvery: {

@@ -2,7 +2,7 @@ import {type Length, length} from 'string-ts';
 
 /**
  * Returns the length of a string, like `String.prototype.length`, but the result type is a number
- * literal when the string is a literal.
+ * literal when the string is a literal
  */
 export const stringLength: {
   /**

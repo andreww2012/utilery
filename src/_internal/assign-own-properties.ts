@@ -14,7 +14,8 @@ export const assignOwnProperties = <T extends object>(
     if (source == null) {
       return;
     }
-    // Like `Object.assign`, also copies the properties of a primitive, like the characters of a string
+    // Like `Object.assign`, also copies the properties of a primitive, like the characters of a
+    // string
     const from = new Object(source) as Readonly<Record<PropertyKey, unknown>>;
     Reflect.ownKeys(from)
       .filter((key) => Object.prototype.propertyIsEnumerable.call(from, key))

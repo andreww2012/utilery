@@ -3,7 +3,7 @@ import type {EnsureInteger} from '../types/ensure-integer.ts';
 
 /**
  * Checks whether a number is a safe integer, like `Number.isSafeInteger`: an integer from
- * `Number.MIN_SAFE_INTEGER` to `Number.MAX_SAFE_INTEGER`, which can be represented exactly.
+ * `Number.MIN_SAFE_INTEGER` to `Number.MAX_SAFE_INTEGER`, which can be represented exactly
  */
 export const isSafeInteger: {
   /**

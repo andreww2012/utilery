@@ -33,7 +33,7 @@ describe('server/findExecutable', () => {
     const found = await findExecutable('tool', {path: searchPath});
 
     expect(found && path.dirname(found)).toBe(first);
-    expect(path.dirname(findExecutableSync('tool', {path: searchPath}) ?? '')).toBe(first);
+    expect(path.dirname(findExecutableSync('tool', {path: searchPath}) || '')).toBe(first);
   });
 
   it('finds every match with `all`', async () => {

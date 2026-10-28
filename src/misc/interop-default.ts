@@ -1,7 +1,8 @@
 import type {MaybePromise} from '../types/maybe-promise.ts';
 
 // A nullish default export counts as missing. Not `Default extends null | undefined`: it would
-// distribute, and the module in its true branch would become an intersection with `{default: undefined}`
+// distribute, and the module in its true branch would become an intersection with
+// `{default: undefined}`
 type DefaultExportOrModule<Module> = Module extends {default: infer Default}
   ? unknown extends Default
     ? Default
@@ -50,7 +51,7 @@ export function interopDefault<T extends {default: unknown}>(
  * also in generic code.
  * @param module - The module or a promise of it.
  * @returns A promise of the default export when the module has a `default` property that is not
- * `null` or `undefined`, otherwise of the module itself.
+ * `null` or `undefined`, otherwise of the module itself
  */
 export function interopDefault<T = never>(
   // With `NoInfer` and `never`, a module with no `default` key in its type doesn't match, so the
@@ -63,7 +64,7 @@ export function interopDefault<T = never>(
  * one that is not `null` or `undefined`, or to the module itself otherwise.
  * @param module - The module or a promise of it.
  * @returns A promise of the default export when the module has a `default` property that is not
- * `null` or `undefined`, otherwise of the module itself.
+ * `null` or `undefined`, otherwise of the module itself
  */
 export function interopDefault<T>(module: T): Promise<DefaultExportOrModule<Awaited<T>>>;
 export async function interopDefault(module: unknown): Promise<unknown> {

@@ -3,7 +3,7 @@ import type {StructuredStringifyOptions} from './structured-stringify.ts';
 
 /**
  * Like `structuredStringify`, but also accepts promises anywhere inside the value: each one is
- * awaited, and the value it resolves to is serialized in its place.
+ * awaited, and the value it resolves to is serialized in its place
  */
 // Explicitly typed to narrow the upstream `any`s to `unknown`
 export const structuredStringifyAsync: {

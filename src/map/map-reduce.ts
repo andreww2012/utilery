@@ -2,7 +2,7 @@ import {reduce} from 'es-toolkit/map';
 
 /**
  * Reduces the entries of a `Map` to a single value, in insertion order, like
- * `Array.prototype.reduce`.
+ * `Array.prototype.reduce`
  */
 export const mapReduce: {
   /**

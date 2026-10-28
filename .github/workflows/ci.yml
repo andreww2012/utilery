@@ -120,7 +120,7 @@ jobs:
           bun-version: latest
       # The whole `prepublishOnly`, not only the build, so that if it breaks, we know before
       # publishing. `tsdown` runs `attw` and `publint` with `failOnWarn`, so this also lints
-      # the public types. The consumer, side effects and Bun checks need the built `dist/`.
+      # the public types. The consumer, side effects and Bun checks need the built `dist/`
       - run: pnpm prepublishOnly
       # The build writes `exports` and `inlinedDependencies` to `package.json`, which must be
       # committed

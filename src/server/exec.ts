@@ -102,7 +102,7 @@ interface ExecErrorConstructor extends OmitStrict<typeof ExecErrorBase, 'prototy
   /**
    * Creates the error `exec` rejects with when the process exits with a code
    * other than `0`, or is stopped by a signal.
-   * @param result - The process ID, the output and the exit code of the process.
+   * @param result - The process ID, the output and the exit code of the process
    */
   new (result: ExecResult): ExecError;
   readonly prototype: ExecError;

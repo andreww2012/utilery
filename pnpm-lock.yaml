@@ -332,12 +332,12 @@ overrides:
 patchedDependencies:
   '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
   '@sindresorhus/transliterate': 8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86
-  arkregex: 6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623
+  arkregex: 5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee
   decode-uri-component: 09bdfb22a9e5b1f8851b1f4c145594c0c640223bfaa1c9ed026f1dfc22c46366
   es-toolkit: ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250
   http-link-header: 784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
-  nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
+  nanoid@6: 833f6745caeb3fd0d3fcb8cedb6a9f88153b3cd19b4ebf5aaebad75a5a25239c
   remeda: 9e52c151cff234b19010b1ed56a1d6f22b52ec860a1eb5634c6db1a592239273
   safe-stable-stringify: c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba
   signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
@@ -444,7 +444,7 @@ importers:
         version: 0.3.3
       arkregex:
         specifier: catalog:bundled
-        version: 0.0.14(patch_hash=6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623)
+        version: 0.0.14(patch_hash=5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee)
       cleye:
         specifier: 2.7.0
         version: 2.7.0
@@ -534,7 +534,7 @@ importers:
         version: 1.2.0
       nanoid:
         specifier: catalog:bundled
-        version: 6.0.2(patch_hash=3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86)
+        version: 6.0.2(patch_hash=833f6745caeb3fd0d3fcb8cedb6a9f88153b3cd19b4ebf5aaebad75a5a25239c)
       negotiator:
         specifier: catalog:bundled
         version: 1.1.0
@@ -8186,7 +8186,7 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arkregex@0.0.14(patch_hash=6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623):
+  arkregex@0.0.14(patch_hash=5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee):
     dependencies:
       '@ark/util': 0.56.8
 
@@ -10369,7 +10369,7 @@ snapshots:
 
   nanoid@3.3.20: {}
 
-  nanoid@6.0.2(patch_hash=3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86): {}
+  nanoid@6.0.2(patch_hash=833f6745caeb3fd0d3fcb8cedb6a9f88153b3cd19b4ebf5aaebad75a5a25239c): {}
 
   napi-postinstall@0.3.7: {}
 

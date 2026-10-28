@@ -6,11 +6,9 @@ import {type TitleCase, type TitleCaseOptions, toTitleCase as toTitleCaseFromRem
  * For string literal inputs the return type is the precisely-typed title-cased
  * string; a non-literal `string` widens to `string`.
  *
- * This replaces the former `toStartCase`.
- * The difference is acronym handling: by default consecutive capitals are preserved,
- * so `'XMLHttpRequest'` becomes `'XML Http Request'` (a plain start-case conversion
- * produced `'Xml Http Request'`); pass `{preserveConsecutiveUppercase: false}` for
- * the old behavior.
+ * By default, consecutive capitals are kept, so `'XMLHttpRequest'` becomes
+ * `'XML Http Request'`; pass `{preserveConsecutiveUppercase: false}` to get
+ * `'Xml Http Request'`.
  * @param value - The string to convert.
  * @param options - Optional flags; set `preserveConsecutiveUppercase` to `false` to lowercase runs
  * of capitals.

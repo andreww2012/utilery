@@ -3,7 +3,7 @@ import type {ToKebabCaseKeys} from 'es-toolkit/types';
 
 /**
  * Returns a copy of a value with the keys of every plain object in it, including those nested in
- * other objects and in arrays, converted to kebab-case, both at runtime and in the type.
+ * other objects and in arrays, converted to kebab-case, both at runtime and in the type
  */
 export const toKebabCaseKeysDeep: {
   /**

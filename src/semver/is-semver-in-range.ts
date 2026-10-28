@@ -44,7 +44,7 @@ export const isSemverInRange: {
    * options it was parsed with.
    * @param version - The version to check (a string or the result of `parseSemver`).
    * @param range - The range to check against.
-   * @returns `true` if the version is in the range, otherwise `false`.
+   * @returns `true` if the version is in the range, otherwise `false`
    */
   (version: ParsedSemver | string, range: RangeInput): boolean;
 } = satisfies;

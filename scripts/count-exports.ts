@@ -33,7 +33,7 @@ const COLUMN_GAP = '  ';
 const DIST_PREFIX = './dist/';
 const MJS_EXTENSION_REGEX = /\.mjs$/;
 
-const FLAGS_SCHEMA = v.object({
+const flagsSchema = v.object({
   type: v.pipe(
     v.array(v.picklist([COUNT_TYPE_ALL, ...COUNT_TYPES])),
     v.check(
@@ -238,19 +238,16 @@ const main = () => {
         description: `Output format: ${quoteList(OUTPUT_FORMATS)} (default '${DEFAULT_OUTPUT_FORMAT}').`,
       },
     },
+    strictFlags: true,
   });
 
-  let flags: v.InferOutput<typeof FLAGS_SCHEMA>;
-  try {
-    flags = v.parse(FLAGS_SCHEMA, argv.flags);
-  } catch (error) {
-    if (v.isValiError(error)) {
-      console.error(`Invalid flags:\n${v.summarize(error.issues)}`);
-      process.exit(1);
-    }
-    throw error;
+  const parsedFlags = v.safeParse(flagsSchema, argv.flags);
+  if (!parsedFlags.success) {
+    console.error(`Invalid flags:\n${v.summarize(parsedFlags.issues)}`);
+    process.exit(1);
   }
 
+  const flags = parsedFlags.output;
   const requested = flags.type;
   const {overall, perSubpath} = analyze(readSubpaths());
 

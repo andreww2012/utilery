@@ -69,12 +69,12 @@ describe('misc/formatDuration', () => {
   });
 
   it('shows the years as days or hours with `hideYear` and `hideYearAndDays`', () => {
-    const duration = 31_813_305_000;
+    const durationMs = 31_813_305_000;
 
-    expect(formatDuration(duration)).toBe('1y 3d 5h 1m 45s');
-    expect(formatDuration(duration, {hideYear: true})).toBe('368d 5h 1m 45s');
-    expect(formatDuration(duration, {hideYearAndDays: true})).toBe('8837h 1m 45s');
-    expect(formatDuration(duration, {hideSeconds: true})).toBe('1y 3d 5h 1m');
+    expect(formatDuration(durationMs)).toBe('1y 3d 5h 1m 45s');
+    expect(formatDuration(durationMs, {hideYear: true})).toBe('368d 5h 1m 45s');
+    expect(formatDuration(durationMs, {hideYearAndDays: true})).toBe('8837h 1m 45s');
+    expect(formatDuration(durationMs, {hideSeconds: true})).toBe('1y 3d 5h 1m');
   });
 
   it('always shows the hours with `colonNotation` and `hideSeconds`', () => {

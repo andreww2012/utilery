@@ -3,7 +3,7 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
 
 /**
  * Recursively visits every node of `value` (arrays, plain objects and their nested combinations)
- * depth-first, invoking `callback` for each.
+ * depth-first, invoking `callback` for each
  */
 // The upstream function returns `any`, but it returns the value it was given
 export const traverseForEach: {

@@ -17,7 +17,7 @@ interface StyleTextOptions {
 
 /**
  * Styles text for terminals with ANSI escape codes, like a color, a background color or a modifier
- * such as `'bold'` or `'underline'`.
+ * such as `'bold'` or `'underline'`
  */
 export const styleText: {
   /**

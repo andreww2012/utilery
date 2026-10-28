@@ -2,7 +2,7 @@ import {u32i32} from '@thi.ng/binary/int';
 
 /**
  * Converts a number to a signed 32-bit integer (from `-(2 ** 31)` to `2 ** 31 - 1`), the same way
- * bitwise operators do: the fractional part is dropped and the bits above the 32nd are discarded.
+ * bitwise operators do: the fractional part is dropped and the bits above the 32nd are discarded
  */
 export const toInt32: {
   /**

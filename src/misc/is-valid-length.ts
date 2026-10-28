@@ -2,7 +2,7 @@ import {isLength} from 'es-toolkit/predicate';
 
 /**
  * Checks whether a value is a valid length of an array-like value: an integer from `0` to
- * `Number.MAX_SAFE_INTEGER`.
+ * `Number.MAX_SAFE_INTEGER`
  */
 export const isValidLength: {
   /**

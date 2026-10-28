@@ -177,7 +177,7 @@ index d3e1f5bc2c1ff6ce7ecb99e582bae16546a6e04e..fe4e3210ca1669fb264a64cafd17d949
 +// That dual declaration-space usage is valid TypeScript, but when tsdown's
 +// rolldown-plugin-dts bundles these declarations (it models them as "fake JS",
 +// where `s` is a single binding) it conflates the two and DROPS the namespace,
-+// emitting invalid `.d.ts` — consumers then get `TS2702: 's' only refers to a
++// emitting invalid `.d.ts`: consumers then get `TS2702: 's' only refers to a
 +// type, but is being used as a namespace here`, and inference silently breaks.
 +// attw/publint false-pass it. Renaming removes the collision. No dts backend
 +// (tsc/tsgo/oxc) avoids it; see repro `rolldown-dts-drops-shadowed-namespace`.

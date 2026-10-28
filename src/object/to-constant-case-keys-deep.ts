@@ -3,7 +3,7 @@ import type {ToConstantCaseKeys} from 'es-toolkit/types';
 
 /**
  * Returns a copy of a value with the keys of every plain object in it, including those nested in
- * other objects and in arrays, converted to CONSTANT_CASE, both at runtime and in the type.
+ * other objects and in arrays, converted to CONSTANT_CASE, both at runtime and in the type
  */
 export const toConstantCaseKeysDeep: {
   /**

@@ -2,7 +2,7 @@ import {type CamelKeys, camelKeys} from 'string-ts';
 
 /**
  * Returns a new object with the top-level keys converted to camelCase, both at runtime and in the
- * type.
+ * type
  */
 export const toCamelCaseKeys: {
   /**

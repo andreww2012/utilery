@@ -2,7 +2,7 @@ import {slash} from '@antfu/utils';
 
 /**
  * Replaces every backslash in a path with a forward slash, turning a Windows path into the form
- * that URLs, glob patterns and POSIX tools expect.
+ * that URLs, glob patterns and POSIX tools expect
  */
 export const toForwardSlashes: {
   /**

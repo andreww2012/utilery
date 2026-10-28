@@ -2,7 +2,7 @@ import leven from 'leven';
 
 /**
  * Measures how different two strings are: the Levenshtein distance, the smallest number of
- * single-character insertions, deletions and replacements that turn one string into the other.
+ * single-character insertions, deletions and replacements that turn one string into the other
  */
 export const levenshteinDistance: {
   /**

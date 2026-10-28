@@ -2,7 +2,7 @@ import {type Concat, concat} from 'string-ts';
 
 /**
  * Joins strings together, like `String.prototype.concat`, but the result type is the joined literal
- * when the strings are literals.
+ * when the strings are literals
  */
 export const stringConcat: {
   /**

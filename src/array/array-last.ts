@@ -29,6 +29,6 @@ interface ArrayLast {
 
 /**
  * Returns the last element of an array, typed precisely for tuples.
- * For the first element, use `arrayFirst`.
+ * For the first element, use `arrayFirst`
  */
 export const arrayLast: ArrayLast = arrayLastBase;

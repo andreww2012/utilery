@@ -2,7 +2,7 @@ import {isPropertyDefined as isPropertyDefinedBase} from 'ts-extras';
 
 /**
  * Creates a type guard that checks whether an object has an own property with the given key that is
- * not `undefined`.
+ * not `undefined`
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const isPropertyDefined: {

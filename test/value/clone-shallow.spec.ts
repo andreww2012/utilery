@@ -14,13 +14,7 @@ describe('value/cloneShallow', () => {
 
   it('applies a customizer invoked for the root value', () => {
     const cloned = cloneShallow([1, 2, 3], (value) =>
-      isArray(value)
-        ? value.map(
-            (item) =>
-              // eslint-disable-next-line ts/no-explicit-any
-              (item as any) * 2,
-          )
-        : undefined,
+      isArray(value) ? value.map((item) => Number(item) * 2) : undefined,
     );
 
     expect(cloned).toStrictEqual([2, 4, 6]);

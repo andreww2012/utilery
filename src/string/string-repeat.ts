@@ -2,7 +2,7 @@ import {type Repeat, repeat} from 'string-ts';
 
 /**
  * Repeats a string, like `String.prototype.repeat`, but the result type is the repeated literal
- * when the string and the count are literals.
+ * when the string and the count are literals
  */
 export const stringRepeat: {
   /**

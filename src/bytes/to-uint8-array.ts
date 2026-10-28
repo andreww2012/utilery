@@ -2,7 +2,7 @@ import {toUint8Array as toUint8ArrayBase} from 'uint8array-extras';
 
 /**
  * Views any typed array, `ArrayBuffer` or `DataView` as a plain `Uint8Array` over the same memory,
- * without copying.
+ * without copying
  */
 export const toUint8Array: {
   /**

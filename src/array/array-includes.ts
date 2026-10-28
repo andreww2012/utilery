@@ -2,7 +2,7 @@ import {arrayIncludes as arrayIncludesBase} from 'ts-extras';
 
 /**
  * Checks whether an array has a value, like `Array.prototype.includes`, but as a type guard: when
- * it returns `true`, the value is narrowed to the element type of the array.
+ * it returns `true`, the value is narrowed to the element type of the array
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const arrayIncludes: {

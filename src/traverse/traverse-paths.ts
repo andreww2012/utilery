@@ -3,7 +3,7 @@ import type {TraverseOptions} from './_shared.ts';
 
 /**
  * Returns the path (as an array of keys) of every node of `value`, depth-first, starting with the
- * empty path for the root.
+ * empty path for the root
  */
 export const traversePaths: {
   /**

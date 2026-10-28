@@ -2,7 +2,7 @@ import {type KebabKeys, kebabKeys} from 'string-ts';
 
 /**
  * Returns a new object with the top-level keys converted to kebab-case, both at runtime and in the
- * type.
+ * type
  */
 export const toKebabCaseKeys: {
   /**

@@ -68,7 +68,7 @@ interface StringifyFunction {
    * @param replacer - Transforms the values, or lists the keys to keep, like the replacer of
    * `JSON.stringify`.
    * @param space - The indentation, like the one of `JSON.stringify`.
-   * @returns `undefined`.
+   * @returns `undefined`
    */
   (
     value: undefined | symbol | ((...parameters: unknown[]) => unknown),
@@ -170,6 +170,6 @@ interface JsonStringifyStable extends StringifyFunction {
 
 /**
  * Converts a value to JSON like `JSON.stringify`, but deterministic and safe: with sorted keys,
- * and without throwing on circular references and bigints.
+ * and without throwing on circular references and bigints
  */
 export const jsonStringifyStable: JsonStringifyStable = stringify;

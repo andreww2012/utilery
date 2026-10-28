@@ -5,7 +5,9 @@ import {describeWithAndWithoutNative} from '../describe-with-and-without-native.
 const ESCAPED_AS_HEX_REGEX = /[\s!"#%&',\-:;<=>@`~]/;
 const LEADING_ALPHANUMERIC_REGEX = /[\da-z]/i;
 const FLAGS = ['', 'u', 'v'] as const;
-const PRINTABLE_ASCII = Array.from({length: 95}, (_, index) => String.fromCodePoint(index + 32));
+const PRINTABLE_ASCII: readonly string[] = Array.from({length: 95}, (_, index) =>
+  String.fromCodePoint(index + 32),
+);
 const ONLY_SYNTAX_CHARACTERS = {onlySyntaxCharacters: true} as const;
 const LITERAL_TEXTS = [
   PRINTABLE_ASCII.join(''),
@@ -28,7 +30,7 @@ const regexEscapeStandIn = (text: string) =>
       return `\\${'tnvfr'[controlEscapeIndex]}`;
     }
 
-    const codePoint = character.codePointAt(0) ?? 0;
+    const codePoint = character.codePointAt(0) || 0;
     const isLoneSurrogate = codePoint >= 0xd8_00 && codePoint <= 0xdf_ff;
     if (
       isLoneSurrogate ||
@@ -100,7 +102,7 @@ describe('regex/regexEscape', () => {
       });
 
       ['&&', '!!', ',,', '==', '@@', '~~', 'a/b'].forEach((text) => {
-        expect(new RegExp(`^[${regexEscape(text)}]$`, 'v').test(text.at(-1) ?? '')).toBe(true);
+        expect(new RegExp(`^[${regexEscape(text)}]$`, 'v').test(text.at(-1) || '')).toBe(true);
       });
 
       expect(new RegExp(`^[${regexEscape('a&&b')}]$`, 'v').test('&')).toBe(true);

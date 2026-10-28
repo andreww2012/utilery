@@ -2,7 +2,7 @@ import {deepFreeze} from 'es-toolkit/object';
 
 /**
  * Freezes an object and, recursively, every object and array in its own enumerable properties, so
- * that none of them can be changed.
+ * that none of them can be changed
  */
 export const freezeDeep: {
   /**

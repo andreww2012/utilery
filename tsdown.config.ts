@@ -16,7 +16,7 @@ export default defineConfig({
   format: 'esm',
   unbundle: true,
   dts: true,
-  // Without this, problems from attw and publint are not causing non-zero exit code
+  // Without this, problems that attw and publint find don't make the build fail
   failOnWarn: true,
   attw: {
     profile: 'esm-only',

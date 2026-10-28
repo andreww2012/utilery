@@ -2,7 +2,7 @@ import {objectFromEntries} from 'ts-extras';
 
 /**
  * Creates an object from `[key, value]` pairs, like `Object.fromEntries`, but typed with the keys
- * and values of the pairs instead of `string` keys.
+ * and values of the pairs instead of `string` keys
  */
 export const objectFromEntriesUnsafe: {
   /**

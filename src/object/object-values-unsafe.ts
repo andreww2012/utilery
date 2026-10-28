@@ -2,7 +2,7 @@ import type {ObjectValue} from '../_internal/object-entries.ts';
 
 /**
  * Returns the own enumerable string-keyed property values of an object, like `Object.values`, but
- * typed with the value types of the object's own keys.
+ * typed with the value types of the object's own keys
  */
 export const objectValuesUnsafe: {
   /**

@@ -4,7 +4,7 @@ import {type NumberStringifier, stringify} from 'lossless-json';
 /**
  * Converts a value to JSON like `JSON.stringify`, but without losing the precision of numbers: a
  * `bigint` or a `NumberLossless` (as returned by `jsonParseLossless`) is written with all its
- * digits, where `JSON.stringify` throws or loses them.
+ * digits, where `JSON.stringify` throws or loses them
  */
 export const jsonStringifyLossless: {
   /**

@@ -2,7 +2,7 @@ import type {ObjectKey} from '../_internal/object-entries.ts';
 
 /**
  * Returns the own enumerable string keys of an object, like `Object.keys`, but typed as the keys of
- * the object's type instead of `string`.
+ * the object's type instead of `string`
  */
 export const objectKeysUnsafe: {
   /**

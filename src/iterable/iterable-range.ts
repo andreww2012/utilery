@@ -53,6 +53,6 @@ interface IterableRange {
  * A negative `step` creates a descending range.
  *
  * The lazy counterpart of `range`: no numbers are computed until the iterator
- * is consumed, so `end` can be `Infinity`.
+ * is consumed, so `end` can be `Infinity`
  */
 export const iterableRange: IterableRange = range;

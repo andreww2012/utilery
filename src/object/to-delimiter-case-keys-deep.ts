@@ -3,7 +3,7 @@ import {type DeepDelimiterKeys, deepDelimiterKeys} from 'string-ts';
 /**
  * Returns a copy of a value with the keys of every object in it, including those nested in other
  * objects and in arrays, split into words and joined with the given delimiter, both at runtime and
- * in the type.
+ * in the type
  */
 export const toDelimiterCaseKeysDeep: {
   /**

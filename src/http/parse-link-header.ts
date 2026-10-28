@@ -1,7 +1,10 @@
 // cspell:ignore chstes nächstes
 import LinkHeader from 'http-link-header';
 
-/** A parameter given in the extended `name*` form (RFC 8187), like `title*=UTF-8'de'n%c3%a4chstes` */
+/**
+ * A parameter given in the extended `name*` form (RFC 8187), like
+ * `title*=UTF-8'de'n%c3%a4chstes`
+ */
 export interface LinkHeaderExtendedValue {
   /** The language of the value, like `'de'`, if given */
   language: string | null;

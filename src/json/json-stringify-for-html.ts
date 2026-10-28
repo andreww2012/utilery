@@ -2,7 +2,7 @@ import htmlEscape from 'htmlescape';
 
 /**
  * Serializes a value as JSON that is safe to embed in an HTML `<script>` tag, like
- * `<script>window.__DATA__ = ${json}</script>` or a `<script type="application/json">` block.
+ * `<script>window.__DATA__ = ${json}</script>` or a `<script type="application/json">` block
  */
 export const jsonStringifyForHtml: {
   /**

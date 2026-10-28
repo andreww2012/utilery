@@ -2,7 +2,7 @@
 const hashString = (text: string) => {
   let hash = 0x81_1c_9d_c5;
   for (const character of text) {
-    hash = Math.imul(hash ^ (character.codePointAt(0) ?? 0), 0x1_00_01_93);
+    hash = Math.imul(hash ^ (character.codePointAt(0) || 0), 0x1_00_01_93);
   }
 
   return hash;

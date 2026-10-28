@@ -2,7 +2,7 @@ import {popCount} from '@thi.ng/binary/count';
 
 /**
  * Counts the bits that are `1` in the 32-bit integer representation of `value`, also known as the
- * population count or Hamming weight.
+ * population count or Hamming weight
  */
 export const countSetBits: {
   /**

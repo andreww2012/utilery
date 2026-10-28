@@ -2,7 +2,7 @@ import {objectHasOwn as objectHasOwnBase} from 'ts-extras';
 
 /**
  * Checks whether an object has an own property with the given key, like `Object.hasOwn`, but as a
- * type guard: when it returns `true`, the object type gets the property, typed as `unknown`.
+ * type guard: when it returns `true`, the object type gets the property, typed as `unknown`
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const objectHasOwn: {

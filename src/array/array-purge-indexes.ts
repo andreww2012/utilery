@@ -2,7 +2,7 @@ import {pullAt} from 'es-toolkit/array';
 
 /**
  * **Mutates** `array`, removing the elements at the given indexes, and returns the removed
- * elements.
+ * elements
  */
 export const arrayPurgeIndexes: {
   /**

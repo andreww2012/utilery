@@ -74,6 +74,6 @@ interface Dedent {
 /**
  * Removes the common indentation of the lines of a string, and the whitespace
  * at its start and end.
- * Works as a template tag and as a function.
+ * Works as a template tag and as a function
  */
 export const dedent: Dedent = dedentBase;

@@ -2,7 +2,7 @@ import {unescape} from 'es-toolkit/string';
 
 /**
  * Converts the HTML entities `&amp;`, `&lt;`, `&gt;`, `&quot;` and `&#39;` back to `&`, `<`, `>`,
- * `"` and `'`: the opposite of `escapeHtml`.
+ * `"` and `'`: the opposite of `escapeHtml`
  */
 export const unescapeHtml: {
   /**

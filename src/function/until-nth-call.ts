@@ -2,7 +2,7 @@ import {before} from 'es-toolkit/function';
 
 /**
  * Wraps a function so that it is only called on the first `n - 1` calls: from the `n`-th call on,
- * the wrapper does nothing.
+ * the wrapper does nothing
  */
 export const untilNthCall: {
   /**

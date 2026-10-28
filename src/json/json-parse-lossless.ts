@@ -18,7 +18,7 @@ export const NumberLossless: {
   /**
    * Creates a number from JSON from its text, keeping every digit.
    * @param value - The number as text, like `'12345678901234567890'`.
-   * @throws {Error} When `value` is not a valid JSON number.
+   * @throws {Error} When `value` is not a valid JSON number
    */
   new (value: string): NumberLossless;
   readonly prototype: NumberLossless;

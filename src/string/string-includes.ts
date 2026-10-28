@@ -2,7 +2,7 @@ import {type Includes, includes} from 'string-ts';
 
 /**
  * Checks whether a string contains another one, like `String.prototype.includes`, but the result
- * type is `true` or `false` when the strings are literals.
+ * type is `true` or `false` when the strings are literals
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const stringIncludes: {

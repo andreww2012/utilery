@@ -26,7 +26,7 @@ it('loads every built module with plain Bun', () => {
     throw new Error('Built `dist/` not found. Run `nr build` before the Bun check.');
   }
 
-  // eslint-disable-next-line sonar/no-os-command-from-path -- `bun` is the CI/dev toolchain, resolved from a trusted PATH.
+  // eslint-disable-next-line sonar/no-os-command-from-path -- `bun` is the CI/dev toolchain, resolved from a trusted PATH
   const output = execFileSync('bun', ['--eval', IMPORT_ALL_SCRIPT], {
     cwd: DIST_PATH,
     encoding: 'utf8',

@@ -8,7 +8,7 @@ export type CacheControlDirectives = CacheControlValue;
 
 /**
  * Builds a `Cache-Control` HTTP header from an object of directives, the reverse of
- * `parseCacheControl`.
+ * `parseCacheControl`
  */
 export const formatCacheControl: {
   /**

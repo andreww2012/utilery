@@ -2,7 +2,7 @@ import {isJSONValue} from 'es-toolkit/predicate';
 
 /**
  * Checks whether a value is made only of what JSON can represent: `null`, a string, a number, a
- * boolean, or an array or a JSON object (see `isJsonObject`) of such values, at any depth.
+ * boolean, or an array or a JSON object (see `isJsonObject`) of such values, at any depth
  */
 export const isJsonValue: {
   /**

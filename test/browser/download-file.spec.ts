@@ -14,7 +14,7 @@ interface NameCase {
 }
 
 const OBJECT_URL = 'blob:https://example.com/0';
-const NOW = new Date(2026, 9, 25, 14, 30, 5);
+const now = new Date(2026, 9, 25, 14, 30, 5);
 const UNTITLED_FILE_NAME = 'untitled_2026-10-25_14-30-05';
 const TEXT = 'Привет, 世界 👋'; // cspell:disable-line
 
@@ -103,7 +103,7 @@ const mockObjectUrls = () => ({
 const mockClick = () => vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(noop);
 
 const getSavedBlob = (createObjectURL: ReturnType<typeof mockObjectUrls>['createObjectURL']) => {
-  const [object] = createObjectURL.mock.lastCall ?? [];
+  const [object] = createObjectURL.mock.lastCall || [];
   if (!(object instanceof Blob)) {
     throw new TypeError('No Blob was passed to `URL.createObjectURL`');
   }
@@ -282,7 +282,7 @@ describe('browser/downloadFile', () => {
         expected: 'notes.txt',
       },
     ])('names the file $name', async ({getData, fileName, expected}) => {
-      vi.useFakeTimers({now: NOW, toFake: ['Date']});
+      vi.useFakeTimers({now, toFake: ['Date']});
       mockObjectUrls();
       const click = mockClick();
 
@@ -457,7 +457,7 @@ describe('browser/downloadFile', () => {
         expected: 'notes.txt',
       },
     ])('suggests $name', async ({getData, fileName, expected}) => {
-      vi.useFakeTimers({now: NOW, toFake: ['Date']});
+      vi.useFakeTimers({now, toFake: ['Date']});
       const {showSaveFilePicker} = mockPicker();
 
       await downloadFile(getData(), fileName, {picker: true});

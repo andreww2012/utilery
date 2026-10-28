@@ -2,7 +2,8 @@
 
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
 
-Mostly thin, strongly-typed re-exports. `Unsafe` in a name flags that the stronger type relies on an unsound cast (e.g. `Object.fromEntries` typed with the keys and values of the pairs).
+Mostly thin, strongly-typed re-exports.
+`Unsafe` in a name flags that the stronger type relies on an unsound cast (e.g. `Object.fromEntries` typed with the keys and values of the pairs).
 
 | Original function group and name | Status | Our function group and name            | Notes                                                                                            |
 | -------------------------------- | ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------ |

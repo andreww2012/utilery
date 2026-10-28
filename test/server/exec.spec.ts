@@ -40,8 +40,10 @@ describe('server/exec', () => {
   it('rejects with `ExecError` when the process exits with a code other than `0`', async () => {
     const result = exec(process.execPath, ['-e', 'process.exit(1)']);
 
-    await expect(result).rejects.toBeInstanceOf(ExecError);
-    await expect(result).rejects.toMatchObject({result: {exitCode: 1}});
+    await Promise.all([
+      expect(result).rejects.toBeInstanceOf(ExecError),
+      expect(result).rejects.toMatchObject({result: {exitCode: 1}}),
+    ]);
   });
 
   it('resolves with the exit code when `throwOnNonZeroExitCode` is `false`', async () => {
@@ -51,10 +53,12 @@ describe('server/exec', () => {
   });
 
   it('rejects with `ENOENT` when the command is not found', async () => {
-    await expect(exec('utilery-missing-command', ['arg'])).rejects.toMatchObject({code: 'ENOENT'});
-    await expect(
-      exec('utilery-missing-command', [], {throwOnNonZeroExitCode: false}),
-    ).rejects.toMatchObject({code: 'ENOENT'});
+    await Promise.all([
+      expect(exec('utilery-missing-command', ['arg'])).rejects.toMatchObject({code: 'ENOENT'}),
+      expect(
+        exec('utilery-missing-command', [], {throwOnNonZeroExitCode: false}),
+      ).rejects.toMatchObject({code: 'ENOENT'}),
+    ]);
   });
 
   it("doesn't leave unhandled rejections when the command is not found", async () => {

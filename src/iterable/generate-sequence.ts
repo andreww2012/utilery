@@ -2,7 +2,7 @@ import {iterate} from 'es-toolkit/iterator';
 
 /**
  * Creates an infinite lazy iterator that starts with `seed` and repeatedly applies `getNext` to the
- * previous value: `seed`, `getNext(seed)`, `getNext(getNext(seed))`, and so on.
+ * previous value: `seed`, `getNext(seed)`, `getNext(getNext(seed))`, and so on
  */
 export const generateSequence: {
   /**

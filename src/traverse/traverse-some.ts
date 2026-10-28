@@ -3,7 +3,7 @@ import type {TraverseContext, TraverseOptions} from './_shared.ts';
 
 /**
  * Returns `true` if `predicate` is truthy for at least one node of `value`, stopping at the first
- * match.
+ * match
  */
 // eslint-disable-next-line unicorn/consistent-boolean-name
 export const traverseSome: {

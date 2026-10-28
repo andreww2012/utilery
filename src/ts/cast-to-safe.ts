@@ -2,7 +2,7 @@ import {safeCastTo} from 'ts-extras';
 
 /**
  * Types a value as `T`, but only if it is assignable to `T`: unlike `as`, an incompatible type is a
- * compile error.
+ * compile error
  */
 export const castToSafe: {
   /**

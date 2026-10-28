@@ -2,7 +2,7 @@ import {i32u32} from '@thi.ng/binary/int';
 
 /**
  * Converts a number to an unsigned 32-bit integer (from `0` to `2 ** 32 - 1`), the same way the
- * `>>>` operator does: the fractional part is dropped and the bits above the 32nd are discarded.
+ * `>>>` operator does: the fractional part is dropped and the bits above the 32nd are discarded
  */
 export const toUint32: {
   /**

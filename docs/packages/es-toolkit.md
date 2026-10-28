@@ -489,7 +489,8 @@ Trivially native-replaceable functions are listed as ❌ so the decision isn't r
 
 ## `es-toolkit/fp`
 
-Data-last, curried variants of utilities from the main entrypoints, meant for use with `pipe`. `utilery` is data-first by design, so this entire entrypoint is intentionally **not** re-exported: every function is a call-style restatement of a data-first utility already provided (or a native one-liner).
+Data-last, curried variants of utilities from the main entrypoints, meant for use with `pipe`.
+`utilery` is data-first by design, so this entire entrypoint is intentionally **not** re-exported: every function is a call-style restatement of a data-first utility already provided (or a native one-liner).
 Each row points to that equivalent so the decision isn't re-litigated on future updates.
 The exceptions are `chunkBy`, whose consecutive-run chunking has no data-first equivalent anywhere else (it is folded into `array/arrayChunks`), and `flowAsync`, which has no counterpart outside `es-toolkit/fp` (added as `function/flowAsync`).
 

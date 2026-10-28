@@ -26,6 +26,6 @@ interface ArrayFirst {
 
 /**
  * Returns the first element of an array, typed precisely for tuples.
- * For the last element, use `arrayLast`.
+ * For the last element, use `arrayLast`
  */
 export const arrayFirst: ArrayFirst = arrayFirstBase;

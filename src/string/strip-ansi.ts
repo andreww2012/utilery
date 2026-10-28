@@ -2,7 +2,7 @@ import stripAnsiBase from 'strip-ansi';
 
 /**
  * Removes ANSI escape codes (colors, styles, cursor movement, terminal links, etc.) from a string,
- * leaving the plain text.
+ * leaving the plain text
  */
 export const stripAnsi: {
   /**
