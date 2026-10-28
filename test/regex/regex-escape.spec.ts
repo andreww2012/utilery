@@ -6,6 +6,14 @@ const ESCAPED_AS_HEX_REGEX = /[\s!"#%&',\-:;<=>@`~]/;
 const LEADING_ALPHANUMERIC_REGEX = /[\da-z]/i;
 const FLAGS = ['', 'u', 'v'] as const;
 const PRINTABLE_ASCII = Array.from({length: 95}, (_, index) => String.fromCodePoint(index + 32));
+const ONLY_SYNTAX_CHARACTERS = {onlySyntaxCharacters: true} as const;
+const LITERAL_TEXTS = [
+  PRINTABLE_ASCII.join(''),
+  'How much $ for a 🦄? (1-2) [x]',
+  '0abc',
+  'Привет, 你好!',
+  '\t\n\u{2028} tabs and lines',
+] as const;
 
 // A simple implementation of the native `RegExp.escape`, for environments that don't have it
 const regexEscapeStandIn = (text: string) =>
@@ -75,16 +83,8 @@ describe('regex/regexEscape', () => {
     });
 
     it('matches the string literally', () => {
-      const texts = [
-        PRINTABLE_ASCII.join(''),
-        'How much $ for a 🦄? (1-2) [x]',
-        '0abc',
-        'Привет, 你好!',
-        '\t\n\u{2028} tabs and lines',
-      ];
-
       FLAGS.forEach((flags) => {
-        texts.forEach((text) => {
+        LITERAL_TEXTS.forEach((text) => {
           expect(new RegExp(`^${regexEscape(text)}$`, flags).test(text)).toBe(true);
         });
       });
@@ -110,6 +110,35 @@ describe('regex/regexEscape', () => {
       expect(new RegExp(String.raw`^(.)\1${regexEscape('0')}$`).test('aa0')).toBe(true);
       expect(new RegExp(String.raw`^(.)\1${regexEscape('0')}$`, 'u').test('aa0')).toBe(true);
       expect(new RegExp(String.raw`^\0${regexEscape('1')}$`, 'u').test('\u{0}1')).toBe(true);
+    });
+
+    describe('`onlySyntaxCharacters`', () => {
+      it('escapes only syntax characters, with a backslash', () => {
+        expect(regexEscape(String.raw`_^$\.*+?()[]{}|/`, ONLY_SYNTAX_CHARACTERS)).toBe(
+          String.raw`_\^\$\\\.\*\+\?\(\)\[\]\{\}\|\/`,
+        );
+        expect(regexEscape('My$Button, a-b = 1 & 2', ONLY_SYNTAX_CHARACTERS)).toBe(
+          String.raw`My\$Button, a-b = 1 & 2`,
+        );
+        expect(regexEscape('Привет, 你好! 😀\t\n\u{D83D}', ONLY_SYNTAX_CHARACTERS)).toBe(
+          'Привет, 你好! 😀\t\n\u{D83D}',
+        );
+        expect(regexEscape('', ONLY_SYNTAX_CHARACTERS)).toBe('');
+      });
+
+      it('escapes like `RegExp.escape` when `false`', () => {
+        expect(regexEscape('abc', {onlySyntaxCharacters: false})).toBe(String.raw`\x61bc`);
+      });
+
+      it('matches the string literally outside of character classes', () => {
+        FLAGS.forEach((flags) => {
+          LITERAL_TEXTS.forEach((text) => {
+            expect(
+              new RegExp(`^${regexEscape(text, ONLY_SYNTAX_CHARACTERS)}$`, flags).test(text),
+            ).toBe(true);
+          });
+        });
+      });
     });
   });
 });

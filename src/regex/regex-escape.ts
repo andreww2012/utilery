@@ -4,6 +4,7 @@ const ESCAPED_CHARACTER_REGEX =
   // eslint-disable-next-line sonar/anchor-precedence -- only the first alternative is anchored, on purpose
   /^[\dA-Za-z]|[\s!"#$%&'()*+,\-./:;<=>?@[\\\]^`{|}~\uD800-\uDFFF]/gu;
 const SYNTAX_CHARACTER_REGEX = /[$()*+./?[\\\]^{|}]/;
+const SYNTAX_CHARACTER_GLOBAL_REGEX = /[$()*+./?[\\\]^{|}]/g;
 const CONTROL_ESCAPES: ReadonlyMap<string, string> = new Map([
   ['\t', 't'],
   ['\n', 'n'],
@@ -29,6 +30,19 @@ const escapeCharacter = (character: string) => {
     : String.raw`\x${codeUnit.toString(16).padStart(2, '0')}`;
 };
 
+/** Options of `regexEscape` */
+export interface RegexEscapeOptions {
+  /**
+   * Escapes only the characters that have a special meaning in regular
+   * expressions (`^$\.*+?()[]{}|/`), with a backslash, which keeps the result
+   * readable: `My$Button` becomes `My\$Button`.
+   * The result is then not safe inside a character class (`[...]`), or right
+   * after an escape like `\1` or `\0` when it starts with a digit.
+   * Defaults to `false`
+   */
+  onlySyntaxCharacters?: boolean;
+}
+
 /**
  * Escapes a string so that a regular expression matches it literally, in any
  * flag mode (including `u` and `v`) and in any place of a pattern: inside a
@@ -40,7 +54,12 @@ const escapeCharacter = (character: string) => {
  * (`^$\.*+?()[]{}|/`), escapes the other ASCII punctuation except `_`,
  * whitespace, line terminators, lone surrogates and a leading ASCII letter or
  * digit, mostly as `\xHH` or `\uHHHH`.
+ * Pass `{onlySyntaxCharacters: true}` to escape only the former, so that people
+ * can read the result or type it by hand.
  * @param text - The string to escape.
+ * @param options - Options.
+ * @param options.onlySyntaxCharacters - Escape only `^$\.*+?()[]{}|/`, which is not safe inside
+ * `[...]` or right after `\1` or `\0` (defaults to `false`).
  * @returns The escaped string.
  * @example
  * regexEscape('How much $ for a 🦄?');
@@ -57,8 +76,16 @@ const escapeCharacter = (character: string) => {
  * // Safe after a backreference: the escaped `0` doesn't turn `\1` into `\10`
  * new RegExp(String.raw`(.)\1${regexEscape('0')}`).test('aa0');
  * // true
+ * @example
+ * // Readable, like a pattern written by hand
+ * regexEscape('My$Button', {onlySyntaxCharacters: true});
+ * // 'My\\$Button'
  */
-export const regexEscape = (text: string): string => {
+export const regexEscape = (text: string, options?: RegexEscapeOptions): string => {
+  if (options?.onlySyntaxCharacters) {
+    return text.replaceAll(SYNTAX_CHARACTER_GLOBAL_REGEX, String.raw`\$&`);
+  }
+
   // Not every supported environment has it
   const nativeRegExp: RegExpConstructor & {escape?: (text: string) => string} = RegExp;
 
