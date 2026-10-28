@@ -12,7 +12,7 @@ interface ExecOptions {
    * Stops the process after this many milliseconds, rejecting with an
    * `AbortError` (see `isAbortError`)
    */
-  timeout?: number;
+  timeoutMs?: number;
 
   /** Written to the standard input of the process, which is then closed */
   stdin?: string;
@@ -53,7 +53,7 @@ interface ExecResult {
  * @param args - The arguments of the command.
  * @param options - Options.
  * @param options.signal - Stops the process when aborted.
- * @param options.timeout - Stops the process after this many milliseconds.
+ * @param options.timeoutMs - Stops the process after this many milliseconds.
  * @param options.stdin - Written to the standard input of the process.
  * @param options.spawnOptions - Options of `child_process.spawn`, like `cwd` and `env`.
  * @param options.throwOnNonZeroExitCode - Rejects with an `ExecError` when the process exits with
@@ -79,8 +79,10 @@ export const exec = async (
 ): Promise<ExecResult> => {
   // A plain `spawn` can't run `.cmd` and `.bat` files or scripts with a shebang on Windows
   const parsed = parseCommand(command, args, options.spawnOptions);
+  const {timeoutMs, ...execOptions} = options;
   const result = await execBase(parsed.command, parsed.args, {
-    ...options,
+    ...execOptions,
+    ...(timeoutMs != null && {timeout: timeoutMs}),
     spawnOptions: parsed.options,
     throwOnNonZeroExitCode: false,
   });

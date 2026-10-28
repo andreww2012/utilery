@@ -52,6 +52,12 @@ describe('server/exec', () => {
     ).resolves.toMatchObject({exitCode: 3});
   });
 
+  it('stops the process after `timeoutMs`', async () => {
+    await expect(
+      exec(process.execPath, ['-e', 'setTimeout(() => {}, 10_000)'], {timeoutMs: 50}),
+    ).rejects.toMatchObject({name: 'AbortError'});
+  });
+
   it('rejects with `ENOENT` when the command is not found', async () => {
     await Promise.all([
       expect(exec('utilery-missing-command', ['arg'])).rejects.toMatchObject({code: 'ENOENT'}),
