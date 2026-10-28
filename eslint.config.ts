@@ -90,6 +90,16 @@ export default eslintConfig({
     markdown: {
       configSentencesPerLine: true,
     },
+    nodeDependencies: {
+      overrides: {
+        // The deep check walks the whole dependency tree when no dependency declares one of our
+        // engines (almost none declare `engines.bun`), which takes more than 20 minutes
+        'node-dependencies/compat-engines': (severity, options) => ({
+          severity,
+          options: [{...options?.[0], deep: false}],
+        }),
+      },
+    },
     e18e: {
       configModuleReplacements: {
         options: {

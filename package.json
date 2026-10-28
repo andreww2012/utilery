@@ -108,6 +108,7 @@
     "prepublishOnly": "nr build && node scripts/generate-third-party-notices.ts"
   },
   "devDependencies": {
+    "@andreww2012/commitlint-config": "0.0.1",
     "@andreww2012/npm-check-updates-config": "0.1.1",
     "@antfu/ni": "30.6.0",
     "@antfu/utils": "catalog:bundled",
@@ -116,8 +117,6 @@
     "@changesets/changelog-github": "1.0.1",
     "@changesets/cli": "3.0.3",
     "@commitlint/cli": "21.2.4",
-    "@commitlint/config-conventional": "21.2.4",
-    "@commitlint/types": "21.2.3",
     "@eslint/config-inspector": "3.5.0",
     "@sindresorhus/slugify": "catalog:bundled",
     "@sindresorhus/transliterate": "catalog:bundled",
