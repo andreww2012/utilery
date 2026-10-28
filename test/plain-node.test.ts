@@ -17,8 +17,9 @@ console.log(JSON.stringify(Object.fromEntries(results.flatMap((result, i) =>
 `;
 
 // Scripts, like the one `prepublishOnly` runs, load `src` with plain Node, which, unlike tsdown
-// and vitest, can't find the named exports of some CommonJS packages
-it('loads every `src` module with plain Node', () => {
+// and vitest, can't find the named exports of some CommonJS packages. Skipped in Bun, where
+// `process.execPath` is Bun
+it.skipIf('bun' in process.versions)('loads every `src` module with plain Node', () => {
   const output = execFileSync(process.execPath, ['--input-type=module'], {
     cwd: ROOT,
     encoding: 'utf8',

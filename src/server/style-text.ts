@@ -29,7 +29,7 @@ export const styleText: {
    * Formats in an array are applied left to right, so a later color replaces an
    * earlier one.
    * `'none'` adds no style.
-   * Node.js only.
+   * Node.js and Bun only.
    * @param format - A format, or an array of formats.
    * @param text - The text to style.
    * @param options - Options.

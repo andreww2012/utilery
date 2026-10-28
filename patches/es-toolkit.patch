@@ -22,6 +22,11 @@ whole program. Own `constructor` and `__proto__` keys are data, so a path can go
 an own `__proto__` key can be deleted. It converts each key with `_internal/toPropertyKey` before
 checking it, so `[["constructor"], ["prototype"], "toString"]` is refused too.
 
+Makes `exec` wait for the reads of the output also when the process fails to start, like when the
+command is not found. Without it, `exec` rejects with the error of `spawn` and leaves the reads
+without a handler. In Bun, the reads then fail, so the process crashes with an unhandled
+rejection, even though the caller caught the error of `exec`.
+
 The latest release (1.53.0) still has these bugs.
 
 diff --git a/dist/_internal/assignOwnValues.js b/dist/_internal/assignOwnValues.js
@@ -1024,6 +1029,40 @@ index 1e7eeb68a1f047c50fdbb1a42875f290c8895d90..57f1739fbd05299e111b1f3b16bea7d3
  	return result;
  }
  export { allKeyed };
+diff --git a/dist/server/exec.js b/dist/server/exec.js
+index 3ce80705a5b68af8403b43dced32e115109bc728..d83214920c3610c3fb05524c9a8d35660c761468 100644
+--- a/dist/server/exec.js
++++ b/dist/server/exec.js
+@@ -54,9 +54,10 @@ async function exec(_command, args = [], options = {}) {
+ 	});
+ 	const stdoutPromise = process.stdout != null ? streamToString(process.stdout) : Promise.resolve("");
+ 	const stderrPromise = process.stderr != null ? streamToString(process.stderr) : Promise.resolve("");
++	const outputPromise = Promise.all([stdoutPromise, stderrPromise]);
++	outputPromise.catch(() => {});
+ 	await resolver.promise;
+-	const stdout = await stdoutPromise;
+-	const stderr = await stderrPromise;
++	const [stdout, stderr] = await outputPromise;
+ 	if ((options.throwOnNonZeroExitCode ?? true) && process.exitCode !== 0) throw new ExecError({
+ 		pid: process.pid,
+ 		stdout,
+diff --git a/dist/server/exec.mjs b/dist/server/exec.mjs
+index 6e53833f54ec9cc77aa84fc999fb1c8822613058..d981734efd195a0607fb1865f7da6f4204259c34 100644
+--- a/dist/server/exec.mjs
++++ b/dist/server/exec.mjs
+@@ -54,9 +54,10 @@ async function exec(_command, args = [], options = {}) {
+ 	});
+ 	const stdoutPromise = process.stdout != null ? streamToString(process.stdout) : Promise.resolve("");
+ 	const stderrPromise = process.stderr != null ? streamToString(process.stderr) : Promise.resolve("");
++	const outputPromise = Promise.all([stdoutPromise, stderrPromise]);
++	outputPromise.catch(() => {});
+ 	await resolver.promise;
+-	const stdout = await stdoutPromise;
+-	const stderr = await stderrPromise;
++	const [stdout, stderr] = await outputPromise;
+ 	if ((options.throwOnNonZeroExitCode ?? true) && process.exitCode !== 0) throw new ExecError({
+ 		pid: process.pid,
+ 		stdout,
 diff --git a/dist/util/serialize/serializeString.js b/dist/util/serialize/serializeString.js
 index a1e6840b956bc19b35c31faf0de5dec497dc3a81..ce3913fd851422fea8ef96b1ab29ba0b2bda1152 100644
 --- a/dist/util/serialize/serializeString.js

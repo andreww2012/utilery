@@ -90,6 +90,25 @@ jobs:
       - run: pnpm ts
       - run: pnpm test:vitest
 
+  test-bun:
+    name: Test (${{ matrix.os }}, Bun ${{ matrix.bun-version }})
+    needs: install
+    strategy:
+      matrix:
+        os: [ubuntu-24.04]
+        bun-version: [minimum, latest]
+        include:
+          - os: windows-2025
+            bun-version: latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/prepare
+        with:
+          bun-version: ${{ matrix.bun-version }}
+      # Without type checks, which don't depend on the runtime and run in the Node.js jobs
+      - run: pnpm test:vitest:bun
+
   build:
     name: Build (tsdown, attw + publint) & check published types
     needs: install
@@ -97,19 +116,22 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/prepare
+        with:
+          bun-version: latest
       # The whole `prepublishOnly`, not only the build, so that if it breaks, we know before
       # publishing. `tsdown` runs `attw` and `publint` with `failOnWarn`, so this also lints
-      # the public types. The consumer and side effects checks need the built `dist/`.
+      # the public types. The consumer, side effects and Bun checks need the built `dist/`.
       - run: pnpm prepublishOnly
       # The build writes `exports` and `inlinedDependencies` to `package.json`, which must be
       # committed
       - run: git diff --exit-code package.json
       - run: pnpm test:types:consumer
       - run: pnpm test:side-effects
+      - run: pnpm test:dist:bun
 
   release:
     name: Create release PR _OR_ Publish on merge
-    needs: [knip, spellcheck, formatting, typecheck, eslint, test, build]
+    needs: [knip, spellcheck, formatting, typecheck, eslint, test, test-bun, build]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:

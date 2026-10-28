@@ -334,7 +334,7 @@ patchedDependencies:
   '@sindresorhus/transliterate': 8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86
   arkregex: 6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623
   decode-uri-component: 09bdfb22a9e5b1f8851b1f4c145594c0c640223bfaa1c9ed026f1dfc22c46366
-  es-toolkit: 93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b
+  es-toolkit: ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250
   http-link-header: 784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   nanoid@6: 3d7c4929c5f893bd84219a435353aa1f0dec79743bc2580b372fbf009eea5c86
@@ -480,7 +480,7 @@ importers:
         version: 4.0.0
       es-toolkit:
         specifier: catalog:bundled
-        version: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
+        version: 1.53.0(patch_hash=ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250)
       eslint:
         specifier: 10.13.0
         version: 10.13.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -6356,7 +6356,7 @@ snapshots:
   '@commitlint/ensure@21.2.4':
     dependencies:
       '@commitlint/types': 21.2.3
-      es-toolkit: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
+      es-toolkit: 1.53.0(patch_hash=ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250)
 
   '@commitlint/execute-rule@21.0.1': {}
 
@@ -6384,7 +6384,7 @@ snapshots:
       '@commitlint/resolve-extends': 21.2.3
       '@commitlint/types': 21.2.3
       cosmiconfig: 9.0.2(@typescript/typescript6@6.0.2)
-      es-toolkit: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
+      es-toolkit: 1.53.0(patch_hash=ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250)
       is-plain-obj: 4.1.0
       jiti: 2.7.0
       picocolors: 1.1.1
@@ -6413,7 +6413,7 @@ snapshots:
     dependencies:
       '@commitlint/config-validator': 21.2.3
       '@commitlint/types': 21.2.3
-      es-toolkit: 1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b)
+      es-toolkit: 1.53.0(patch_hash=ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250)
       global-directory: 5.0.0
       resolve-from: 5.0.0
 
@@ -8597,7 +8597,7 @@ snapshots:
 
   es-module-lexer@2.3.2: {}
 
-  es-toolkit@1.53.0(patch_hash=93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b): {}
+  es-toolkit@1.53.0(patch_hash=ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250): {}
 
   escalade@3.2.0: {}
 

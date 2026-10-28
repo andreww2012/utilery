@@ -16,6 +16,7 @@ A growing collection of general-purpose utilities and TypeScript types, mostly c
 Minimum supported runtimes:
 
 - NodeJS: `^22.23.1 || ^24.18.0 || >=26.4.0`
+- Bun: `>=1.4.0`
 - Browsers: all [Baseline widely available](https://web-platform-dx.github.io/baseline) features are implemented (see [the corresponding `browserslist` browsers list](https://browsersl.ist/#q=baseline+widely+available))
 
 ```sh
@@ -67,7 +68,7 @@ See individual symbols' JSDoc for detailed documentation.
 | `regex`     | Type-safe `RegExp` and pattern escaping                 | ✅                 |
 | `runtime`   | Runtime environment detection                           | ✅                 |
 | `semver`    | Semantic version comparison and npm-style ranges        | ✅                 |
-| `server`    | Node-only helpers (filesystem, process, terminal)       | ❌                 |
+| `server`    | Node.js and Bun helpers (filesystem, process, terminal) | ❌                 |
 | `set`       | `Set` querying and transformation                       | ✅                 |
 | `string`    | String casing, splitting and affixing                   | ✅                 |
 | `traverse`  | Recursive visitor traversal of nested values            | ✅                 |
@@ -338,6 +339,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `predicate/isValidDate`               | Whether a value is a `Date` holding a valid time                                                                                                                                                                        |
 | `regex/regexEscape`                   | Escapes a string to be matched literally in any flag mode and any place of a pattern, even inside `[...]` with the `v` flag, like `RegExp.escape` (called where available); `onlySyntaxCharacters` keeps it readable    |
 | `runtime/getBuiltinModule`            | Typed `process.getBuiltinModule` that gives `undefined` outside Node.js                                                                                                                                                 |
+| `runtime/isBun`                       | Whether the code runs in Bun, to tell it apart from Node.js, where `isNode` is `true` too                                                                                                                               |
 | `server/colors`                       | es-toolkit's terminal styles that return plain text when colors are not supported (see `server/isColorSupported`)                                                                                                       |
 | `server/exec`                         | es-toolkit's `exec` that also runs `.cmd` and `.bat` launchers (like `npm`) and scripts with a shebang on Windows, and rejects with `ENOENT` for a missing command there too                                            |
 | `server/isColorSupported`             | Whether to color output: `FORCE_COLOR` first, then a terminal that supports colors (respects `NO_COLOR`, `TERM=dumb`)                                                                                                   |

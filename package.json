@@ -96,8 +96,10 @@
     "t:cov": "vitest --coverage",
     "test:vitest": "nr t run",
     "test:vitest:cov": "nr t:cov run",
+    "test:vitest:bun": "bun --bun vitest run --typecheck.enabled=false",
     "test:types:consumer": "vitest run --config test/published-dts/vitest.config.ts",
     "test:side-effects": "vitest run --config test/published-side-effects/vitest.config.ts",
+    "test:dist:bun": "vitest run --config test/published-bun/vitest.config.ts",
     "test": "nr check:deps && nr check && nr build && nr test:types:consumer && nr test:side-effects && nr test:vitest:cov",
     "ch": "changeset add --message \"___REPLACE_ME___\"",
     "release": "changeset publish",
@@ -206,6 +208,7 @@
     "yn": "catalog:bundled"
   },
   "engines": {
+    "bun": ">=1.4.0",
     "node": "^22.23.1 || ^24.18.0 || >=26.4.0"
   },
   "devEngines": {

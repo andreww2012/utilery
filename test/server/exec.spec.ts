@@ -57,6 +57,22 @@ describe('server/exec', () => {
     ).rejects.toMatchObject({code: 'ENOENT'});
   });
 
+  it("doesn't leave unhandled rejections when the command is not found", async () => {
+    const onUnhandledRejection = vi.fn<() => void>();
+    process.on('unhandledRejection', onUnhandledRejection);
+    onTestFinished(() => {
+      process.off('unhandledRejection', onUnhandledRejection);
+    });
+
+    await expect(exec('utilery-missing-command')).rejects.toMatchObject({code: 'ENOENT'});
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
+
+    expect(onUnhandledRejection).not.toHaveBeenCalled();
+  });
+
   it('runs package manager launchers, which are `.cmd` files on Windows', async () => {
     const {stdout} = await exec('npm', ['--version']);
 
