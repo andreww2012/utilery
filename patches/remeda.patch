@@ -5,7 +5,7 @@ Keeps a `__proto__` key from replacing the prototype of the object that `fromKey
 the array copy that `setPath` makes for a `__proto__` segment: both now define such a key as an
 own property instead of assigning it. They convert the key like a property access does before
 the check, so a key that only converts to `__proto__`, like `["__proto__"]` from JSON, is caught
-too. The latest release (2.54.1) still has this bug.
+too. The latest release (2.55.0) still has this bug.
 
 diff --git a/dist/fromKeys.cjs b/dist/fromKeys.cjs
 index bb35ae128ea198ee655ba8682bca7a9f593aad66..c4da7b0727351f832383a15a49d8d3c604721ea2 100644
@@ -142,10 +142,10 @@ index 3ef55243c5dee6f27e9da9ebe95719c3230307ef..832f549f572aab666a9c8a9c5e47e90f
  	}
  	const { [pivot]: currentValue, ...remaining } = data;
 diff --git a/dist/index.d.cts b/dist/index.d.cts
-index 3def378..4e9d2c3 100644
+index 1e98ac5..39156f0 100644
 --- a/dist/index.d.cts
 +++ b/dist/index.d.cts
-@@ -13112,4 +13112,5 @@ declare function zipWith<T1 extends IterableContainer, T2 extends IterableContai
+@@ -13127,4 +13127,5 @@ declare function zipWith<T1 extends IterableContainer, T2 extends IterableContai
   */
  declare function zipWith<T1 extends IterableContainer, T2 extends IterableContainer, Value>(first: T1, second: T2, fn: ZippingFunction<T1, T2, Value>): Value[];
  //#endregion
@@ -155,10 +155,10 @@ index 3def378..4e9d2c3 100644
 +export type { ArrayRequiredPrefix, Evolved, Evolver, FilteredArray, FirstBy, FromKeys, Mapped, MergeAll, NonRefinedFilteredArray, OrderRule, Paths, RandomInteger, ReorderedArray, StringToPath, SwappedIndices, SwappedProps, TitleCase, TitleCaseOptions, UpsertProp, ValueAtPath };
 \ No newline at end of file
 diff --git a/dist/index.d.ts b/dist/index.d.ts
-index 3def378..4e9d2c3 100644
+index 1e98ac5..39156f0 100644
 --- a/dist/index.d.ts
 +++ b/dist/index.d.ts
-@@ -13112,4 +13112,5 @@ declare function zipWith<T1 extends IterableContainer, T2 extends IterableContai
+@@ -13127,4 +13127,5 @@ declare function zipWith<T1 extends IterableContainer, T2 extends IterableContai
   */
  declare function zipWith<T1 extends IterableContainer, T2 extends IterableContainer, Value>(first: T1, second: T2, fn: ZippingFunction<T1, T2, Value>): Value[];
  //#endregion
