@@ -150,7 +150,6 @@ export default eslintConfig({
     },
 
     // False positives:
-    rxjs: false,
     zod: false,
   },
   extraConfigs: [
