@@ -28,6 +28,12 @@ describe('string/wrapText', () => {
     });
   });
 
+  it('measures wide characters and emoji as displayed, without breaking them apart', () => {
+    expect(wrapText('古池や 蛙飛び込む', 6)).toBe('古池や\n蛙飛び込む');
+    expect(wrapText('古池や 蛙飛び込む', 6, {hard: true})).toBe('古池や\n蛙飛び\n込む');
+    expect(wrapText('👨‍👩‍👧👨‍👩‍👧👨‍👩‍👧', 4, {hard: true})).toBe('👨‍👩‍👧👨‍👩‍👧\n👨‍👩‍👧');
+  });
+
   it('fills every line up to the width, breaking words anywhere, without `wordWrap`', () => {
     expect(wrapText('The quick brown fox', 8, {wordWrap: false})).toBe('The quic\nk brown\nfox');
   });

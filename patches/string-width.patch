@@ -1,0 +1,48 @@
+Creates the `Intl.Segmenter` and the `\p{RGI_Emoji}` regex on the first call instead of on import.
+Together they take ~14 ms, which every import of `utilery` and `utilery/string` paid, even when
+`getStringWidth` and `wrapText` are never called. The regex is built with the constructor: V8 checks
+regex literals while parsing the file, so a literal costs as much even inside a function that never runs.
+
+diff --git a/index.js b/index.js
+index dd2a7cd83783dd1bc209832f99a3299fc7dc2174..47e194e38be8a774a5f6c353c5a0c2d3f6fb1faf 100644
+--- a/index.js
++++ b/index.js
+@@ -13,15 +13,17 @@ Logic:
+ 	5. Otherwise use East Asian Width of the cluster's first visible code point, and add widths for trailing spacing marks and Halfwidth/Fullwidth Forms within the same cluster (e.g., dakuten/handakuten/prolonged sound mark).
+ */
+ 
+-const segmenter = new Intl.Segmenter();
++// Created on first use: creating it takes ~5 ms, which every import would pay
++let segmenter;
+ 
+ // Matches a visible (printing) character. Used to find the base scalar of a cluster (skipping leading Prepend/Format/Marks) and to detect whole-cluster zero-width.
+ // Intentionally a single negated class without a quantifier: a repeated pattern like `^(?:…|…)+$` backtracks exponentially on overlapping properties, and even `^[…]+$` overflows V8's backtrack stack (RangeError) on clusters with millions of marks.
+ const visibleCharacterRegex = /[^\p{Default_Ignorable_Code_Point}\p{Control}\p{Format}\p{Nonspacing_Mark}\p{Enclosing_Mark}\p{Surrogate}]/v;
+ const spacingMarkRegex = /\p{Spacing_Mark}/v;
+ 
+-// RGI emoji sequences
+-const rgiEmojiRegex = /^\p{RGI_Emoji}$/v;
++// RGI emoji sequences. Created on first use with the constructor: V8 checks regex literals while
++// parsing the file, which takes ~8 ms for `\p{RGI_Emoji}`, even if the code never runs
++let rgiEmojiRegex;
+ 
+ // Detect minimally-qualified/unqualified emoji sequences (missing VS16 but still render as double-width)
+ const unqualifiedKeycapRegex = /^[\d#*]\u20E3$/;
+@@ -172,7 +174,7 @@ export default function stringWidth(input, options = {}) {
+ 	let width = 0;
+ 	const eastAsianWidthOptions = {ambiguousAsWide: !ambiguousIsNarrow};
+ 
+-	for (const {segment} of segmenter.segment(string)) {
++	for (const {segment} of (segmenter ??= new Intl.Segmenter()).segment(string)) {
+ 		// Zero-width / non-printing clusters
+ 		const visibleSegment = baseVisible(segment);
+ 		if (visibleSegment === undefined) {
+@@ -180,7 +182,7 @@ export default function stringWidth(input, options = {}) {
+ 		}
+ 
+ 		// Emoji width logic
+-		if (rgiEmojiRegex.test(segment) || isDoubleWidthNonRgiEmojiSequence(segment)) {
++		if ((rgiEmojiRegex ??= new RegExp(String.raw`^\p{RGI_Emoji}$`, 'v')).test(segment) || isDoubleWidthNonRgiEmojiSequence(segment)) {
+ 			width += 2;
+ 			continue;
+ 		}

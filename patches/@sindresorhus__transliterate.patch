@@ -1,0 +1,62 @@
+Builds the replacement patterns (the default one and one per locale) on the first call that needs
+them instead of on import. Building all of them takes ~6 ms, which every import of `utilery` and
+`utilery/string` paid, even when `slugify` is never called.
+
+diff --git a/index.js b/index.js
+index ae4387b0d68d300c4024d2a4029b5d3b5db2050c..af730030b2d5792a42e229059efb03b9cc199780 100644
+--- a/index.js
++++ b/index.js
+@@ -10,23 +10,26 @@ const buildReplacementPattern = replacements => {
+ 	return new RegExp(sortedKeys.map(key => escapeRegex(key)).join('|'), 'gu');
+ };
+ 
+-// Pre-compile the default pattern for performance
+-const defaultPattern = buildReplacementPattern(builtinReplacements);
++// The default and locale patterns are built on first use and then reused: building all of them
++// takes ~6 ms, which every import would pay
++let defaultPattern;
+ 
+-// Pre-compile locale patterns
+ const localeCache = new Map();
+ 
+-for (const [locale, localeMap] of Object.entries(localeReplacements)) {
+-	const replacements = new Map(builtinReplacements);
+-	for (const [key, value] of localeMap) {
+-		replacements.set(key, value);
++const getLocaleEntry = locale => {
++	let entry = localeCache.get(locale);
++	if (!entry) {
++		const replacements = new Map(builtinReplacements);
++		for (const [key, value] of localeReplacements[locale]) {
++			replacements.set(key, value);
++		}
++
++		entry = {replacements, pattern: buildReplacementPattern(replacements)};
++		localeCache.set(locale, entry);
+ 	}
+ 
+-	localeCache.set(locale, {
+-		replacements,
+-		pattern: buildReplacementPattern(replacements),
+-	});
+-}
++	return entry;
++};
+ 
+ const normalizeLocale = locale => {
+ 	if (!locale) {
+@@ -61,10 +64,12 @@ export default function transliterate(string, options) {
+ 	const customReplacements = [...options.customReplacements];
+ 
+ 	let replacements = builtinReplacements;
+-	let pattern = defaultPattern;
++	let pattern;
+ 
+ 	if (normalizedLocale) {
+-		({replacements, pattern} = localeCache.get(normalizedLocale));
++		({replacements, pattern} = getLocaleEntry(normalizedLocale));
++	} else {
++		pattern = defaultPattern ??= buildReplacementPattern(builtinReplacements);
+ 	}
+ 
+ 	string = string.normalize();

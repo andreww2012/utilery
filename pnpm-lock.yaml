@@ -331,6 +331,7 @@ overrides:
 
 patchedDependencies:
   '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
+  '@sindresorhus/transliterate': 8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86
   arkregex: 6e79b3b214930a57674465a4d21a076b05479427495f8ea29da1b360d196a623
   decode-uri-component: 09bdfb22a9e5b1f8851b1f4c145594c0c640223bfaa1c9ed026f1dfc22c46366
   es-toolkit: 93b8686c006f68cd3d5723b3e8f5c057f2286cde300a8774f589c9f3fd32dd1b
@@ -341,7 +342,9 @@ patchedDependencies:
   safe-stable-stringify: c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba
   signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
   string-ts: 6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44
+  string-width@8: 26b747c02f78a6fd9cd6c637be3346faf04edae29e90ea8e6a073f94b738f00c
   which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
+  wrap-ansi@10: b1421053c5dea49c01447e8aafb06132512f9ba3d70b6fa39a93acb97530ba8d
   write-file-atomic@6: 91b4975722320fad515cbfe105987ba8182448ee1394777c3dd4c318e0320a25
   yieldable-json: 2ccaccee748a93dc7d7f8056736c23f13b05eebf5b2993490982d96e33bf0b4d
 
@@ -387,7 +390,7 @@ importers:
         version: 3.0.1(patch_hash=84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14)
       '@sindresorhus/transliterate':
         specifier: catalog:bundled
-        version: 2.3.1
+        version: 2.3.1(patch_hash=8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86)
       '@thi.ng/binary':
         specifier: catalog:bundled
         version: 3.6.17
@@ -591,7 +594,7 @@ importers:
         version: 2.3.1(patch_hash=6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44)
       string-width:
         specifier: catalog:bundled
-        version: 8.3.0
+        version: 8.3.0(patch_hash=26b747c02f78a6fd9cd6c637be3346faf04edae29e90ea8e6a073f94b738f00c)
       strip-ansi:
         specifier: catalog:bundled
         version: 7.2.0
@@ -633,7 +636,7 @@ importers:
         version: 7.0.0(patch_hash=a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5)
       wrap-ansi:
         specifier: catalog:bundled
-        version: 10.0.2
+        version: 10.0.2(patch_hash=b1421053c5dea49c01447e8aafb06132512f9ba3d70b6fa39a93acb97530ba8d)
       write-json-file:
         specifier: catalog:bundled
         version: 7.0.0
@@ -7566,10 +7569,10 @@ snapshots:
 
   '@sindresorhus/slugify@3.0.1(patch_hash=84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14)':
     dependencies:
-      '@sindresorhus/transliterate': 2.3.1
+      '@sindresorhus/transliterate': 2.3.1(patch_hash=8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86)
       escape-string-regexp: 5.0.0
 
-  '@sindresorhus/transliterate@2.3.1': {}
+  '@sindresorhus/transliterate@2.3.1(patch_hash=8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86)': {}
 
   '@sonarsource/analyzer-commons-configurations@2.31.0-5284': {}
 
@@ -8911,7 +8914,7 @@ snapshots:
       micromark-util-character: 2.1.1
       micromark-util-normalize-identifier: 2.0.1
       micromark-util-symbol: 2.0.1
-      string-width: 8.3.0
+      string-width: 8.3.0(patch_hash=26b747c02f78a6fd9cd6c637be3346faf04edae29e90ea8e6a073f94b738f00c)
     transitivePeerDependencies:
       - supports-color
 
@@ -11027,7 +11030,7 @@ snapshots:
       get-east-asian-width: 1.7.0
       strip-ansi: 7.2.0
 
-  string-width@8.3.0:
+  string-width@8.3.0(patch_hash=26b747c02f78a6fd9cd6c637be3346faf04edae29e90ea8e6a073f94b738f00c):
     dependencies:
       get-east-asian-width: 1.7.0
       strip-ansi: 7.2.0
@@ -11469,10 +11472,10 @@ snapshots:
 
   word-wrap@1.2.5: {}
 
-  wrap-ansi@10.0.2:
+  wrap-ansi@10.0.2(patch_hash=b1421053c5dea49c01447e8aafb06132512f9ba3d70b6fa39a93acb97530ba8d):
     dependencies:
       ansi-styles: 6.2.3
-      string-width: 8.3.0
+      string-width: 8.3.0(patch_hash=26b747c02f78a6fd9cd6c637be3346faf04edae29e90ea8e6a073f94b738f00c)
 
   wrap-ansi@7.0.0:
     dependencies:
@@ -11532,7 +11535,7 @@ snapshots:
       cliui: 9.0.1
       escalade: 3.2.0
       get-caller-file: 2.0.5
-      string-width: 8.3.0
+      string-width: 8.3.0(patch_hash=26b747c02f78a6fd9cd6c637be3346faf04edae29e90ea8e6a073f94b738f00c)
       y18n: 5.0.8
       yargs-parser: 22.0.0
 

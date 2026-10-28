@@ -1,0 +1,26 @@
+Creates the `Intl.Segmenter` on the first call that needs it instead of on import. Creating it takes
+~5 ms, which every import of `utilery` and `utilery/string` paid, even when `wrapText` is never called.
+
+diff --git a/index.js b/index.js
+index 81ae857077d1af7cdec8f885ca9b8fe56b32866e..54f3ad77fa0a5bf19fe7b08ab11d3a17deda23c9 100755
+--- a/index.js
++++ b/index.js
+@@ -43,7 +43,8 @@ const ANSI_ESCAPE_REGEX = new RegExp(
+ const ANSI_SGR_MODIFIER_CLOSE_CODES = new Set(ansiStyles.codes.values());
+ ANSI_SGR_MODIFIER_CLOSE_CODES.delete(ANSI_SGR_RESET);
+ 
+-const segmenter = new Intl.Segmenter();
++// Created on first use: creating it takes ~5 ms, which every import would pay
++let segmenter;
+ // Complete ANSI sequences have already been removed before measuring these strings. Avoid string-width's ANSI scan so malformed sequences are not rescanned.
+ const getStringWidth = string => stringWidth(string, {countAnsiEscapeCodes: true});
+ const TAB_SIZE = 8;
+@@ -128,7 +129,7 @@ const getTokens = string => {
+ 			return;
+ 		}
+ 
+-		for (const {segment} of segmenter.segment(plainText)) {
++		for (const {segment} of (segmenter ??= new Intl.Segmenter()).segment(plainText)) {
+ 			tokens.push({value: segment, width: getStringWidth(segment)});
+ 		}
+ 	}, escape => {
