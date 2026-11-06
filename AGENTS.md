@@ -15,7 +15,9 @@ All without zero dependencies because all external dependencies are bundled.
   Other modules, including the code of bundled packages, must not do anything on import that matters even when their exports are unused (patch globals or prototypes, add listeners, etc.)
   `nr test:side-effects` snapshots the code that bundlers can't drop: when the snapshot changes (often after bumping a bundled package), check that the new code doesn't do that.
 - Likewise, only the types of `*.global.ts` modules may change globals or other modules (`declare global`, `declare module '...'`, `/// <reference ...>`, etc.)
-- Packages that `src/` imports are bundled, and they belong to the `bundled` catalog in `pnpm-workspace.yaml`.
+- Every dependency comes from a pnpm catalog in `pnpm-workspace.yaml`.
+  Packages that `src/` imports are bundled, and they belong to the `bundled` catalog.
+  Everything else belongs to the `default` catalog.
   `nr build` lists them, along with the packages they depend on, in `inlinedDependencies` of `package.json`: run it after adding, removing or bumping one, and keep the updated field.
   Until you run it, ESLint reports imports of a new one as missing from `dependencies`, which the build fixes.
   When it lists several versions of one package, make them one with an override in `pnpm-workspace.yaml` (like `cross-spawn>which`), unless the code that uses them needs a version that the others don't match.

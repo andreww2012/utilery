@@ -322,6 +322,145 @@ catalogs:
     yn:
       specifier: 5.1.0
       version: 5.1.0
+  default:
+    '@andreww2012/commitlint-config':
+      specifier: 0.1.0
+      version: 0.1.0
+    '@andreww2012/npm-check-updates-config':
+      specifier: 0.1.1
+      version: 0.1.1
+    '@antfu/ni':
+      specifier: 30.6.0
+      version: 30.6.0
+    '@arethetypeswrong/core':
+      specifier: 0.18.5
+      version: 0.18.5
+    '@changesets/changelog-github':
+      specifier: 1.0.1
+      version: 1.0.1
+    '@changesets/cli':
+      specifier: 3.0.3
+      version: 3.0.3
+    '@commitlint/cli':
+      specifier: 21.2.4
+      version: 21.2.4
+    '@eslint/config-inspector':
+      specifier: 3.5.0
+      version: 3.5.0
+    '@types/htmlescape':
+      specifier: 1.1.3
+      version: 1.1.3
+    '@types/http-link-header':
+      specifier: 1.0.7
+      version: 1.0.7
+    '@types/negotiator':
+      specifier: 0.6.5
+      version: 0.6.5
+    '@types/node':
+      specifier: 22.20.5
+      version: 22.20.5
+    '@types/picomatch':
+      specifier: 4.0.3
+      version: 4.0.3
+    '@types/range-parser':
+      specifier: 1.2.7
+      version: 1.2.7
+    '@types/toposort':
+      specifier: 2.0.7
+      version: 2.0.7
+    '@types/which':
+      specifier: 3.0.4
+      version: 3.0.4
+    '@types/yieldable-json':
+      specifier: 2.0.2
+      version: 2.0.2
+    '@typescript-eslint/eslint-plugin':
+      specifier: 8.72.1
+      version: 8.72.1
+    '@vitest/coverage-v8':
+      specifier: 5.0.5
+      version: 5.0.5
+    '@vitest/eslint-plugin':
+      specifier: 1.6.28
+      version: 1.6.28
+    '@vitest/ui':
+      specifier: 5.0.5
+      version: 5.0.5
+    actions-up:
+      specifier: 2.0.0
+      version: 2.0.0
+    all-contributors-cli:
+      specifier: 7.0.0
+      version: 7.0.0
+    cleye:
+      specifier: 2.7.0
+      version: 2.7.0
+    cross-env:
+      specifier: 10.1.0
+      version: 10.1.0
+    cspell:
+      specifier: 10.4.0
+      version: 10.4.0
+    eslint:
+      specifier: 10.14.0
+      version: 10.14.0
+    eslint-config-un:
+      specifier: 1.0.0-rc.5
+      version: 1.0.0-rc.5
+    eslint-plugin-github-action:
+      specifier: 0.4.0
+      version: 0.4.0
+    eslint-plugin-perfectionist:
+      specifier: 5.13.0
+      version: 5.13.0
+    eslint-plugin-remeda:
+      specifier: 2.2.0
+      version: 2.2.0
+    eslint-plugin-sentences-per-line:
+      specifier: 0.1.6
+      version: 0.1.6
+    eslint-plugin-sonarjs:
+      specifier: 4.2.2
+      version: 4.2.2
+    happy-dom:
+      specifier: 21.0.4
+      version: 21.0.4
+    jest-extended:
+      specifier: 7.0.0
+      version: 7.0.0
+    knip:
+      specifier: 6.44.1
+      version: 6.44.1
+    lefthook:
+      specifier: 2.2.2
+      version: 2.2.2
+    npm-check-updates:
+      specifier: 23.1.1
+      version: 23.1.1
+    oxfmt:
+      specifier: 0.77.0
+      version: 0.77.0
+    publint:
+      specifier: 0.3.25
+      version: 0.3.25
+    rolldown:
+      specifier: 1.3.0
+      version: 1.3.0
+    tsdown:
+      specifier: 0.23.7
+      version: 0.23.7
+    typescript:
+      specifier: npm:@typescript/typescript6@6.0.2
+      version: 6.0.2
+    typescript7:
+      specifier: npm:typescript@7.0.2
+      version: 7.0.2
+    valibot:
+      specifier: 1.5.0
+      version: 1.5.0
+    vitest:
+      specifier: 5.0.5
+      version: 5.0.5
 
 overrides:
   cross-spawn>which: 7.0.0
@@ -354,34 +493,34 @@ importers:
   .:
     devDependencies:
       '@andreww2012/commitlint-config':
-        specifier: 0.1.0
+        specifier: 'catalog:'
         version: 0.1.0(cspell-lib@10.4.0)
       '@andreww2012/npm-check-updates-config':
-        specifier: 0.1.1
+        specifier: 'catalog:'
         version: 0.1.1(npm-check-updates@23.1.1)
       '@antfu/ni':
-        specifier: 30.6.0
+        specifier: 'catalog:'
         version: 30.6.0
       '@antfu/utils':
         specifier: catalog:bundled
         version: 9.3.0
       '@arethetypeswrong/core':
-        specifier: 0.18.5
+        specifier: 'catalog:'
         version: 0.18.5
       '@braintree/sanitize-url':
         specifier: catalog:bundled
         version: 7.1.2
       '@changesets/changelog-github':
-        specifier: 1.0.1
+        specifier: 'catalog:'
         version: 1.0.1
       '@changesets/cli':
-        specifier: 3.0.3
+        specifier: 'catalog:'
         version: 3.0.3
       '@commitlint/cli':
-        specifier: 21.2.4
+        specifier: 'catalog:'
         version: 21.2.4(@typescript/typescript6@6.0.2)(conventional-commits-parser@7.1.3)
       '@eslint/config-inspector':
-        specifier: 3.5.0
+        specifier: 'catalog:'
         version: 3.5.0(crossws@0.4.16)(eslint@10.14.0)(srvx@1.0.7)
       '@sindresorhus/slugify':
         specifier: catalog:bundled
@@ -396,49 +535,49 @@ importers:
         specifier: catalog:bundled
         version: 3.0.1
       '@types/htmlescape':
-        specifier: 1.1.3
+        specifier: 'catalog:'
         version: 1.1.3
       '@types/http-link-header':
-        specifier: 1.0.7
+        specifier: 'catalog:'
         version: 1.0.7
       '@types/negotiator':
-        specifier: 0.6.5
+        specifier: 'catalog:'
         version: 0.6.5
       '@types/node':
-        specifier: 22.20.5
+        specifier: 'catalog:'
         version: 22.20.5
       '@types/picomatch':
-        specifier: 4.0.3
+        specifier: 'catalog:'
         version: 4.0.3
       '@types/range-parser':
-        specifier: 1.2.7
+        specifier: 'catalog:'
         version: 1.2.7
       '@types/toposort':
-        specifier: 2.0.7
+        specifier: 'catalog:'
         version: 2.0.7
       '@types/which':
-        specifier: 3.0.4
+        specifier: 'catalog:'
         version: 3.0.4
       '@types/yieldable-json':
-        specifier: 2.0.2
+        specifier: 'catalog:'
         version: 2.0.2
       '@typescript-eslint/eslint-plugin':
-        specifier: 8.72.1
+        specifier: 'catalog:'
         version: 8.72.1(@typescript-eslint/parser@8.72.1)(@typescript/typescript6@6.0.2)(eslint@10.14.0)(supports-color@9.4.0)
       '@vitest/coverage-v8':
-        specifier: 5.0.5
+        specifier: 'catalog:'
         version: 5.0.5(vitest@5.0.5)
       '@vitest/eslint-plugin':
-        specifier: 1.6.28
+        specifier: 'catalog:'
         version: 1.6.28(@typescript-eslint/eslint-plugin@8.72.1)(@typescript/typescript6@6.0.2)(eslint@10.14.0)(supports-color@9.4.0)(vitest@5.0.5)
       '@vitest/ui':
-        specifier: 5.0.5
+        specifier: 'catalog:'
         version: 5.0.5(vitest@5.0.5)
       actions-up:
-        specifier: 2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       all-contributors-cli:
-        specifier: 7.0.0
+        specifier: 'catalog:'
         version: 7.0.0(@types/node@22.20.5)
       any-ascii:
         specifier: catalog:bundled
@@ -447,19 +586,19 @@ importers:
         specifier: catalog:bundled
         version: 0.0.14(patch_hash=5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee)
       cleye:
-        specifier: 2.7.0
+        specifier: 'catalog:'
         version: 2.7.0
       clickable-path:
         specifier: catalog:bundled
         version: 0.1.1
       cross-env:
-        specifier: 10.1.0
+        specifier: 'catalog:'
         version: 10.1.0
       cross-spawn:
         specifier: catalog:bundled
         version: 7.0.6
       cspell:
-        specifier: 10.4.0
+        specifier: 'catalog:'
         version: 10.4.0
       decode-uri-component:
         specifier: catalog:bundled
@@ -480,31 +619,31 @@ importers:
         specifier: catalog:bundled
         version: 1.53.0(patch_hash=ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250)
       eslint:
-        specifier: 10.14.0
+        specifier: 'catalog:'
         version: 10.14.0(jiti@2.7.0)(supports-color@9.4.0)
       eslint-config-un:
-        specifier: 1.0.0-rc.5
+        specifier: 'catalog:'
         version: 1.0.0-rc.5(@eslint/css-tree@4.1.2)(@typescript/typescript6@6.0.2)(@vitest/eslint-plugin@1.6.28)(browserslist@4.29.4)(eslint-plugin-github-action@0.4.0)(eslint-plugin-perfectionist@5.13.0)(eslint-plugin-remeda@2.2.0)(eslint-plugin-sentences-per-line@0.1.6)(eslint-plugin-sonarjs@4.2.2)(eslint@10.14.0)(oxfmt@0.77.0)(prettier@3.9.10)(supports-color@9.4.0)
       eslint-plugin-github-action:
-        specifier: 0.4.0
+        specifier: 'catalog:'
         version: 0.4.0(eslint@10.14.0)
       eslint-plugin-perfectionist:
-        specifier: 5.13.0
+        specifier: 'catalog:'
         version: 5.13.0(@typescript/typescript6@6.0.2)(eslint@10.14.0)(supports-color@9.4.0)
       eslint-plugin-remeda:
-        specifier: 2.2.0
+        specifier: 'catalog:'
         version: 2.2.0(@typescript/typescript6@6.0.2)(eslint@10.14.0)(supports-color@9.4.0)
       eslint-plugin-sentences-per-line:
-        specifier: 0.1.6
+        specifier: 'catalog:'
         version: 0.1.6(jiti@2.7.0)(supports-color@9.4.0)
       eslint-plugin-sonarjs:
-        specifier: 4.2.2
+        specifier: 'catalog:'
         version: 4.2.2(eslint@10.14.0)
       find-up-simple:
         specifier: catalog:bundled
         version: 1.0.1
       happy-dom:
-        specifier: 21.0.4
+        specifier: 'catalog:'
         version: 21.0.4
       htmlescape:
         specifier: catalog:bundled
@@ -516,13 +655,13 @@ importers:
         specifier: catalog:bundled
         version: 2.5.0(patch_hash=6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c)
       jest-extended:
-        specifier: 7.0.0
+        specifier: 'catalog:'
         version: 7.0.0(@typescript/typescript6@6.0.2)
       knip:
-        specifier: 6.44.1
+        specifier: 'catalog:'
         version: 6.44.1
       lefthook:
-        specifier: 2.2.2
+        specifier: 'catalog:'
         version: 2.2.2
       leven:
         specifier: catalog:bundled
@@ -543,10 +682,10 @@ importers:
         specifier: catalog:bundled
         version: 1.0.1
       npm-check-updates:
-        specifier: 23.1.1
+        specifier: 'catalog:'
         version: 23.1.1
       oxfmt:
-        specifier: 0.77.0
+        specifier: 'catalog:'
         version: 0.77.0
       p-memoize:
         specifier: catalog:bundled
@@ -567,7 +706,7 @@ importers:
         specifier: catalog:bundled
         version: 10.0.0
       publint:
-        specifier: 0.3.25
+        specifier: 'catalog:'
         version: 0.3.25
       puka:
         specifier: catalog:bundled
@@ -579,7 +718,7 @@ importers:
         specifier: catalog:bundled
         version: 2.55.0(patch_hash=8d52eab07a00f9c21295c5a09f47e44730f353630a8f2e795455dbab56a3a314)
       rolldown:
-        specifier: 1.3.0
+        specifier: 'catalog:'
         version: 1.3.0
       safe-stable-stringify:
         specifier: catalog:bundled
@@ -603,7 +742,7 @@ importers:
         specifier: catalog:bundled
         version: 1.3.0
       tsdown:
-        specifier: 0.23.7
+        specifier: 'catalog:'
         version: 0.23.7(@arethetypeswrong/core@0.18.5)(@typescript/typescript6@6.0.2)(oxc-resolver@11.24.2)(publint@0.3.25)
       type-fest:
         specifier: catalog:bundled
@@ -612,22 +751,22 @@ importers:
         specifier: catalog:bundled
         version: 2.12.3
       typescript:
-        specifier: npm:@typescript/typescript6@6.0.2
+        specifier: 'catalog:'
         version: '@typescript/typescript6@6.0.2'
       typescript7:
-        specifier: npm:typescript@7.0.2
+        specifier: 'catalog:'
         version: typescript@7.0.2
       uint8array-extras:
         specifier: catalog:bundled
         version: 1.6.0
       valibot:
-        specifier: 1.5.0
+        specifier: 'catalog:'
         version: 1.5.0(@typescript/typescript6@6.0.2)
       verkit:
         specifier: catalog:bundled
         version: 0.5.0
       vitest:
-        specifier: 5.0.5
+        specifier: 'catalog:'
         version: 5.0.5(@types/node@22.20.5)(@vitest/coverage-v8@5.0.5)(@vitest/ui@5.0.5)(happy-dom@21.0.4)(vite@8.3.5)
       which:
         specifier: catalog:bundled
@@ -674,6 +813,7 @@ packages:
   '@andreww2012/unutils@0.2.0':
     resolution: {integrity: sha512-ZkqhMC8N7yyo9sseFu1SAFamEDxngyTOvJDOxFevmBQohbYyEv2tQ/hsCWmOR/nLr3tX+oqhOyIpSShprVxhXQ==}
     engines: {node: ^22.23.1 || ^24.18.0 || >=26.4.0}
+    deprecated: Renamed to `utilery`
 
   '@antfu/ni@30.6.0':
     resolution: {integrity: sha512-vRZX+aPd9UzUMjsCeH0CR4ldbCwwGaKjbotF7PBRyZdbZRZJz3Em+HXUNaxGWcdajRpTBL1HQ0KECudftPs7CQ==}

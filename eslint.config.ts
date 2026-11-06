@@ -126,6 +126,11 @@ export default eslintConfig({
         files: ['src/**/index.ts'],
       },
     },
+    pnpm: {
+      configPackageJson: {
+        enforceCatalog: true,
+      },
+    },
     sonar: {
       overrides: {
         // Not redundant with the `exactOptionalPropertyTypes` compiler option, which some users
