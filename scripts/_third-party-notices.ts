@@ -1,18 +1,22 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import packageJson from '../package.json' with {type: 'json'};
-import {type MaybeArray, arrayify, jsonParse} from '../src/index.ts';
+import {type MaybeArray, arrayify, jsonParse, once} from '../src/index.ts';
+import {findUpSync} from '../src/server/find-up.ts';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const PNPM_STORE = path.join(ROOT, 'node_modules', '.pnpm');
 export const NOTICES_PATH = path.join(ROOT, 'THIRD_PARTY_NOTICES.md');
 
 // The package name in a license text heading, like `### `name``
 const LICENSE_TEXT_PACKAGE_NAME_REGEX = /(?<=^### `)[^`]+(?=`$)/gm;
 
 interface InstalledPackageJson {
+  name: string;
   version: string;
   license?: string;
+  dependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
   // The shape is not settled yet (https://github.com/e18e/ecosystem-issues/issues/237): `tsdown`
   // writes a record of versions, with an array when a package is inlined in several versions
   inlinedDependencies?: string[] | Record<string, MaybeArray<string>>;
@@ -28,23 +32,56 @@ export const collectBundledPackages = () =>
     arrayify(versions).map<BundledPackage>((version) => ({name, version})),
   );
 
-// Unlike the top-level `node_modules`, pnpm's virtual store has every installed version. It names
-// their directories like `@scope+name@1.0.0`, with a suffix like `_patch_hash=...` if needed
+// pnpm cuts long names of its store directories and adds a hash, which can drop the version (on
+// Windows, it cuts names longer than 60 characters, which includes every patched package). So
+// packages are found the way Node.js finds them: our direct dependencies from the root, and the
+// others from the packages that depend on them
+const collectInstalledPackages = once(() => {
+  // By real directory, as a package is reached from each package that depends on it
+  const installedPackages = new Map<string, InstalledPackageJson>();
+
+  const visit = (name: string, cwd: string) => {
+    const packageJsonPath = findUpSync(path.join('node_modules', name, 'package.json'), {
+      cwd,
+      stopAt: ROOT,
+    });
+    // Not found for optional dependencies that aren't installed, and from the root for indirect ones
+    if (packageJsonPath == null) {
+      return;
+    }
+
+    const directory = fs.realpathSync(path.dirname(packageJsonPath));
+    if (installedPackages.has(directory)) {
+      return;
+    }
+
+    const installedPackageJson = jsonParse<InstalledPackageJson>(
+      fs.readFileSync(packageJsonPath, 'utf8'),
+    );
+    installedPackages.set(directory, installedPackageJson);
+    const {dependencies, optionalDependencies, peerDependencies} = installedPackageJson;
+    Object.keys({...dependencies, ...optionalDependencies, ...peerDependencies}).forEach(
+      (dependencyName) => {
+        visit(dependencyName, directory);
+      },
+    );
+  };
+
+  Object.keys(packageJson.inlinedDependencies).forEach((name) => {
+    visit(name, ROOT);
+  });
+  return [...installedPackages.values()];
+});
+
 export const readInstalledPackageJson = ({name, version}: BundledPackage) => {
-  const storeEntryName = `${name.replace('/', '+')}@${version}`;
-  const storeEntry = fs
-    .readdirSync(PNPM_STORE)
-    .find((entry) => entry === storeEntryName || entry.startsWith(`${storeEntryName}_`));
-  if (storeEntry == null) {
+  const installedPackageJson = collectInstalledPackages().find(
+    (candidate) => candidate.name === name && candidate.version === version,
+  );
+  if (installedPackageJson == null) {
     throw new Error(`Cannot locate the installed package "${name}@${version}".`);
   }
 
-  return jsonParse<InstalledPackageJson>(
-    fs.readFileSync(
-      path.join(PNPM_STORE, storeEntry, 'node_modules', name, 'package.json'),
-      'utf8',
-    ),
-  );
+  return installedPackageJson;
 };
 
 // Bundled packages can bundle packages of their own, which aren't installed for us to read their
