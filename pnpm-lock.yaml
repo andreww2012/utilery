@@ -337,6 +337,7 @@ patchedDependencies:
   es-toolkit: ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250
   http-link-header: 784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
+  lossless-json: 74268c58614454512b394fb02c1050682ea0649feeddaa999b63bc5962bbc53d
   nanoid@6: 833f6745caeb3fd0d3fcb8cedb6a9f88153b3cd19b4ebf5aaebad75a5a25239c
   remeda: 8d52eab07a00f9c21295c5a09f47e44730f353630a8f2e795455dbab56a3a314
   safe-stable-stringify: c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba
@@ -528,7 +529,7 @@ importers:
         version: 4.1.0
       lossless-json:
         specifier: catalog:bundled
-        version: 4.3.3
+        version: 4.3.3(patch_hash=74268c58614454512b394fb02c1050682ea0649feeddaa999b63bc5962bbc53d)
       ms-ts:
         specifier: catalog:bundled
         version: 1.2.0
@@ -9933,7 +9934,7 @@ snapshots:
 
   longest-streak@3.1.0: {}
 
-  lossless-json@4.3.3: {}
+  lossless-json@4.3.3(patch_hash=74268c58614454512b394fb02c1050682ea0649feeddaa999b63bc5962bbc53d): {}
 
   lru-cache@10.4.3: {}
 

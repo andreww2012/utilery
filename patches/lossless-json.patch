@@ -1,0 +1,25 @@
+Moves the `types` condition to the top of `exports`.
+
+The bundler of our declaration files matches conditions in order, like
+Node.js does: it stops at `import` and looks for `lib/esm/index.d.ts`,
+which doesn't exist. TypeScript tries the next conditions in this case,
+which is why only the build breaks. Without the patch, the build either
+fails or keeps `import ... from 'lossless-json'` in our declaration files,
+which breaks types for users, as the package is bundled.
+
+diff --git a/package.json b/package.json
+index b4d8bac6dcf9dc875c694dd29a0bb34c1baeeeca..29d85b39408571a2c7bf390884dc4b11589fa5b6 100644
+--- a/package.json
++++ b/package.json
+@@ -9,9 +9,9 @@
+   "sideEffects": false,
+   "exports": {
+     ".": {
++      "types": "./lib/types/index.d.ts",
+       "import": "./lib/esm/index.js",
+-      "require": "./lib/umd/lossless-json.js",
+-      "types": "./lib/types/index.d.ts"
++      "require": "./lib/umd/lossless-json.js"
+     }
+   },
+   "repository": {

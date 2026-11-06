@@ -131,6 +131,7 @@ patchedDependencies:
   es-toolkit: patches/es-toolkit.patch
   http-link-header: patches/http-link-header.patch
   ipaddr.js: patches/ipaddr.js.patch
+  lossless-json: patches/lossless-json.patch
   nanoid@6: patches/nanoid.patch
   remeda: patches/remeda.patch
   safe-stable-stringify: patches/safe-stable-stringify.patch

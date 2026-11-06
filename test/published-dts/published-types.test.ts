@@ -28,6 +28,10 @@ const CONSUMER_COMPILER_OPTIONS = {
   // fail on unrelated internal declarations of bundled deps
   skipLibCheck: true,
 } as const;
+const consumerCompilerOptions = ts.convertCompilerOptionsFromJson(
+  CONSUMER_COMPILER_OPTIONS,
+  rootPath,
+).options;
 
 // Each subdirectory groups scenarios for one utility, e.g. `regexTyped/infer.ts`
 const scenarioFiles = fs
@@ -116,6 +120,9 @@ const describeOutwardDeclarations = (sourceFile: ts.SourceFile) => {
 };
 
 let consumerDirectory: string;
+let packageDirectory: string;
+// Declaration files of the package that a consumer importing every non-global entry point loads
+let packageFiles: ts.SourceFile[];
 // Maps a scenario file name to the `tsc` error lines emitted for it
 const errorsByScenario = new Map<string, string[]>();
 const unattributedErrors: string[] = [];
@@ -197,6 +204,24 @@ beforeAll(() => {
 
     recordErrors(stdout);
   });
+
+  // The compiler resolves symlinks, like the one to the temporary directory on macOS
+  packageDirectory = fs.realpathSync(path.join(modulesDirectory, 'utilery'));
+  const {exports} = jsonParse<{exports: Record<string, unknown>}>(
+    fs.readFileSync(path.join(packageDirectory, 'package.json'), 'utf8'),
+  );
+  const consumerPath = path.join(consumerDirectory, 'non-global-entry-points.ts');
+  fs.writeFileSync(
+    consumerPath,
+    Object.keys(exports)
+      .filter((subpath) => subpath !== './package.json' && !subpath.endsWith(GLOBAL_SUFFIX))
+      .map((subpath) => `import ${JSON.stringify(path.posix.join('utilery', subpath))};`)
+      .join('\n'),
+  );
+  packageFiles = ts
+    .createProgram([consumerPath], consumerCompilerOptions)
+    .getSourceFiles()
+    .filter(({fileName}) => path.resolve(fileName).startsWith(packageDirectory + path.sep));
 }, 120_000);
 
 afterAll(() => {
@@ -229,27 +254,6 @@ describe('published DTS consumer', () => {
   // The declaration build keeps such declarations of bundled packages too, like `declare global`
   // of `@ark/util` once did, which added `ArkEnv` to the globals of every consumer
   it('keeps globals and other modules unchanged outside `*.global` entry points', () => {
-    // The compiler resolves symlinks, like the one to the temporary directory on macOS
-    const packageDirectory = fs.realpathSync(path.join(consumerDirectory, 'node_modules/utilery'));
-    const {exports} = jsonParse<{exports: Record<string, unknown>}>(
-      fs.readFileSync(path.join(packageDirectory, 'package.json'), 'utf8'),
-    );
-    const consumerPath = path.join(consumerDirectory, 'non-global-entry-points.ts');
-    fs.writeFileSync(
-      consumerPath,
-      Object.keys(exports)
-        .filter((subpath) => subpath !== './package.json' && !subpath.endsWith(GLOBAL_SUFFIX))
-        .map((subpath) => `import ${JSON.stringify(path.posix.join('utilery', subpath))};`)
-        .join('\n'),
-    );
-    const packageFiles = ts
-      .createProgram(
-        [consumerPath],
-        ts.convertCompilerOptionsFromJson(CONSUMER_COMPILER_OPTIONS, consumerDirectory).options,
-      )
-      .getSourceFiles()
-      .filter(({fileName}) => path.resolve(fileName).startsWith(packageDirectory + path.sep));
-
     expect(packageFiles).not.toHaveLength(0);
     expect(
       packageFiles.flatMap((sourceFile) =>
@@ -257,6 +261,33 @@ describe('published DTS consumer', () => {
           (description) =>
             `${path.relative(packageDirectory, sourceFile.fileName)}: ${description}`,
         ),
+      ),
+    ).toStrictEqual([]);
+  });
+
+  // `skipLibCheck` hides imports that a consumer can't resolve, which turn their types into `any`.
+  // All dependencies are bundled, so the only modules that may come from outside are built-in ones
+  it('resolves every module that the declarations import', () => {
+    expect(
+      packageFiles.flatMap((sourceFile) =>
+        ts
+          .preProcessFile(sourceFile.text)
+          .importedFiles.filter(({fileName}) => !fileName.startsWith('node:'))
+          .filter(
+            ({fileName}) =>
+              !ts.resolveModuleName(
+                fileName,
+                sourceFile.fileName,
+                consumerCompilerOptions,
+                ts.sys,
+                undefined,
+                undefined,
+                sourceFile.impliedNodeFormat,
+              ).resolvedModule,
+          )
+          .map(
+            ({fileName}) => `${path.relative(packageDirectory, sourceFile.fileName)}: ${fileName}`,
+          ),
       ),
     ).toStrictEqual([]);
   });

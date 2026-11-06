@@ -1,4 +1,3 @@
-// cspell:ignore stringifier
 import {jsonStringifyLossless} from '../../src/json/json-stringify-lossless.ts';
 
 // Writes a `Map` as the number that the number stringifier returns for it

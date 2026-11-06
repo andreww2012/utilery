@@ -1,4 +1,3 @@
-// cspell:ignore stringifier stringifiers
 import {type NumberStringifier, stringify} from 'lossless-json';
 
 /**
