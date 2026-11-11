@@ -40,8 +40,21 @@ describe('string/truncate', () => {
     expect(truncate('😀😀😀😀', {length: 3, position: 'middle', omission: '…'})).toBe('😀…😀');
   });
 
-  it('gives only the omission when nothing fits', () => {
+  it('gives only the omission when nothing fits, even if it is longer than `length`', () => {
+    expect(truncate('ABCDEF', {length: 2})).toBe('...');
+    expect(truncate('ABCDEF', {length: 2, position: 'start'})).toBe('...');
     expect(truncate('ABCDEF', {length: 2, position: 'middle'})).toBe('...');
+    expect(truncate('ABCDEF', {length: 0, omission: '…'})).toBe('…');
+    expect(truncate('A', {length: 2})).toBe('A');
+  });
+
+  it('handles a length with a decimal part or `NaN` the same way at every position', () => {
+    expect(truncate('ABCDEFGH', {length: 5.5})).toBe('AB...');
+    expect(truncate('ABCDEFGH', {length: 5.5, position: 'start'})).toBe('...GH');
+    expect(truncate('ABCDEFGH', {length: 5.5, position: 'middle'})).toBe('A...H');
+    expect(truncate('ABCDEF', {length: Number.NaN})).toBe('...');
+    expect(truncate('ABCDEF', {length: Number.NaN, position: 'start'})).toBe('...');
+    expect(truncate('ABCDEF', {length: Number.NaN, position: 'middle'})).toBe('...');
   });
 
   it('treats options set to `undefined` like missing ones', () => {

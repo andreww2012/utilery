@@ -5,6 +5,8 @@ import type {Prettify} from '../types/prettify.ts';
 interface BaseTruncateOptions {
   /**
    * The maximum length of the result, including the omission.
+   * When the omission alone is longer, a string that doesn't fit becomes the
+   * omission.
    * Defaults to `30`
    */
   length?: number;
@@ -41,6 +43,8 @@ export type TruncateOptions = Prettify<
  * a file name with its extension).
  * With the default `'end'` position, a `separator` makes the cut happen before
  * its last match within the limit, to avoid cutting a word in half.
+ * When `length` is shorter than the omission, a string that doesn't fit becomes
+ * the omission alone, which is longer than `length`.
  * @param text - The string to truncate.
  * @param options - `length` (`30` by default), `omission` (`'...'` by default), `position` (`'end'`
  * by default) and `separator`.
@@ -70,8 +74,9 @@ export const truncate = (text: string, options: TruncateOptions = {}): string =>
     return text;
   }
 
+  // Like the `end` position, ignores the decimal part of `length` and keeps nothing for `NaN`
   // eslint-disable-next-line ts/no-misused-spread -- code points, as for the `end` position
-  const keptLength = Math.max(length - [...omission].length, 0);
+  const keptLength = Math.max(Math.floor(length) - [...omission].length, 0) || 0;
   const headLength = position === 'middle' ? Math.ceil(keptLength / 2) : 0;
   return (
     characters.slice(0, headLength).join('') +
