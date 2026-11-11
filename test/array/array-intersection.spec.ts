@@ -123,5 +123,17 @@ describe('array/arrayIntersection', () => {
         {id: 1, n: 2},
       ]);
     });
+
+    it('uses a function with one parameter as a key function, which also gets the second array', () => {
+      const calls: unknown[] = [];
+
+      expect(
+        arrayIntersection([1, 2], ['2'], (value) => {
+          calls.push(value);
+          return true;
+        }),
+      ).toStrictEqual([1, 2]);
+      expect(calls).toContain('2');
+    });
   });
 });

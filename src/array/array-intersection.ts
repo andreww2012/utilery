@@ -28,6 +28,8 @@ export function arrayIntersection<T>(firstArray: readonly T[], secondArray: read
  * @param secondArray - The array of elements to intersect with.
  * @param areItemsEqual - Tells whether two elements are equal: `x` is from `firstArray` and `y`
  * from `secondArray`.
+ * It must declare both parameters: a function with one parameter is used as a key function, which
+ * also gets the elements of `secondArray`.
  * @returns A new array containing the elements from `firstArray` that also appear in `secondArray`.
  * @example
  * arrayIntersection(

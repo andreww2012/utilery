@@ -106,5 +106,17 @@ describe('array/arrayDifference', () => {
 
       expect(arrayDifference([{id: 1}], empty, (a, b) => a.id === b.id)).toStrictEqual([{id: 1}]);
     });
+
+    it('uses a function with one parameter as a key function, which also gets the second array', () => {
+      const calls: unknown[] = [];
+
+      expect(
+        arrayDifference([1, 2], ['2'], (value) => {
+          calls.push(value);
+          return true;
+        }),
+      ).toStrictEqual([]);
+      expect(calls).toContain('2');
+    });
   });
 });

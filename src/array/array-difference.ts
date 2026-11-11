@@ -25,6 +25,8 @@ export function arrayDifference<T>(firstArray: readonly T[], secondArray: readon
  * @param secondArray - The array of elements to exclude.
  * @param areItemsEqual - Tells whether two elements are equal: `x` is from `firstArray` and `y`
  * from `secondArray`.
+ * It must declare both parameters: a function with one parameter is used as a key function, which
+ * also gets the elements of `secondArray`.
  * @returns A new array containing the elements from `firstArray` that do not appear in
  * `secondArray`.
  * @example

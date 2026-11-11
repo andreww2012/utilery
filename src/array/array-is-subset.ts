@@ -24,6 +24,8 @@ export function arrayIsSubset<T>(superset: readonly T[], subset: readonly T[]): 
  * @param subset - The array to check against `superset`.
  * @param areItemsEqual - Tells whether two elements are equal: `x` is from `superset` and `y` from
  * `subset`.
+ * It must declare both parameters: a function with one parameter is used as a key function, which
+ * also gets the elements of `subset`.
  * @returns `true` if every element of `subset` is present in `superset`, otherwise `false`.
  * @example
  * arrayIsSubset(

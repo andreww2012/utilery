@@ -78,5 +78,17 @@ describe('array/arrayIsSubset', () => {
 
       expect(arrayIsSubset([{id: 1}], empty, (a, b) => a.id === b.id)).toBe(true);
     });
+
+    it('uses a function with one parameter as a key function, which also gets the second array', () => {
+      const calls: unknown[] = [];
+
+      expect(
+        arrayIsSubset([1, 2], ['2'], (value) => {
+          calls.push(value);
+          return true;
+        }),
+      ).toBe(true);
+      expect(calls).toContain('2');
+    });
   });
 });
