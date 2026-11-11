@@ -145,11 +145,15 @@ describe('iterable/slidingWindow', () => {
       ]);
     });
 
-    it('walks a string (iterated as code-unit characters)', () => {
+    it('walks a string (iterated by code points)', () => {
       expect([...slidingWindow('abcd', 2)]).toStrictEqual([
         ['a', 'b'],
         ['b', 'c'],
         ['c', 'd'],
+      ]);
+      expect([...slidingWindow('😀字😀', 2)]).toStrictEqual([
+        ['😀', '字'],
+        ['字', '😀'],
       ]);
     });
 
