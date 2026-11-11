@@ -67,6 +67,15 @@ describe('array/arrayIntersection', () => {
     it('returns empty array when second array is empty', () => {
       expect(arrayIntersection([{id: 1}], [], (item) => item.id)).toStrictEqual([]);
     });
+
+    it('keeps elements of the first array with the same key', () => {
+      expect(
+        arrayIntersection([{id: 1, n: 1}, {id: 1, n: 2}, {id: 2}], [{id: 1}], (item) => item.id),
+      ).toStrictEqual([
+        {id: 1, n: 1},
+        {id: 1, n: 2},
+      ]);
+    });
   });
 
   describe('with comparator (intersectionWith)', () => {
@@ -100,6 +109,19 @@ describe('array/arrayIntersection', () => {
       const empty: {id: number}[] = [];
 
       expect(arrayIntersection([{id: 1}], empty, (a, b) => a.id === b.id)).toStrictEqual([]);
+    });
+
+    it('keeps duplicate elements from the first array', () => {
+      expect(
+        arrayIntersection(
+          [{id: 1, n: 1}, {id: 1, n: 2}, {id: 2}],
+          [{id: 1}],
+          (a, b) => a.id === b.id,
+        ),
+      ).toStrictEqual([
+        {id: 1, n: 1},
+        {id: 1, n: 2},
+      ]);
     });
   });
 });
