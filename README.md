@@ -39,6 +39,9 @@ or from a specific entrypoint:
 import {every} from 'utilery/iterable';
 ```
 
+Bundlers drop unused utilities either way.
+But code that runs without a bundler (like Node.js scripts and CLIs, tests and config files) loads every module of the main entrypoint, so a specific entrypoint loads several times faster there.
+
 See individual symbols' JSDoc for detailed documentation.
 
 <details>
