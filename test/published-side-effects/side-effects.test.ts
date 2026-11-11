@@ -12,7 +12,6 @@ import {arrayChunks} from '../../src/array/array-chunks.ts';
 const DIST_PATH = path.resolve(import.meta.dirname, '../../dist');
 const ENTRY_ID = 'entry';
 const MODULE_MARKER_REGEX = /^__module__\("(.+)"\);$/m;
-const PNPM_STORE_PATH_REGEX = /node_modules\/\.pnpm\/[^/]+\/node_modules\//g;
 
 it('keeps only the known code of unused modules', async () => {
   const files = fs.globSync('**/*.mjs', {cwd: DIST_PATH});
@@ -42,10 +41,7 @@ it('keeps only the known code of unused modules', async () => {
         transform: {
           filter: {id: /\.mjs$/},
           handler: (code, id) => {
-            const modulePath = path
-              .relative(DIST_PATH, id)
-              .replaceAll(path.sep, '/')
-              .replaceAll(PNPM_STORE_PATH_REGEX, 'node_modules/');
+            const modulePath = path.relative(DIST_PATH, id).replaceAll(path.sep, '/');
             return `__module__(${JSON.stringify(modulePath)});\n${code}`;
           },
         },

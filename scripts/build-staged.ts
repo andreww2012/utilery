@@ -35,7 +35,8 @@ const run = async () => {
     const packageJsonCopyPath = path.join(directory, PACKAGE_JSON_NAME);
     const stagedPackageJson = await fs.readFile(packageJsonCopyPath, 'utf8');
 
-    // Not a link to our `node_modules`: the build would place bundled packages outside `dist`.
+    // Not a link to our `node_modules`: the build must use the packages of the staged lockfile,
+    // which may differ from the installed ones.
     // The packages mostly come from the store, so this takes a few seconds
     const isBuilt =
       (await didSucceedInCopy('pnpm', [
