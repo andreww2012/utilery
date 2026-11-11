@@ -20,9 +20,9 @@ Mostly thin, strongly-typed re-exports.
 | [`arrayConcat`][ts-extras]       | ✅     | `array/arrayConcat` *(same)*           | -                                                                                                |
 | [`arrayFirst`][ts-extras]        | ✅     | `array/arrayFirst` *(same)*            | -                                                                                                |
 | [`arrayLast`][ts-extras]         | ✅     | `array/arrayLast` *(same)*             | -                                                                                                |
-| [`arrayIncludes`][ts-extras]     | ✅     | `array/arrayIncludes` *(same)*         | -                                                                                                |
+| [`arrayIncludes`][ts-extras]     | ✅     | `array/arrayIncludes` *(same)*         | Narrows nothing when the value already has the element type; keeps `null` and `undefined`        |
 | [`arrayJoin`][ts-extras]         | ✅     | `array/arrayJoin` *(same)*             | -                                                                                                |
-| [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | -                                                                                                |
+| [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | Narrows nothing when the value already has the element type; keeps `null` and `undefined`        |
 | [`stringSplit`][ts-extras]       | ✅     | `string/stringSplit` *(same)*          | -                                                                                                |
 | [`isFinite`][ts-extras]          | ✅     | `predicate/isFiniteNumber`             | Renamed to avoid clashing with the global `isFinite`                                             |
 | [`isInfinite`][ts-extras]        | ✅     | `predicate/isInfinite` *(same)*        | -                                                                                                |
