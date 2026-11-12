@@ -27,6 +27,11 @@ import {isNodeError} from './is-node-error.ts';
 export function readFileSafe(filePath: string, asBinary?: false): Promise<string | null>;
 // eslint-disable-next-line unicorn/consistent-boolean-name -- tells how to read the file
 export function readFileSafe(filePath: string, asBinary: true): Promise<Buffer | null>;
+export function readFileSafe(
+  filePath: string,
+  // eslint-disable-next-line unicorn/consistent-boolean-name -- tells how to read the file
+  asBinary?: boolean,
+): Promise<string | Buffer | null>;
 export async function readFileSafe(
   filePath: string,
   // eslint-disable-next-line unicorn/consistent-boolean-name -- tells how to read the file
