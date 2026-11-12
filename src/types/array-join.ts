@@ -1,4 +1,5 @@
 import type {Join} from 'type-fest';
+import type {Primitive} from './primitive.ts';
 
 /**
  * Joins the elements of a tuple type into a string literal type with the given
@@ -14,6 +15,6 @@ import type {Join} from 'type-fest';
  * //=> `prefix.${string}`
  */
 export type ArrayJoin<
-  Items extends readonly (string | number | bigint | boolean | undefined | null)[],
+  Items extends readonly Exclude<Primitive, symbol>[],
   Delimiter extends string,
 > = Join<Items, Delimiter>;

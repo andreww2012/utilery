@@ -1,7 +1,8 @@
 import {stringify} from 'es-toolkit/query-string';
 import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
+import type {Primitive} from '../types/primitive.ts';
 
-type QueryValue = string | number | boolean | bigint | null | undefined;
+type QueryValue = Exclude<Primitive, symbol>;
 
 /** Converts a flat object into a URL query string like `?a=1&b=2` */
 export const formatQueryString: {
