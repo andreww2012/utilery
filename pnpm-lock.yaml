@@ -176,11 +176,11 @@ catalogs:
       specifier: 7.1.2
       version: 7.1.2
     '@sindresorhus/slugify':
-      specifier: 3.0.1
-      version: 3.0.1
+      specifier: 4.0.1
+      version: 4.0.1
     '@sindresorhus/transliterate':
-      specifier: 2.3.1
-      version: 2.3.1
+      specifier: 3.0.0
+      version: 3.0.0
     '@thi.ng/binary':
       specifier: 3.6.17
       version: 3.6.17
@@ -472,8 +472,8 @@ overrides:
   postcss@>=8 <=8.5.17: 8.5.26
 
 patchedDependencies:
-  '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
-  '@sindresorhus/transliterate': 8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86
+  '@sindresorhus/slugify': a1a1793d10ee13c793ff65af4bfebd85a17cadd07ff03aeda22356a4a03abd25
+  '@sindresorhus/transliterate': 089c08f72761d827f5efbcb6483a21686e27a43e198a1122596c64c96d5fecc5
   arkregex: bbdf8d79aa3bd1a8bd49ad85cf50c3dbd80f8d2b5383f8cfb647e27b22d75649
   decode-uri-component: 09bdfb22a9e5b1f8851b1f4c145594c0c640223bfaa1c9ed026f1dfc22c46366
   es-toolkit: 30d2e9fd9d669dc187ccae619fd503b2a1dab5abdd262c580b098838366532cb
@@ -527,10 +527,10 @@ importers:
         version: 3.5.0(crossws@0.4.16)(eslint@10.14.0)(srvx@1.0.7)
       '@sindresorhus/slugify':
         specifier: catalog:bundled
-        version: 3.0.1(patch_hash=84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14)
+        version: 4.0.1(patch_hash=a1a1793d10ee13c793ff65af4bfebd85a17cadd07ff03aeda22356a4a03abd25)
       '@sindresorhus/transliterate':
         specifier: catalog:bundled
-        version: 2.3.1(patch_hash=8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86)
+        version: 3.0.0(patch_hash=089c08f72761d827f5efbcb6483a21686e27a43e198a1122596c64c96d5fecc5)
       '@thi.ng/binary':
         specifier: catalog:bundled
         version: 3.6.17
@@ -2384,13 +2384,13 @@ packages:
     resolution: {integrity: sha512-TeheYy0ILzBEI/CO55CP6zJCSdSWeRtGnHy8U8dWSUH4I68iqTsy7HkMktR4xakThc9jotkPQUXT4ITdbV7cHA==}
     engines: {node: '>=18'}
 
-  '@sindresorhus/slugify@3.0.1':
-    resolution: {integrity: sha512-N1oPvN6sytRKZCskv0L+vSyvnUYi9JplPXZ90lT6EBsijjHrUdoXttb0Lna6pw1TWMe8vlajQnLDtU9KYHqtDg==}
-    engines: {node: '>=20'}
+  '@sindresorhus/slugify@4.0.1':
+    resolution: {integrity: sha512-DsuqdYRMBj9zcLBQ6m0KrkrWi8PuxXcPlO7CEjrhCOZWt8JPEMCuD3LD3FOgET/sHqgOE++xvkZI0HONqFyaug==}
+    engines: {node: '>=22'}
 
-  '@sindresorhus/transliterate@2.3.1':
-    resolution: {integrity: sha512-gVaaGtKYMYAMmI8buULVH3A2TXVJ98QiwGwI7ddrWGuGidGC2uRt4FHs22+8iROJ0QTzju9CuMjlVsrvpqsdhA==}
-    engines: {node: '>=20'}
+  '@sindresorhus/transliterate@3.0.0':
+    resolution: {integrity: sha512-mqOUtMxpY419WtwwYw1EX865Oh+QWpa37yhGLXNmVc6d91wsBYLG51TgSePqrdnCSnTJn2AygX+35StK86tNOA==}
+    engines: {node: '>=22'}
 
   '@sonarsource/analyzer-commons-configurations@2.31.0-5284':
     resolution: {integrity: sha512-ruk3blMs9BE9RNSp9LPpWZAIjxJmq4Cp00E3cELIHz7Kym3WxdWGRlKOMYLRQ5tJg/de7jN5AtEElY3bGIfTcw==}
@@ -7884,12 +7884,12 @@ snapshots:
 
   '@sindresorhus/base62@1.0.0': {}
 
-  '@sindresorhus/slugify@3.0.1(patch_hash=84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14)':
+  '@sindresorhus/slugify@4.0.1(patch_hash=a1a1793d10ee13c793ff65af4bfebd85a17cadd07ff03aeda22356a4a03abd25)':
     dependencies:
-      '@sindresorhus/transliterate': 2.3.1(patch_hash=8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86)
+      '@sindresorhus/transliterate': 3.0.0(patch_hash=089c08f72761d827f5efbcb6483a21686e27a43e198a1122596c64c96d5fecc5)
       escape-string-regexp: 5.0.0
 
-  '@sindresorhus/transliterate@2.3.1(patch_hash=8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86)': {}
+  '@sindresorhus/transliterate@3.0.0(patch_hash=089c08f72761d827f5efbcb6483a21686e27a43e198a1122596c64c96d5fecc5)': {}
 
   '@sonarsource/analyzer-commons-configurations@2.31.0-5284': {}
 

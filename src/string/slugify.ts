@@ -1,6 +1,5 @@
 // cspell:ignore aepfel fooatunicorn strasse Straße ueber Äpfel über
 import slugifyBase from '@sindresorhus/slugify';
-import BUILTIN_REPLACEMENTS from '@sindresorhus/slugify/overridable-replacements.js';
 import transliterate from '@sindresorhus/transliterate';
 import anyAscii from 'any-ascii';
 
@@ -61,35 +60,24 @@ export interface SlugifyOptions {
   readonly locale?: string | undefined;
 }
 
-/** Transliterates text the way the package would, then turns whatever is left into ASCII */
-const toAscii = (text: string, options: SlugifyOptions = {}) =>
-  anyAscii(
-    transliterate(text, {
-      customReplacements: new Map([...BUILTIN_REPLACEMENTS, ...(options.customReplacements || [])]),
-      ...(options.locale && {locale: options.locale}),
-    }),
-  );
+const LETTER_WITHOUT_CASE_REGEX = /\p{Lo}/gu;
+const CAPITALIZED_REGEX = /^[A-Z]/;
 
 /**
- * Options for the package once the text is already ASCII.
- * The package spreads them over its defaults, so these get the defaults here:
- * an explicit `undefined` would replace them
+ * Transliterates text the way the package would, then turns whatever is left into ASCII.
+ * A letter of a script without letter case that becomes a capitalized syllable, like a Chinese
+ * character, becomes a word of its own: nothing else separates such syllables
  */
-const toBaseOptions = ({
-  separator = '-',
-  lowercase = true,
-  decamelize = true,
-  preserveCharacters = [],
-  ...options
-}: SlugifyOptions = {}) => ({
-  ...options,
-  separator,
-  lowercase,
-  decamelize,
-  preserveCharacters,
-  customReplacements: [],
-  transliterate: false,
-});
+const toAscii = (text: string, {locale}: {locale: string | undefined}) =>
+  anyAscii(
+    transliterate(text, {...(locale && {locale})}).replaceAll(
+      LETTER_WITHOUT_CASE_REGEX,
+      (letter) => {
+        const ascii = anyAscii(letter);
+        return CAPITALIZED_REGEX.test(ascii) ? ` ${ascii} ` : ascii;
+      },
+    ),
+  );
 
 /**
  * Turns text into a URL-friendly slug: lowercase ASCII letters and digits
@@ -100,8 +88,9 @@ const toBaseOptions = ({
  *
  * Text in any script is transliterated: accented letters lose their accents,
  * German umlauts become `ae`/`oe`/`ue` and `ß` becomes `ss`, Cyrillic and Greek
- * are romanized, Chinese becomes Pinyin syllables, Japanese and Korean are
- * romanized too, and emoji become their names.
+ * are romanized, Chinese becomes Pinyin and Korean is romanized too, with a
+ * word per character (also without `decamelize`), Japanese is romanized as
+ * well, and emoji become their names.
  * `&` becomes `and`, camelCase words are split, and apostrophes in contractions
  * are dropped.
  *
@@ -118,6 +107,8 @@ const toBaseOptions = ({
  * @param text - The text to turn into a slug.
  * @param options - Formatting options.
  * @returns The slug (an empty string if the text has no letters or digits).
+ * @throws {RangeError} If the text or a custom replacement has more than 100
+ * combining marks in a row.
  * @example
  * slugify('Déjà Vu!');
  * // 'deja-vu'
@@ -141,4 +132,4 @@ const toBaseOptions = ({
  * // 'fooatunicorn'
  */
 export const slugify = (text: string, options?: SlugifyOptions): string =>
-  slugifyBase(toAscii(text, options), toBaseOptions(options));
+  slugifyBase(text, {...options, transliterate: toAscii});

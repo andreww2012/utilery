@@ -1,22 +1,39 @@
-Exposes `overridable-replacements.js` (the built-in `&` -> `and`, `♥` -> `love` and `🦄` -> `unicorn`
-replacements) in `exports`, so that our `slugify` can pass them to the transliteration it runs
-itself before calling the package with `transliterate: false`.
+Lets the `transliterate` option be a function that is called instead of the built-in
+transliteration, so that our `slugify` can also turn the characters the built-in one leaves as they
+are (Chinese, Japanese, Korean, emoji, etc.) into ASCII, while the package does everything else.
 
-diff --git a/package.json b/package.json
-index d65b64f32d1e9382d657e5c8dac4e3a81509afdd..42251bfaee0201348717d8d2f05e6e9cea9f3439 100644
---- a/package.json
-+++ b/package.json
-@@ -12,8 +12,11 @@
- 	},
- 	"type": "module",
- 	"exports": {
--		"types": "./index.d.ts",
--		"default": "./index.js"
-+		".": {
-+			"types": "./index.d.ts",
-+			"default": "./index.js"
-+		},
-+		"./overridable-replacements.js": "./overridable-replacements.js"
- 	},
- 	"sideEffects": false,
- 	"engines": {
+diff --git a/index.d.ts b/index.d.ts
+index cc6cd0d..15c1783 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -179,6 +179,8 @@ export type Options = {
+ 
+ 	When `false`, non-ASCII characters will be preserved instead of being transliterated. This can improve performance when you don't need transliteration.
+ 
++	When a function, it is called instead of the built-in transliteration, with the string (after the custom replacements and decamelization) and the `locale` option.
++
+ 	@default true
+ 
+ 	@example
+@@ -192,7 +194,7 @@ export type Options = {
+ 	//=> 'déjà-vu'
+ 	```
+ 	*/
+-	readonly transliterate?: boolean;
++	readonly transliterate?: boolean | ((string: string, options: {locale: string | undefined}) => string);
+ };
+ 
+ /**
+diff --git a/index.js b/index.js
+index 82619bc..ef3a8df 100644
+--- a/index.js
++++ b/index.js
+@@ -123,7 +123,7 @@ export default function slugify(string, options) {
+ 	}
+ 
+ 	if (options.transliterate) {
+-		string = transliterate(string, {locale: options.locale});
++		string = (options.transliterate === true ? transliterate : options.transliterate)(string, {locale: options.locale});
+ 	}
+ 
+ 	const patternSlug = buildPatternSlug(options);

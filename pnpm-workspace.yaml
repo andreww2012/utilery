@@ -7,8 +7,8 @@ catalogs:
   bundled:
     '@antfu/utils': 9.3.0
     '@braintree/sanitize-url': 7.1.2
-    '@sindresorhus/slugify': 3.0.1
-    '@sindresorhus/transliterate': 2.3.1
+    '@sindresorhus/slugify': 4.0.1
+    '@sindresorhus/transliterate': 3.0.0
     '@thi.ng/binary': 3.6.17
     '@tusbar/cache-control': 3.0.1
     any-ascii: 0.3.3

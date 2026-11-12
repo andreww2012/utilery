@@ -25,6 +25,21 @@ describe('string/slugify', () => {
     expect(slugify('😄 emoji')).toBe('smile-emoji');
   });
 
+  it('makes each Chinese character and Korean syllable a word', () => {
+    expect(slugify('阿姨')).toBe('a-yi');
+    expect(slugify('你好world')).toBe('ni-hao-world');
+    expect(slugify('第2章')).toBe('di-2-zhang'); // cspell:disable-line
+    expect(slugify('我用iPhone')).toBe('wo-yong-i-phone');
+    expect(slugify('한국어', {decamelize: false})).toBe('han-gug-eo');
+    expect(slugify('你好', {lowercase: false})).toBe('Ni-Hao');
+  });
+
+  it('keeps an uppercase word whose letters become several ones in one piece', () => {
+    expect(slugify('ÜBER Straße')).toBe('ueber-strasse'); // cspell:disable-line
+    expect(slugify('ЁЛКА Юрий')).toBe('yolka-yuriy'); // cspell:disable-line
+    expect(slugify('A & B', {customReplacements: [['&', ' ÜBER ']]})).toBe('a-ueber-b'); // cspell:disable-line
+  });
+
   it('never returns characters outside ASCII', () => {
     // cspell:disable-next-line
     const inputs = ['日本語のテキスト', 'עברית', 'हिन्दी', 'ไทย', '𝔘𝔫𝔦𝔠𝔬𝔡𝔢', '«»„“'];
@@ -32,6 +47,17 @@ describe('string/slugify', () => {
     inputs.forEach((input) => {
       expect(slugify(input)).toMatch(/^[\d\-a-z]*$/);
     });
+
+    // Turkish lowercases `I` to `ı`
+    expect(slugify('I', {locale: 'tr'})).toBe('i');
+  });
+
+  it('throws for more than 100 combining marks in a row', () => {
+    expect(slugify(`a${'\u{301}'.repeat(100)}`)).toBe('a');
+    expect(() => slugify(`a${'\u{301}'.repeat(101)}`)).toThrow(RangeError);
+    expect(() => slugify('a', {customReplacements: [[`b${'\u{301}'.repeat(101)}`, 'c']]})).toThrow(
+      RangeError,
+    );
   });
 
   it('supports the options', () => {

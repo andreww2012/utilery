@@ -37,8 +37,3 @@ declare module 'cross-spawn/lib/enoent.js' {
     parsed: ParsedCommand,
   ) => NodeJS.ErrnoException | null;
 }
-
-declare module '@sindresorhus/slugify/overridable-replacements.js' {
-  const overridableReplacements: readonly (readonly [string, string])[];
-  export default overridableReplacements;
-}
