@@ -29,8 +29,8 @@ Mostly thin, strongly-typed re-exports.
 | [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | -                                                                                                |
 | [`mapHas`][ts-extras]            | ✅     | `map/mapHas` *(same)*                  | -                                                                                                |
 | [`stringSplit`][ts-extras]       | ✅     | `string/stringSplit` *(same)*          | -                                                                                                |
-| [`stringStartsWith`][ts-extras]  | 🚧     | *(not added yet)*                      | A type guard, unlike `string/startsWith`, which computes a literal `boolean`                     |
-| [`stringEndsWith`][ts-extras]    | 🚧     | *(not added yet)*                      | A type guard, unlike `string/endsWith`, which computes a literal `boolean`                       |
+| [`stringStartsWith`][ts-extras]  | ✅     | `string/startsWith`                    | Renamed                                                                                          |
+| [`stringEndsWith`][ts-extras]    | ✅     | `string/endsWith`                      | Renamed                                                                                          |
 | [`isFinite`][ts-extras]          | ✅     | `predicate/isFiniteNumber`             | Renamed to avoid clashing with the global `isFinite`; takes a `number` and returns a `boolean`   |
 | [`isInfinite`][ts-extras]        | ✅     | `predicate/isInfinite` *(same)*        | -                                                                                                |
 | [`isInteger`][ts-extras]         | ✅     | `predicate/isInteger` *(same)*         | Takes a `number` and returns a `boolean`, with no narrowing of numeric literals                  |

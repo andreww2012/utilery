@@ -26,8 +26,8 @@ The pure `String.prototype` wrappers re-export `string-ts` directly (their runti
 | `charAt`                            | ✅     | `string/charAt`                  | Typed `String#charAt`                                                                                            |
 | `slice`                             | ✅     | `string/stringSlice`             | Renamed typed `String#slice`                                                                                     |
 | `concat`                            | ✅     | `string/stringConcat`            | Renamed typed `String#concat`                                                                                    |
-| `startsWith`                        | ✅     | `string/startsWith`              | Typed `String#startsWith`                                                                                        |
-| `endsWith`                          | ✅     | `string/endsWith`                | Typed `String#endsWith`                                                                                          |
+| `startsWith`                        | ❌     | `string/startsWith`              | Replaced by a type guard that narrows the string                                                                 |
+| `endsWith`                          | ❌     | `string/endsWith`                | Replaced by a type guard that narrows the string                                                                 |
 | `includes`                          | ✅     | `string/stringIncludes`          | Renamed typed `String#includes`                                                                                  |
 | `length`                            | ✅     | `string/stringLength`            | Renamed typed `.length`                                                                                          |
 | `padStart`                          | ✅     | `string/padStart`                | Typed `String#padStart`                                                                                          |
