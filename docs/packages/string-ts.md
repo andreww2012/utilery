@@ -28,10 +28,10 @@ The pure `String.prototype` wrappers re-export `string-ts` directly (their runti
 | `concat`                            | ✅     | `string/stringConcat`            | Renamed typed `String#concat`                                                                                    |
 | `startsWith`                        | ❌     | `string/startsWith`              | Replaced by a type guard that narrows the string                                                                 |
 | `endsWith`                          | ❌     | `string/endsWith`                | Replaced by a type guard that narrows the string                                                                 |
-| `includes`                          | ✅     | `string/stringIncludes`          | Renamed typed `String#includes`                                                                                  |
+| `includes`                          | ❌     | `string/stringIncludes`          | Replaced by a type guard that narrows the string                                                                 |
 | `startsWithGuard`                   | ❌     | `string/startsWith`              | Covered by ours, which also narrows a `string` and keeps the right type when the check fails                     |
 | `endsWithGuard`                     | ❌     | `string/endsWith`                | Covered by ours, see above                                                                                       |
-| `includesGuard`                     | ❌     | *(not added)*                    | Narrows wrongly for strings that are not literals: a `string` becomes `never` when the check fails               |
+| `includesGuard`                     | ❌     | `string/stringIncludes`          | Covered by ours, see above                                                                                       |
 | `length`                            | ✅     | `string/stringLength`            | Renamed typed `.length`                                                                                          |
 | `padStart`                          | ✅     | `string/padStart`                | Typed `String#padStart`                                                                                          |
 | `padEnd`                            | ✅     | `string/padEnd`                  | Typed `String#padEnd`                                                                                            |
