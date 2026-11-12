@@ -45,7 +45,7 @@ Mostly thin, strongly-typed re-exports.
 | [`isEmpty`][ts-extras]           | ❌     | *(not added)*                          | Covered by `predicate/isEmptyValue`                                                              |
 | [`isNonEmpty`][ts-extras]        | ❌     | *(not added)*                          | Covered by `array/arrayHasMinElements`                                                           |
 | [`hasAtLeast`][ts-extras]        | ❌     | *(not added)*                          | Covered by `array/arrayHasMinElements`                                                           |
-| [`isTruthy`][ts-extras]          | ❌     | *(not added)*                          | Covered by `predicate/isTruthy`                                                                  |
+| [`isTruthy`][ts-extras]          | ✅     | `predicate/isTruthy` *(same)*          | -                                                                                                |
 | [`objectMapValues`][ts-extras]   | ❌     | *(not added)*                          | Covered by `object/mapValues`                                                                    |
 | [`isEqualType`][ts-extras]       | ❌     | *(not added)*                          | Compile-time-only test helper; use `expectTypeOf` instead                                        |
 | [`assert`][ts-extras]            | ❌     | *(not added)*                          | Use `misc/invariant`                                                                             |

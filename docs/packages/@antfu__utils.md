@@ -40,7 +40,7 @@ Only its **non-type** (runtime) exports are audited here; the type-level utiliti
 | `isPrimitive`             | ❌     | `predicate/isPrimitive`        | Covered                                                                                            |
 | `isRegExp`                | ❌     | *(native)*                     | `x instanceof RegExp`                                                                              |
 | `isString`                | ❌     | *(native)*                     | `typeof x === 'string'`                                                                            |
-| `isTruthy`                | ✅     | `predicate/isTruthy`           | Reimplemented with a precise `Truthy<T>` narrowing                                                 |
+| `isTruthy`                | ❌     | `predicate/isTruthy`           | Replaced by a type guard that subtracts all the falsy members of the type                          |
 | `isUndefined`             | ❌     | *(native)*                     | `x === undefined`                                                                                  |
 | `isWindow`                | ❌     | *(not added)*                  | DOM-only; off-target for a node-first library                                                      |
 | `last`                    | ❌     | `array/arrayLast`              | Covered                                                                                            |

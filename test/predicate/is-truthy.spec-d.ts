@@ -22,6 +22,31 @@ describe('predicate/isTruthy', () => {
     expect(one).toBe(1);
   });
 
+  it('narrows an `unknown` value to the truthy types and keeps it `unknown` otherwise', () => {
+    const value: unknown = 1;
+
+    if (isTruthy(value)) {
+      expectTypeOf(value).toEqualTypeOf<string | number | bigint | true | symbol | object>();
+    } else {
+      expectTypeOf(value).toEqualTypeOf<unknown>();
+    }
+
+    const values: unknown[] = [0, 'a', null];
+
+    expectTypeOf(values.filter(isTruthy)).toEqualTypeOf<
+      (string | number | bigint | true | symbol | object)[]
+    >();
+  });
+
+  it('keeps `any` as it is', () => {
+    // eslint-disable-next-line ts/no-explicit-any -- the type under test
+    const value: any = 1;
+
+    if (isTruthy(value)) {
+      expectTypeOf(value).toBeAny();
+    }
+  });
+
   it('drops wide `string`, `number` and `bigint` types when it returns `false`', () => {
     const name = '' as string;
 
