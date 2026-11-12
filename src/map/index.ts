@@ -5,6 +5,7 @@ export {mapFindValue} from './map-find-value.ts';
 export {mapForEach} from './map-for-each.ts';
 export {mapGetOrInsert} from './map-get-or-insert.ts';
 export {mapGetOrInsertComputed} from './map-get-or-insert-computed.ts';
+export {mapHas} from './map-has.ts';
 export {mapHasValue} from './map-has-value.ts';
 export {mapMapKeys} from './map-map-keys.ts';
 export {mapMapValues} from './map-map-values.ts';

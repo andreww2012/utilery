@@ -8,7 +8,7 @@ Mostly thin, strongly-typed re-exports.
 | Original function group and name | Status | Our function group and name            | Notes                                                                                            |
 | -------------------------------- | ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | [`objectKeys`][ts-extras]        | ❌     | `object/objectKeysUnsafe`              | Replaced by our own code: arrays give no method names, unions give keys per member               |
-| [`ObjectKeys`][ts-extras]        | 🚧     | *(not added yet)*                      | The result type of `objectKeys`                                                                  |
+| [`ObjectKeys`][ts-extras]        | ❌     | *(not added)*                          | Describes the result of the upstream `objectKeys`, not of `object/objectKeysUnsafe`              |
 | [`objectValues`][ts-extras]      | ❌     | `object/objectValuesUnsafe`            | Replaced by our own code: optional values include `undefined`, unions give values per member     |
 | [`objectEntries`][ts-extras]     | ❌     | `object/objectEntriesUnsafe`           | Replaced by our own code: optional values include `undefined`, unions give entries per member    |
 | [`objectFromEntries`][ts-extras] | ✅     | `object/objectFromEntriesUnsafe`       | Renamed; shallow, distinct from `object/objectFromEntriesDeep`                                   |
@@ -22,12 +22,12 @@ Mostly thin, strongly-typed re-exports.
 | [`arrayFirst`][ts-extras]        | ✅     | `array/arrayFirst` *(same)*            | -                                                                                                |
 | [`arrayLast`][ts-extras]         | ✅     | `array/arrayLast` *(same)*             | -                                                                                                |
 | [`arrayIncludes`][ts-extras]     | ✅     | `array/arrayIncludes` *(same)*         | -                                                                                                |
-| [`arrayIndexOf`][ts-extras]      | 🚧     | *(not added yet)*                      | Accepts a value wider than the element type                                                      |
-| [`arrayLastIndexOf`][ts-extras]  | 🚧     | *(not added yet)*                      | Accepts a value wider than the element type                                                      |
+| [`arrayIndexOf`][ts-extras]      | ✅     | `array/arrayIndexOf` *(same)*          | -                                                                                                |
+| [`arrayLastIndexOf`][ts-extras]  | ✅     | `array/arrayLastIndexOf` *(same)*      | -                                                                                                |
 | [`arrayIsArray`][ts-extras]      | ❌     | *(not added)*                          | Covered by `predicate/isArray`                                                                   |
 | [`arrayJoin`][ts-extras]         | ✅     | `array/arrayJoin` *(same)*             | -                                                                                                |
 | [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | -                                                                                                |
-| [`mapHas`][ts-extras]            | 🚧     | *(not added yet)*                      | Narrows the key to the key type of the map                                                       |
+| [`mapHas`][ts-extras]            | ✅     | `map/mapHas` *(same)*                  | -                                                                                                |
 | [`stringSplit`][ts-extras]       | ✅     | `string/stringSplit` *(same)*          | -                                                                                                |
 | [`stringStartsWith`][ts-extras]  | 🚧     | *(not added yet)*                      | A type guard, unlike `string/startsWith`, which computes a literal `boolean`                     |
 | [`stringEndsWith`][ts-extras]    | 🚧     | *(not added yet)*                      | A type guard, unlike `string/endsWith`, which computes a literal `boolean`                       |
