@@ -15,6 +15,18 @@ interface ArrayLast {
   ): ArrayLastElement<ArrayType>;
 
   /**
+   * Returns the last element of a tuple that starts with a required element, like
+   * `[string, ...number[]]`, so it is never empty.
+   * @param array - The tuple.
+   * @returns The last element.
+   * @example
+   * declare const values: [string, ...number[]];
+   * arrayLast(values);
+   * // type: string | number
+   */
+  <const ArrayType extends readonly [unknown, ...unknown[]]>(array: ArrayType): ArrayType[number];
+
+  /**
    * Returns the last element of an array.
    * @param array - The array.
    * @returns The last element, or `undefined` for an empty array.

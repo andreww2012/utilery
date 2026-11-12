@@ -26,11 +26,13 @@ All with zero dependencies, because all external dependencies are bundled.
   They include fixes, behavior and type changes of utilities we already export, even when our wrappers had to be adjusted to them (e.g. a wrapper signature updated to match a new upstream type).
   If the package has no tags for these versions, use commit hashes the versions were published from.
   The exception is an upstream change that breaks a released utility (one that exists at the latest release tag): describe it briefly in the changeset and in both the title and the body of the commit message, start its changeset item with `**BREAKING:**`, and treat the bump as any other breaking change (see below).
-  This applies everywhere you describe the bump: changesets, commit messages, `README.md` and your replies, etc.
+  This applies to commit messages, `README.md` and your replies, etc.
+  A changeset also says how each affected symbol changed (see below).
 - In changesets, link each upstream utility name to its docs page when it has one, and write enumerations of more than a few items as a (nested) Markdown list.
   Refer to our utilities and groups by their bare names: `getErrorMessage`, `bitwise`.
   Start a changeset with what was done, in the past tense: "Added a new `foo` option to `bar`", not "`bar` gets a `foo` option".
-  In a bump changeset, list every affected symbol, with the changes to describe nested under it.
+  Every item in it must read as a change: "It now returns `false` for `null`" or "Fixed the result type of a tuple", not "It returns `false` for `null`".
+  In a bump changeset, list every affected symbol and nest under it how it was affected *on the part of our package's users*.
   A symbol is affected when the upstream diff changes its behavior or types for calls our types allow, directly or through other utilities (name a whole group instead when the diff reaches most of it).
   Using the package is not enough: check each symbol against the diff, and leave out `, which affected:` when nothing is affected.
   For example:
@@ -40,7 +42,8 @@ All with zero dependencies, because all external dependencies are bundled.
 
   - `memoizeAsync`:
     - **BREAKING:** <how its behavior changed>
-  - `MemoizeAsyncOptions`
+  - `MemoizeAsyncOptions`:
+    - <how it changed>
   ```
 
 - Always check edge cases like:

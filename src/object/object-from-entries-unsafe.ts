@@ -10,6 +10,8 @@ export const objectFromEntriesUnsafe: {
    * typed with the keys and values of the pairs instead of `string` keys.
    * For an array of unknown length the keys are optional, since some may be
    * missing: pass a tuple (`as const`) to get required keys.
+   * The keys of a tuple are optional too when the key of one of its pairs is a
+   * union or not a literal, like in `[condition ? 'a' : 'b', 1]`.
    *
    * It is "unsafe" because the type cannot tell which pairs come last, so a key
    * repeated with values of different types is typed as the union of them.
@@ -25,7 +27,5 @@ export const objectFromEntriesUnsafe: {
    */
   <Entries extends readonly (readonly [PropertyKey, unknown])[]>(
     entries: Entries,
-  ): number extends Entries['length']
-    ? {[Entry in Entries[number] as Entry[0]]?: Entry[1]}
-    : {[Entry in Entries[number] as Entry[0]]: Entry[1]};
+  ): ReturnType<typeof objectFromEntries<Entries>>;
 } = objectFromEntries;

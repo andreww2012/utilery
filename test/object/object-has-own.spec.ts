@@ -7,4 +7,9 @@ describe('object/objectHasOwn', () => {
     expect(objectHasOwn(value, 'a')).toBe(true);
     expect(objectHasOwn(value, 'toString')).toBe(false);
   });
+
+  it('returns `false` for `null` and `undefined`', () => {
+    expect(objectHasOwn(null, 'a')).toBe(false);
+    expect(objectHasOwn(undefined, 'a')).toBe(false);
+  });
 });

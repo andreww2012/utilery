@@ -4,6 +4,19 @@ import {isValidDate} from '../../src/predicate/is-valid-date.ts';
 const isString = (value: unknown): value is string => typeof value === 'string';
 
 describe('function/negatePredicate', () => {
+  it('narrows an `unknown` value to every other type', () => {
+    const value: unknown = 1;
+
+    if (negatePredicate(isString)(value)) {
+      expectTypeOf(value).toEqualTypeOf<
+        number | bigint | boolean | symbol | object | null | undefined
+      >();
+    } else {
+      // eslint-disable-next-line ts/no-empty-object-type -- what TypeScript leaves of `unknown` without the nullish values
+      expectTypeOf(value).toEqualTypeOf<{}>();
+    }
+  });
+
   it('narrows the value to the types the original guard excludes', () => {
     const value = 1 as string | number;
 

@@ -15,7 +15,7 @@ export const objectHasOwn: {
    * @param object - The object to check.
    * @param key - The key of the property.
    * @returns `true` if the object has an own property with the key, otherwise `false`.
-   * @throws {TypeError} When `object` is `null` or `undefined`.
+   * Always `false` for `null` and `undefined`.
    * @example
    * const counts: Record<string, number> = {};
    * declare const word: string;
@@ -40,7 +40,7 @@ export const objectHasOwn: {
    * @param object - The object to check.
    * @param key - The key of the property.
    * @returns `true` if the object has an own property with the key, otherwise `false`.
-   * @throws {TypeError} When `object` is `null` or `undefined`.
+   * Always `false` for `null` and `undefined`.
    * @example
    * declare const data: object;
    * if (objectHasOwn(data, 'id')) {

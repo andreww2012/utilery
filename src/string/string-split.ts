@@ -23,4 +23,20 @@ export const stringSplit: {
     text: StringType,
     delimiter: Delimiter,
   ): StringSplit<StringType, Delimiter>;
+
+  /**
+   * Splits a string, like `String.prototype.split`.
+   * @param text - The string to split.
+   * @param delimiter - The string or the regular expression to split at.
+   * Without it, the result is the whole string as the only part.
+   * @param limit - The maximum number of parts to return.
+   * @returns A new array of the parts.
+   * @example
+   * stringSplit('a1b2c', /\d/);
+   * // ['a', 'b', 'c'] (type: string[])
+   * @example
+   * stringSplit('a-b-c', '-', 2);
+   * // ['a', 'b'] (type: string[])
+   */
+  (text: string, delimiter?: string | RegExp, limit?: number): string[];
 } = stringSplitBase;

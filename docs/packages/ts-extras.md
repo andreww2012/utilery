@@ -8,11 +8,12 @@ Mostly thin, strongly-typed re-exports.
 | Original function group and name | Status | Our function group and name            | Notes                                                                                            |
 | -------------------------------- | ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | [`objectKeys`][ts-extras]        | ❌     | `object/objectKeysUnsafe`              | Replaced by our own code: arrays give no method names, unions give keys per member               |
+| [`ObjectKeys`][ts-extras]        | 🚧     | *(not added yet)*                      | The result type of `objectKeys`                                                                  |
 | [`objectValues`][ts-extras]      | ❌     | `object/objectValuesUnsafe`            | Replaced by our own code: optional values include `undefined`, unions give values per member     |
 | [`objectEntries`][ts-extras]     | ❌     | `object/objectEntriesUnsafe`           | Replaced by our own code: optional values include `undefined`, unions give entries per member    |
 | [`objectFromEntries`][ts-extras] | ✅     | `object/objectFromEntriesUnsafe`       | Renamed; shallow, distinct from `object/objectFromEntriesDeep`                                   |
 | [`objectHasOwn`][ts-extras]      | ✅     | `object/objectHasOwn` *(same)*         | Narrows nothing when the object type already has the key                                         |
-| [`objectAssign`][ts-extras]      | ✅     | `object/objectAssign` *(same)*         | Reimplemented with the same types: an own `__proto__` key becomes a property, not the prototype  |
+| [`objectAssign`][ts-extras]      | ✅     | `object/objectAssign` *(same)*         | Reimplemented with the same types: an own `__proto__` key becomes a property, not skipped        |
 | [`objectUpdate`][ts-extras]      | ✅     | `object/objectUpdate` *(same)*         | Reimplemented: its signature can't be written out; copies `__proto__` like `objectAssign`        |
 | [`objectHasIn`][ts-extras]       | ✅     | `predicate/isIn`                       | Renamed; `(key, object)` order; narrows the object, unless its type already has the key          |
 | [`keyIn`][ts-extras]             | ✅     | `predicate/isKeyIn`                    | Renamed; `(key, object)` order; narrows the key to those present in the object, if it can        |
@@ -20,14 +21,20 @@ Mostly thin, strongly-typed re-exports.
 | [`arrayConcat`][ts-extras]       | ✅     | `array/arrayConcat` *(same)*           | -                                                                                                |
 | [`arrayFirst`][ts-extras]        | ✅     | `array/arrayFirst` *(same)*            | -                                                                                                |
 | [`arrayLast`][ts-extras]         | ✅     | `array/arrayLast` *(same)*             | -                                                                                                |
-| [`arrayIncludes`][ts-extras]     | ✅     | `array/arrayIncludes` *(same)*         | Narrows nothing when the value already has the element type; keeps `null` and `undefined`        |
+| [`arrayIncludes`][ts-extras]     | ✅     | `array/arrayIncludes` *(same)*         | -                                                                                                |
+| [`arrayIndexOf`][ts-extras]      | 🚧     | *(not added yet)*                      | Accepts a value wider than the element type                                                      |
+| [`arrayLastIndexOf`][ts-extras]  | 🚧     | *(not added yet)*                      | Accepts a value wider than the element type                                                      |
+| [`arrayIsArray`][ts-extras]      | ❌     | *(not added)*                          | Covered by `predicate/isArray`                                                                   |
 | [`arrayJoin`][ts-extras]         | ✅     | `array/arrayJoin` *(same)*             | -                                                                                                |
-| [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | Narrows nothing when the value already has the element type; keeps `null` and `undefined`        |
+| [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | -                                                                                                |
+| [`mapHas`][ts-extras]            | 🚧     | *(not added yet)*                      | Narrows the key to the key type of the map                                                       |
 | [`stringSplit`][ts-extras]       | ✅     | `string/stringSplit` *(same)*          | -                                                                                                |
-| [`isFinite`][ts-extras]          | ✅     | `predicate/isFiniteNumber`             | Renamed to avoid clashing with the global `isFinite`; returns a `boolean`, not a type guard      |
+| [`stringStartsWith`][ts-extras]  | 🚧     | *(not added yet)*                      | A type guard, unlike `string/startsWith`, which computes a literal `boolean`                     |
+| [`stringEndsWith`][ts-extras]    | 🚧     | *(not added yet)*                      | A type guard, unlike `string/endsWith`, which computes a literal `boolean`                       |
+| [`isFinite`][ts-extras]          | ✅     | `predicate/isFiniteNumber`             | Renamed to avoid clashing with the global `isFinite`; takes a `number` and returns a `boolean`   |
 | [`isInfinite`][ts-extras]        | ✅     | `predicate/isInfinite` *(same)*        | -                                                                                                |
-| [`isInteger`][ts-extras]         | ✅     | `predicate/isInteger` *(same)*         | Returns a `boolean`, as narrowing turned a `number` into `never`                                 |
-| [`isSafeInteger`][ts-extras]     | ✅     | `predicate/isSafeInteger` *(same)*     | Returns a `boolean`, as narrowing turned a `number` into `never`                                 |
+| [`isInteger`][ts-extras]         | ✅     | `predicate/isInteger` *(same)*         | Takes a `number` and returns a `boolean`, with no narrowing of numeric literals                  |
+| [`isSafeInteger`][ts-extras]     | ✅     | `predicate/isSafeInteger` *(same)*     | Takes a `number` and returns a `boolean`, with no narrowing of numeric literals                  |
 | [`isPropertyDefined`][ts-extras] | ✅     | `predicate/isPropertyDefined` *(same)* | -                                                                                                |
 | [`isPropertyPresent`][ts-extras] | ✅     | `predicate/isPropertyNotNullish`       | Renamed for clarity (neither `null` nor `undefined`)                                             |
 | [`not`][ts-extras]               | ✅     | `function/negatePredicate`             | Renamed; inverts a type-guard predicate                                                          |
@@ -35,8 +42,11 @@ Mostly thin, strongly-typed re-exports.
 | [`asWritable`][ts-extras]        | ✅     | `ts/castToWritableUnsafe`              | Renamed; `Unsafe` flags the identity-at-runtime cast                                             |
 | [`isDefined`][ts-extras]         | ❌     | *(not added)*                          | Modern TS (5.5+) infers type predicates, so `.filter((x) => x !== undefined)` narrows on its own |
 | [`isPresent`][ts-extras]         | ❌     | *(not added)*                          | Same: `.filter((x) => x != null)` narrows on its own                                             |
-| [`isEmpty`][ts-extras]           | ❌     | *(not added)*                          | Covered by `predicate/isEmptyValue` (es-toolkit)                                                 |
-| [`objectMapValues`][ts-extras]   | ❌     | *(not added)*                          | Covered by `object/mapValues` (es-toolkit)                                                       |
+| [`isEmpty`][ts-extras]           | ❌     | *(not added)*                          | Covered by `predicate/isEmptyValue`                                                              |
+| [`isNonEmpty`][ts-extras]        | ❌     | *(not added)*                          | Covered by `array/arrayHasMinElements`                                                           |
+| [`hasAtLeast`][ts-extras]        | ❌     | *(not added)*                          | Covered by `array/arrayHasMinElements`                                                           |
+| [`isTruthy`][ts-extras]          | ❌     | *(not added)*                          | Covered by `predicate/isTruthy`                                                                  |
+| [`objectMapValues`][ts-extras]   | ❌     | *(not added)*                          | Covered by `object/mapValues`                                                                    |
 | [`isEqualType`][ts-extras]       | ❌     | *(not added)*                          | Compile-time-only test helper; use `expectTypeOf` instead                                        |
 | [`assert`][ts-extras]            | ❌     | *(not added)*                          | Use `misc/invariant`                                                                             |
 | [`assertDefined`][ts-extras]     | ❌     | *(not added)*                          | Use `misc/invariant`                                                                             |

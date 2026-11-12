@@ -18,7 +18,8 @@ export const negatePredicate: {
    * it returns `true`: a `Date` becomes `never`, and `Date | undefined` becomes
    * `undefined`.
    * @param predicate - The type guard to turn around.
-   * @returns A type guard that narrows the value to `Exclude<Value, T>`.
+   * @returns A type guard that narrows the value to `Exclude<Value, T>`, and an
+   * `unknown` value to every other type but `T`.
    * @example
    * const isNullish = (value: unknown): value is null | undefined => value == null;
    * [1, null, 2, undefined].filter(negatePredicate(isNullish));
@@ -31,7 +32,5 @@ export const negatePredicate: {
    *   value; // number | boolean
    * }
    */
-  <T>(
-    predicate: (value: unknown) => value is T,
-  ): <Value>(value: Value) => value is Exclude<Value, T>;
+  <T>(predicate: (value: unknown) => value is T): ReturnType<typeof not<T>>;
 } = not;
