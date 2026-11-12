@@ -6,9 +6,9 @@ import type {EmptyObject as EmptyObjectBase} from 'type-fest';
  * also accepts arrays, numbers and objects with properties.
  * @example
  * const empty: EmptyObject = {};
- * // @ts-expect-error: not empty
+ * // @ts-expect-error not empty
  * const notEmpty: EmptyObject = {a: 1};
- * // @ts-expect-error: not an object
+ * // @ts-expect-error not an object
  * const notObject: EmptyObject = 42;
  */
 export type EmptyObject = EmptyObjectBase;

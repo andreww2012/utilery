@@ -10,5 +10,5 @@ const negative = msFromMisc<'-3.14d'>(-271_296_000);
 const exactNegative: -271_296_000 = negative;
 void exactNegative;
 
-// @ts-expect-error wrong millisecond value for '42m' (fails if the generic stopped constraining the argument)
+// @ts-expect-error wrong millisecond value for `'42m'` (fails if the generic stopped constraining the argument)
 ms<'42m'>(42);

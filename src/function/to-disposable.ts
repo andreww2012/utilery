@@ -1,5 +1,6 @@
 import {defer, deferAsync} from 'es-toolkit/util';
 import type {MaybePromise} from '../types/maybe-promise.ts';
+import type {Prettify} from '../types/prettify.ts';
 
 /**
  * Wraps a cleanup callback into a disposable object, so the callback runs
@@ -15,8 +16,8 @@ import type {MaybePromise} from '../types/maybe-promise.ts';
  * Note: the `using` syntax requires a runtime that supports explicit resource
  * management (or a transpiler).
  * @param callback - The cleanup to run on disposal.
- * @returns A `Disposable & AsyncDisposable` for a sync callback, or an
- * `AsyncDisposable` for an async one.
+ * @returns An object usable with both `using` and `await using` for a sync
+ * callback, or an `AsyncDisposable` for an async one.
  * @example
  * // Sync cleanup
  * {
@@ -33,8 +34,10 @@ import type {MaybePromise} from '../types/maybe-promise.ts';
  * } // the directory is removed (and awaited) here
  */
 export function toDisposable(callback: () => PromiseLike<void>): AsyncDisposable;
-export function toDisposable(callback: () => void): Disposable & AsyncDisposable;
-export function toDisposable(callback: () => MaybePromise<void>): Disposable & AsyncDisposable {
+export function toDisposable(callback: () => void): Prettify<Disposable & AsyncDisposable>;
+export function toDisposable(
+  callback: () => MaybePromise<void>,
+): Prettify<Disposable & AsyncDisposable> {
   return {
     ...defer(() => {
       void callback();

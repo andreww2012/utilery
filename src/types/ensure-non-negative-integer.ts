@@ -7,7 +7,7 @@ import type {NonNegativeInteger} from 'type-fest';
  * @example
  * declare function setLength<T extends number>(length: EnsureNonNegativeInteger<T>): void;
  * setLength(3);
- * // @ts-expect-error: negative
+ * // @ts-expect-error negative
  * setLength(-1);
  */
 export type EnsureNonNegativeInteger<T extends number> = NonNegativeInteger<T>;

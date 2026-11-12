@@ -1,7 +1,7 @@
 import {every} from 'es-toolkit/map';
 
 /** Checks whether every entry of a `Map` matches a predicate */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- named after `Array.prototype.every`
 export const mapEvery: {
   /**
    * Checks whether every entry of a `Map` matches a predicate.

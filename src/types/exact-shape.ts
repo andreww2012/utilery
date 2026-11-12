@@ -11,7 +11,7 @@ import type {Exact} from 'type-fest';
  * declare function configure<T extends ExactShape<Options, T>>(options: T): void;
  *
  * const options = {name: 'app', debug: true};
- * // @ts-expect-error: `debug` is not declared
+ * // @ts-expect-error `debug` is not declared
  * configure(options);
  */
 export type ExactShape<ParameterType, InputType> = Exact<ParameterType, InputType>;

@@ -97,7 +97,10 @@ const omitPathIn = (
  * // {a: {c: 2}}
  * @example
  * // A property of every array element
- * omit({users: [{name: 'Ada', password: 'x'}, {name: 'Bob', password: 'y'}]}, ['users.*.password']);
+ * omit(
+ *   {users: [{name: 'Ada', password: 'x'}, {name: 'Bob', password: 'y'}]},
+ *   ['users.*.password'],
+ * );
  * // {users: [{name: 'Ada'}, {name: 'Bob'}]}
  * @example
  * // With a predicate: remove string-valued properties

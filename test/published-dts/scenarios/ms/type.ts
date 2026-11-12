@@ -6,7 +6,7 @@ const forward: Ms<'42m'> = 2_520_000;
 const exact: 2_520_000 = forward;
 void exact;
 
-// @ts-expect-error 42 is not the millisecond value of '42m' (fails if `Ms` widened to `number`)
+// @ts-expect-error `42` is not the millisecond value of `'42m'` (fails if `Ms` widened to `number`)
 const widened: Ms<'42m'> = 42;
 void widened;
 

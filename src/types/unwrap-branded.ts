@@ -8,7 +8,7 @@ import type {Branded} from './branded.ts';
  * @example
  * type AccountType = Branded<'savings' | 'checking', 'AccountType'>;
  * const balances: Record<UnwrapBranded<AccountType>, number> = {savings: 99, checking: 0};
- * // @ts-expect-error: not a branded type
+ * // @ts-expect-error not a branded type
  * type Invalid = UnwrapBranded<string>;
  */
 export type UnwrapBranded<TaggedType extends Branded<unknown, PropertyKey, unknown>> =

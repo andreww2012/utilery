@@ -15,7 +15,7 @@ import type {Integer} from 'type-fest';
  * @example
  * declare function setYear<T extends number>(year: EnsureInteger<T>): void;
  * setYear(2024);
- * // @ts-expect-error: not an integer
+ * // @ts-expect-error not an integer
  * setYear(2024.5);
  */
 export type EnsureInteger<T> = Integer<T>;

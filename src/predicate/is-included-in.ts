@@ -29,7 +29,7 @@ type CanNarrow<T, S extends Container> = [Extract<T, S[number]>] extends [never]
   : IsConstantTuple<S>;
 
 /** Checks whether a value is one of the elements of an array, like `Array.prototype.includes` */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- false positive: a type predicate is a boolean
 export const isIncludedIn: {
   /**
    * Checks whether `data` is one of the elements of `container`, like

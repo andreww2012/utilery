@@ -11,9 +11,9 @@ import type {ReadonlyDeep as ReadonlyDeepBase} from 'type-fest';
  * To remove `readonly` at any depth, use `StripReadonlyDeep`.
  * @example
  * declare const config: ReadonlyDeep<{server: {port: number}; hosts: string[]}>;
- * // @ts-expect-error: readonly
+ * // @ts-expect-error readonly
  * config.server.port = 80;
- * // @ts-expect-error: `push` does not exist on a readonly array
+ * // @ts-expect-error `push` does not exist on a readonly array
  * config.hosts.push('localhost');
  */
 export type ReadonlyDeep<T> = ReadonlyDeepBase<T>;

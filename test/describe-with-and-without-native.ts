@@ -11,7 +11,7 @@
 export const describeWithAndWithoutNative = (
   target: object,
   key: string,
-  standIn: (...parameters: never[]) => unknown,
+  standIn: (...arguments_: never[]) => unknown,
   tests: () => void,
 ) => {
   const nativeDescriptor = Object.getOwnPropertyDescriptor(target, key);

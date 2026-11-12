@@ -4,7 +4,7 @@ describe('predicate/isEmptyValue', () => {
   it('basic test', () => {
     expect(isEmptyValue(null)).toBe(true);
     expect(isEmptyValue(undefined)).toBe(true);
-    // eslint-disable-next-line ts/no-unnecessary-condition
+    // eslint-disable-next-line ts/no-unnecessary-condition -- a literal is passed on purpose, to check the runtime result
     expect(isEmptyValue('')).toBe(true);
     expect(isEmptyValue([])).toBe(true);
     expect(isEmptyValue({})).toBe(true);

@@ -1,4 +1,3 @@
-// cspell:ignore café crème
 import {toPascalCase} from '../../src/string/to-pascal-case.ts';
 
 describe('string/toPascalCase', () => {

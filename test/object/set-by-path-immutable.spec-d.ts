@@ -6,12 +6,12 @@ describe('object/setByPathImmutable', () => {
   });
 
   it('rejects a value of the wrong type at the path', () => {
-    // @ts-expect-error - 'a.b' is a number, not a string
+    // @ts-expect-error `'a.b'` is a number, not a string
     setByPathImmutable({a: {b: 1}}, ['a', 'b'], 'wrong');
   });
 
   it('rejects a path that does not exist in the type', () => {
-    // @ts-expect-error - ['a', 'z'] is not a valid path
+    // @ts-expect-error `['a', 'z']` is not a valid path
     setByPathImmutable({a: {b: 1}}, ['a', 'z'], 2);
   });
 });

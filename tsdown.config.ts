@@ -60,7 +60,7 @@ export default defineConfig({
   unbundle: true,
   dts: true,
   outputOptions: shortenBundledFileNames,
-  // Without this, problems that attw and publint find don't make the build fail
+  // Without this, problems that `attw` and `publint` find don't make the build fail
   failOnWarn: true,
   attw: {
     profile: 'esm-only',

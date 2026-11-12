@@ -37,7 +37,10 @@ export const serializeStable: {
    * // "{'name':'root','self':#ref0}"
    * @example
    * // A short key of a fixed length: the SHA-256 of the string in Base64URL
-   * const digest = await crypto.subtle.digest('SHA-256', stringToUint8Array(serializeStable({a: 1})));
+   * const digest = await crypto.subtle.digest(
+   *   'SHA-256',
+   *   stringToUint8Array(serializeStable({a: 1})),
+   * );
    * uint8ArrayToBase64(new Uint8Array(digest), {urlSafe: true});
    * // The same 43 characters for every value with the same structure
    */

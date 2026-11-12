@@ -1,7 +1,7 @@
 import {some} from 'es-toolkit/map';
 
 /** Checks whether at least one entry of a `Map` matches a predicate */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- named after `Array.prototype.some`
 export const mapSome: {
   /**
    * Checks whether at least one entry of a `Map` matches a predicate.

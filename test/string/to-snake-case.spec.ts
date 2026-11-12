@@ -1,4 +1,3 @@
-// cspell:ignore café crème
 import {toSnakeCase} from '../../src/string/to-snake-case.ts';
 
 describe('string/toSnakeCase', () => {

@@ -19,7 +19,7 @@ export type RegexTyped<
   Context extends RegexContext = RegexContext,
 > = Regex<Pattern, Context>;
 
-/* eslint-disable ts/naming-convention, ts/no-namespace, ts/no-redeclare, import/export -- value+namespace declaration merge attaching arkregex's lowercase type-level helpers to `regexTyped` */
+/* eslint-disable ts/naming-convention, ts/no-namespace, ts/no-redeclare, import/export -- value+namespace declaration merge attaching `arkregex`'s lowercase type-level helpers to `regexTyped` */
 
 /**
  * A typed drop-in for `new RegExp()`.
@@ -57,14 +57,14 @@ export type RegexTyped<
  * const email = regexTyped('^(?<name>\\w+)@(?<domain>\\w+\\.\\w+)$');
  * // named captures inferred as {name: string; domain: `${string}.${string}`}
  * @example
- * // Escape hatch for patterns too complex to infer:
+ * // For patterns too complex to infer, set the types yourself
  * const complex = regexTyped.as<`id-${string}`, {captures: [string]}>('id-(.+)');
  */
 export const regexTyped = regex;
 
 // Re-expose `arkregex`'s type-level namespace helpers under `regexTyped` (a bare
 // value alias above does not carry the merged namespace). Names are lowercase to
-// mirror arkregex's public API (`regexTyped.infer<...>` etc.)
+// mirror `arkregex`'s public API (`regexTyped.infer<...>` etc.)
 export declare namespace regexTyped {
   export type infer<Source extends string, Flags extends RegexFlags = ''> = regex.infer<
     Source,

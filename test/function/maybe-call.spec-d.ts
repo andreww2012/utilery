@@ -36,15 +36,15 @@ describe('function/maybeCall', () => {
   });
 
   it('rejects arguments for a plain value', () => {
-    // @ts-expect-error -- a plain (non-function) value accepts no arguments
+    // @ts-expect-error a plain (non-function) value accepts no arguments
     maybeCall(42, 'extra');
   });
 
   it('requires the function arguments and checks their types', () => {
-    // @ts-expect-error -- the function requires one argument
+    // @ts-expect-error the function requires one argument
     maybeCall((value: number) => value);
 
-    // @ts-expect-error -- the argument must be a number
+    // @ts-expect-error the argument must be a number
     maybeCall((value: number) => value, 'not a number');
   });
 });

@@ -122,5 +122,5 @@ interface IsEqualShallow {
  * compared with `SameValueZero`.
  * With one argument, it returns a function that compares its argument with the given value
  */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- with one argument, it returns a predicate
 export const isEqualShallow: IsEqualShallow = isShallowEqual;

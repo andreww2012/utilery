@@ -12,7 +12,7 @@ import type {ExclusifyUnion} from 'type-fest';
  * //=> {filePath: string; content?: never} | {content: string; filePath?: never}
  *
  * const config: Config = {filePath: './config.json'};
- * // @ts-expect-error: both keys
+ * // @ts-expect-error both keys
  * const invalid: Config = {filePath: './config.json', content: '{}'};
  * @example
  * declare const payment: MutuallyExclusiveUnion<{cardNumber: string} | {paypalId: string}>;

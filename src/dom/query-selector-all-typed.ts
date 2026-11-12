@@ -32,7 +32,7 @@ export const querySelectorAllTyped: {
    *   .filter((option) => !option.disabled)
    *   .map((option) => option.label);
    * @example
-   * // Escape hatch for custom elements
+   * // For custom elements, set the type yourself
    * const widgets = querySelectorAllTyped.as<MyWidget>('my-widget');
    * // MyWidget[]
    */

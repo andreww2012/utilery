@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import {closestTyped} from '../../src/dom/closest-typed.ts';
 
-// Identity assertions deliberately avoid `<form>`: happy-dom wraps form elements in a
+// Identity assertions deliberately avoid `<form>`: `happy-dom` wraps form elements in a
 // Proxy for named-control access, so a held reference never matches the node a lookup returns
 describe('dom/closestTyped', () => {
   let panel: HTMLDivElement;

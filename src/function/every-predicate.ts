@@ -16,9 +16,7 @@ interface EveryPredicate {
    * // (value: unknown) => value is User & {role: 'admin'}
    */
   <T, U extends T, V extends T>(
-    // eslint-disable-next-line unicorn/consistent-boolean-name
     predicate1: (value: T) => value is U,
-    // eslint-disable-next-line unicorn/consistent-boolean-name
     predicate2: (value: T) => value is V,
   ): (value: T) => value is U & V;
 

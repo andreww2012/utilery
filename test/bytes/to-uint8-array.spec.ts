@@ -19,7 +19,7 @@ describe('bytes/toUint8Array', () => {
   });
 
   it('throws for other values', () => {
-    // @ts-expect-error -- testing invalid input
+    // @ts-expect-error testing invalid input
     expect(() => toUint8Array([1])).toThrow(TypeError);
   });
 });

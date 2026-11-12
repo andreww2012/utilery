@@ -1,4 +1,3 @@
-// cspell:ignore café crème
 import {toConstantCase} from '../../src/string/to-constant-case.ts';
 
 describe('string/toConstantCase', () => {

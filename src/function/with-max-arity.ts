@@ -14,8 +14,8 @@ export const withMaxArity: {
    * ['1', '2', '3'].map(withMaxArity(Number.parseInt, 1));
    * // [1, 2, 3], while `.map(Number.parseInt)` gives [1, NaN, NaN]
    */
-  <F extends (...parameters: never[]) => unknown>(
+  <F extends (...arguments_: never[]) => unknown>(
     fn: F,
     n: number,
-  ): (...parameters: any[]) => ReturnType<F>;
+  ): (...arguments_: any[]) => ReturnType<F>;
 } = ary;

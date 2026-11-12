@@ -1,6 +1,6 @@
 import {cartesianProduct} from '../../src/array/cartesian-product.ts';
 
-describe('array/arrayAtMulti', () => {
+describe('array/cartesianProduct', () => {
   it('basic test', () => {
     const result = cartesianProduct([1, 2], ['a', 'b']);
 

@@ -23,13 +23,13 @@ import {isNodeError} from './is-node-error.ts';
  * const bytes = await readFileSafe('logo.png', true);
  * // Buffer | null
  */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- tells how to read the file
 export function readFileSafe(filePath: string, asBinary?: false): Promise<string | null>;
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- tells how to read the file
 export function readFileSafe(filePath: string, asBinary: true): Promise<Buffer | null>;
 export async function readFileSafe(
   filePath: string,
-  // eslint-disable-next-line unicorn/consistent-boolean-name
+  // eslint-disable-next-line unicorn/consistent-boolean-name -- tells how to read the file
   asBinary = false,
 ): Promise<string | Buffer | null> {
   return await fs.readFile(filePath, asBinary ? null : 'utf8').catch((error: unknown) => {

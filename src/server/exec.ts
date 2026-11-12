@@ -50,7 +50,7 @@ interface ExecResult {
  * On Windows, `.cmd` and `.bat` launchers (like `npm`) and scripts with a
  * shebang run too, through `cmd.exe` with their arguments escaped for it.
  * @param command - The command to run, like `'git'`.
- * @param args - The arguments of the command.
+ * @param arguments_ - The arguments of the command.
  * @param options - Options.
  * @param options.signal - Stops the process when aborted.
  * @param options.timeoutMs - Stops the process after this many milliseconds.
@@ -74,11 +74,11 @@ interface ExecResult {
  */
 export const exec = async (
   command: string,
-  args: readonly string[] = [],
+  arguments_: readonly string[] = [],
   options: ExecOptions = {},
 ): Promise<ExecResult> => {
   // A plain `spawn` can't run `.cmd` and `.bat` files or scripts with a shebang on Windows
-  const parsed = parseCommand(command, args, options.spawnOptions);
+  const parsed = parseCommand(command, arguments_, options.spawnOptions);
   const {timeoutMs, ...execOptions} = options;
   const result = await execBase(parsed.command, parsed.args, {
     ...execOptions,

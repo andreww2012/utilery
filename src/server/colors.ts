@@ -15,7 +15,7 @@ const plainWhenUnsupported =
     isColorSupported() ? style(text) : text;
 
 const plainWhenUnsupportedFactory =
-  <Arguments extends unknown[]>(createStyle: (...parameters: Arguments) => ColorFunction) =>
+  <Arguments extends unknown[]>(createStyle: (...arguments_: Arguments) => ColorFunction) =>
   (...callArguments: Arguments) =>
     plainWhenUnsupported(createStyle(...callArguments));
 

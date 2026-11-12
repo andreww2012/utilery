@@ -37,7 +37,7 @@ interface CurryFn {
    * curry(greet)();
    * // 'hi'
    */
-  <F extends (...parameters: never[]) => unknown>(
+  <F extends (...arguments_: never[]) => unknown>(
     fn: F,
     isFromRight?: false,
   ): Curry<Parameters<F>, ReturnType<F>>;
@@ -57,13 +57,13 @@ interface CurryFn {
    * curriedRight(1)(2)(3);
    * // 3 - 2 - 1 === 0
    */
-  <F extends (...parameters: never[]) => unknown>(
+  <F extends (...arguments_: never[]) => unknown>(
     fn: F,
     isFromRight: true,
   ): CurryRight<Parameters<F>, ReturnType<F>>;
 }
 
 /** Converts a function into a chain of single-argument calls */
-export const curry = ((fn: (...parameters: never[]) => unknown, isFromRight = false) => {
+export const curry = ((fn: (...arguments_: never[]) => unknown, isFromRight = false) => {
   return isFromRight ? esCurryRight(fn) : esCurry(fn);
 }) as CurryFn;

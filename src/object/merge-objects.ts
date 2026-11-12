@@ -19,7 +19,7 @@ import {type MergeAll, mergeAll} from 'remeda';
  * mergeObjects([{a: 1}, {b: 'x'}]);
  * // {a: 1, b: 'x'}
  */
-// Cast because remeda's overloads resolve to `{}` for an abstract generic `T`;
+// Cast because `remeda`'s overloads resolve to `{}` for an abstract generic `T`;
 // the runtime merge is correct and `MergeAll<T>` evaluates per-call-site
 export const mergeObjects = <T extends readonly [object, ...object[]]>(objects: T) =>
   mergeAll(objects) as MergeAll<T>;

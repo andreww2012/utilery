@@ -66,7 +66,7 @@ export default eslintConfig({
   },
   configs: {
     format: {
-      // Other files are formatted by oxfmt itself
+      // Other files are formatted by `oxfmt` itself
       files: [],
       configFencedCodeBlocks: true,
       formatter: [
@@ -150,7 +150,7 @@ export default eslintConfig({
       overrides: {
         'unicorn/consistent-boolean-name': (severity, options) => ({
           severity,
-          options: [{...options?.[0], ignore: ['^(filter|predicate)$']}],
+          options: [{...options?.[0], ignore: [String.raw`^(filter|predicate\d*)$`]}],
         }),
       },
     },

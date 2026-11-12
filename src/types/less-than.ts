@@ -12,7 +12,7 @@ import type {LessThan as LessThanBase} from 'type-fest';
  * declare function setNegative<N extends number>(
  *   value: LessThan<N, 0> extends true ? N : never,
  * ): void;
- * // @ts-expect-error: not negative
+ * // @ts-expect-error not negative
  * setNegative(0);
  */
 export type LessThan<A extends number, B extends number> = LessThanBase<A, B>;

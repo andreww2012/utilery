@@ -18,6 +18,6 @@ void widgets;
 const closestWidget: MyWidget | null = closestTyped.as<MyWidget>(container, 'my-widget');
 void closestWidget;
 
-// @ts-expect-error an unknown tag falls back to Element without .as
+// @ts-expect-error an unknown tag falls back to `Element` without `.as`
 const notWidget: MyWidget | null = querySelectorTyped('my-widget');
 void notWidget;

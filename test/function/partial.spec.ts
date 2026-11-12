@@ -18,7 +18,7 @@ describe('function/partial', () => {
       expect(prefixed('z')).toBe('x-y-z');
     });
 
-    it('treats fromRight=false the same as the default', () => {
+    it('treats a `false` direction flag the same as the default', () => {
       expect(partial(greet, ['Hello'], false)('Bob')).toBe('Hello, Bob!');
     });
 
@@ -35,7 +35,7 @@ describe('function/partial', () => {
     });
   });
 
-  describe('right partial (fromRight = true)', () => {
+  describe('right partial', () => {
     it('pre-applies trailing arguments', () => {
       const sayToAlice = partial(greet, ['Alice'], true);
 

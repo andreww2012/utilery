@@ -51,7 +51,7 @@ describe('array/arrayFill', () => {
     });
 
     it('fills holes in sparse arrays created by `new Array(n)`', () => {
-      // eslint-disable-next-line unicorn/no-new-array
+      // eslint-disable-next-line unicorn/no-new-array -- the test is about the holes it creates
       const input = new Array<number>(3);
       const result = arrayFill(input, 7);
 

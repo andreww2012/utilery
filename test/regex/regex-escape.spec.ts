@@ -1,4 +1,4 @@
-// cspell:ignore FEFF Привет tnvfr
+// cspell:ignore FEFF
 import {regexEscape} from '../../src/regex/regex-escape.ts';
 import {describeWithAndWithoutNative} from '../describe-with-and-without-native.ts';
 
@@ -27,6 +27,7 @@ const regexEscapeStandIn = (text: string) =>
 
     const controlEscapeIndex = '\t\n\v\f\r'.indexOf(character);
     if (controlEscapeIndex !== -1) {
+      // cspell:disable-next-line
       return `\\${'tnvfr'[controlEscapeIndex]}`;
     }
 

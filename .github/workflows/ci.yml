@@ -1,4 +1,3 @@
-# cspell:ignore EBADDEVENGINES
 name: Check code (+ Publish)
 on:
   pull_request:
@@ -84,7 +83,7 @@ jobs:
       - uses: ./.github/actions/prepare
         with:
           node-version: ${{ matrix.node-version }}
-      # `test/tsconfig.json` references the composite `src` project; vitest's typecheck
+      # `test/tsconfig.json` references the composite `src` project; `vitest`'s typecheck
       # needs its declarations emitted first, hence `pnpm ts` must stay a `tsc --build`
       # (with `--noEmit` every `spec-d` file fails with TS6305)
       - run: pnpm ts
@@ -164,4 +163,5 @@ jobs:
           pr-title: 'chore: release v${{ env.NEW_VERSION }}'
           commit-message: 'chore: release v${{ env.NEW_VERSION }}'
         env:
+          # cspell:disable-next-line
           NPM_CONFIG_FORCE: true # To prevent potential EBADDEVENGINES npm fatal error

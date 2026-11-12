@@ -1,4 +1,4 @@
-// cspell:ignore neighbo neighborino tilery
+// cspell:ignore lery neighbo neighborino
 import {truncate as truncateEnd} from 'es-toolkit/compat';
 import type {Prettify} from '../types/prettify.ts';
 
@@ -56,10 +56,10 @@ export type TruncateOptions = Prettify<
  * // 'hi-diddly-ho there,...'
  * @example
  * // Keep the end or both ends
- * truncate('/home/user/projects/utilery/src/index.ts', {length: 20, position: 'start', omission: '…'});
- * // '…tilery/src/index.ts'
- * truncate('a-very-long-file-name.tar.gz', {length: 15, position: 'middle', omission: '…'});
- * // 'a-very-….tar.gz'
+ * truncate('/home/user/projects/utilery/src/index.ts', {length: 20, position: 'start'});
+ * // '...lery/src/index.ts'
+ * truncate('a-very-long-file-name.tar.gz', {length: 16, position: 'middle'});
+ * // 'a-very-...tar.gz'
  */
 export const truncate = (text: string, options: TruncateOptions = {}): string => {
   const {length = 30, omission = '...', position = 'end', separator} = options;

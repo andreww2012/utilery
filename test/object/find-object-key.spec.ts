@@ -5,7 +5,7 @@ describe('object/findObjectKey', () => {
     expect(findObjectKey({a: 1, b: 2, c: 3}, (value) => value > 1)).toBe('b');
   });
 
-  it('scans from the end when fromRight is true', () => {
+  it('scans from the end when asked to', () => {
     expect(findObjectKey({a: 1, b: 2, c: 3}, (value) => value > 1, true)).toBe('c');
   });
 
@@ -14,7 +14,7 @@ describe('object/findObjectKey', () => {
   });
 
   it.each([false, true])(
-    'gives numeric keys as strings and skips symbol keys (fromRight: %s)',
+    'gives numeric keys as strings and skips symbol keys (from the end: %s)',
     (isFromRight) => {
       const keys: unknown[] = [];
       const symbolKey = Symbol('s');

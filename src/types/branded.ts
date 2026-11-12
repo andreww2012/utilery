@@ -19,7 +19,7 @@ import type {Tagged} from 'type-fest';
  * declare function getUser(id: UserId): User;
  * const userId = 1 as UserId;
  * getUser(userId);
- * // @ts-expect-error: not a `UserId`
+ * // @ts-expect-error not a `UserId`
  * getUser(1 as OrderId);
  * userId + 1; // still a number
  * @example

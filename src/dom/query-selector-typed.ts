@@ -33,7 +33,7 @@ export const querySelectorTyped: {
    * const heading = querySelectorTyped('h1, h2');
    * // HTMLHeadingElement | null
    * @example
-   * // Escape hatch for custom elements
+   * // For custom elements, set the type yourself
    * const widget = querySelectorTyped.as<MyWidget>('my-widget');
    * // MyWidget | null
    */

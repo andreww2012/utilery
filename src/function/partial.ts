@@ -1,7 +1,7 @@
 import {partial as esPartial, partialRight as esPartialRight} from 'es-toolkit/function';
 
 const callPartial = (
-  fn: (...parameters: never[]) => unknown,
+  fn: (...arguments_: never[]) => unknown,
   presetArguments: readonly unknown[],
   isFromRight: boolean,
 ) => {
@@ -47,7 +47,7 @@ interface PartialFn {
    * partialWithGap('start', 'end');
    * // 'start-mid-end'
    */
-  <F extends (...parameters: never[]) => unknown>(
+  <F extends (...arguments_: never[]) => unknown>(
     fn: F,
     presetArguments: readonly unknown[],
     isFromRight?: boolean,

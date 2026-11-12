@@ -19,14 +19,14 @@ describe('object/objectUpdate', () => {
   it('rejects a key that does not exist on the target', () => {
     const user = {name: 'Ada', age: 41};
 
-    // @ts-expect-error - 'email' does not exist on the target
+    // @ts-expect-error `'email'` does not exist on the target
     objectUpdate(user, {email: 'ada@example.com'});
   });
 
   it('rejects a mismatched value type', () => {
     const user = {name: 'Ada', age: 41};
 
-    // @ts-expect-error - 'age' must be a number
+    // @ts-expect-error `'age'` must be a number
     objectUpdate(user, {age: '42'});
   });
 

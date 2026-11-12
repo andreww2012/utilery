@@ -1,4 +1,4 @@
-// cspell:ignore aepfel fooatunicorn strasse Straße ueber Äpfel über Привет
+// cspell:ignore aepfel fooatunicorn strasse Straße ueber Äpfel über
 import slugifyBase from '@sindresorhus/slugify';
 import BUILTIN_REPLACEMENTS from '@sindresorhus/slugify/overridable-replacements.js';
 import transliterate from '@sindresorhus/transliterate';

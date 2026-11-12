@@ -7,7 +7,7 @@ describe('runtime/getBuiltinModule', () => {
   });
 
   it('only accepts built-in module IDs', () => {
-    // @ts-expect-error -- not a built-in module
+    // @ts-expect-error not a built-in module
     getBuiltinModule('lodash');
   });
 });

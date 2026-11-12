@@ -2,7 +2,7 @@ import {unset} from 'es-toolkit/compat';
 import type {MaybeReadonlyArray} from '../types/maybe-readonly-array.ts';
 
 /** **Mutates** an object, deleting the property at the given deep path */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- returns whether the property is gone, like the `delete` operator
 export const deleteByPath: {
   /**
    * **Mutates** an object, deleting the property at the given deep path.

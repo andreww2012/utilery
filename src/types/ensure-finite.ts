@@ -8,7 +8,7 @@ import type {Finite} from 'type-fest';
  * @example
  * declare function setScore<T extends number>(score: EnsureFinite<T>): void;
  * setScore(42);
- * // @ts-expect-error: infinite
+ * // @ts-expect-error infinite
  * setScore(Number.POSITIVE_INFINITY as PositiveInfinity);
  */
 export type EnsureFinite<T extends number> = Finite<T>;

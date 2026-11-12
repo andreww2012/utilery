@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prefer-string-raw -- arkregex infers from string *literals*; `String.raw` widens to `string`, which breaks inference */
+/* eslint-disable unicorn/prefer-string-raw -- `arkregex` infers from string *literals*; `String.raw` widens to `string`, which breaks inference */
 import {type RegexTyped, regexTyped} from '../../src/regex/regex-typed.ts';
 
 type CaseInsensitiveOk = 'ok' | 'oK' | 'Ok' | 'OK';

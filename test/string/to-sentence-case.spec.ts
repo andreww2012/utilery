@@ -1,4 +1,3 @@
-// cspell:ignore école primaire über
 import {toSentenceCase} from '../../src/string/to-sentence-case.ts';
 
 describe('string/toSentenceCase', () => {
@@ -19,7 +18,9 @@ describe('string/toSentenceCase', () => {
   });
 
   it('handles non-ASCII letters', () => {
+    // cspell:disable-next-line
     expect(toSentenceCase('ÉCOLE_PRIMAIRE')).toBe('École primaire');
+    // cspell:disable-next-line
     expect(toSentenceCase('über Uns')).toBe('Über uns');
     expect(toSentenceCase('日本語 テキスト')).toBe('日本語 テキスト');
   });

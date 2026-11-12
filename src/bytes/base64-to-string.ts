@@ -1,4 +1,3 @@
-// cspell:ignore Привет
 import {base64ToUint8Array} from './base64-to-uint8-array.ts';
 import {uint8ArrayToString} from './uint8-array-to-string.ts';
 

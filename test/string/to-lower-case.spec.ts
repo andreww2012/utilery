@@ -1,4 +1,3 @@
-// cspell:ignore café crème
 import {toLowerCase} from '../../src/string/to-lower-case.ts';
 
 describe('string/toLowerCase', () => {

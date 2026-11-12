@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import {querySelectorTyped} from '../../src/dom/query-selector-typed.ts';
 
-// Identity assertions deliberately avoid `<form>`: happy-dom wraps form elements in a
+// Identity assertions deliberately avoid `<form>`: `happy-dom` wraps form elements in a
 // Proxy for named-control access, so a held reference never matches the node a lookup returns
 describe('dom/querySelectorTyped', () => {
   let panel: HTMLDivElement;

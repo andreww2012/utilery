@@ -1,4 +1,3 @@
-// cspell:ignore Привет
 import {stringToBase64} from '../../src/bytes/string-to-base64.ts';
 import {describeWithAndWithoutNative} from '../describe-with-and-without-native.ts';
 import {toBase64StandIn} from './native-stand-ins.ts';

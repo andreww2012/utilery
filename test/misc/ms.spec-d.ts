@@ -7,7 +7,7 @@ describe('misc/ms', () => {
       .toEqualTypeOf<2_520_000>();
     expectTypeOf(ms<'42m'>(2_520_000)).toEqualTypeOf<2_520_000>();
 
-    // @ts-expect-error wrong milliseconds value for the '42m' duration
+    // @ts-expect-error wrong milliseconds value for the `'42m'` duration
     ms<'42m'>(42);
   });
 

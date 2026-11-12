@@ -7,7 +7,7 @@ describe('async/promiseTry', () => {
     'try',
     function (
       this: PromiseConstructor,
-      fn: (...parameters: unknown[]) => unknown,
+      fn: (...arguments_: unknown[]) => unknown,
       ...callArguments: unknown[]
     ) {
       return new this((resolve) => {

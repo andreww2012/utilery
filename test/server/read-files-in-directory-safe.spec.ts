@@ -1,4 +1,3 @@
-// cspell:ignore mkdtemp tmpdir
 import {rmSync} from 'node:fs';
 import {mkdir, mkdtemp, rm, symlink, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';

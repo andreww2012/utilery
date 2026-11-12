@@ -26,7 +26,7 @@ import type {LengthLiteral} from '../_internal/types.ts';
  */
 export function arrayHasMinElements<T extends readonly unknown[], N extends number>(
   // The `| readonly unknown[]` makes the predicate (always some array) assignable
-  // to the parameter while `T` still infers from the argument, as remeda does
+  // to the parameter while `T` still infers from the argument, as `remeda` does
   array: T | readonly unknown[],
   minimum: LengthLiteral<N>,
 ): array is ArrayRequiredPrefix<T, N>;

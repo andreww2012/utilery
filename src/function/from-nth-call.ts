@@ -22,8 +22,8 @@ export const fromNthCall: {
    * onAllLoaded(); // nothing
    * onAllLoaded(); // logs
    */
-  <F extends (...parameters: never[]) => unknown>(
+  <F extends (...arguments_: never[]) => unknown>(
     n: number,
     fn: F,
-  ): (...parameters: Parameters<F>) => ReturnType<F> | undefined;
+  ): (...arguments_: Parameters<F>) => ReturnType<F> | undefined;
 } = after;

@@ -19,7 +19,7 @@ const TABLE_REGION_REGEX = new RegExp(
   String.raw`${regexEscape(TABLE_START)}[\s\S]*?${regexEscape(TABLE_END)}`,
 );
 // Grouping parentheses SPDX allows around a whole expression, e.g. `(MIT OR CC0-1.0)`
-const WRAPPING_PARENS_REGEX = /^\((.*)\)$/;
+const WRAPPING_PARENTHESES_REGEX = /^\((.*)\)$/;
 
 interface PackageRow {
   packageCell: string;
@@ -44,7 +44,7 @@ const buildTable = () => {
     return {
       packageCell: `[\`${name}\`](${NPMX_BASE}/${name})`,
       versionCell: `[${version}](${NPMX_BASE}/${name}/v/${version})`,
-      licenseCell: license.replace(WRAPPING_PARENS_REGEX, '$1'),
+      licenseCell: license.replace(WRAPPING_PARENTHESES_REGEX, '$1'),
     };
   });
 

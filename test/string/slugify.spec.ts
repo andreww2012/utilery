@@ -1,4 +1,3 @@
-// cspell:ignore fooatunicorn עברית हिन्दी 𝔘𝔫𝔦𝔠𝔬𝔡𝔢
 import {slugify} from '../../src/string/slugify.ts';
 import {EXPLICIT_UNDEFINED} from '../exact-optional-property-types.ts';
 
@@ -27,6 +26,7 @@ describe('string/slugify', () => {
   });
 
   it('never returns characters outside ASCII', () => {
+    // cspell:disable-next-line
     const inputs = ['日本語のテキスト', 'עברית', 'हिन्दी', 'ไทย', '𝔘𝔫𝔦𝔠𝔬𝔡𝔢', '«»„“'];
 
     inputs.forEach((input) => {
@@ -37,6 +37,7 @@ describe('string/slugify', () => {
   it('supports the options', () => {
     expect(slugify('BAR and baz', {separator: '_', lowercase: false})).toBe('BAR_and_baz');
     expect(slugify('fooBar', {decamelize: false})).toBe('foobar');
+    // cspell:disable-next-line
     expect(slugify('foo@unicorn', {customReplacements: [['@', 'at']]})).toBe('fooatunicorn');
     expect(slugify('A & B', {customReplacements: [['&', ' und ']]})).toBe('a-und-b');
     expect(slugify('Räksmörgås', {locale: 'sv'})).toBe('raksmorgas'); // cspell:disable-line

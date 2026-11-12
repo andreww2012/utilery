@@ -43,8 +43,8 @@ import {flow as esFlow, flowRight as esFlowRight} from 'es-toolkit/function';
  * // 50
  */
 export const flow = (
-  functions: readonly ((...parameters: never[]) => unknown)[],
+  functions: readonly ((...arguments_: never[]) => unknown)[],
   isFromRight = false,
-): ((...parameters: never[]) => unknown) => {
+): ((...arguments_: never[]) => unknown) => {
   return isFromRight ? esFlowRight(...functions) : esFlow(...functions);
 };

@@ -19,11 +19,19 @@ import {type Mapped, mapWithFeedback} from 'remeda';
  * // [1, 3, 6, 10]
  * @example
  * // Running maximum
- * arrayMapWithAccumulator([3, 1, 4, 1, 5], (accumulator, value) => Math.max(accumulator, value), -Infinity);
+ * arrayMapWithAccumulator(
+ *   [3, 1, 4, 1, 5],
+ *   (accumulator, value) => Math.max(accumulator, value),
+ *   -Infinity,
+ * );
  * // [3, 3, 4, 4, 5]
  * @example
  * // The callback receives the index and the source array too
- * arrayMapWithAccumulator(['a', 'b', 'c'], (accumulator, value, index) => accumulator + value + index, '');
+ * arrayMapWithAccumulator(
+ *   ['a', 'b', 'c'],
+ *   (accumulator, value, index) => accumulator + value + index,
+ *   '',
+ * );
  * // ['a0', 'a0b1', 'a0b1c2']
  */
 export const arrayMapWithAccumulator = <T extends readonly unknown[], Accumulator>(

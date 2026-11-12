@@ -5,7 +5,7 @@ import type {Alphanumeric as AlphanumericBase} from 'type-fest';
  * `'9'`.
  * @example
  * const valid: Alphanumeric = 'A';
- * // @ts-expect-error: not a letter or digit
+ * // @ts-expect-error not a letter or digit
  * const invalid: Alphanumeric = '#';
  */
 export type Alphanumeric = AlphanumericBase;

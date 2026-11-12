@@ -22,7 +22,7 @@ describe('function/curry', () => {
       expect(curried(1)(2)(3)).toBe(6);
     });
 
-    it('treats fromRight=false the same as the default', () => {
+    it('treats a `false` direction flag the same as the default', () => {
       // eslint-disable-next-line unicorn/no-unnecessary-default-arguments -- The default is passed on purpose
       expect(curry(subtract2, false)(10)(3)).toBe(7);
     });
@@ -38,7 +38,7 @@ describe('function/curry', () => {
     });
   });
 
-  describe('right-to-left (fromRight = true)', () => {
+  describe('right-to-left', () => {
     it('collects arguments from the rightmost parameter inward', () => {
       const curried = curry(subtract3, true);
 

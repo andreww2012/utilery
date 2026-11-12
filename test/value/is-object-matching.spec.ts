@@ -10,8 +10,7 @@ describe('value/isObjectMatching', () => {
   });
 
   it('applies a customizer, falling back to the default on undefined', () => {
-    // eslint-disable-next-line unicorn/consistent-boolean-name
-    const result = isObjectMatching(
+    const isMatching = isObjectMatching(
       {name: 'Ann', age: 30},
       {name: 'ANN', age: 30},
       (value, other) =>
@@ -20,6 +19,6 @@ describe('value/isObjectMatching', () => {
           : undefined,
     );
 
-    expect(result).toBe(true);
+    expect(isMatching).toBe(true);
   });
 });

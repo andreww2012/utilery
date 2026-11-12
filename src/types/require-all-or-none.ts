@@ -10,7 +10,7 @@ import type {RequireAllOrNone as RequireAllOrNoneBase} from 'type-fest';
  * type SizedOptions = RequireAllOrNone<Options, 'width' | 'height'>;
  * const a: SizedOptions = {title: 'a'};
  * const b: SizedOptions = {title: 'b', width: 1, height: 2};
- * // @ts-expect-error: `height` is missing
+ * // @ts-expect-error `height` is missing
  * const c: SizedOptions = {title: 'c', width: 1};
  */
 export type RequireAllOrNone<

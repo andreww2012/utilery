@@ -21,7 +21,7 @@ describe('function/flow', () => {
       expect(sum(2 as never, 3 as never)).toBe(50);
     });
 
-    it('treats fromRight=false the same as the default', () => {
+    it('treats a `false` direction flag the same as the default', () => {
       // eslint-disable-next-line unicorn/no-unnecessary-default-arguments -- The default is passed on purpose
       const piped = flow([addOne, timesTwo], false);
 
@@ -35,7 +35,7 @@ describe('function/flow', () => {
     });
   });
 
-  describe('right-to-left (compose, fromRight = true)', () => {
+  describe('right-to-left (compose)', () => {
     it('runs functions in reverse declaration order', () => {
       const composed = flow([toLabel, timesTwo, addOne], true);
 

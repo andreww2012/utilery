@@ -8,7 +8,7 @@ A growing collection of general-purpose utilities and TypeScript types, mostly c
 
 - 🌱 **Zero dependencies**: everything is bundled;
 - 🌳 **Tree-shakeable**: unused utilities are dropped from your bundle;
-- ⚡ **Native when possible**: utilities that have a newer native equivalent counterpart like `Map#getOrInsert`, call it where it is available;
+- ⚡ **Native when possible**: utilities that have a newer native counterpart, like `Map#getOrInsert`, call it where it is available;
 - ✨ **More than 400** utilities and **250** types.
 
 ## Installation
@@ -190,7 +190,7 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 
 | Our function group and name           | Notes                                                                                                                                                                                                                   |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `array/arrayAt`                       | Consolidates `ts-extras`' `arrayAt` (precise tuple typing for literal indexes) with es-toolkit's `at` (also accepts a list of indexes)                                                                                  |
+| `array/arrayAt`                       | Consolidates `ts-extras`' `arrayAt` (precise tuple typing for literal indexes) with `es-toolkit`'s `at` (also accepts a list of indexes)                                                                                |
 | `array/arrayChunks`                   | Consolidates fixed-size `chunk` with a by-key variant; pass an iteratee to group runs of consecutive same-key elements, or an array of sizes for one chunk per size (`Infinity` collects the rest)                      |
 | `array/arrayDifference`               | Consolidates `difference`/`differenceBy`/`differenceWith`; optional mapper or comparator                                                                                                                                |
 | `array/arrayDrop`                     | Consolidates `drop`/`dropWhile`; pass a predicate to drop while it holds                                                                                                                                                |
@@ -212,11 +212,11 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `array/arrayPartition`                | Single predicate gives a binary `[matched, unmatched]` (guard-narrowing); multiple predicates give an n-way partition                                                                                                   |
 | `array/arrayPurgeValues`              | Consolidates `pull`/`pullAllBy`/`pullAllWith`; mutating; optional mapper or comparator                                                                                                                                  |
 | `array/arrayRankBy`                   | Rank an item would have by one or more `OrderRule`s: count of elements sorting before it (via `remeda`'s `rankBy`), O(n); item need not be present                                                                      |
-| `array/arrayReverse`                  | Tuple-preserving reverse (via `remeda` + type-fest's `ArrayReverse`); a fixed-length tuple reverses to a same-length tuple instead of widening to a union array                                                         |
+| `array/arrayReverse`                  | Tuple-preserving reverse (via `remeda` + `type-fest`'s `ArrayReverse`); a fixed-length tuple reverses to a same-length tuple instead of widening to a union array                                                       |
 | `array/arraySample`                   | Consolidates `sample`/`sampleSize` (our own code of the same algorithms); pass a size for multiple elements, `{withReplacement: true}` to allow repeats, `{random}` for another generator                               |
 | `array/arrayShuffle`                  | Fisher-Yates shuffle into a new array; `{random}` takes another generator, like a seeded one from `createSeededRandom`                                                                                                  |
 | `array/arraySort`                     | Length-preserving non-mutating sort by comparator (via `remeda`); a fixed-length tuple keeps its length (slots widen to the element union)                                                                              |
-| `array/arraySplit`                    | Consolidates remeda's `splitAt`/`splitWhen` into `[before, after]`; pass a predicate to split at the first match; tuple-preserving for literal indexes                                                                  |
+| `array/arraySplit`                    | Consolidates `remeda`'s `splitAt`/`splitWhen` into `[before, after]`; pass a predicate to split at the first match; tuple-preserving for literal indexes                                                                |
 | `array/arraySwapIndexes`              | Swaps the elements at two indexes (tuple-preserving via `remeda`); negative indexes count from the end; out-of-bounds/`NaN` returns an unchanged copy                                                                   |
 | `array/arraySymmetricDifference`      | Consolidates `xor`/`xorBy`/`xorWith`; renamed to the set-theory term                                                                                                                                                    |
 | `array/arrayTakeFirstBy`              | The `count` "smallest" elements by one or more `OrderRule`s (via `remeda`'s `takeFirstBy`), O(n) without sorting                                                                                                        |
@@ -342,8 +342,8 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `regex/regexEscape`                   | Escapes a string to be matched literally in any flag mode and any place of a pattern, even inside `[...]` with the `v` flag, like `RegExp.escape` (called where available); `onlySyntaxCharacters` keeps it readable    |
 | `runtime/getBuiltinModule`            | Typed `process.getBuiltinModule` that gives `undefined` outside Node.js                                                                                                                                                 |
 | `runtime/isBun`                       | Whether the code runs in Bun, to tell it apart from Node.js, where `isNode` is `true` too                                                                                                                               |
-| `server/colors`                       | es-toolkit's terminal styles that return plain text when colors are not supported (see `server/isColorSupported`)                                                                                                       |
-| `server/exec`                         | es-toolkit's `exec` that also runs `.cmd` and `.bat` launchers (like `npm`) and scripts with a shebang on Windows, and rejects with `ENOENT` for a missing command there too                                            |
+| `server/colors`                       | `es-toolkit`'s terminal styles that return plain text when colors are not supported (see `server/isColorSupported`)                                                                                                     |
+| `server/exec`                         | `es-toolkit`'s `exec` that also runs `.cmd` and `.bat` launchers (like `npm`) and scripts with a shebang on Windows, and rejects with `ENOENT` for a missing command there too                                          |
 | `server/isColorSupported`             | Whether to color output: `FORCE_COLOR` first, then a terminal that supports colors (respects `NO_COLOR`, `TERM=dumb`)                                                                                                   |
 | `server/isNodeError`                  | Whether a caught value is a Node.js system error, optionally with one of the given codes; narrows to `NodeJS.ErrnoException`, unless it's already typed as one                                                          |
 | `server/isPathInside`                 | Whether a path is inside another one (via `path.relative`); not inside itself; handles `..name` entries and other Windows drive                                                                                         |
@@ -358,23 +358,23 @@ These cover JSON *manipulation* axes (repair, partial parsing, diff, pointer/pat
 | `string/ensureSuffix`                 | `(value, suffix)` (subject-first); appends `suffix` only when missing                                                                                                                                                   |
 | `string/slugify`                      | URL slugs from text in any script, always ASCII: transliteration via `@sindresorhus/slugify`, the rest via `any-ascii`                                                                                                  |
 | `string/stringByteLength`             | UTF-8 byte length of a string without encoding it                                                                                                                                                                       |
-| `string/stringReverse`                | Reverses a string by grapheme (via es-toolkit's `reverseString`, so emoji stay intact); literal inputs get the precise reversed type                                                                                    |
+| `string/stringReverse`                | Reverses a string by grapheme (via `es-toolkit`'s `reverseString`, so emoji stay intact); literal inputs get the precise reversed type                                                                                  |
 | `string/substringAfter`               | Part after the first delimiter, or a fallback (the whole string by default)                                                                                                                                             |
 | `string/substringAfterLast`           | Part after the last delimiter, or a fallback (the whole string by default)                                                                                                                                              |
 | `string/substringBefore`              | Part before the first delimiter, or a fallback (the whole string by default)                                                                                                                                            |
 | `string/substringBeforeLast`          | Part before the last delimiter, or a fallback (the whole string by default)                                                                                                                                             |
-| `string/toCamelCase`                  | camelCase; es-toolkit runtime (Unicode-aware) + `string-ts` literal type. Renamed from es-toolkit's `camelCase`                                                                                                         |
-| `string/toConstantCase`               | CONSTANT_CASE; es-toolkit runtime + `string-ts` literal type                                                                                                                                                            |
-| `string/toDelimiterCase`              | Joins words with a delimiter, preserving case (via es-toolkit's `words`); literal inputs get the precise type                                                                                                           |
-| `string/toKebabCase`                  | kebab-case; es-toolkit runtime + `string-ts` literal type                                                                                                                                                               |
-| `string/toLowerCase`                  | Space-joined lower-case words; es-toolkit runtime + `string-ts` literal type                                                                                                                                            |
-| `string/toPascalCase`                 | PascalCase; es-toolkit runtime + `string-ts` literal type                                                                                                                                                               |
-| `string/toSentenceCase`               | Sentence case; es-toolkit runtime (also capitalizes a first letter outside the BMP) + `string-ts` literal type                                                                                                          |
-| `string/toSnakeCase`                  | snake_case; es-toolkit runtime + `string-ts` literal type                                                                                                                                                               |
+| `string/toCamelCase`                  | camelCase; `es-toolkit` runtime (Unicode-aware) + `string-ts` literal type. Renamed from `es-toolkit`'s `camelCase`                                                                                                     |
+| `string/toConstantCase`               | CONSTANT_CASE; `es-toolkit` runtime + `string-ts` literal type                                                                                                                                                          |
+| `string/toDelimiterCase`              | Joins words with a delimiter, preserving case (via `es-toolkit`'s `words`); literal inputs get the precise type                                                                                                         |
+| `string/toKebabCase`                  | kebab-case; `es-toolkit` runtime + `string-ts` literal type                                                                                                                                                             |
+| `string/toLowerCase`                  | Space-joined lower-case words; `es-toolkit` runtime + `string-ts` literal type                                                                                                                                          |
+| `string/toPascalCase`                 | PascalCase; `es-toolkit` runtime + `string-ts` literal type                                                                                                                                                             |
+| `string/toSentenceCase`               | Sentence case; `es-toolkit` runtime (also capitalizes a first letter outside the BMP) + `string-ts` literal type                                                                                                        |
+| `string/toSnakeCase`                  | snake_case; `es-toolkit` runtime + `string-ts` literal type                                                                                                                                                             |
 | `string/toTitleCase`                  | Title-cases a string (via `remeda`'s `toTitleCase`); literal inputs get the precise title-cased type; preserves consecutive capitals by default. Replaces `toStartCase`                                                 |
-| `string/toUpperCase`                  | Space-joined UPPER-CASE words; es-toolkit runtime + `string-ts` literal type                                                                                                                                            |
+| `string/toUpperCase`                  | Space-joined UPPER-CASE words; `es-toolkit` runtime + `string-ts` literal type                                                                                                                                          |
 | `string/toWords`                      | Splits a string into words (via es-toolkit); literal inputs get the precise word tuple                                                                                                                                  |
-| `string/truncate`                     | es-toolkit's `truncate` plus `position: 'start'                                                                                                                                                                         |
+| `string/truncate`                     | `es-toolkit`'s `truncate` plus `position: 'start'` and `'middle'`                                                                                                                                                       |
 | `string/unquote`                      | Removes one pair of matching quotes around a string                                                                                                                                                                     |
 | `ts/allUnionMembers`                  | Compile-time guard that a tuple lists every member of a union exactly once (no missing, extra or duplicate); `{readonly}` keeps the tuple readonly                                                                      |
 | `value/cloneDeep`                     | Consolidates `cloneDeep`/`cloneDeepWith`; optional customizer                                                                                                                                                           |
@@ -425,19 +425,15 @@ Bundled packages are licensed under their own terms, see [`THIRD_PARTY_NOTICES.m
   </tfoot>
 </table>
 
-[jsonrepair]: https://npmx.dev/jsonrepair
-
-[partial-json]: https://npmx.dev/partial-json
-
-[jsondiffpatch]: https://npmx.dev/jsondiffpatch
-
-[hyperjump-json-pointer]: https://npmx.dev/@hyperjump/json-pointer
-
-[immutable-json-patch]: https://npmx.dev/immutable-json-patch
-
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 <!-- eslint-enable markdown-preferences/padding-line-between-blocks, markdown/require-alt-text -->
+
+[jsonrepair]: https://npmx.dev/jsonrepair
+[partial-json]: https://npmx.dev/partial-json
+[jsondiffpatch]: https://npmx.dev/jsondiffpatch
+[hyperjump-json-pointer]: https://npmx.dev/@hyperjump/json-pointer
+[immutable-json-patch]: https://npmx.dev/immutable-json-patch

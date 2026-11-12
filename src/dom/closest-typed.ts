@@ -30,7 +30,7 @@ export const closestTyped: {
    * const row = closestTyped(cell, 'td, th');
    * // HTMLTableCellElement | null
    * @example
-   * // Escape hatch for custom elements
+   * // For custom elements, set the type yourself
    * const widget = closestTyped.as<MyWidget>(button, 'my-widget');
    * // MyWidget | null
    */

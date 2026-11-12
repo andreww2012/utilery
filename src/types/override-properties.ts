@@ -8,7 +8,7 @@ import type {OverrideProperties as OverridePropertiesBase} from 'type-fest';
  * type User = {id: string; name: string};
  * type A = OverrideProperties<User, {id: number}>;
  * //=> {id: number; name: string}
- * // @ts-expect-error: `age` is not a property of `User`
+ * // @ts-expect-error `age` is not a property of `User`
  * type B = OverrideProperties<User, {age: number}>;
  */
 export type OverrideProperties<

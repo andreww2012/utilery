@@ -17,6 +17,6 @@ declare const malformed: ElementFromSelectorStrict<'div#app >'>;
 const never_: never = malformed;
 void never_;
 
-// @ts-expect-error the selector resolves to HTMLDivElement, not HTMLSpanElement
+// @ts-expect-error the selector resolves to `HTMLDivElement`, not `HTMLSpanElement`
 const wrong: ElementFromSelector<'div#app'> = document.createElement('span');
 void wrong;

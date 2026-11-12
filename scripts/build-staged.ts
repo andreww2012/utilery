@@ -10,15 +10,15 @@ import {exec} from '../src/server/exec.ts';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const PACKAGE_JSON_NAME = 'package.json';
 
-const git = async (args: readonly string[]) =>
-  (await exec('git', args, {spawnOptions: {cwd: ROOT}})).stdout;
+const git = async (arguments_: readonly string[]) =>
+  (await exec('git', arguments_, {spawnOptions: {cwd: ROOT}})).stdout;
 
 const run = async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'utilery-build-staged-')); // cspell:disable-line
 
   // Shows the output only when the command fails
-  const didSucceedInCopy = async (command: string, args: readonly string[]) => {
-    const {exitCode, stdout, stderr} = await exec(command, args, {
+  const didSucceedInCopy = async (command: string, arguments_: readonly string[]) => {
+    const {exitCode, stdout, stderr} = await exec(command, arguments_, {
       spawnOptions: {cwd: directory},
       throwOnNonZeroExitCode: false,
     });

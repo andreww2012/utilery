@@ -4,6 +4,8 @@ import os from 'node:os';
 import path from 'node:path';
 import ts from 'typescript';
 import {jsonParse} from '../../src/json/json-parse.ts';
+import {mapGetOrInsertComputed} from '../../src/map/map-get-or-insert-computed.ts';
+import {toForwardSlashes} from '../../src/path/to-forward-slashes.ts';
 
 // Type-checks the **published** declarations (built + packed) from an isolated
 // consumer, covering the gap that `.spec-d.ts` (reads `src/`), `attw` and `publint` miss.
@@ -16,7 +18,8 @@ import {jsonParse} from '../../src/json/json-parse.ts';
 const __dirname = import.meta.dirname;
 const rootPath = path.resolve(__dirname, '../..');
 const scenariosDirectoryPath = path.join(__dirname, 'scenarios');
-const tscBinPath = path.join(rootPath, 'node_modules/.bin/tsc');
+// Run with Node.js, since the launcher in `node_modules/.bin` is a shell script on Windows
+const tscPath = path.join(rootPath, 'node_modules/typescript7/bin/tsc');
 
 const CONSUMER_COMPILER_OPTIONS = {
   strict: true,
@@ -33,19 +36,18 @@ const consumerCompilerOptions = ts.convertCompilerOptionsFromJson(
   rootPath,
 ).options;
 
-// Each subdirectory groups scenarios for one utility, e.g. `regexTyped/infer.ts`
+// Each subdirectory groups scenarios for one utility, e.g. `regex-typed/infer.ts`. The paths use
+// forward slashes, like the ones in the errors of `tsc`
 const scenarioFiles = fs
   .readdirSync(scenariosDirectoryPath, {recursive: true, encoding: 'utf8'})
   .filter((file) => file.endsWith('.ts'))
+  .map((file) => toForwardSlashes(file))
   .toSorted();
 
-const PATH_SEGMENT_SEPARATOR = /[/\\]/;
 const GLOBAL_SUFFIX = '.global';
 const EXACT_OPTIONAL_PROPERTY_TYPES_SUFFIX = '.exact-optional-property-types';
 
-const scenarioDirectories = [
-  ...new Set(scenarioFiles.map((file) => file.split(PATH_SEGMENT_SEPARATOR)[0] || '')),
-];
+const scenarioDirectories = [...new Set(scenarioFiles.map((file) => file.split('/', 1)[0] || ''))];
 
 // A `declare global` augmentation takes effect across the whole program, so two mutually
 // exclusive ones must never be compiled together: their overloads merge and the assertions
@@ -54,7 +56,7 @@ const scenarioDirectories = [
 // of augmentations: the run count grows with them, not with the scenario count
 const isolatedDirectories = scenarioDirectories
   .filter((directory) => directory.endsWith(GLOBAL_SUFFIX))
-  // eslint-disable-next-line unicorn/no-array-sort
+  // eslint-disable-next-line unicorn/no-array-sort -- sorts the new array from `filter`
   .sort();
 
 // Types that depend on the `exactOptionalPropertyTypes` option are checked with it on in a
@@ -137,9 +139,7 @@ const recordErrors = (output: string) => {
 
     const file = ERROR_LINE_PATTERN.exec(line)?.[1];
     if (file) {
-      const existing = errorsByScenario.get(file) || [];
-      existing.push(line);
-      errorsByScenario.set(file, existing);
+      mapGetOrInsertComputed(errorsByScenario, file, () => []).push(line);
     } else {
       unattributedErrors.push(line);
     }
@@ -193,13 +193,17 @@ beforeAll(() => {
       ),
     );
 
-    const {stdout, error} = spawnSync(
-      tscBinPath,
-      ['--project', tsconfigName, '--pretty', 'false'],
+    const {stdout, stderr, error} = spawnSync(
+      process.execPath,
+      [tscPath, '--project', tsconfigName, '--pretty', 'false'],
       {cwd: consumerDirectory, encoding: 'utf8'},
     );
     if (error) {
       throw error;
+    }
+    // `tsc` reports type errors to the standard output, so this is a failure to run it
+    if (stderr) {
+      throw new Error(stderr);
     }
 
     recordErrors(stdout);
@@ -239,7 +243,7 @@ describe('published DTS consumer', () => {
   // augmentation to every other scenario, so the isolation is enforced rather than trusted
   it('keeps global augmentation imports inside isolated directories', () => {
     const leaked = scenarioFiles.filter((file) => {
-      const directory = file.split(PATH_SEGMENT_SEPARATOR)[0] || '';
+      const directory = file.split('/', 1)[0] || '';
       return (
         !directory.endsWith(GLOBAL_SUFFIX) &&
         fs

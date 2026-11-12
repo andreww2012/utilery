@@ -10,7 +10,7 @@ import type {PrettifyObject} from '../_internal/types.ts';
  * type Response = {text: () => string; json: () => unknown; status: number};
  * type Responder = RequireExactlyOne<Response, 'text' | 'json'>;
  * const a: Responder = {status: 200, json: () => ({})};
- * // @ts-expect-error: both `text` and `json`
+ * // @ts-expect-error both `text` and `json`
  * const b: Responder = {status: 200, text: () => '', json: () => ({})};
  */
 export type RequireExactlyOne<

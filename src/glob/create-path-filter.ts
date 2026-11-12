@@ -35,7 +35,10 @@ const toMatcher = (pattern: string | RegExp, options?: GlobOptions) => {
  * @param options - `dot`, `caseInsensitive` and `matchBasename` for the glob patterns.
  * @returns A function returning `true` for paths that pass the filter.
  * @example
- * const filter = createPathFilter({include: ['src/**'], exclude: [/\.test\.ts$/, '**\/fixtures/**']});
+ * const filter = createPathFilter({
+ *   include: ['src/**'],
+ *   exclude: [/\.test\.ts$/, '**\/fixtures/**'],
+ * });
  * filter('src/index.ts');
  * // true
  * filter('src/index.test.ts');

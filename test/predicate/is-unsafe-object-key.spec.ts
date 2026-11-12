@@ -1,5 +1,5 @@
-// Values of known types are passed on purpose, to check the runtime result
-/* eslint-disable ts/no-unnecessary-condition */
+/* eslint-disable ts/no-unnecessary-condition -- values of known types are passed on purpose, to
+check the runtime result */
 import {isUnsafeObjectKey} from '../../src/predicate/is-unsafe-object-key.ts';
 
 describe('predicate/isUnsafeObjectKey', () => {

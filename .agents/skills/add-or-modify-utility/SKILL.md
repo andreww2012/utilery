@@ -97,7 +97,7 @@ It gets its own page in `docs/packages/`, linked from the "Packages" table in `R
 Copy the license texts of the package and of the new packages it depends on (see `inlinedDependencies` in `package.json` after `nr build`) to `THIRD_PARTY_NOTICES.md`.
 
 If you're not asked about specific utilities, you should add all utilities that are supposed to be public, from all entrypoints.
-However, a section corresponding to the package in `README.md` should include *all* such utilities.
+However, the page of the package in `docs/packages/` should include *all* such utilities.
 
 If the package *is* in dependencies, you should add all missing, rename all renamed, and delete all deleted utilities.
 

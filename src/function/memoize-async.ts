@@ -72,7 +72,9 @@ export interface MemoizeAsyncOptions<Fn extends AnyAsyncFunction, CacheKey> {
  * // `fetchUser` is called once
  * @example
  * // Key by all arguments
- * const search = memoizeAsync(fetchResults, {cacheKey: (callArguments) => JSON.stringify(callArguments)});
+ * const search = memoizeAsync(fetchResults, {
+ *   cacheKey: (callArguments) => JSON.stringify(callArguments),
+ * });
  * @example
  * // Don't cache empty results
  * const findUser = memoizeAsync(queryUser, {shouldCache: (user) => user != null});

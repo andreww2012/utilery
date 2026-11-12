@@ -4,7 +4,7 @@ import {isPropertyPresent} from 'ts-extras';
  * Creates a type guard that checks whether an object has an own property with the given key that is
  * neither `null` nor `undefined`
  */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- creates a type guard, so it is named like one
 export const isPropertyNotNullish: {
   /**
    * Creates a type guard that checks whether an object has an own property with

@@ -7,7 +7,7 @@ import type {Jsonifiable as JsonifiableBase} from 'type-fest';
  * leaves them out.
  * @example
  * const good: Jsonifiable = {count: 3, date: new Date(), missing: undefined};
- * // @ts-expect-error: a map becomes `{}`
+ * // @ts-expect-error a map becomes `{}`
  * const bad: Jsonifiable = {map: new Map([['a', 1]])};
  */
 export type Jsonifiable = JsonifiableBase;

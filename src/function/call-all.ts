@@ -21,7 +21,7 @@ import type {Falsy} from '../types/falsy.ts';
  */
 export const callAll =
   <Arguments extends unknown[]>(
-    ...functions: (((...parameters: Arguments) => unknown) | Falsy)[]
+    ...functions: (((...arguments_: Arguments) => unknown) | Falsy)[]
   ) =>
   (...callArguments: Arguments): void => {
     functions.forEach((fn) => {

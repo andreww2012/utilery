@@ -101,7 +101,7 @@ export type AllUnionMembers<Union, Candidate extends readonly unknown[]> = Valid
 export const allUnionMembers =
   <
     Union,
-    // eslint-disable-next-line ts/no-unnecessary-type-parameters
+    // eslint-disable-next-line ts/no-unnecessary-type-parameters -- set by the caller to choose the return type
     Options extends {readonly?: boolean} = {readonly: false},
   >() =>
   // The parameter is written as the raw intersection rather than the

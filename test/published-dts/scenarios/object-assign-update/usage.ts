@@ -10,5 +10,5 @@ const user = {name: 'Ada', age: 41};
 const updated = objectUpdate(user, {age: 42});
 void updated.name;
 
-// @ts-expect-error - objectUpdate rejects a key absent from the target
+// @ts-expect-error `objectUpdate` rejects a key absent from the target
 objectUpdate(user, {email: 'ada@example.com'});

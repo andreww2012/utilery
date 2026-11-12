@@ -11,6 +11,6 @@ describe('function/bindLate', () => {
 
   it('returns a function that takes and returns anything', () => {
     // eslint-disable-next-line ts/no-explicit-any -- the type under test
-    expectTypeOf(bindLate({}, 'key')).toEqualTypeOf<(...parameters: any[]) => any>();
+    expectTypeOf(bindLate({}, 'key')).toEqualTypeOf<(...arguments_: any[]) => any>();
   });
 });

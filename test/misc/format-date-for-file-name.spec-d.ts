@@ -12,11 +12,11 @@ describe('misc/formatDateForFileName', () => {
   });
 
   it('rejects other values', () => {
-    // @ts-expect-error -- a date string is not accepted
+    // @ts-expect-error a date string is not accepted
     formatDateForFileName('2026-10-25');
-    // @ts-expect-error -- not a known precision
+    // @ts-expect-error not a known precision
     formatDateForFileName({precision: 'week'});
-    // @ts-expect-error -- the date goes first
+    // @ts-expect-error the date goes first
     formatDateForFileName({utc: true}, new Date());
   });
 });

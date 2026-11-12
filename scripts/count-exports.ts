@@ -10,7 +10,7 @@ import {max} from '../src/math/max.ts';
 import {pick} from '../src/object/pick.ts';
 import {allUnionMembers} from '../src/ts/all-union-members.ts';
 
-const __dirname = path.resolve(import.meta.dirname, '..');
+const ROOT = path.resolve(import.meta.dirname, '..');
 
 type CountType = 'functions' | 'types' | 'constants' | 'files';
 const COUNT_TYPES = allUnionMembers<CountType, {readonly: true}>()([
@@ -62,7 +62,7 @@ const readSubpaths = (): Subpath[] =>
     }
 
     const sourceEntry = path.join(
-      __dirname,
+      ROOT,
       target.replace(DIST_PREFIX, 'src/').replace(MJS_EXTENSION_REGEX, '.ts'),
     );
     if (!fs.existsSync(sourceEntry)) {
@@ -152,7 +152,7 @@ const countCategories = (categories: Iterable<CountType>, fileCount: number) =>
 
 const analyze = (subpaths: Subpath[]) => {
   const configPath = ts.findConfigFile(
-    __dirname,
+    ROOT,
     (fileName) => ts.sys.fileExists(fileName),
     'tsconfig.json',
   );
@@ -161,7 +161,7 @@ const analyze = (subpaths: Subpath[]) => {
   }
 
   const configFile = ts.readConfigFile(configPath, (fileName) => ts.sys.readFile(fileName));
-  const parsedConfig = ts.parseJsonConfigFileContent(configFile.config, ts.sys, __dirname);
+  const parsedConfig = ts.parseJsonConfigFileContent(configFile.config, ts.sys, ROOT);
 
   const program = ts.createProgram(
     subpaths.map(({sourceEntry}) => sourceEntry),
@@ -223,7 +223,7 @@ const formatText = (
   return lines.join('\n');
 };
 
-const main = () => {
+const run = () => {
   const argv = cli({
     name: 'count-exports',
     flags: {
@@ -269,4 +269,4 @@ const main = () => {
   }
 };
 
-main();
+run();

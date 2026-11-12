@@ -1,7 +1,7 @@
 import {hasValue} from 'es-toolkit/map';
 
 /** Checks whether a `Map` has an entry with the given value */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- named after `Map.prototype.has`
 export const mapHasValue: {
   /**
    * Checks whether a `Map` has an entry with the given value.

@@ -1,4 +1,3 @@
-// cspell:ignore mkdtemp tmpdir
 import {mkdtemp, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -7,7 +6,7 @@ import {readFileSafe} from '../../src/server/read-file-safe.ts';
 let directory: string;
 let existingFile: string;
 const MISSING_FILE = 'does-not-exist.txt';
-const TEXT_CONTENTS = 'hello, utilery 👋 — multibyte';
+const TEXT_CONTENTS = 'hello, utilery 👋 - multibyte';
 
 beforeAll(async () => {
   directory = await mkdtemp(path.join(tmpdir(), 'utilery-read-file-safe-'));

@@ -21,7 +21,7 @@ export interface OmitStrictOptions {
  * type User = {id: number; name: string; email: string};
  * type A = OmitStrict<User, 'email'>;
  * //=> {id: number; name: string}
- * // @ts-expect-error: `mail` is not a key of `User`
+ * // @ts-expect-error `mail` is not a key of `User`
  * type B = OmitStrict<User, 'mail'>;
  * @example
  * type UserData = {[key: string]: string; email: string; name: string};
@@ -32,7 +32,7 @@ export interface OmitStrictOptions {
  * @example
  * type PublicUser = OmitStrict<User, 'email', {requireExactProps: true}>;
  * const user: PublicUser = {id: 1, name: 'Ada'};
- * // @ts-expect-error: `email` is removed
+ * // @ts-expect-error `email` is removed
  * const invalid: PublicUser = {id: 1, name: 'Ada', email: ''};
  */
 export type OmitStrict<

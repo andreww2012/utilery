@@ -1,7 +1,7 @@
 import {isFinite} from 'ts-extras';
 
 /**
- * Checks whether a number is finite, like `Number.isFinite`: not `NaN`, `Infinity` or `-Infinity`.
+ * Checks whether a number is finite, like `Number.isFinite`: not `NaN`, `Infinity` or `-Infinity`
  */
 export const isFiniteNumber: {
   /**

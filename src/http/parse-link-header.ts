@@ -1,4 +1,4 @@
-// cspell:ignore chstes nächstes
+// cspell:ignore chstes
 import LinkHeader from 'http-link-header';
 
 /**

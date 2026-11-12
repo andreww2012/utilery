@@ -122,7 +122,7 @@ const getClickedAnchor = (click: ReturnType<typeof mockClick>) => {
 
 const readBytes = async (blob: Blob) => new Uint8Array(await blob.arrayBuffer());
 
-// Rejects views of shared and resizable buffers, like `Blob` in browsers and unlike happy-dom's
+// Rejects views of shared and resizable buffers, like `Blob` in browsers and unlike `happy-dom`'s
 class BrowserLikeBlob extends Blob {
   constructor(parts: BlobPart[] = [], options?: BlobPropertyBag) {
     parts.forEach((part) => {
@@ -350,7 +350,7 @@ describe('browser/downloadFile', () => {
       const response = new Response(TEXT);
       await response.text();
 
-      // Browsers throw a `TypeError`, unlike happy-dom
+      // Browsers throw a `TypeError`, unlike `happy-dom`
       await expect(downloadFile(response, 'file')).rejects.toThrow();
 
       expect(click).not.toHaveBeenCalled();
@@ -370,7 +370,7 @@ describe('browser/downloadFile', () => {
         const {createObjectURL} = mockObjectUrls();
         const click = mockClick();
 
-        // @ts-expect-error -- Not supported data
+        // @ts-expect-error Not supported data
         await expect(downloadFile(data, 'file')).rejects.toThrow(new TypeError(expected));
 
         expect(createObjectURL).not.toHaveBeenCalled();

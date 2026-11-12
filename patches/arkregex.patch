@@ -171,16 +171,16 @@ index d3e1f5bc2c1ff6ce7ecb99e582bae16546a6e04e..fe4e3210ca1669fb264a64cafd17d949
  export type StartAnchorMarker = AnchorMarker<"^">;
  export type EndAnchorMarker = AnchorMarker<"$">;
 -export declare namespace s {
-+// [utilery patch] This namespace (and all `sOps.` references + its import
-+// specifiers across out/*.d.ts) was renamed from `s` to `sOps`. arkregex uses
-+// `s` as BOTH a type-only namespace AND a type-parameter name (`<s extends State>`).
-+// That dual declaration-space usage is valid TypeScript, but when tsdown's
-+// rolldown-plugin-dts bundles these declarations (it models them as "fake JS",
-+// where `s` is a single binding) it conflates the two and DROPS the namespace,
-+// emitting invalid `.d.ts`: consumers then get `TS2702: 's' only refers to a
-+// type, but is being used as a namespace here`, and inference silently breaks.
-+// attw/publint false-pass it. Renaming removes the collision. No dts backend
-+// (tsc/tsgo/oxc) avoids it; see repro `rolldown-dts-drops-shadowed-namespace`.
++// Patched by utilery: renamed from `s` to `sOps`, here and in all the files
++// that use or import this namespace.
++// The package also uses `s` as a type parameter name (`<s extends State>`).
++// TypeScript allows that, but `rolldown-plugin-dts`, which bundles our type
++// declarations, treats both as one name and drops the namespace.
++// Our `.d.ts` files are then invalid: users get "TS2702: 's' only refers to a
++// type, but is being used as a namespace here", and inference stops working.
++// `attw` and `publint` don't catch it.
++// The same happens with any declaration emitter (`tsc`, `tsgo` or `oxc`), so
++// the rename is the fix.
 +export declare namespace sOps {
      type error<message extends string> = State.from<{
          unscanned: ErrorMessage<message>;

@@ -9,7 +9,7 @@ import type {ExcludeStrict as ExcludeStrictBase} from 'type-fest';
  * type B = ExcludeStrict<{status: 'ok'; data: string} | {status: 'error'}, {status: 'ok'}>;
  * //=> {status: 'error'}
  * @example
- * // @ts-expect-error: `'xxl'` removes nothing
+ * // @ts-expect-error `'xxl'` removes nothing
  * type C = ExcludeStrict<'s' | 'm' | 'l', 'l' | 'xxl'>;
  */
 export type ExcludeStrict<

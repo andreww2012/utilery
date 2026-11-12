@@ -42,7 +42,7 @@ describe('array/arrayTakeWhile', () => {
       ]);
     });
 
-    it('treats fromRight=false the same as the default', () => {
+    it('treats a `false` direction flag the same as the default', () => {
       expect(arrayTakeWhile([1, 2, 3, 4, 5], (item) => item < 3, false)).toStrictEqual([1, 2]);
     });
 
@@ -53,7 +53,7 @@ describe('array/arrayTakeWhile', () => {
     });
   });
 
-  describe('from the end (fromRight = true)', () => {
+  describe('from the end', () => {
     it('takes elements from the end while the predicate returns true', () => {
       expect(arrayTakeWhile([1, 2, 3, 4, 5], (item) => item > 3, true)).toStrictEqual([4, 5]);
     });

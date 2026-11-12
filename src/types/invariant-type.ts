@@ -12,7 +12,7 @@ import type {InvariantOf} from 'type-fest';
  * const keysOf = (point: InvariantType<Point>) => Object.keys(point) as (keyof Point)[];
  *
  * const point3d = {x: 1, y: 2, z: 3};
- * // @ts-expect-error: a subtype is not assignable
+ * // @ts-expect-error a subtype is not assignable
  * keysOf(point3d as InvariantType<typeof point3d>);
  */
 export type InvariantType<Type> = InvariantOf<Type>;

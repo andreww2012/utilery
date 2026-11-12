@@ -8,7 +8,7 @@ import type {NonEmptyString as NonEmptyStringBase} from 'type-fest';
  * @example
  * declare function setName<T extends string>(name: NonEmptyString<T>): void;
  * setName('a');
- * // @ts-expect-error: empty
+ * // @ts-expect-error empty
  * setName('');
  */
 export type NonEmptyString<T extends string> = NonEmptyStringBase<T>;

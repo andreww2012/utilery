@@ -22,17 +22,17 @@ describe('ts/allUnionMembers', () => {
   });
 
   it('rejects a tuple missing a member', () => {
-    // @ts-expect-error 'cherry' is missing
+    // @ts-expect-error `'cherry'` is missing
     allUnionMembers<Fruit>()(['apple', 'banana']);
   });
 
   it('rejects a tuple with a duplicated member', () => {
-    // @ts-expect-error 'apple' is duplicated
+    // @ts-expect-error `'apple'` is duplicated
     allUnionMembers<Fruit>()(['apple', 'banana', 'cherry', 'apple']);
   });
 
   it('rejects a tuple containing a value outside the union', () => {
-    // @ts-expect-error 'date' is not a member of `Fruit`
+    // @ts-expect-error `'date'` is not a member of `Fruit`
     allUnionMembers<Fruit>()(['apple', 'banana', 'cherry', 'date']);
   });
 

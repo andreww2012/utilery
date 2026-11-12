@@ -10,9 +10,9 @@ import type {FixedLengthArray} from 'type-fest';
  * @example
  * const color: ArrayFixedLength<number, 3> = [255, 128, 64];
  * color[0] = 0;
- * // @ts-expect-error: there is no index 3
+ * // @ts-expect-error there is no index 3
  * color[3] = 1;
- * // @ts-expect-error: `push` does not exist
+ * // @ts-expect-error `push` does not exist
  * color.push(1);
  */
 export type ArrayFixedLength<Element, Length extends number> = FixedLengthArray<Element, Length>;

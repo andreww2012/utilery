@@ -1,4 +1,3 @@
-// cspell:ignore café crème
 import {toWords} from '../../src/string/to-words.ts';
 
 describe('string/toWords', () => {

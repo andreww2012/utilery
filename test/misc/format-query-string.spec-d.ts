@@ -17,9 +17,9 @@ describe('misc/formatQueryString', () => {
   });
 
   it('rejects values that are not primitives or arrays of them', () => {
-    // @ts-expect-error -- a nested object is not a query value
+    // @ts-expect-error a nested object is not a query value
     formatQueryString({filter: {a: 1}});
-    // @ts-expect-error -- a nested array is not a query value
+    // @ts-expect-error a nested array is not a query value
     formatQueryString({a: [[1]]});
   });
 });

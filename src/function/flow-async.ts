@@ -34,9 +34,9 @@ import {flowAsync as esFlowAsync} from 'es-toolkit/fp';
  * // 'result: 6'
  */
 export const flowAsync = (
-  functions: readonly ((...parameters: never[]) => unknown)[],
+  functions: readonly ((...arguments_: never[]) => unknown)[],
   isFromRight = false,
-): ((...parameters: never[]) => Promise<unknown>) => {
+): ((...arguments_: never[]) => Promise<unknown>) => {
   return esFlowAsync(
     ...((isFromRight ? functions.toReversed() : functions) as Parameters<typeof esFlowAsync>),
   );

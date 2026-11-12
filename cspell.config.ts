@@ -22,6 +22,8 @@ const GLOBALLY_IGNORED_WORDS: Readonly<Record<string, string[]>> = {
     'yieldable',
   ],
   misc: ['unstub'],
+  nodeApis: ['mkdtemp', 'tmpdir'],
+  testData: ['café', 'crème', 'Привет'],
   englishIshWords: [
     'arrayify',
     'combinators',

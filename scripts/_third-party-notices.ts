@@ -45,7 +45,7 @@ const collectInstalledPackages = once(() => {
       cwd,
       stopAt: ROOT,
     });
-    // Not found for optional dependencies that aren't installed, and from the root for indirect ones
+    // Missing for optional dependencies that aren't installed, and from the root for indirect ones
     if (packageJsonPath == null) {
       return;
     }

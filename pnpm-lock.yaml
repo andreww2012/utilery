@@ -471,7 +471,7 @@ overrides:
 patchedDependencies:
   '@sindresorhus/slugify': 84075e5e7a5c7aa8cbbba96e23e26f67d8a4ef43caf9b399cfe0bb1abd867b14
   '@sindresorhus/transliterate': 8846929059c83bd4b5a44bed49035cc9bf1eca9d5315a5badbbcc22468e2cd86
-  arkregex: 5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee
+  arkregex: bbdf8d79aa3bd1a8bd49ad85cf50c3dbd80f8d2b5383f8cfb647e27b22d75649
   decode-uri-component: 09bdfb22a9e5b1f8851b1f4c145594c0c640223bfaa1c9ed026f1dfc22c46366
   es-toolkit: ce4bcdc10b76a34d646da8aca1f79a325b91d0f327083f7f1932e8b1cefc4250
   http-link-header: 784581aa2db8ad2b699e8a11986767b227c5aa80ff8ee411e9cedd98d3f98098
@@ -584,7 +584,7 @@ importers:
         version: 0.3.3
       arkregex:
         specifier: catalog:bundled
-        version: 0.0.14(patch_hash=5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee)
+        version: 0.0.14(patch_hash=bbdf8d79aa3bd1a8bd49ad85cf50c3dbd80f8d2b5383f8cfb647e27b22d75649)
       cleye:
         specifier: 'catalog:'
         version: 2.7.0
@@ -8455,7 +8455,7 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  arkregex@0.0.14(patch_hash=5e1b59e40afedab6dfaad51961228e5b8e0fd350b76a7c1d032ae2b4f9a439ee):
+  arkregex@0.0.14(patch_hash=bbdf8d79aa3bd1a8bd49ad85cf50c3dbd80f8d2b5383f8cfb647e27b22d75649):
     dependencies:
       '@ark/util': 0.56.8
 

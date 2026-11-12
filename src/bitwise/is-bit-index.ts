@@ -8,7 +8,7 @@ import type {IntRange} from '../types/int-range.ts';
  * const READ: BitIndex = 0;
  * const WRITE: BitIndex = 1;
  * @example
- * // @ts-expect-error: out of range
+ * // @ts-expect-error out of range
  * const invalid: BitIndex = 32;
  */
 export type BitIndex = IntRange<0, 32>;

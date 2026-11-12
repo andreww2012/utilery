@@ -6,7 +6,7 @@ import type {SingleKeyObject as SingleKeyObjectBase} from 'type-fest';
  * @example
  * declare function setOption<T>(option: SingleKeyObject<T>): void;
  * setOption({debug: true});
- * // @ts-expect-error: two keys
+ * // @ts-expect-error two keys
  * setOption({debug: true, verbose: true});
  */
 export type SingleKeyObject<ObjectType> = SingleKeyObjectBase<ObjectType>;

@@ -9,7 +9,7 @@ import type {PrettifyObject} from '../_internal/types.ts';
  * type Contact = {email?: string; phone?: string; name: string};
  * type ReachableContact = RequireAtLeastOne<Contact, 'email' | 'phone'>;
  * const a: ReachableContact = {name: 'Ada', phone: '123'};
- * // @ts-expect-error: neither `email` nor `phone`
+ * // @ts-expect-error neither `email` nor `phone`
  * const b: ReachableContact = {name: 'Bob'};
  */
 export type RequireAtLeastOne<

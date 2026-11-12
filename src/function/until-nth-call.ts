@@ -21,8 +21,8 @@ export const untilNthCall: {
    * warn('b'); // logs 'b'
    * warn('c'); // nothing
    */
-  <F extends (...parameters: never[]) => unknown>(
+  <F extends (...arguments_: never[]) => unknown>(
     n: number,
     fn: F,
-  ): (...parameters: Parameters<F>) => ReturnType<F> | undefined;
+  ): (...arguments_: Parameters<F>) => ReturnType<F> | undefined;
 } = before;

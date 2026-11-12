@@ -21,6 +21,6 @@ void malformed;
 const widget: Element | null = document.querySelector('my-widget');
 void widget;
 
-// @ts-expect-error the selector resolves to HTMLButtonElement, not HTMLInputElement
+// @ts-expect-error the selector resolves to `HTMLButtonElement`, not `HTMLInputElement`
 const wrong: HTMLInputElement | null = document.querySelector('button#submit');
 void wrong;

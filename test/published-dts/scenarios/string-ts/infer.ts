@@ -6,7 +6,7 @@ import type {ToConstantCaseKeys} from 'utilery/types';
 const camel = toCamelCase('foo-bar');
 const camelOk: 'fooBar' = camel;
 void camelOk;
-// @ts-expect-error 'foo-bar' camel-cases to 'fooBar', not 'nope' (fails if it collapsed to `string`/`any`)
+// @ts-expect-error `'foo-bar'` camel-cases to `'fooBar'`, not `'nope'` (fails if it collapsed to `string`/`any`)
 const camelWrong: 'nope' = camel;
 void camelWrong;
 
@@ -28,6 +28,6 @@ const constantDeep = toConstantCaseKeysDeep({fooBar: {bazQux: 1}});
 const deepValue: number = constantDeep.FOO_BAR.BAZ_QUX;
 void deepValue;
 
-// Net-new type added to `utilery/types`
+// A type-only export of `utilery/types`
 const keys: ToConstantCaseKeys<{fooBar: 1}> = {FOO_BAR: 1};
 void keys;

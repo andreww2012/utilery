@@ -13,6 +13,6 @@ void item;
 const form: HTMLFormElement | null = document.body.closest('form#login');
 void form;
 
-// @ts-expect-error the selector resolves to HTMLButtonElement, not HTMLInputElement
+// @ts-expect-error the selector resolves to `HTMLButtonElement`, not `HTMLInputElement`
 const wrong: HTMLInputElement | null = document.querySelector('button#submit');
 void wrong;

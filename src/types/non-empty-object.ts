@@ -9,7 +9,7 @@ import type {PrettifyObject} from '../_internal/types.ts';
  * type User = {name: string; email: string};
  * type UserUpdate = NonEmptyObject<Partial<User>>;
  * const update: UserUpdate = {name: 'Ada'};
- * // @ts-expect-error: no properties
+ * // @ts-expect-error no properties
  * const empty: UserUpdate = {};
  */
 export type NonEmptyObject<T extends object> = PrettifyObject<NonEmptyObjectBase<T>>;

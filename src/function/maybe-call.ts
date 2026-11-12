@@ -13,7 +13,7 @@
  * const isDisabled = maybeCall(options.isDisabled, currentUser);
  */
 export type MaybeFn<Return, Params extends readonly unknown[] = []> =
-  | ((...parameters: Params) => Return)
+  | ((...arguments_: Params) => Return)
   | Return;
 
 /**
@@ -44,7 +44,7 @@ export type MaybeFn<Return, Params extends readonly unknown[] = []> =
  */
 export const maybeCall = <
   Value extends MaybeFn<unknown>,
-  Arguments extends readonly unknown[] = Value extends (...parameters: infer Params) => unknown
+  Arguments extends readonly unknown[] = Value extends (...arguments_: infer Params) => unknown
     ? Params
     : [],
 >(
@@ -53,7 +53,7 @@ export const maybeCall = <
 ) =>
   // eslint-disable-next-line ts/no-unsafe-call -- the runtime check guarantees `fnOrValue` is callable here
   (typeof fnOrValue === 'function' ? fnOrValue(...callArguments) : fnOrValue) as Value extends (
-    ...parameters: never[]
+    ...arguments_: never[]
   ) => infer Return
     ? Return
     : Value;

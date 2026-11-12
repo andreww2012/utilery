@@ -71,7 +71,7 @@ interface StringifyFunction {
    * @returns `undefined`
    */
   (
-    value: undefined | symbol | ((...parameters: unknown[]) => unknown),
+    value: undefined | symbol | ((...arguments_: unknown[]) => unknown),
     replacer?: Replacer,
     space?: string | number,
   ): undefined;

@@ -34,8 +34,8 @@ describe('types/TupleOf', () => {
 
   it('switches to an array type at the length where TypeScript fails', () => {
     expectTypeOf<[...TupleOf<5000, 0>, ...TupleOf<4999, 0>]['length']>().toEqualTypeOf<9999>();
-    // When this compiles, TypeScript allows longer tuples: update the limit in `TupleOf` and its docs
-    // @ts-expect-error: TypeScript can't represent a tuple type of 10 000 elements
+    // If this compiles, TypeScript allows longer tuples: update the limit in `TupleOf` and its docs
+    // @ts-expect-error TypeScript can't represent a tuple type of 10 000 elements
     expectTypeOf<[...TupleOf<5000, 0>, ...TupleOf<5000, 0>]>().toBeArray();
   });
 

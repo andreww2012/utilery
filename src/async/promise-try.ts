@@ -1,5 +1,5 @@
 const promiseTryFallback = async <Arguments extends unknown[], Result>(
-  fn: (...parameters: Arguments) => Result,
+  fn: (...arguments_: Arguments) => Result,
   ...callArguments: Arguments
 ): Promise<Awaited<Result>> => await fn(...callArguments);
 
@@ -21,7 +21,7 @@ const promiseTryFallback = async <Arguments extends unknown[], Result>(
  * promiseTry(onSave, document).then(showSuccess, showError);
  */
 export const promiseTry = <Arguments extends unknown[], Result>(
-  fn: (...parameters: Arguments) => Result,
+  fn: (...arguments_: Arguments) => Result,
   ...callArguments: Arguments
 ): Promise<Awaited<Result>> => {
   // Not every supported environment has it

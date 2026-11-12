@@ -12,7 +12,7 @@ import type {GreaterThan as GreaterThanBase} from 'type-fest';
  * declare function setPositive<N extends number>(
  *   value: GreaterThan<N, 0> extends true ? N : never,
  * ): void;
- * // @ts-expect-error: not positive
+ * // @ts-expect-error not positive
  * setPositive(0);
  */
 export type GreaterThan<A extends number, B extends number> = GreaterThanBase<A, B>;

@@ -1,5 +1,3 @@
-<!-- cspell:ignore lerp -->
-
 # Package: [`@antfu/utils`](https://npmx.dev/@antfu/utils)
 
 > **Legend:** ✅ added · ❌ not added (see notes) · 🚧 under consideration · ⌛ planned
@@ -9,10 +7,10 @@ Only its **non-type** (runtime) exports are audited here; the type-level utiliti
 
 | Original function         | Status | Our function group and name    | Notes                                                                                              |
 | ------------------------- | ------ | ------------------------------ | -------------------------------------------------------------------------------------------------- |
-| `assert`                  | ❌     | `misc/invariant`               | es-toolkit's `invariant` is identical                                                              |
+| `assert`                  | ❌     | `misc/invariant`               | `es-toolkit`'s `invariant` is identical                                                            |
 | `at`                      | ❌     | `array/arrayAt`                | Covered (also accepts a list of indexes)                                                           |
 | `batchInvoke`             | ❌     | *(not added)*                  | Trivial `functions.forEach((fn) => fn?.())`                                                        |
-| `capitalize`              | ❌     | `string/capitalize`            | es-toolkit equivalent (also lowercases the tail)                                                   |
+| `capitalize`              | ❌     | `string/capitalize`            | `es-toolkit` equivalent (also lowercases the tail)                                                 |
 | `clamp`                   | ❌     | `math/clamp`                   | Covered                                                                                            |
 | `clampArrayRange`         | ❌     | *(not added)*                  | Trivial `clamp(value, 0, array.length - 1)`; degenerate on empty arrays                            |
 | `clearUndefined`          | 🚧     | *(under consideration)*        | Mutating strip of `undefined`; `omit(object, (value) => value === undefined)` covers the copy case |

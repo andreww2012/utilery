@@ -39,7 +39,7 @@ interface BindLate {
     key: string,
     ...partialArguments: unknown[]
     // eslint-disable-next-line ts/no-explicit-any -- the exact upstream type: the bound function may take and return anything
-  ): (...parameters: any[]) => any;
+  ): (...arguments_: any[]) => any;
 
   /** Leaves a position in the partial arguments for an argument of the call */
   placeholder: typeof bindKey.placeholder;

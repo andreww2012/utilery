@@ -1,4 +1,3 @@
-// cspell:ignore mkdtemp tmpdir Привет
 import {chmod, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';

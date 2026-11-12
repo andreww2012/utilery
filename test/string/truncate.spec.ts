@@ -17,16 +17,16 @@ describe('string/truncate', () => {
       truncate('/home/user/projects/utilery/src/index.ts', {
         length: 20,
         position: 'start',
-        omission: '…',
+        omission: '~',
       }),
-    ).toBe('…tilery/src/index.ts'); // cspell:disable-line
+    ).toBe('~tilery/src/index.ts'); // cspell:disable-line
     expect(truncate('ABCDEF', {length: 5, position: 'start'})).toBe('...EF');
   });
 
   it('truncates the middle', () => {
     expect(
-      truncate('a-very-long-file-name.tar.gz', {length: 15, position: 'middle', omission: '…'}),
-    ).toBe('a-very-….tar.gz');
+      truncate('a-very-long-file-name.tar.gz', {length: 15, position: 'middle', omission: '~'}),
+    ).toBe('a-very-~.tar.gz');
     expect(truncate('ABCDEFGH', {length: 6, position: 'middle'})).toBe('AB...H');
   });
 
@@ -36,15 +36,15 @@ describe('string/truncate', () => {
   });
 
   it('does not split emoji', () => {
-    expect(truncate('😀😀😀😀', {length: 3, position: 'start', omission: '…'})).toBe('…😀😀');
-    expect(truncate('😀😀😀😀', {length: 3, position: 'middle', omission: '…'})).toBe('😀…😀');
+    expect(truncate('😀😀😀😀', {length: 3, position: 'start', omission: '~'})).toBe('~😀😀');
+    expect(truncate('😀😀😀😀', {length: 3, position: 'middle', omission: '~'})).toBe('😀~😀');
   });
 
   it('gives only the omission when nothing fits, even if it is longer than `length`', () => {
     expect(truncate('ABCDEF', {length: 2})).toBe('...');
     expect(truncate('ABCDEF', {length: 2, position: 'start'})).toBe('...');
     expect(truncate('ABCDEF', {length: 2, position: 'middle'})).toBe('...');
-    expect(truncate('ABCDEF', {length: 0, omission: '…'})).toBe('…');
+    expect(truncate('ABCDEF', {length: 0, omission: '~'})).toBe('~');
     expect(truncate('A', {length: 2})).toBe('A');
   });
 

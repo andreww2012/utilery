@@ -36,13 +36,13 @@ describe('browser/downloadFile', () => {
   });
 
   it('rejects other values', () => {
-    // @ts-expect-error - Not file data
+    // @ts-expect-error Not file data
     void downloadFile(1);
-    // @ts-expect-error - Not file data
+    // @ts-expect-error Not file data
     void downloadFile({});
-    // @ts-expect-error - Not file data
+    // @ts-expect-error Not file data
     void downloadFile(Promise.resolve(1));
-    // @ts-expect-error - Not a known option
+    // @ts-expect-error Not a known option
     void downloadFile('text', 'file.txt', {name: 'file.txt'});
   });
 });

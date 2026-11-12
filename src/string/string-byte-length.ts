@@ -21,8 +21,7 @@
 export const stringByteLength = (text: string): number => {
   let bytes = 0;
   for (let index = 0; index < text.length; index++) {
-    // UTF-16 code units are read on purpose, surrogate pairs are handled below
-    // eslint-disable-next-line unicorn/prefer-code-point
+    // eslint-disable-next-line unicorn/prefer-code-point -- UTF-16 code units are read on purpose, surrogate pairs are handled below
     const code = text.charCodeAt(index);
     if (code < 0x80) {
       bytes += 1;
@@ -31,7 +30,7 @@ export const stringByteLength = (text: string): number => {
     } else if (
       code >= 0xd8_00 &&
       code <= 0xdb_ff &&
-      // eslint-disable-next-line unicorn/prefer-code-point
+      // eslint-disable-next-line unicorn/prefer-code-point -- checks that the next code unit is a low surrogate
       (text.charCodeAt(index + 1) & 0xfc_00) === 0xdc_00
     ) {
       // A surrogate pair is one code point of 4 bytes

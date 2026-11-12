@@ -26,7 +26,7 @@
  * every(counts(), (value) => value > 0);
  * // true
  */
-// eslint-disable-next-line unicorn/consistent-boolean-name
+// eslint-disable-next-line unicorn/consistent-boolean-name -- named after `Array.prototype.every`
 export const every = <T>(iterable: Iterable<T>, predicate: (value: T) => boolean): boolean => {
   for (const item of iterable) {
     if (!predicate(item)) {

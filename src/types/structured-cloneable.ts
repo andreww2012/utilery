@@ -8,7 +8,7 @@ import type {StructuredCloneable as StructuredCloneableBase} from 'type-fest';
  * @example
  * const good = {count: 3, date: new Date(), map: new Map()} satisfies StructuredCloneable;
  * class Custom {}
- * // @ts-expect-error: class instances lose their class
+ * // @ts-expect-error class instances lose their class
  * const bad = {custom: new Custom()} satisfies StructuredCloneable;
  */
 export type StructuredCloneable = StructuredCloneableBase;

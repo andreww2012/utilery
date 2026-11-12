@@ -8,7 +8,7 @@ import type {MergeExclusive as MergeExclusiveBase} from 'type-fest';
  * type Source = MergeExclusive<{url: string}, {path: string}>;
  * const a: Source = {url: 'https://example.com'};
  * const b: Source = {path: './file'};
- * // @ts-expect-error: both keys
+ * // @ts-expect-error both keys
  * const c: Source = {url: 'https://example.com', path: './file'};
  */
 export type MergeExclusive<FirstType, SecondType> = MergeExclusiveBase<FirstType, SecondType>;

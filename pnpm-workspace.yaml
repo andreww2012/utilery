@@ -112,7 +112,8 @@ lockfile:
   includeResolutionSettings: true
 
 minimumReleaseAge: 960 # 16 hours in minutes
-minimumReleaseAgeStrict: false # Auto-adds too-new versions to the exclude list instead of prompting or failing
+# Auto-adds too-new versions to the exclude list instead of prompting or failing
+minimumReleaseAgeStrict: false
 minimumReleaseAgeExclude: # []
   - tsdown@0.23.7
   - '@oxfmt/binding-android-arm-eabi@0.77.0'
@@ -145,7 +146,8 @@ trustPolicyExclude: # []
 
 audit:
   ignore: # []
-    - GHSA-ch52-4w7c-c8xp # `http-cache-semantics` from `eslint-config-un` has no patched version yet
+    # `http-cache-semantics` from `eslint-config-un` has no patched version yet
+    - GHSA-ch52-4w7c-c8xp
   ignorePrune: true
 
 allowBuilds:
@@ -163,7 +165,8 @@ overrides:
   cross-spawn>which: 'catalog:bundled'
   # The `typescript7` alias pulls the real `typescript@7` that does not expose the API yet
   eslint-plugin-sonarjs>typescript: 'catalog:'
-  # GHSA-fx2h-pf6j-xcff cspell:disable-line
+  # cspell:disable-next-line
+  # GHSA-fx2h-pf6j-xcff
   nanoid@>=3 <3.3.17: 3.3.18
   postcss@>=8 <=8.5.17: 8.5.26
 

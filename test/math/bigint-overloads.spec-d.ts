@@ -12,9 +12,9 @@ describe('math bigint overloads', () => {
   });
 
   it('rejects mixed numbers and bigints', () => {
-    // @ts-expect-error -- mixed types
+    // @ts-expect-error mixed types
     clamp(1n, 2, 3n);
-    // @ts-expect-error -- mixed types
+    // @ts-expect-error mixed types
     range(1, 3n);
   });
 });

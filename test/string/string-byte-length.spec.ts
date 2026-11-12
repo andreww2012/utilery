@@ -1,4 +1,3 @@
-// cspell:ignore Привет
 import {stringByteLength} from '../../src/string/string-byte-length.ts';
 
 const encoder = new TextEncoder();

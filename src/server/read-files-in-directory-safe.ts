@@ -65,7 +65,10 @@ interface DirectoryFile<Contents> {
  *   recursive: true,
  *   extensions: ['md', 'mdx'],
  * });
- * // [{path: 'content/posts/2024/hello.md', relativePath: '2024/hello.md', contents: '# Hello'}, ...]
+ * // [
+ *   {path: 'content/posts/2024/hello.md', relativePath: '2024/hello.md', contents: '# Hello'},
+ *   ...
+ * ]
  * @example
  * // Treat a missing directory as empty
  * const fixtures = (await readFilesInDirectorySafe('fixtures')) || [];

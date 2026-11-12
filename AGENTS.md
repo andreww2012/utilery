@@ -3,13 +3,13 @@ Follow them in everything you do, even when you are only answering a question.
 
 # `utilery`
 
-`utilery` is a project aiming at providing as much utility functions as possible from a single source.
+`utilery` is a project aiming at providing as many utility functions as possible from a single source.
 It collects utilities from popular utility libraries, such as `es-toolkit`, and provides its own.
-All without zero dependencies because all external dependencies are bundled.
+All with zero dependencies, because all external dependencies are bundled.
 
 ## Instructions
 
-- The project targets modern JavaScript execution environments (Node.js 22+ and "Baseline Widely Available" web features).
+- The project targets modern JavaScript execution environments (Node.js 22+, Bun 1.4+ and "Baseline Widely Available" web features).
 - Update `README.md` to reflect the made changes after you've finished.
 - The `sideEffects` field in `package.json` tells bundlers that only `*.global.ts` modules have side effects, so they drop any other module whose exports are unused.
   Other modules, including the code of bundled packages, must not do anything on import that matters even when their exports are unused (patch globals or prototypes, add listeners, etc.)
@@ -44,7 +44,7 @@ All without zero dependencies because all external dependencies are bundled.
   ```
 
 - Always check edge cases like:
-  - Readonly array/object/Set/Map, tuples.
+  - Readonly array/object/Set/Map, tuples, unions, special TypeScript types like `any`, `unknown`, `void`, `never`.
   - Multi-byte symbols, CJK, etc. - we should aim at full Unicode support unless it's explicitly not promised.
   - Keys like `__proto__`, `constructor` and `prototype` that come from data, callbacks or paths, also in the code of bundled packages: writing them must never replace or reach a prototype.
 - Whenever you write code, re-use existing utilities AS MUCH AS POSSIBLE.
@@ -62,6 +62,7 @@ All without zero dependencies because all external dependencies are bundled.
   `Prettify` maps over the properties, so it turns `any` into `{[key: string]: any}`, `unknown` into `{}`, and a function into an object without call signatures.
   When the type can be one of them, use `PrettifyObject` from `src/_internal/types.ts`, which keeps them as they are (example: `src/types/require-at-least-one.ts`).
   Test the result with `toEqualTypeOf<{...}>()`: it fails for an intersection, while `.branded.toEqualTypeOf` doesn't.
+  Wrapping a type in `Prettify` doesn't need a changeset.
   Don't wrap:
   - Parameter types: signature hovers show the `Prettify<...>` around them, which only adds noise.
   - Type predicates (`value is ...`): narrowing must keep the original type.
@@ -89,6 +90,8 @@ All without zero dependencies because all external dependencies are bundled.
     Otherwise, don't use the native feature (like `Math.sumPrecise`, which rounds differently than `sum` and is slower).
   - Check for the native feature inside the function: bundlers keep top-level reads like `Promise.try` even when the module is unused.
   - Test both paths with `describeWithAndWithoutNative` from `test/describe-with-and-without-native.ts`.
+- Separate the reason from tool directives which doesn't require a separator, like `@ts-expect-error`, with a space only, with no `:`, `-` or any other made-up delimiter.
+- Wrap technical names in backticks in all comments and docs.
 
 ## Domain description
 

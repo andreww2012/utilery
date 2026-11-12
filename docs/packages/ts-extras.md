@@ -16,7 +16,7 @@ Mostly thin, strongly-typed re-exports.
 | [`objectUpdate`][ts-extras]      | ✅     | `object/objectUpdate` *(same)*         | Reimplemented: its signature can't be written out; copies `__proto__` like `objectAssign`        |
 | [`objectHasIn`][ts-extras]       | ✅     | `predicate/isIn`                       | Renamed; `(key, object)` order; narrows the object, unless its type already has the key          |
 | [`keyIn`][ts-extras]             | ✅     | `predicate/isKeyIn`                    | Renamed; `(key, object)` order; narrows the key to those present in the object, if it can        |
-| [`arrayAt`][ts-extras]           | ✅     | `array/arrayAt`                        | Consolidated with es-toolkit's `at` (also accepts a list of indexes)                             |
+| [`arrayAt`][ts-extras]           | ✅     | `array/arrayAt`                        | Consolidated with `es-toolkit`'s `at` (also accepts a list of indexes)                           |
 | [`arrayConcat`][ts-extras]       | ✅     | `array/arrayConcat` *(same)*           | -                                                                                                |
 | [`arrayFirst`][ts-extras]        | ✅     | `array/arrayFirst` *(same)*            | -                                                                                                |
 | [`arrayLast`][ts-extras]         | ✅     | `array/arrayLast` *(same)*             | -                                                                                                |

@@ -9,6 +9,6 @@ void badges;
 const form: HTMLFormElement | null = closestTyped(document.body, 'form#login');
 void form;
 
-// @ts-expect-error the selector resolves to HTMLButtonElement, not HTMLInputElement
+// @ts-expect-error the selector resolves to `HTMLButtonElement`, not `HTMLInputElement`
 const wrong: HTMLInputElement | null = querySelectorTyped('button#submit');
 void wrong;

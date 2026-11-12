@@ -9,7 +9,7 @@ import type {ExtractStrict as ExtractStrictBase} from 'type-fest';
  * type B = ExtractStrict<{status: 'ok'; data: string} | {status: 'error'}, {status: 'ok'}>;
  * //=> {status: 'ok'; data: string}
  * @example
- * // @ts-expect-error: `'xxl'` keeps nothing
+ * // @ts-expect-error `'xxl'` keeps nothing
  * type C = ExtractStrict<'s' | 'm' | 'l', 'l' | 'xxl'>;
  */
 export type ExtractStrict<

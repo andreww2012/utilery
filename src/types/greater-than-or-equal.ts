@@ -14,7 +14,7 @@ import type {GreaterThanOrEqual as GreaterThanOrEqualBase} from 'type-fest';
  * declare function setNonNegative<N extends number>(
  *   value: GreaterThanOrEqual<N, 0> extends true ? N : never,
  * ): void;
- * // @ts-expect-error: negative
+ * // @ts-expect-error negative
  * setNonNegative(-1);
  */
 export type GreaterThanOrEqual<A extends number, B extends number> = GreaterThanOrEqualBase<A, B>;
