@@ -21,8 +21,7 @@ import {cartesianProduct} from 'es-toolkit/iterator';
 export const iterableCartesianProduct = <T extends unknown[]>(
   ...iterables: {[K in keyof T]: Iterable<T[K]>}
 ) =>
-  // The upstream types can't infer the tuple from the iterators built here
-  cartesianProduct(...iterables.map((iterable) => iterable[Symbol.iterator]())) as IteratorObject<
-    T,
-    undefined
-  >;
+  cartesianProduct(
+    ...iterables.map((iterable) => iterable[Symbol.iterator]()),
+    // eslint-disable-next-line un/no-type-assertion -- the upstream types can't infer the tuple from the iterators built here
+  ) as IteratorObject<T, undefined>;

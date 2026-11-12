@@ -23,7 +23,10 @@ describe('object/transformKeysDeep', () => {
     (_, convert) => {
       expectOwnProtoKey(
         transformKeysDeep({a: {isAdmin: true}}, (key) =>
-          key === 'a' ? (convert('__proto__') as never) : key,
+          key === 'a'
+            ? // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
+              (convert('__proto__') as never)
+            : key,
         ),
       );
     },

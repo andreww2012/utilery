@@ -17,4 +17,5 @@ import type {WidenNonLiteral} from '../_internal/types.ts';
  * // 'xml http request'
  */
 export const toLowerCase = <S extends string>(value: S) =>
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the result against its type-level conversion
   lowerCase(value) as WidenNonLiteral<S, Lowercase<DelimiterCase<S, ' '>>>;

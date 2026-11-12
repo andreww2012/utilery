@@ -51,7 +51,7 @@ export const maybeCall = <
   fnOrValue: Value,
   ...callArguments: NoInfer<Arguments>
 ) =>
-  // eslint-disable-next-line ts/no-unsafe-call -- the runtime check guarantees `fnOrValue` is callable here
+  // eslint-disable-next-line ts/no-unsafe-call, un/no-type-assertion -- the runtime check guarantees `fnOrValue` is callable here, which TypeScript can't use to resolve the conditional return type
   (typeof fnOrValue === 'function' ? fnOrValue(...callArguments) : fnOrValue) as Value extends (
     ...arguments_: never[]
   ) => infer Return

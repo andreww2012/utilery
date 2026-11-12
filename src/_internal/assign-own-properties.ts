@@ -9,6 +9,7 @@ export const assignOwnProperties = <T extends object>(
   sources: readonly unknown[],
 ): T => {
   // Assigning keeps the semantics of `Object.assign` for setters and read-only properties
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript doesn't allow writing any key to `T`
   const writableTarget = target as Record<PropertyKey, unknown>;
   sources.forEach((source) => {
     if (source == null) {
@@ -16,6 +17,7 @@ export const assignOwnProperties = <T extends object>(
     }
     // Like `Object.assign`, also copies the properties of a primitive, like the characters of a
     // string
+    // eslint-disable-next-line un/no-type-assertion -- it's typed as `Object`, which has no index signature
     const from = new Object(source) as Readonly<Record<PropertyKey, unknown>>;
     Reflect.ownKeys(from)
       .filter((key) => Object.prototype.propertyIsEnumerable.call(from, key))

@@ -40,4 +40,7 @@ type CloneShallowCustomizer<T> = (
  * // [2, 4, 6]
  */
 export const cloneShallow = <T>(value: T, cloneValue?: CloneShallowCustomizer<T>): T =>
-  cloneValue ? (cloneWith(value, cloneValue) as T) : clone(value);
+  cloneValue
+    ? // eslint-disable-next-line un/no-type-assertion -- a customizer is meant to return a value of the same type
+      (cloneWith(value, cloneValue) as T)
+    : clone(value);

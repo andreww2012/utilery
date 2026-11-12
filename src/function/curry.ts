@@ -66,4 +66,5 @@ interface CurryFn {
 /** Converts a function into a chain of single-argument calls */
 export const curry = ((fn: (...arguments_: never[]) => unknown, isFromRight = false) => {
   return isFromRight ? esCurryRight(fn) : esCurry(fn);
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the implementation against the generic signatures
 }) as CurryFn;

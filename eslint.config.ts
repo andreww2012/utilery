@@ -58,6 +58,7 @@ export default eslintConfig({
                     }
                   },
                 },
+                // eslint-disable-next-line un/no-type-assertion -- it inherits all the properties of the context
               }) as typeof context,
             ),
         },
@@ -66,24 +67,23 @@ export default eslintConfig({
   },
   configs: {
     format: {
-      // Other files are formatted by `oxfmt` itself
       files: [],
-      configFencedCodeBlocks: true,
-      formatter: [
-        'oxfmt',
-        {
-          bracketSpacing: oxfmtConfig.bracketSpacing,
-          printWidth: oxfmtConfig.printWidth,
-          singleQuote: oxfmtConfig.singleQuote,
-        },
-      ],
+      configFencedCodeBlocks: {
+        formatter: [
+          'oxfmt',
+          {
+            bracketSpacing: oxfmtConfig.bracketSpacing,
+            printWidth: oxfmtConfig.printWidth,
+            singleQuote: oxfmtConfig.singleQuote,
+          },
+        ],
+      },
     },
     import: {
       extraneousDependenciesCheck: (defaultIgnorePatterns) => ({
         checkDevDependencies: {
           ignorePatterns: [...defaultIgnorePatterns, 'test/setup.ts'],
         },
-        // Bundled, so they don't have to be in `dependencies`
         whitelist: bundledPackages,
       }),
       requireModuleExtensions: true,
@@ -93,11 +93,9 @@ export default eslintConfig({
     },
     nodeDependencies: {
       overrides: {
-        // The deep check walks the whole dependency tree when no dependency declares one of our
-        // engines (almost none declare `engines.bun`), which takes more than 20 minutes
         'node-dependencies/compat-engines': (severity, options) => ({
           severity,
-          options: [{...options?.[0], deep: false}],
+          options: [{...options?.[0], devDependencies: false}],
         }),
       },
     },
@@ -143,7 +141,9 @@ export default eslintConfig({
     },
     un: {
       overrides: {
+        'un/no-type-assertion': [2, {allowWidening: true}],
         'un/prefer-array-for-each': 2,
+        'un/prefer-logical-or': 2,
       },
     },
     unicorn: {
@@ -163,10 +163,8 @@ export default eslintConfig({
           options: [{...options?.[0], allowedFunctionCalls: ['describeWithAndWithoutNative']}],
         }),
       },
+      vitestGlobalsImporting: 'disallow',
     },
-
-    // False positives:
-    zod: false,
   },
   extraConfigs: [
     {
@@ -174,6 +172,13 @@ export default eslintConfig({
       files: ['docs/packages/*.md'],
       rules: {
         'markdown-preferences/no-heading-trailing-punctuation': 'off',
+      },
+    },
+    {
+      // Type tests don't run, so a cast there only makes up a value of the type under test
+      files: ['test/**/*.spec-d.ts'],
+      rules: {
+        'un/no-type-assertion': 'off',
       },
     },
     {

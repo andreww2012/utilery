@@ -38,9 +38,6 @@ export interface DownloadFileOptions {
   picker?: boolean;
 }
 
-// Not in the DOM types, as only Chromium-based browsers have it
-type ShowSaveFilePicker = (options: {suggestedName: string}) => Promise<FileSystemFileHandle>;
-
 const DEFAULT_FILE_NAME_PREFIX = 'untitled_';
 const DEFAULT_TEXT_TYPE = 'text/plain;charset=utf-8';
 const DEFAULT_BINARY_TYPE = 'application/octet-stream';
@@ -176,6 +173,9 @@ export const downloadFile = async (
   fileName?: string,
   options: DownloadFileOptions = {},
 ): Promise<boolean> => {
+  // Not in the DOM types, as only Chromium-based browsers have it
+  type ShowSaveFilePicker = (options: {suggestedName: string}) => Promise<FileSystemFileHandle>;
+
   const pickerGlobal: typeof globalThis & {showSaveFilePicker?: ShowSaveFilePicker} = globalThis;
   if (options.picker && pickerGlobal.showSaveFilePicker) {
     // Before the dialog empties the file the user chooses

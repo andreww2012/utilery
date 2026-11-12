@@ -71,4 +71,6 @@ export const isKeyIn: {
 } = <Key extends PropertyKey, ObjectType extends object>(
   key: Key,
   object: ObjectType,
-): key is KeyInObject<Key, ObjectType> => keyIn(object as Record<PropertyKey, unknown>, key);
+): key is KeyInObject<Key, ObjectType> =>
+  // eslint-disable-next-line un/no-type-assertion -- the upstream function only accepts records, but works with any object
+  keyIn(object as Record<PropertyKey, unknown>, key);

@@ -88,10 +88,12 @@ export function arrayIntersection<T>(
   }
 
   if (fn.length === 2) {
+    // eslint-disable-next-line un/no-type-assertion -- TypeScript can't narrow `fn` by its `length`
     return intersectionWith(firstArray, secondArray, fn as (x: T, y: unknown) => boolean);
   }
 
   // Not `intersectionBy`, which keeps only the first element of each key
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't narrow `fn` by its `length`
   const mapper = fn as (value: unknown) => unknown;
   const secondKeys = new Set(secondArray.map((item) => mapper(item)));
   return firstArray.filter((item) => secondKeys.has(mapper(item)));

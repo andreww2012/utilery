@@ -12,6 +12,7 @@ describe('object/objectUpdate', () => {
 
   it('copies a __proto__ key as an own property instead of replacing the prototype', () => {
     const target = {a: 0};
+    // eslint-disable-next-line un/no-type-assertion -- the parsed JSON has this shape
     objectUpdate(target, parseUntrusted() as {a: number});
 
     expectOwnProtoKey(target);

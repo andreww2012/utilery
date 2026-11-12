@@ -89,5 +89,6 @@ interface FlowAsyncFn {
 /** Composes a list of sync or async functions into a single function that returns a promise */
 export const flowAsync = ((functions: readonly AnyFunction[], isFromRight = false) =>
   esFlowAsync(
+    // eslint-disable-next-line un/no-type-assertion -- the upstream overloads don't accept an array of any length
     ...((isFromRight ? functions.toReversed() : functions) as Parameters<typeof esFlowAsync>),
   )) as FlowAsyncFn;

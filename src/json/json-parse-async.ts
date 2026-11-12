@@ -37,6 +37,7 @@ export const jsonParseAsync = (
   intensity = 1,
 ): Promise<unknown> =>
   new Promise((resolve, reject) => {
+    // eslint-disable-next-line un/no-type-assertion -- replaces the wrong upstream types
     const parse = yieldableJson.parseAsync as unknown as ParseAsync;
     const callback = (error: Error | null, result: unknown) => {
       if (error) {

@@ -1,16 +1,6 @@
 // Not a named import: plain Node can't find all the named exports of this CommonJS package
 import yieldableJson from 'yieldable-json';
 
-// `@types/yieldable-json` types the replacer key as `number` (it is `string`, as in native
-// `JSON.stringify`). Cast to a clean local signature so callers see correct types
-type StringifyAsync = (
-  value: object,
-  replacer: ((key: string, value: unknown) => unknown) | (number | string)[] | null,
-  space: number | string,
-  intensity: number,
-  callback: (error: Error | null, result: string) => void,
-) => void;
-
 /**
  * Asynchronous, non-blocking `JSON.stringify`: serializes `value` while
  * periodically yielding to the event loop, so large payloads don't starve it.
@@ -37,6 +27,17 @@ export const jsonStringifyAsync = (
   intensity = 1,
 ): Promise<string> =>
   new Promise<string>((resolve, reject) => {
+    // `@types/yieldable-json` types the replacer key as `number` (it is `string`, as in native
+    // `JSON.stringify`). Cast to a clean local signature so callers see correct types
+    type StringifyAsync = (
+      value: object,
+      replacer: ((key: string, value: unknown) => unknown) | (number | string)[] | null,
+      space: number | string,
+      intensity: number,
+      callback: (error: Error | null, result: string) => void,
+    ) => void;
+
+    // eslint-disable-next-line un/no-type-assertion -- replaces the wrong upstream types
     (yieldableJson.stringifyAsync as unknown as StringifyAsync)(
       value,
       replacer,

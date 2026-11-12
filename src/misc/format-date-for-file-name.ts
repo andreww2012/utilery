@@ -34,16 +34,6 @@ export interface FormatDateForFileNameOptions {
   dateTimeSeparator?: string;
 }
 
-type DateParts = [
-  year: number,
-  month: number,
-  day: number,
-  hours: number,
-  minutes: number,
-  seconds: number,
-  milliseconds: number,
-];
-
 const TIME_PART_COUNTS: Readonly<
   Record<NonNullable<FormatDateForFileNameOptions['precision']>, number>
 > = {day: 0, hour: 1, minute: 2, second: 3, millisecond: 4};
@@ -115,6 +105,15 @@ export function formatDateForFileName(
   dateOrOptions: Date | number | FormatDateForFileNameOptions = {},
   options: FormatDateForFileNameOptions = {},
 ): string {
+  type DateParts = [
+    year: number,
+    month: number,
+    day: number,
+    hours: number,
+    minutes: number,
+    seconds: number,
+    milliseconds: number,
+  ];
   const isDateGiven = dateOrOptions instanceof Date || typeof dateOrOptions === 'number';
   const {
     precision = 'second',

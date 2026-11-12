@@ -247,6 +247,7 @@ const run = () => {
     process.exit(1);
   }
 
+  // eslint-disable-next-line valibot/no-unchecked-safe-parse -- false positive: https://github.com/nimaebra/eslint-plugin-valibot/issues/44
   const flags = parsedFlags.output;
   const requested = flags.type;
   const {overall, perSubpath} = analyze(readSubpaths());

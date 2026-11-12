@@ -25,7 +25,6 @@ import type {ArrayReverse} from 'type-fest';
  * arrayReverse([1, 'a', true] as const);
  * // [true, 'a', 1]
  */
-// Cast to `type-fest`'s `ArrayReverse` (an external named type): `remeda`'s own
-// reverse type is mangled by the dts bundler, while a named import survives
 export const arrayReverse = <T extends readonly unknown[]>(array: T) =>
+  // eslint-disable-next-line un/no-type-assertion -- the dts bundler mangles the own reverse type of `remeda`, while a named import of the `type-fest` one survives
   reverse(array) as ArrayReverse<T>;

@@ -36,9 +36,10 @@ export function clamp(
   bound1: number | bigint,
   bound2?: number | bigint,
 ): number | bigint {
-  // The overloads guarantee every argument has the type of `value`, and both
-  // implementations treat a nullish last bound as missing
+  /* eslint-disable un/no-type-assertion -- the overloads guarantee every argument has the
+  type of `value`, and both implementations treat a nullish last bound as missing */
   return typeof value === 'bigint'
     ? clampBigint(value, bound1 as bigint, bound2 as bigint)
     : clampNumber(value, bound1 as number, bound2 as number);
+  /* eslint-enable un/no-type-assertion */
 }

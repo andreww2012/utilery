@@ -110,4 +110,5 @@ export const allUnionMembers =
   <const Candidate extends readonly unknown[]>(
     members: ValidationErrors<Union, Candidate> & Candidate,
   ) =>
+    // eslint-disable-next-line un/no-type-assertion -- only `readonly` differs, which doesn't exist at runtime
     members as Options['readonly'] extends true ? Candidate : Writable<Candidate>;

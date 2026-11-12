@@ -1,8 +1,7 @@
 import {allUnionMembers} from '../../src/ts/all-union-members.ts';
 
-type Fruit = 'apple' | 'banana' | 'cherry';
-
 describe('ts/allUnionMembers', () => {
+  type Fruit = 'apple' | 'banana' | 'cherry';
   it('accepts a tuple that lists every member exactly once', () => {
     expectTypeOf(allUnionMembers<Fruit>()(['apple', 'banana', 'cherry'])).toEqualTypeOf<
       ['apple', 'banana', 'cherry']

@@ -27,6 +27,7 @@ const capitalizeFirstCodePoint = (text: string) => {
  * // 'École primaire'
  */
 export const toSentenceCase = <S extends string>(value: S) =>
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the result against its type-level conversion
   capitalizeFirstCodePoint(sentenceCase(value)) as WidenNonLiteral<
     S,
     Capitalize<Lowercase<DelimiterCase<S, ' '>>>

@@ -24,6 +24,7 @@ describe('object/toCamelCaseKeys', () => {
   });
 
   it('copies inherited enumerable keys too', () => {
+    // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
     const object = Object.create({foo_bar: 1}) as Record<string, number>;
 
     expect(toCamelCaseKeys(object)).toStrictEqual({fooBar: 1});

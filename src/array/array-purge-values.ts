@@ -70,6 +70,7 @@ export function arrayPurgeValues<T>(
   }
 
   if (fn.length === 2) {
+    // eslint-disable-next-line un/no-type-assertion -- TypeScript can't narrow `fn` by its `length`
     pullAllWith(array, values, fn as (a: T, b: unknown) => boolean);
   } else {
     pullAllBy(array, values, fn);

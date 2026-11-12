@@ -96,7 +96,9 @@ export function arraySymmetricDifference<T>(
     return result;
   }
 
+  /* eslint-disable un/no-type-assertion -- TypeScript can't narrow `fn` by its `length` */
   return fn.length === 2
     ? xorWith(firstArray, secondArray, fn as (x: T, y: T) => boolean)
     : xorBy(firstArray, secondArray, fn as (value: T) => unknown);
+  /* eslint-enable un/no-type-assertion */
 }

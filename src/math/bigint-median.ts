@@ -33,5 +33,8 @@ import {median, medianBy} from 'es-toolkit/bigint';
 export function bigintMedian<T>(items: Iterable<T>, getValue: (element: T) => bigint): bigint;
 export function bigintMedian(items: Iterable<bigint>): bigint;
 export function bigintMedian<T>(items: Iterable<T>, getValue?: (element: T) => bigint): bigint {
-  return getValue ? medianBy([...items], getValue) : median([...items] as bigint[]);
+  return getValue
+    ? medianBy([...items], getValue)
+    : // eslint-disable-next-line un/no-type-assertion -- the overloads only allow leaving out `getValue` for bigints
+      median([...items] as bigint[]);
 }

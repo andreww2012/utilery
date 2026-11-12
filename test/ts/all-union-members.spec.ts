@@ -1,8 +1,8 @@
 import {allUnionMembers} from '../../src/ts/all-union-members.ts';
 
-type Fruit = 'apple' | 'banana' | 'cherry';
-
 describe('ts/allUnionMembers', () => {
+  type Fruit = 'apple' | 'banana' | 'cherry';
+
   it('returns the given tuple unchanged', () => {
     const fruits = ['apple', 'banana', 'cherry'] as const;
 

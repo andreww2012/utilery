@@ -26,6 +26,7 @@ export const arrayShuffle = <T>(
   const result = [...array];
   for (let index = result.length - 1; index > 0; index--) {
     const otherIndex = Math.floor(random() * (index + 1));
+    // eslint-disable-next-line un/no-type-assertion -- both indexes are always in bounds
     [result[index], result[otherIndex]] = [result[otherIndex] as T, result[index] as T];
   }
 

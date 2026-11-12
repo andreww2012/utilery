@@ -60,6 +60,7 @@ interface PartialFn {
 /** Creates a function with some leading or trailing arguments pre-applied */
 export const partial: PartialFn = Object.assign(
   ((fn: never, presetArguments: readonly unknown[], isFromRight = false) =>
+    // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the implementation against the generic signature
     callPartial(fn, presetArguments, isFromRight)) as PartialFn,
   {placeholder: esPartial.placeholder},
 );

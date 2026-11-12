@@ -18,4 +18,5 @@ import type {WidenNonLiteral} from '../_internal/types.ts';
  * // '👍ba'
  */
 export const stringReverse = <S extends string>(value: S) =>
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the result against its type-level conversion
   reverseString(value) as WidenNonLiteral<S, Reverse<S>>;

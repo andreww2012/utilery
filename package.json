@@ -157,6 +157,7 @@
     "eslint-plugin-remeda": "catalog:",
     "eslint-plugin-sentences-per-line": "catalog:",
     "eslint-plugin-sonarjs": "catalog:",
+    "eslint-plugin-valibot": "catalog:",
     "find-up-simple": "catalog:bundled",
     "happy-dom": "catalog:",
     "htmlescape": "catalog:bundled",

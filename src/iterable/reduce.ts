@@ -58,6 +58,7 @@ export function reduce<T, A>(
   const hasInitial = arguments.length >= 3;
 
   if (hasInitial) {
+    // eslint-disable-next-line un/no-type-assertion -- `initialValue` is given, which TypeScript can't tell by `arguments.length`
     accumulator = initialValue as A;
   } else {
     const first = iterator.next();
@@ -66,6 +67,7 @@ export function reduce<T, A>(
       throw new TypeError('Reduce of empty iterable with no initial value.');
     }
 
+    // eslint-disable-next-line un/no-type-assertion -- without an initial value, the overloads require the accumulator to have the type of the values
     accumulator = first.value as unknown as A;
   }
 

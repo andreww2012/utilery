@@ -1,7 +1,5 @@
 import {isPlainObject} from '../../src/predicate/is-plain-object.ts';
 
-type NotPlainObject = Date | Map<string, number> | string[];
-
 describe('predicate/isPlainObject', () => {
   it('narrows a value to `Record<PropertyKey, unknown>`, but only when it returns `true`', () => {
     const value: unknown = {};
@@ -23,6 +21,7 @@ describe('predicate/isPlainObject', () => {
   });
 
   it('keeps objects that are not plain in the `false` branch', () => {
+    type NotPlainObject = Date | Map<string, number> | string[];
     const value = new Date() as NotPlainObject;
 
     if (isPlainObject(value)) {

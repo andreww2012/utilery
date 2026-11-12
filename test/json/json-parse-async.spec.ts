@@ -32,6 +32,7 @@ describe('json/jsonParseAsync', () => {
   it('parses a __proto__ key as an own property, like JSON.parse', async () => {
     expectOwnProtoKey(await jsonParseAsync(PROTO_KEY_JSON));
     expectOwnProtoKey(
+      // eslint-disable-next-line un/no-type-assertion -- the parsed JSON has this shape
       ((await jsonParseAsync('{"a": {"__proto__": {"isAdmin": true}}}')) as {a: unknown}).a,
     );
     expectOwnProtoKey(await jsonParseAsync(PROTO_KEY_JSON, (key, value: unknown) => value));

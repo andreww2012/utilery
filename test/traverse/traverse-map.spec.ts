@@ -1,4 +1,5 @@
 import {traverseMap} from '../../src/traverse/traverse-map.ts';
+import {parseUntrusted} from '../own-proto-key.ts';
 
 describe('traverse/traverseMap', () => {
   it('returns a transformed copy without mutating the input', () => {
@@ -15,10 +16,7 @@ describe('traverse/traverseMap', () => {
   });
 
   it('keeps a hostile prototype off the mapped result', () => {
-    const evil = JSON.parse('{"user":"bob","__proto__":{"isAdmin":true}}') as Record<
-      string,
-      unknown
-    >;
+    const evil = parseUntrusted('{"user":"bob","__proto__":{"isAdmin":true}}');
     const result = traverseMap(evil, () => undefined);
 
     expect(result.isAdmin).toBeUndefined();

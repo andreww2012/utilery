@@ -87,6 +87,7 @@ describe('object/omit', () => {
     it('shares the other values when removing a key containing a dot', () => {
       const input = {
         'a.b': 1,
+        // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
         c: {d: Object.assign(Object.create(null) as Record<string, unknown>, {e: 1})},
       };
       const result = omit(input, ['a.b', 'c.d.e']);
@@ -97,6 +98,7 @@ describe('object/omit', () => {
     });
 
     it('keeps the prototype of a copied object', () => {
+      // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
       const dictionary = Object.assign(Object.create(null) as Record<string, unknown>, {
         a: 1,
         b: 2,
@@ -108,6 +110,7 @@ describe('object/omit', () => {
     });
 
     it('keeps an own __proto__ key from replacing the prototype of a copy', () => {
+      // eslint-disable-next-line un/no-type-assertion -- the parsed JSON has this shape
       const input = JSON.parse('{"user": {"__proto__": {"isAdmin": true}, "password": "x"}}') as {
         user: Record<string, unknown>;
       };

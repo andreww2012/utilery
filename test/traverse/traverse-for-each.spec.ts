@@ -1,4 +1,5 @@
 import {traverseForEach} from '../../src/traverse/traverse-for-each.ts';
+import {parseUntrusted} from '../own-proto-key.ts';
 
 describe('traverse/traverseForEach', () => {
   it('visits every node and exposes path/isLeaf on the context', () => {
@@ -28,10 +29,7 @@ describe('traverse/traverseForEach', () => {
   });
 
   it('does not pollute Object.prototype when walking hostile input', () => {
-    const evil = JSON.parse('{"user":"bob","__proto__":{"isAdmin":true}}') as Record<
-      string,
-      unknown
-    >;
+    const evil = parseUntrusted('{"user":"bob","__proto__":{"isAdmin":true}}');
     traverseForEach(evil, () => undefined);
 
     expect(({} as Record<string, unknown>).isAdmin).toBeUndefined();

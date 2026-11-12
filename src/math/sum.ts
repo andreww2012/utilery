@@ -45,7 +45,10 @@ export function sum<T>(
   let index = 0;
 
   for (const element of items) {
-    total += getValue ? getValue(element, index) : (element as number);
+    total += getValue
+      ? getValue(element, index)
+      : // eslint-disable-next-line un/no-type-assertion -- the overloads only allow leaving out `getValue` for numbers
+        (element as number);
     index += 1;
   }
 

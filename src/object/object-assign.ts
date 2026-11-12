@@ -40,5 +40,5 @@ export const objectAssign: {
     ...sources: Sources
   ): ReturnType<typeof objectAssignBase<Target, Sources>>;
 } = (target: object, ...sources: readonly unknown[]) =>
-  // The runtime can't prove the merged type, just like for `Object.assign`
+  // eslint-disable-next-line un/no-type-assertion -- the runtime can't prove the merged type, just like for `Object.assign`
   assignOwnProperties(target, sources) as never;

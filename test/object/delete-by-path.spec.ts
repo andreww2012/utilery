@@ -63,6 +63,7 @@ describe('object/deleteByPath', () => {
         [convert('__proto__'), 'testMarker'],
         ['model', convert('prototype'), 'testMarker'],
       ].forEach((path) => {
+        // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
         expect(deleteByPath({model: Model}, path as never)).toBe(false);
       });
 
@@ -91,6 +92,7 @@ describe('object/deleteByPath', () => {
   it.each(KEY_CONVERSIONS)('goes through own keys given as %s', (_, convert) => {
     const object = {constructor: {a: 1}};
 
+    // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
     expect(deleteByPath(object, [convert('constructor'), 'a'] as never)).toBe(true);
     expect(object.constructor).toStrictEqual({});
   });

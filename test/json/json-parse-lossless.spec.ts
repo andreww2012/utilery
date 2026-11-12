@@ -3,6 +3,7 @@ import {jsonParseLossless} from '../../src/json/json-parse-lossless.ts';
 
 describe('json/jsonParseLossless', () => {
   it('basic test', () => {
+    // eslint-disable-next-line un/no-type-assertion -- the parsed JSON has this shape
     const parsed = jsonParseLossless('{"big": 12345678901234567890}') as {big: NumberLossless};
 
     expect(parsed.big).toBeInstanceOf(NumberLossless);

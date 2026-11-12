@@ -12,6 +12,7 @@ describe('object/hasPath', () => {
     });
 
     it('returns false for inherited properties', () => {
+      // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
       const object = Object.create({inheritedKey: 1}) as object;
 
       expect(hasPath(object, 'inheritedKey')).toBe(false);
@@ -20,6 +21,7 @@ describe('object/hasPath', () => {
 
   describe('with {inherited: true}', () => {
     it('also finds inherited properties', () => {
+      // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
       const object = Object.create({inheritedKey: 1}) as object;
 
       expect(hasPath(object, 'inheritedKey', {inherited: true})).toBe(true);

@@ -24,6 +24,7 @@ describe('object/toSnakeCaseKeys', () => {
   });
 
   it('copies inherited enumerable keys too', () => {
+    // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
     const object = Object.create({fooBar: 1}) as Record<string, number>;
 
     expect(toSnakeCaseKeys(object)).toStrictEqual({foo_bar: 1});

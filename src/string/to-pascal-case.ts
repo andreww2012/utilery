@@ -16,4 +16,5 @@ import type {WidenNonLiteral} from '../_internal/types.ts';
  * // 'XmlHttpRequest'
  */
 export const toPascalCase = <S extends string>(value: S) =>
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the result against its type-level conversion
   pascalCase(value) as WidenNonLiteral<S, PascalCase<S>>;

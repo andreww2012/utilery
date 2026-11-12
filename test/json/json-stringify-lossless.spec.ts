@@ -3,7 +3,11 @@ import {jsonStringifyLossless} from '../../src/json/json-stringify-lossless.ts';
 // Writes a `Map` as the number that the number stringifier returns for it
 const stringifyMapAs = (output: unknown) =>
   jsonStringifyLossless({price: new Map()}, null, undefined, [
-    {test: (value) => value instanceof Map, stringify: () => output as string},
+    {
+      test: (value) => value instanceof Map,
+      // eslint-disable-next-line un/no-type-assertion -- tests results of other types too
+      stringify: () => output as string,
+    },
   ]);
 
 describe('json/jsonStringifyLossless', () => {

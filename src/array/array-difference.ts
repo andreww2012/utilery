@@ -84,7 +84,9 @@ export function arrayDifference<T>(
     return firstArray.filter((item) => !secondSet.has(item));
   }
 
+  /* eslint-disable un/no-type-assertion -- TypeScript can't narrow `fn` by its `length` */
   return fn.length === 2
     ? differenceWith(firstArray, secondArray, fn as (x: T, y: unknown) => boolean)
     : differenceBy(firstArray, secondArray, fn as (value: unknown) => unknown);
+  /* eslint-enable un/no-type-assertion */
 }

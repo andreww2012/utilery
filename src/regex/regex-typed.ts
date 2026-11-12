@@ -19,7 +19,7 @@ export type RegexTyped<
   Context extends RegexContext = RegexContext,
 > = Regex<Pattern, Context>;
 
-/* eslint-disable ts/naming-convention, ts/no-namespace, ts/no-redeclare, import/export -- value+namespace declaration merge attaching `arkregex`'s lowercase type-level helpers to `regexTyped` */
+/* eslint-disable ts/naming-convention, ts/no-namespace, ts/no-redeclare -- value+namespace declaration merge attaching `arkregex`'s lowercase type-level helpers to `regexTyped` */
 
 /**
  * A typed drop-in for `new RegExp()`.
@@ -79,4 +79,4 @@ export declare namespace regexTyped {
     Flags
   >;
 }
-/* eslint-enable ts/naming-convention, ts/no-namespace, ts/no-redeclare, import/export */
+/* eslint-enable ts/naming-convention, ts/no-namespace, ts/no-redeclare */

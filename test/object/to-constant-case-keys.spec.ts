@@ -24,6 +24,7 @@ describe('object/toConstantCaseKeys', () => {
   });
 
   it('copies inherited enumerable keys too', () => {
+    // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
     const object = Object.create({fooBar: 1}) as Record<string, number>;
 
     expect(toConstantCaseKeys(object)).toStrictEqual({FOO_BAR: 1});

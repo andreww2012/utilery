@@ -38,9 +38,10 @@ export function range(
   end?: number | bigint,
   step?: number | bigint,
 ): number[] | bigint[] {
-  // The overloads guarantee every argument has the type of `start`, and both
-  // implementations treat nullish optional arguments as missing
+  /* eslint-disable un/no-type-assertion -- the overloads guarantee every argument has the
+  type of `start`, and both implementations treat nullish optional arguments as missing */
   return typeof start === 'bigint'
     ? rangeBigint(start, end as bigint, step as bigint)
     : rangeNumber(start, end as number, step as number);
+  /* eslint-enable un/no-type-assertion */
 }

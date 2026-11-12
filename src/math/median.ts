@@ -40,7 +40,10 @@
 export function median<T>(items: Iterable<T>, getValue: (element: T) => number): number;
 export function median(items: Iterable<number>): number;
 export function median<T>(items: Iterable<T>, getValue?: (element: T) => number): number {
-  const values = getValue ? Array.from(items, getValue) : ([...items] as number[]);
+  const values = getValue
+    ? Array.from(items, getValue)
+    : // eslint-disable-next-line un/no-type-assertion -- the overloads only allow leaving out `getValue` for numbers
+      ([...items] as number[]);
 
   if (values.length === 0) {
     return Number.NaN;

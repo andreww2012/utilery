@@ -7,6 +7,7 @@ import {structuredStringify} from '../../src/json/structured-stringify.ts';
 describe('json/structuredParse', () => {
   it('basic test', () => {
     const original = new Map<string, number>([['a', 1]]);
+    // eslint-disable-next-line un/no-type-assertion -- the revived value has this shape
     const revived = structuredParse(structuredStringify(original)) as Map<string, number>;
 
     expect(revived).toBeInstanceOf(Map);
@@ -18,6 +19,7 @@ describe('json/structuredParse', () => {
       `{"type":"data","payload":${structuredStringify(new Set([1]))}}`,
     );
 
+    // eslint-disable-next-line un/no-type-assertion -- the parsed JSON has this shape
     expect(structuredParse((message as {payload: unknown}).payload)).toStrictEqual(new Set([1]));
   });
 

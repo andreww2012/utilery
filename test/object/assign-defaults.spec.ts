@@ -49,6 +49,7 @@ describe('object/assignDefaults', () => {
     expect(error.message).toBe('x');
     expect(error.code).toBe(1);
 
+    // eslint-disable-next-line un/no-type-assertion -- `Object.create` returns `any`
     const dictionary = Object.assign(Object.create(null) as Record<string, unknown>, {a: 1});
     const target = {dictionary, cause: new TypeError('y')};
     const result = assignDefaults(target, {b: 2}, {copy: true});

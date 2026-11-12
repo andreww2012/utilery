@@ -39,7 +39,10 @@ export function bigintSum<T>(
   let index = 0;
 
   for (const element of items) {
-    total += getValue ? getValue(element, index) : (element as bigint);
+    total += getValue
+      ? getValue(element, index)
+      : // eslint-disable-next-line un/no-type-assertion -- the overloads only allow leaving out `getValue` for bigints
+        (element as bigint);
     index += 1;
   }
 

@@ -2,7 +2,7 @@ import {findLastKey} from 'es-toolkit/compat';
 import {findKey} from 'es-toolkit/object';
 import type {ObjectKeys} from 'es-toolkit/types';
 
-// The package types the keys as any string, but it takes them from `Object.keys` like `findKey`
+// eslint-disable-next-line un/no-type-assertion -- the package types the keys as any string, but it takes them from `Object.keys` like `findKey`
 const findLastObjectKey = findLastKey as typeof findKey;
 
 /**

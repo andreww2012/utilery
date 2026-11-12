@@ -16,6 +16,7 @@ describe('object/setByPathImmutable', () => {
 
   it('defines a __proto__ segment of an array as an own property instead of replacing the prototype', () => {
     expectOwnProtoKey(
+      // eslint-disable-next-line un/no-type-assertion -- the types reject this path, but untrusted data can still have it
       setByPathImmutable([{}] as unknown[], ['__proto__'] as never, {isAdmin: true} as never),
       {isAdmin: true},
       Array.prototype,
@@ -28,8 +29,11 @@ describe('object/setByPathImmutable', () => {
       expectOwnProtoKey(
         setByPathImmutable(
           [{}] as unknown[],
+          /* eslint-disable un/no-type-assertion -- the types reject this path, but untrusted data
+          can still have it */
           [convert('__proto__')] as never,
           {isAdmin: true} as never,
+          /* eslint-enable un/no-type-assertion */
         ),
         {isAdmin: true},
         Array.prototype,

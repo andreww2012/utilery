@@ -16,4 +16,5 @@ import type {WidenNonLiteral} from '../_internal/types.ts';
  * // 'XML_HTTP_REQUEST'
  */
 export const toConstantCase = <S extends string>(value: S) =>
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the result against its type-level conversion
   constantCase(value) as WidenNonLiteral<S, ConstantCase<S>>;

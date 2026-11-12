@@ -20,7 +20,13 @@ describe('object/objectFromKeys', () => {
   it.each(KEY_CONVERSIONS)(
     'defines a __proto__ key given as %s as an own property',
     (_, convert) => {
-      expectOwnProtoKey(objectFromKeys([convert('__proto__') as never], () => ({isAdmin: true})));
+      expectOwnProtoKey(
+        objectFromKeys(
+          // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
+          [convert('__proto__') as never],
+          () => ({isAdmin: true}),
+        ),
+      );
     },
   );
 });

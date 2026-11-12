@@ -3,6 +3,7 @@ export const PROTO_KEY_JSON = '{"__proto__": {"isAdmin": true}, "a": 1}';
 
 /** Parses `json` into an object that can have an own `__proto__` key, like untrusted input */
 export const parseUntrusted = (json = PROTO_KEY_JSON) =>
+  // eslint-disable-next-line un/no-type-assertion -- the tests only parse objects
   JSON.parse(json) as Record<string, unknown>;
 
 /** The value of `__proto__` in {@link PROTO_KEY_JSON} */
@@ -28,6 +29,7 @@ export const expectOwnProtoKey = (
   prototype: unknown = Object.prototype,
 ) => {
   expect(Object.getPrototypeOf(value)).toBe(prototype);
+  // eslint-disable-next-line un/no-type-assertion -- only reads a property, which works for any object
   expect((value as Record<string, unknown>).isAdmin).toBeUndefined();
   expect(Object.getOwnPropertyDescriptor(value, '__proto__')?.value).toStrictEqual(ownValue);
 };

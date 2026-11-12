@@ -28,6 +28,6 @@ type GetValue<T> = (element: T, index: number, array: readonly T[]) => number | 
 export function maxBy<T>(items: readonly [T, ...T[]], getValue: GetValue<T>): T;
 export function maxBy<T>(items: readonly T[], getValue: GetValue<T>): T | undefined;
 export function maxBy<T>(items: readonly T[], getValue: GetValue<T>): T | undefined {
-  // Relational comparison works the same for bigints, even mixed with numbers
+  // eslint-disable-next-line un/no-type-assertion -- relational comparison works the same for bigints, even mixed with numbers
   return esMaxBy(items, getValue as (element: T, index: number, array: readonly T[]) => number);
 }

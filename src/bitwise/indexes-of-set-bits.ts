@@ -28,7 +28,7 @@ export const indexesOfSetBits = (value: number): BitIndex[] => {
 
   // Each step clears the lowest set bit, so the loop only visits the set ones
   for (let remaining = toInt32(value); remaining; remaining &= remaining - 1) {
-    // The lowest set bit of a non-zero 32-bit integer is always at 0-31
+    // eslint-disable-next-line un/no-type-assertion -- the lowest set bit of a non-zero 32-bit integer is always at 0-31
     indexes.push(ctz32(remaining) as BitIndex);
   }
 

@@ -62,7 +62,7 @@ export function arraySample<T>(
     number | undefined,
     {withReplacement?: boolean; random?: () => number} | undefined,
   ] = typeof sizeOrOptions === 'number' ? [sizeOrOptions, options] : [undefined, sizeOrOptions];
-  // `undefined` for an empty array, which the type of the single-element overload leaves out
+  // eslint-disable-next-line un/no-type-assertion -- `undefined` for an empty array, which the type of the single-element overload leaves out
   const pickOne = () => array[Math.floor(random() * array.length)] as T;
 
   if (size == null) {
@@ -84,6 +84,7 @@ export function arraySample<T>(
     const randomIndex = Math.floor(random() * (step + 1));
     const index = selectedIndexes.has(randomIndex) ? step : randomIndex;
     selectedIndexes.add(index);
+    // eslint-disable-next-line un/no-type-assertion -- the index is always in bounds
     return array[index] as T;
   });
 }

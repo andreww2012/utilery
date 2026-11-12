@@ -42,6 +42,7 @@ describe('array/topologicalSort', () => {
       expect.objectContaining({
         name: 'CyclicDependencyError',
         cycle: ['self', 'self'],
+        // eslint-disable-next-line un/no-type-assertion -- `toThrow` accepts asymmetric matchers, which its types leave out
       }) as Error,
     );
   });

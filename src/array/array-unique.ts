@@ -63,7 +63,9 @@ export function arrayUnique<T>(
     return [...new Set(array)];
   }
 
+  /* eslint-disable un/no-type-assertion -- TypeScript can't narrow `fn` by its `length` */
   return fn.length === 2
     ? uniqWith(array, fn as (a: T, b: T) => boolean)
     : uniqBy(array, fn as (value: T) => unknown);
+  /* eslint-enable un/no-type-assertion */
 }

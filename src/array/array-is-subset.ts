@@ -77,17 +77,22 @@ export function arrayIsSubset<T>(
   fn?: ((value: unknown) => unknown) | ((x: T, y: unknown) => boolean),
 ): boolean {
   if (!fn) {
-    const supersetSet = new Set(superset);
-    return subset.every((item) => supersetSet.has(item as T));
+    const supersetSet = new Set<unknown>(superset);
+    return subset.every((item) => supersetSet.has(item));
   }
 
   if (fn.length === 2) {
+    // eslint-disable-next-line un/no-type-assertion -- TypeScript can't narrow `fn` by its `length`
     const areItemsEqual = fn as (x: T, y: unknown) => boolean;
-    return isSubsetWith(superset, subset as readonly T[], (subsetItem, supersetItem) =>
-      areItemsEqual(supersetItem, subsetItem),
+    return isSubsetWith(
+      superset,
+      // eslint-disable-next-line un/no-type-assertion -- the upstream types need both arrays to have the same item type, but the comparator accepts any subset item
+      subset as readonly T[],
+      (subsetItem, supersetItem) => areItemsEqual(supersetItem, subsetItem),
     );
   }
 
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't narrow `fn` by its `length`
   const mapper = fn as (value: unknown) => unknown;
   const mappedSuperset = new Set(superset.map((item) => mapper(item)));
   return subset.every((item) => mappedSuperset.has(mapper(item)));

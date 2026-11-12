@@ -22,5 +22,7 @@ import {zip} from 'es-toolkit/iterator';
 export const iterableTranspose = <T extends unknown[] | []>(iterables: {
   readonly [K in keyof T]: Iterable<T[K]>;
 }) =>
-  // The upstream types can't infer the tuple from the iterators built here
-  zip(...iterables.map((iterable) => iterable[Symbol.iterator]())) as IteratorObject<T, undefined>;
+  zip(
+    ...iterables.map((iterable) => iterable[Symbol.iterator]()),
+    // eslint-disable-next-line un/no-type-assertion -- the upstream types can't infer the tuple from the iterators built here
+  ) as IteratorObject<T, undefined>;

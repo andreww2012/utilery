@@ -14,7 +14,13 @@ describe('object/mapKeys', () => {
   it.each(KEY_CONVERSIONS)(
     'defines a __proto__ key given as %s as an own property',
     (_, convert) => {
-      expectOwnProtoKey(mapKeys({a: {isAdmin: true}}, () => convert('__proto__') as never));
+      expectOwnProtoKey(
+        mapKeys(
+          {a: {isAdmin: true}},
+          // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
+          () => convert('__proto__') as never,
+        ),
+      );
     },
   );
 });

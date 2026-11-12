@@ -17,4 +17,5 @@ import type {WidenNonLiteral} from '../_internal/types.ts';
  * // 'XML HTTP REQUEST'
  */
 export const toUpperCase = <S extends string>(value: S) =>
+  // eslint-disable-next-line un/no-type-assertion -- TypeScript can't check the result against its type-level conversion
   upperCase(value) as WidenNonLiteral<S, Uppercase<DelimiterCase<S, ' '>>>;

@@ -29,7 +29,11 @@ describe('object/swapObjectKeysValues', () => {
     'defines a __proto__ key given as %s as an own property',
     (_, convert) => {
       expectOwnProtoKey(
-        swapObjectKeysValues({a: convert('__proto__')}, (value) => value as never),
+        swapObjectKeysValues(
+          {a: convert('__proto__')},
+          // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
+          (value) => value as never,
+        ),
         ['a'],
       );
     },

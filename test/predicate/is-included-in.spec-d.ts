@@ -1,8 +1,7 @@
 import {isIncludedIn} from '../../src/predicate/is-included-in.ts';
 
-type Animal = 'cat' | 'dog' | 'mouse';
-
 describe('predicate/isIncludedIn', () => {
+  type Animal = 'cat' | 'dog' | 'mouse';
   it('narrows both branches for a tuple of literals', () => {
     const value = 'cat' as Animal;
 

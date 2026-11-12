@@ -44,8 +44,7 @@ export const mapGetOrInsertComputed = <K, V>(
   }
 
   if (map.has(key)) {
-    // `V` may itself include `undefined`, so `has` is the only sound presence check, and `get`
-    // cannot be narrowed by it
+    // eslint-disable-next-line un/no-type-assertion -- `V` may itself include `undefined`, so `has` is the only sound presence check, and `get` cannot be narrowed by it
     return map.get(key) as V;
   }
 

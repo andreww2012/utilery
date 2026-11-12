@@ -36,7 +36,10 @@ export function mean<T>(items: Iterable<T>, getValue?: (element: T) => number): 
   let count = 0;
 
   for (const element of items) {
-    total += getValue ? getValue(element) : (element as number);
+    total += getValue
+      ? getValue(element)
+      : // eslint-disable-next-line un/no-type-assertion -- the overloads only allow leaving out `getValue` for numbers
+        (element as number);
     count += 1;
   }
 

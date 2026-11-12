@@ -25,6 +25,7 @@ describe('async/sleepAbortable', () => {
       .spyOn(globalThis, 'setTimeout')
       .mockImplementationOnce((callback: () => void) => {
         queueMicrotask(callback);
+        // eslint-disable-next-line un/no-type-assertion -- a fake with only the method that the code uses
         return {unref} as unknown as NodeJS.Timeout;
       });
 

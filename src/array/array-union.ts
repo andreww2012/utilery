@@ -73,7 +73,9 @@ export function arrayUnion<T>(
     return [...new Set([...firstArray, ...secondArray])];
   }
 
+  /* eslint-disable un/no-type-assertion -- TypeScript can't narrow `fn` by its `length` */
   return fn.length === 2
     ? unionWith(firstArray, secondArray, fn as (x: T, y: T) => boolean)
     : unionBy(firstArray, secondArray, fn as (value: T) => unknown);
+  /* eslint-enable un/no-type-assertion */
 }

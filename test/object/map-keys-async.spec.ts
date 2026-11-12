@@ -18,6 +18,7 @@ describe('object/mapKeysAsync', () => {
     async (_, convert) => {
       expectOwnProtoKey(
         await mapKeysAsync({a: {isAdmin: true}}, () =>
+          // eslint-disable-next-line un/no-type-assertion -- the types reject keys like this, but untrusted data can still have them
           Promise.resolve(convert('__proto__') as never),
         ),
       );

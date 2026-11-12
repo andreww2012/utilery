@@ -80,5 +80,6 @@ export function assignDefaults(
   const {deep, copy} = options || {};
   const result = copy ? cloneDeep(target) : target;
 
+  // eslint-disable-next-line un/no-type-assertion -- the upstream functions return `any` here
   return (deep ? defaultsDeep(result, ...sources) : defaults(result, ...sources)) as object;
 }
