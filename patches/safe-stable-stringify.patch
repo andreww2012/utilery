@@ -17,7 +17,7 @@ Also treats the other options set to `undefined` like missing ones, instead of t
 callers often pass an option that may be `undefined`.
 
 diff --git a/esm/wrapper.mjs b/esm/wrapper.mjs
-index 40fb6916f96277278eaef7536d15d6f9e2e6b64a..5cc05a207e66e96d32590790f4376554d1a4aca6 100644
+index 5119e00518e012e393459e190cc2619935613355..5cc05a207e66e96d32590790f4376554d1a4aca6 100644
 --- a/esm/wrapper.mjs
 +++ b/esm/wrapper.mjs
 @@ -1,9 +1,5 @@
@@ -28,7 +28,7 @@ index 40fb6916f96277278eaef7536d15d6f9e2e6b64a..5cc05a207e66e96d32590790f4376554
 -  globalThis
 -)
 -
--export const stringify = sharedGlobal[Symbol.for('safe-stable-stringify@3.0.0')]
+-export const stringify = sharedGlobal[Symbol.for('safe-stable-stringify@3.0.1')]
 +export { stringify }
  export const configure = stringify.configure
  export default stringify
@@ -52,10 +52,10 @@ index 955403b1cbb75dc14d59bab16f591137469d59b2..be52f64d5897b68cb9a54e0ef0ec6981
 -export = stringify
 +export default stringify
 diff --git a/index.js b/index.js
-index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74ec9bd070 100644
+index 17d9c2333ef0343f95dc649d0cf9552f83d75d38..bba1437e8e3fa68f624febd56fc1b12d4fac7dfc 100644
 --- a/index.js
 +++ b/index.js
-@@ -138,7 +138,7 @@ function getCircularValueOption (options) {
+@@ -140,7 +140,7 @@ function getCircularValueOption (options) {
  
  function getDeterministicOption (options) {
    let value
@@ -64,7 +64,7 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74
      value = options.deterministic
      if (typeof value !== 'boolean' && typeof value !== 'function') {
        throw new TypeError('The "deterministic" argument must be of type boolean or comparator function')
-@@ -149,7 +149,7 @@ function getDeterministicOption (options) {
+@@ -151,7 +151,7 @@ function getDeterministicOption (options) {
  
  function getBigIntOption (options) {
    let value
@@ -73,7 +73,7 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74
      value = options.bigint
      if (typeof value === 'string') {
        if (value !== 'string') {
-@@ -164,7 +164,7 @@ function getBigIntOption (options) {
+@@ -166,7 +166,7 @@ function getBigIntOption (options) {
  
  function getBooleanOption (options, key, defaultValue) {
    let value
@@ -82,7 +82,7 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74
      value = options[key]
      if (typeof value !== 'boolean') {
        throw new TypeError(`The "${key}" argument must be of type boolean`)
-@@ -175,7 +175,7 @@ function getBooleanOption (options, key, defaultValue) {
+@@ -177,7 +177,7 @@ function getBooleanOption (options, key, defaultValue) {
  
  function getPositiveIntegerOption (options, key) {
    let value
@@ -91,7 +91,7 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74
      value = options[key]
      if (typeof value !== 'number') {
        throw new TypeError(`The "${key}" argument must be of type number`)
-@@ -208,7 +208,7 @@ function getUniqueReplacerSet (replacerArray) {
+@@ -210,7 +210,7 @@ function getUniqueReplacerSet (replacerArray) {
  }
  
  function getStrictOption (options) {
@@ -100,14 +100,14 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74
      const value = options.strict
      if (typeof value !== 'boolean') {
        throw new TypeError('The "strict" argument must be of type boolean')
-@@ -734,23 +734,12 @@ function configure (options) {
+@@ -737,23 +737,12 @@ function configure (options) {
    return stringify
  }
  
 -const sharedGlobal = /** @type {Record<symbol, typeof import('./index.js').default | undefined>} */ (
 -  globalThis
 -)
--const exportSymbol = Symbol.for('safe-stable-stringify@3.0.0')
+-const exportSymbol = Symbol.for('safe-stable-stringify@3.0.1')
 +const stringify = configure()
 +// @ts-expect-error
 +stringify.configure = configure
@@ -133,7 +133,7 @@ index f33f4828efd50b6bca1ff5c806f0a3fc10be33ca..717428b8a90be04f205f5a3ff4688a74
 -}
 +module.exports = stringify
 diff --git a/wrapper.cjs b/wrapper.cjs
-index 4145fa51619e4e7f9f3e21270db5ec5819fca15d..d066735bfedbf49064b0f03b8699e5524643ac3d 100644
+index 8cdace50ce944a8976f7c75e2fc1dae19d88e82d..d066735bfedbf49064b0f03b8699e5524643ac3d 100644
 --- a/wrapper.cjs
 +++ b/wrapper.cjs
 @@ -1,9 +1,3 @@
@@ -145,5 +145,5 @@ index 4145fa51619e4e7f9f3e21270db5ec5819fca15d..d066735bfedbf49064b0f03b8699e552
 -  globalThis
 -)
 -
--module.exports = sharedGlobal[Symbol.for('safe-stable-stringify@3.0.0')]
+-module.exports = sharedGlobal[Symbol.for('safe-stable-stringify@3.0.1')]
 +module.exports = require('./index.js')

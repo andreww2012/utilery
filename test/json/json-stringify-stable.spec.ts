@@ -61,4 +61,40 @@ describe('json/jsonStringifyStable', () => {
 
     expect(stringify({b: 1n, a: [1, 2]})).toBe('{"a":[1,2],"b":1}');
   });
+
+  it('leaves out the elements of a bigint typed array when `bigint` is `false`', () => {
+    const stringify = jsonStringifyStable.configure({bigint: false});
+
+    expect(stringify({ids: new BigInt64Array([1n, 2n]), count: 2})).toBe('{"count":2,"ids":{}}');
+    expect(stringify(new BigUint64Array([1n]), null, 2)).toBe('{}');
+    expect(jsonStringifyStable({ids: new BigInt64Array([1n, 2n])})).toBe('{"ids":{"0":1,"1":2}}');
+  });
+
+  it('throws for a bigint typed array with `strict`, unless `bigint` is set', () => {
+    const ids = new BigInt64Array([1n, 2n]);
+
+    expect(() => jsonStringifyStable.configure({strict: true})(ids)).toThrow(Error);
+    expect(jsonStringifyStable.configure({strict: true, bigint: true})(ids)).toBe('{"0":1,"1":2}');
+  });
+
+  it('writes the error message per element of a typed array with `strict` and `safe`', () => {
+    const stringify = jsonStringifyStable.configure({strict: true, safe: true});
+
+    expect(stringify(new Float64Array([1, Number.NaN]))).toMatch(
+      /^\{"0":1,"1":"Error: .+NaN.+"\}$/,
+    );
+    expect(stringify(new BigInt64Array([1n]))).toMatch(/^\{"0":"Error: .+bigint.+"\}$/);
+  });
+
+  it('escapes the error message of a throwing getter with `safe`', () => {
+    const value = {
+      get name(): string {
+        throw new Error('a "quoted" word');
+      },
+    };
+
+    expect(JSON.parse(jsonStringifyStable.configure({safe: true})(value))).toContain(
+      'a "quoted" word',
+    );
+  });
 });

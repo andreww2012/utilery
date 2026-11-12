@@ -3264,7 +3264,9 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 	function stringifyTypedArray(array, separator, maximumBreadth, bigint, fail, type) {
 		if (array.length < maximumBreadth) maximumBreadth = array.length;
 		const whitespace = separator === "," ? "" : " ";
-		if (type[0] === "F") {
+		const bigintDisabled = bigint === false && type[0] === "B";
+		if (type[0] === "F" || bigintDisabled) {
+			if (bigintDisabled && fail === void 0) return "";
 			let value = array[0];
 			let res = `"0":${whitespace}${Number.isFinite(value) ? value : fail ? fail(value) : "null"}`;
 			for (let i = 1; i < maximumBreadth; i++) {
@@ -3374,7 +3376,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 				return method(...input);
 			} catch (error) {
 				if (name !== void 0) return getErrorMessage(error, name);
-				return `"${getErrorMessage(error, name)}"`;
+				return strEscape(getErrorMessage(error, name));
 			}
 		};
 		Object.defineProperty(safeMethod, "name", { value: `safe_${method.name}` });
@@ -3394,6 +3396,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 		const maximumDepth = getPositiveIntegerOption(options, "maximumDepth");
 		const maximumBreadth = getPositiveIntegerOption(options, "maximumBreadth");
 		const safe = getBooleanOption(options, "safe", false);
+		const failTypedArray = safe && fail ? makeSafe(fail) : fail;
 		let stringifyFnReplacer = function(key, parent, stack, replacer, spacer, indentation) {
 			let value = parent[key];
 			if (typeof value === "object" && value !== null && typeof value.toJSON === "function") value = safe ? callSafe(value.toJSON, value, key) : value.toJSON(key);
@@ -3576,10 +3579,10 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 			let maximumPropertiesToStringify = Math.min(keyLength, maximumBreadth);
 			const typedArrayType = getTypedArrayType(value);
 			if (typedArrayType !== void 0) {
-				res += stringifyTypedArray(value, join, maximumBreadth, bigint, fail, typedArrayType);
+				res += stringifyTypedArray(value, join, maximumBreadth, bigint, failTypedArray, typedArrayType);
 				keys = keys.slice(value.length);
 				maximumPropertiesToStringify -= value.length;
-				separator = join;
+				separator = res === "" ? "" : join;
 			}
 			if (deterministic) keys = sort(keys, comparator);
 			stack.push(value);
@@ -3654,10 +3657,10 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 			let maximumPropertiesToStringify = Math.min(keyLength, maximumBreadth);
 			const typedArrayType = hasLength ? getTypedArrayType(value) : void 0;
 			if (typedArrayType !== void 0) {
-				res += stringifyTypedArray(value, ",", maximumBreadth, bigint, fail, typedArrayType);
+				res += stringifyTypedArray(value, ",", maximumBreadth, bigint, failTypedArray, typedArrayType);
 				keys = keys.slice(value.length);
 				maximumPropertiesToStringify -= value.length;
-				separator = ",";
+				separator = res === "" ? "" : ",";
 			}
 			if (deterministic) keys = sort(keys, comparator);
 			stack.push(value);
