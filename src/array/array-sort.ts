@@ -11,6 +11,9 @@ import {type ReorderedArray, sort} from 'remeda';
  * The length is the one thing native `array.toSorted()` cannot preserve at the
  * type level, and the reason this util exists.
  * Unlike `Array.prototype.sort`, it does not mutate the input.
+ * Unlike `Array.prototype.toSorted`, it keeps the empty slots of a sparse array
+ * (they go to the end), and returns an instance of the same class for an
+ * instance of an `Array` subclass.
  * For key-based ordering use `sortBy`; for ordering rules without a full sort
  * see `arrayFirstBy` and friends.
  * @param array - The array (or tuple) to sort.

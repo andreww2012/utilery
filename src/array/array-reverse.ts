@@ -13,6 +13,9 @@ import type {ArrayReverse} from 'type-fest';
  * express (it widens `[1, 'a', true]` to `(1 | 'a' | true)[]`) and the reason this
  * util exists.
  * Unlike `Array.prototype.reverse`, it does not mutate the input.
+ * Unlike `Array.prototype.toReversed`, it keeps the empty slots of a sparse
+ * array, and returns an instance of the same class for an instance of an
+ * `Array` subclass.
  * @param array - The array (or tuple) to reverse.
  * Not mutated.
  * @returns A new reversed array, tuple-preserving when the input is a tuple.

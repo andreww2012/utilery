@@ -17,6 +17,13 @@ describe('array/arrayDropFirstBy', () => {
     ).toStrictEqual([1, 1, 3]);
   });
 
+  it('keeps `null` and `undefined` elements that are not among the dropped ones', () => {
+    const result = arrayDropFirstBy([null, undefined, 5, 1, 7], 2, (value) => value ?? 10);
+
+    expect(result).toHaveLength(3);
+    expect(new Set(result)).toStrictEqual(new Set([null, undefined, 7]));
+  });
+
   it('does not mutate the input', () => {
     const source = [3, 1, 2];
     arrayDropFirstBy(source, 2, (value) => value);
