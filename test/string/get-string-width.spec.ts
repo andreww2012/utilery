@@ -39,6 +39,16 @@ describe('string/getStringWidth', () => {
     );
   });
 
+  it('ignores whole escape codes that have intermediate bytes or content', () => {
+    // Cursor style, application program command
+    expect(getStringWidth('a\u{1B}[2 qb')).toBe(2);
+    expect(getStringWidth('a\u{1B}_Gf=100;AAAA\u{1B}\\b')).toBe(2);
+  });
+
+  it('counts the text after an escape code that ends with a digit', () => {
+    expect(getStringWidth('a\u{1B}7b\u{1B}8c')).toBe(3);
+  });
+
   it('counts ambiguous characters as narrow by default', () => {
     expect(getStringWidth('±')).toBe(1);
     expect(getStringWidth('±', {ambiguousIsNarrow: false})).toBe(2);

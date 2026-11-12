@@ -228,7 +228,7 @@
     "@sindresorhus/transliterate": "3.0.0",
     "@thi.ng/binary": "3.6.17",
     "@tusbar/cache-control": "3.0.1",
-    "ansi-regex": "6.4.0",
+    "ansi-regex": "6.6.0",
     "ansi-styles": "6.2.3",
     "any-ascii": "0.3.3",
     "arkregex": "0.0.14",

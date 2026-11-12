@@ -8267,8 +8267,13 @@ function alignValue(value, precedingText) {
 }
 
 // vendor/ansi-regex/index.mjs
+const ST = String.raw`(?:\u001B\u005C|\u009C)`;
+const stringControls = String.raw`\u0018\u001A\u001B\u0080-\u009F`;
+const osc = String.raw`(?:\u001B\]|\u009D)[^\u0007${stringControls}]*(?:\u0007|${ST})`;
+const controlString = String.raw`(?:\u001B[PX^_k]|[\u0090\u0098\u009E\u009F])[^${stringControls}]*${ST}`;
+const pattern = `${String.raw`\u001B\](?:P[\dA-Fa-f]{7}|R)(?:\u0007|${ST})?`}|${osc}|${controlString}|${String.raw`(?:\u001B\[|\u009B)[\u0030-\u003F]*[\u0020-\u002F]*[\u0040-\u007E]`}|${String.raw`\u001B(?:[\u0020-\u002F]+[\u0030-\u007E]|[\dA-PR-TZcf-oq-uy=><~|}])`}`;
 function ansiRegex({ onlyFirst = false } = {}) {
-	return new RegExp(`(?:(?:\\u001B\\]|\\u009D)[^\\u0007\\u001B\\u009C\\u009D]*(?:\\u0007|\\u001B\\u005C|\\u009C))|[\\u001B\\u009B][[\\]()#;?]*(?:\\d{1,4}(?:[;:]\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]`, onlyFirst ? void 0 : "g");
+	return new RegExp(pattern, onlyFirst ? void 0 : "g");
 }
 
 // vendor/strip-ansi/index.mjs

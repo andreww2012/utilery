@@ -19,6 +19,11 @@ describe('string/wrapText', () => {
     expect(wrapText('a b\nc d', 3)).toBe('a b\nc d');
   });
 
+  it('gives no width to an escape code that has intermediate bytes', () => {
+    // Cursor style
+    expect(wrapText('ab\u{1B}[2 q cd', 5)).toBe('ab\u{1B}[2 q cd');
+  });
+
   it('keeps ANSI styles on every line', () => {
     const wrapped = wrapText('\u{1B}[31mred text here\u{1B}[39m', 8); // cspell:disable-line
 
