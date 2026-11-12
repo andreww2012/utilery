@@ -281,8 +281,8 @@ catalogs:
       specifier: 6.1.0
       version: 6.1.0
     string-ts:
-      specifier: 2.3.1
-      version: 2.3.1
+      specifier: 2.4.0
+      version: 2.4.0
     string-width:
       specifier: 9.0.0
       version: 9.0.0
@@ -485,7 +485,7 @@ patchedDependencies:
   remeda: 8c4a80d28c4e6f0aa5d5233dc34b655b589f3033db0e7caff30d15fcfe816332
   safe-stable-stringify: c1fb8932848afe2a733970600e31d498f1daf7d19118dbaf3a9ce5f29bab72ba
   signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
-  string-ts: 6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44
+  string-ts: 45e1a5d8e16e40e5d43d1408d493a0aee728e2001c3f7ca297c59d01dfdc5ffe
   string-width@9: e2f4e6a22ae7948faea1d3939b4e8fc27fd3eac809f317302925fbffaa24bb55
   which@7: a18f50f03352600d10899bdb75963058532c97c9e113cade922f764eb6f370a5
   wrap-ansi@10: b1421053c5dea49c01447e8aafb06132512f9ba3d70b6fa39a93acb97530ba8d
@@ -735,7 +735,7 @@ importers:
         version: 6.1.0
       string-ts:
         specifier: catalog:bundled
-        version: 2.3.1(patch_hash=6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44)
+        version: 2.4.0(patch_hash=45e1a5d8e16e40e5d43d1408d493a0aee728e2001c3f7ca297c59d01dfdc5ffe)
       string-width:
         specifier: catalog:bundled
         version: 9.0.0(patch_hash=e2f4e6a22ae7948faea1d3939b4e8fc27fd3eac809f317302925fbffaa24bb55)
@@ -5776,8 +5776,8 @@ packages:
   std-env@4.3.0:
     resolution: {integrity: sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag==}
 
-  string-ts@2.3.1:
-    resolution: {integrity: sha512-xSJq+BS52SaFFAVxuStmx6n5aYZU571uYUnUrPXkPFCfdHyZMMlbP2v2Wx5sNBnAVzq/2+0+mcBLBa3Xa5ubYw==}
+  string-ts@2.4.0:
+    resolution: {integrity: sha512-JOrTlmqL2wGvXZI+4RLzSAAqvhQL3rXOmSCLoacd9MC5hIj20xoa7CfYBEApBDncf+hhvbGi6atCy7LyweWRKQ==}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -11298,7 +11298,7 @@ snapshots:
 
   std-env@4.3.0: {}
 
-  string-ts@2.3.1(patch_hash=6c32072506f943f5ff08933d007ce8907b6d46a4a734d985a08599ac97519a44): {}
+  string-ts@2.4.0(patch_hash=45e1a5d8e16e40e5d43d1408d493a0aee728e2001c3f7ca297c59d01dfdc5ffe): {}
 
   string-width@4.2.3:
     dependencies:

@@ -4,7 +4,7 @@ parsed with `JSON.parse` can have, replaces the prototype of the result instead 
 property. Both now define such a key as an own property, after converting the key like a property
 access does, so a key that only converts to `__proto__`, like `["__proto__"]`, is caught too.
 `replaceKeys` and our `transformKeysDeep` are affected, while the case conversions can't return
-`__proto__`. The latest release (2.3.1) still has this bug.
+`__proto__`. The latest release (2.4.0) still has this bug.
 
 diff --git a/dist/index.js b/dist/index.js
 index 6ea19206f72ad00d4288578d6c47cf1609f71d29..cd5804e3f62f53c7498394230f1ad69347040609 100644

@@ -29,6 +29,9 @@ The pure `String.prototype` wrappers re-export `string-ts` directly (their runti
 | `startsWith`                        | ❌     | `string/startsWith`              | Replaced by a type guard that narrows the string                                                                 |
 | `endsWith`                          | ❌     | `string/endsWith`                | Replaced by a type guard that narrows the string                                                                 |
 | `includes`                          | ✅     | `string/stringIncludes`          | Renamed typed `String#includes`                                                                                  |
+| `startsWithGuard`                   | ❌     | `string/startsWith`              | Covered by ours, which also narrows a `string` and keeps the right type when the check fails                     |
+| `endsWithGuard`                     | ❌     | `string/endsWith`                | Covered by ours, see above                                                                                       |
+| `includesGuard`                     | ❌     | *(not added)*                    | Narrows wrongly for strings that are not literals: a `string` becomes `never` when the check fails               |
 | `length`                            | ✅     | `string/stringLength`            | Renamed typed `.length`                                                                                          |
 | `padStart`                          | ✅     | `string/padStart`                | Typed `String#padStart`                                                                                          |
 | `padEnd`                            | ✅     | `string/padEnd`                  | Typed `String#padEnd`                                                                                            |
@@ -58,7 +61,7 @@ The pure `String.prototype` wrappers re-export `string-ts` directly (their runti
 | `replaceKeys`                       | ✅     | `object/replaceKeys`             | Shallow substring replacement on keys                                                                            |
 | `deepTransformKeys`                 | ✅     | `object/transformKeysDeep`       | Renamed; deep `(key) => key` mapper                                                                              |
 
-> **Note:** Our bundled copy is [patched](../../patches/string-ts.patch) for a bug that its latest release (2.3.1) still has.
+> **Note:** Our bundled copy is [patched](../../patches/string-ts.patch) for a bug that its latest release (2.4.0) still has.
 > Without the patch, `replaceKeys` and `deepTransformKeys` replace the prototype of the result with the value of a key that is or becomes `__proto__`, instead of adding the key.
 
 **Types.** Each utility above already returns the precise type, so `string-ts`'s types are consumed implicitly: they are not re-exported as standalone types.
@@ -67,6 +70,6 @@ Exceptions and rationale:
 - **Net-new, added to `utilery/types`**: `ToConstantCaseKeys`, `ToConstantCaseKeysDeep` (renamed from `ConstantKeys` / `DeepConstantKeys`), completing the `To*CaseKeys` family, which `type-fest` provides for every case except constant.
 - **Already provided by `type-fest`** under `utilery/types`: the case types (`CamelCase` → `ToCamelCase`, etc.), `Words` → `ToWords`, `Trim`, `Replace`, `Split` → `StringSplit`, `Join` → `ArrayJoin`, `Slice` → `StringSlice`, `Repeat` → `StringRepeat`, and the `*Keys` / `Deep*Keys` families → `To*CaseKeys` / `To*CaseKeysDeep`.
 - **Not re-exported** (the runtime utility already returns the precise type, and these aren't useful enough at the pure type level to warrant a standalone export, and `type-fest` ships none of them either): `CharAt`, `Concat`, `StartsWith`, `EndsWith`, `Includes`, `Length`, `PadStart`, `PadEnd`, `ReplaceAll`, `Reverse`, `TrimStart`, `TrimEnd`, `ReplaceKeys`.
-- **Not added**: `TitleCase` (the `toTitleCase` utility already yields the precise type), `Truncate` (utility not added), and the low-level char-class helpers `Digit(s)`, `Letter(s)`, `LowerLetter(s)`, `UpperLetter(s)`, `Separator(s)`, `IsDigit`, `IsLetter`, `IsLower`, `IsUpper`, `IsSeparator`, `IsSpecial` (`type-fest` already ships `LowercaseLetter` / `UppercaseLetter` / `DigitCharacter` and `IsLowercase` / `IsUppercase` for the common cases).
+- **Not added**: `TitleCase` (the `toTitleCase` utility already yields the precise type), `Truncate` (utility not added), `WhenStartsWith`, `WhenEndsWith`, `WhenIncludes` (the result types of the guards that are not added), and the low-level char-class helpers `Digit(s)`, `Letter(s)`, `LowerLetter(s)`, `UpperLetter(s)`, `Separator(s)`, `IsDigit`, `IsLetter`, `IsLower`, `IsUpper`, `IsSeparator`, `IsSpecial` (`type-fest` already ships `LowercaseLetter` / `UppercaseLetter` / `DigitCharacter` and `IsLowercase` / `IsUppercase` for the common cases).
 
 [string-ts]: https://github.com/gustavoguichard/string-ts

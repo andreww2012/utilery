@@ -2,12 +2,13 @@ import {type Repeat, repeat} from 'string-ts';
 
 /**
  * Repeats a string, like `String.prototype.repeat`, but the result type is the repeated literal
- * when the string and the count are literals
+ * when the string and the count are literals and the count is 45 or less
  */
 export const stringRepeat: {
   /**
    * Repeats a string, like `String.prototype.repeat`, but the result type is the
    * repeated literal when the string and the count are literals.
+   * For a count above 45, the result type is `string`.
    * @param text - The string to repeat.
    * @param count - How many times to repeat it.
    * Defaults to `0`.

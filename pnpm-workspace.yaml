@@ -42,7 +42,7 @@ catalogs:
     remeda: 2.59.0
     safe-stable-stringify: 3.0.0
     split-string: 6.1.0
-    string-ts: 2.3.1
+    string-ts: 2.4.0
     string-width: 9.0.0
     strip-ansi: 7.2.0
     toposort: 2.0.2
