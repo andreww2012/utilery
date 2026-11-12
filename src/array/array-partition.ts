@@ -32,6 +32,10 @@ type ArrayPredicate<T> = (value: T, index: number, array: readonly T[]) => boole
  * const [strings, rest] = arrayPartition(mixed, (value) => typeof value === 'string');
  * // strings: string[], rest: number[]
  * @example
+ * // Elements that already have the narrowed type keep it in both arrays
+ * const [validDates, invalidDates] = arrayPartition(dates, isValidDate);
+ * // validDates: Date[], invalidDates: Date[]
+ * @example
  * // Multiple predicates: n-way partition, first match wins, trailing group is unmatched
  * arrayPartition([1, 2, 3, 4, 5, 6], (value) => value % 2 === 0, (value) => value % 3 === 0);
  * // [[2, 4, 6], [3], [1, 5]]
@@ -39,7 +43,7 @@ type ArrayPredicate<T> = (value: T, index: number, array: readonly T[]) => boole
 export function arrayPartition<T, Matched extends T>(
   array: readonly T[],
   predicate: (value: T, index: number, array: readonly T[]) => value is Matched,
-): [matched: Matched[], unmatched: Exclude<T, Matched>[]];
+): [matched: Matched[], unmatched: ([T] extends [Matched] ? T : Exclude<T, Matched>)[]];
 export function arrayPartition<T>(
   array: readonly T[],
   predicate: ArrayPredicate<T>,

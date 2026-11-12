@@ -12,6 +12,11 @@ export const isPropertyDefined: {
    * It narrows the type of the property, which TypeScript does not do on its own
    * in callbacks like the one of `Array.prototype.filter`.
    * Inherited properties and accessors do not count.
+   * When the guard returns `false`, it drops an object whose type has the
+   * property with a type without `undefined`, even though the property may be
+   * inherited or an accessor, like a method or a getter of a class: such an
+   * object type becomes `never`, and `Counter | undefined` becomes `undefined`.
+   * With a key of a wide type, like `string`, it drops any object.
    * To also exclude `null`, use `isPropertyNotNullish`.
    * @param key - The key of the property.
    * @returns A type guard for objects whose property `key` is defined.

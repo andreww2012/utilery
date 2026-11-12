@@ -1,3 +1,6 @@
+import type {EnsureNonNegativeInteger} from '../types/ensure-non-negative-integer.ts';
+import type {IsNumericLiteral} from '../types/is-numeric-literal.ts';
+import type {IsUnion} from '../types/is-union.ts';
 import type {PrettifyConditional} from '../types/prettify-conditional.ts';
 
 /**
@@ -40,3 +43,15 @@ export type IsExactOptionalPropertyTypes = {a?: undefined} extends {a?: never} ?
 export type PropertyValue<T, Key extends keyof T> = IsExactOptionalPropertyTypes extends true
   ? Required<T>[Key]
   : T[Key];
+
+/**
+ * `N` when it is a single non-negative integer literal, like a number of
+ * elements, otherwise `never`: a union like `1 | 3` can't tell which length
+ * was checked
+ */
+export type LengthLiteral<N extends number> =
+  IsNumericLiteral<N> extends true
+    ? IsUnion<N> extends true
+      ? never
+      : EnsureNonNegativeInteger<N>
+    : never;

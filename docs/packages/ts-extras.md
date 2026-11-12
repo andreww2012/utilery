@@ -11,11 +11,11 @@ Mostly thin, strongly-typed re-exports.
 | [`objectValues`][ts-extras]      | ❌     | `object/objectValuesUnsafe`            | Replaced by our own code: optional values include `undefined`, unions give values per member     |
 | [`objectEntries`][ts-extras]     | ❌     | `object/objectEntriesUnsafe`           | Replaced by our own code: optional values include `undefined`, unions give entries per member    |
 | [`objectFromEntries`][ts-extras] | ✅     | `object/objectFromEntriesUnsafe`       | Renamed; shallow, distinct from `object/objectFromEntriesDeep`                                   |
-| [`objectHasOwn`][ts-extras]      | ✅     | `object/objectHasOwn` *(same)*         | -                                                                                                |
+| [`objectHasOwn`][ts-extras]      | ✅     | `object/objectHasOwn` *(same)*         | Narrows nothing when the object type already has the key                                         |
 | [`objectAssign`][ts-extras]      | ✅     | `object/objectAssign` *(same)*         | Reimplemented with the same types: an own `__proto__` key becomes a property, not the prototype  |
 | [`objectUpdate`][ts-extras]      | ✅     | `object/objectUpdate` *(same)*         | Reimplemented: its signature can't be written out; copies `__proto__` like `objectAssign`        |
-| [`objectHasIn`][ts-extras]       | ✅     | `predicate/isIn`                       | Renamed; `(key, object)` order (reads like `key in object`); narrows the object                  |
-| [`keyIn`][ts-extras]             | ✅     | `predicate/isKeyIn`                    | Renamed; `(key, object)` order; narrows the key to those present in the object                   |
+| [`objectHasIn`][ts-extras]       | ✅     | `predicate/isIn`                       | Renamed; `(key, object)` order; narrows the object, unless its type already has the key          |
+| [`keyIn`][ts-extras]             | ✅     | `predicate/isKeyIn`                    | Renamed; `(key, object)` order; narrows the key to those present in the object, if it can        |
 | [`arrayAt`][ts-extras]           | ✅     | `array/arrayAt`                        | Consolidated with es-toolkit's `at` (also accepts a list of indexes)                             |
 | [`arrayConcat`][ts-extras]       | ✅     | `array/arrayConcat` *(same)*           | -                                                                                                |
 | [`arrayFirst`][ts-extras]        | ✅     | `array/arrayFirst` *(same)*            | -                                                                                                |
@@ -24,10 +24,10 @@ Mostly thin, strongly-typed re-exports.
 | [`arrayJoin`][ts-extras]         | ✅     | `array/arrayJoin` *(same)*             | -                                                                                                |
 | [`setHas`][ts-extras]            | ✅     | `set/setHas` *(same)*                  | Narrows nothing when the value already has the element type; keeps `null` and `undefined`        |
 | [`stringSplit`][ts-extras]       | ✅     | `string/stringSplit` *(same)*          | -                                                                                                |
-| [`isFinite`][ts-extras]          | ✅     | `predicate/isFiniteNumber`             | Renamed to avoid clashing with the global `isFinite`                                             |
+| [`isFinite`][ts-extras]          | ✅     | `predicate/isFiniteNumber`             | Renamed to avoid clashing with the global `isFinite`; returns a `boolean`, not a type guard      |
 | [`isInfinite`][ts-extras]        | ✅     | `predicate/isInfinite` *(same)*        | -                                                                                                |
-| [`isInteger`][ts-extras]         | ✅     | `predicate/isInteger` *(same)*         | -                                                                                                |
-| [`isSafeInteger`][ts-extras]     | ✅     | `predicate/isSafeInteger` *(same)*     | -                                                                                                |
+| [`isInteger`][ts-extras]         | ✅     | `predicate/isInteger` *(same)*         | Returns a `boolean`, as narrowing turned a `number` into `never`                                 |
+| [`isSafeInteger`][ts-extras]     | ✅     | `predicate/isSafeInteger` *(same)*     | Returns a `boolean`, as narrowing turned a `number` into `never`                                 |
 | [`isPropertyDefined`][ts-extras] | ✅     | `predicate/isPropertyDefined` *(same)* | -                                                                                                |
 | [`isPropertyPresent`][ts-extras] | ✅     | `predicate/isPropertyNotNullish`       | Renamed for clarity (neither `null` nor `undefined`)                                             |
 | [`not`][ts-extras]               | ✅     | `function/negatePredicate`             | Renamed; inverts a type-guard predicate                                                          |

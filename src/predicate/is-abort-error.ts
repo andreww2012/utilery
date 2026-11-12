@@ -17,5 +17,5 @@
  *   throw error;
  * }
  */
-export const isAbortError = (error: unknown): error is Error =>
+export const isAbortError = (error: unknown): error is Error & {name: 'AbortError'} =>
   error instanceof Error && error.name === 'AbortError';

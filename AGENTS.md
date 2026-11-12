@@ -69,6 +69,7 @@ All without zero dependencies because all external dependencies are bundled.
   - Intersections on purpose, like brands or `Type & {}`, and class instances, like DOM elements: `Prettify` turns them into plain objects without private members.
   - Intersections of a type with only optional properties and a mapped type with no properties, like `{a?: never} & Omit<{a?: 1}, 'a'>` (example: `RequireAllOrNone`).
     The intersection accepts objects like `EmptyObject`, but the flat `{a?: never}` rejects objects that share no property with it, because of the [weak type check](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection).
+- Beware that a type guard (`value is T`) also narrows the `false` branch: a value that already has the type `T` but fails the check, like an invalid `Date`, becomes `never` there.
 - Until v1, breaking changes are fine: renaming released utilities, moving them to another group, changing their behavior.
   Don't keep a worse name or group only because it's already released.
   Still mark breaking commits with `!` and describe the change in a changeset (a minor bump while on 0.x).

@@ -1,18 +1,19 @@
 import {type ArrayRequiredPrefix, hasAtLeast} from 'remeda';
-import type {IsNumericLiteral} from 'type-fest';
+import type {LengthLiteral} from '../_internal/types.ts';
 
 /**
  * Checks whether `array` contains at least `minimum` elements.
- * When `minimum` is a literal number, this acts as a **type guard** that
+ * When `minimum` is a non-negative integer literal, this acts as a **type guard** that
  * narrows the array to one with that many guaranteed (required) leading
  * elements, so indexing the first `minimum` positions afterwards is type-safe.
- * A non-literal `minimum` simply returns a `boolean`.
+ * Any other `minimum`, like a non-literal number or a union like `1 | 3`,
+ * simply returns a `boolean`.
  * @param array - The array (or tuple) to check.
  * Not mutated.
  * @param minimum - The minimum number of elements.
- * Pass a literal for the type-guard narrowing.
+ * Pass a non-negative integer literal for the type-guard narrowing.
  * @returns `true` when `array.length >= minimum`; narrows the array type when `minimum` is a
- * literal.
+ * non-negative integer literal.
  * @example
  * // Type guard: narrows to a known-minimum tuple
  * const values: number[] = [1, 2, 3];
@@ -27,7 +28,7 @@ export function arrayHasMinElements<T extends readonly unknown[], N extends numb
   // The `| readonly unknown[]` makes the predicate (always some array) assignable
   // to the parameter while `T` still infers from the argument, as remeda does
   array: T | readonly unknown[],
-  minimum: IsNumericLiteral<N> extends true ? N : never,
+  minimum: LengthLiteral<N>,
 ): array is ArrayRequiredPrefix<T, N>;
 export function arrayHasMinElements(array: readonly unknown[], minimum: number): boolean;
 export function arrayHasMinElements(array: readonly unknown[], minimum: number): boolean {

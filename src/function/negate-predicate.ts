@@ -13,6 +13,10 @@ export const negatePredicate: {
    *
    * TypeScript may fail to narrow in nested branches, after the variable is
    * reassigned, or when excluding from complex unions.
+   * When the original guard can return `false` for a value that has its type,
+   * like an invalid `Date` for `isValidDate`, the new one drops such a value when
+   * it returns `true`: a `Date` becomes `never`, and `Date | undefined` becomes
+   * `undefined`.
    * @param predicate - The type guard to turn around.
    * @returns A type guard that narrows the value to `Exclude<Value, T>`.
    * @example

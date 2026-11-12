@@ -14,5 +14,5 @@
  *   throw error;
  * }
  */
-export const isTimeoutError = (error: unknown): error is Error =>
+export const isTimeoutError = (error: unknown): error is Error & {name: 'TimeoutError'} =>
   error instanceof Error && error.name === 'TimeoutError';

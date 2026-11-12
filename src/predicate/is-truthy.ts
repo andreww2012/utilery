@@ -9,6 +9,10 @@ import type {Truthy} from '../types/truthy.ts';
  * Note that falsy *literals* can only be removed from union types: `isTruthy`
  * narrows `0 | 1` to `1` and `'' | 'a'` to `'a'`, but cannot subtract `''`/`0`
  * from the wide `string`/`number` types, which remain as-is.
+ * So when it returns `false`, a wide `string`, `number` or `bigint` becomes
+ * `never`, and a union loses it (`string | undefined` becomes `undefined`),
+ * even though `''`, `0`, `NaN` and `0n` are falsy.
+ * To check such a value outside of callbacks, use `!value` instead.
  * @param value - The value to test.
  * @returns `true` when `value` is truthy; narrows `value` to its non-falsy type.
  * @example

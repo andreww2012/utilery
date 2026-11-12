@@ -10,7 +10,8 @@ import {partition} from 'es-toolkit/iterator';
  * @param iterable - The iterable to split.
  * @param predicate - Called with `(value, index)`; `true` sends the element to the first array.
  * @returns A `[matched, unmatched]` tuple.
- * A type guard narrows both arrays.
+ * A type guard narrows both arrays, unless the elements already have the
+ * narrowed type: then both arrays keep it.
  * @example
  * iterablePartition(new Set([1, 2, 3, 4]), (value) => value % 2 === 0);
  * // [[2, 4], [1, 3]]
@@ -22,7 +23,7 @@ import {partition} from 'es-toolkit/iterator';
 export function iterablePartition<T, Matched extends T>(
   iterable: Iterable<T>,
   predicate: (value: T, index: number) => value is Matched,
-): [matched: Matched[], unmatched: Exclude<T, Matched>[]];
+): [matched: Matched[], unmatched: ([T] extends [Matched] ? T : Exclude<T, Matched>)[]];
 export function iterablePartition<T>(
   iterable: Iterable<T>,
   predicate: (value: T, index: number) => boolean,

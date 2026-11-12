@@ -41,4 +41,17 @@ describe('array/arrayHasMaxElements', () => {
 
     expectTypeOf(arrayHasMaxElements([1, 2, 3], maximum)).toEqualTypeOf<boolean>();
   });
+
+  it('returns a plain boolean for a maximum that is not a single non-negative integer', () => {
+    const values: string[] = ['a', 'b', 'c'];
+    const maximum = 3 as 1 | 3;
+
+    expectTypeOf(arrayHasMaxElements(values, maximum)).toEqualTypeOf<boolean>();
+    if (arrayHasMaxElements(values, maximum)) {
+      expectTypeOf(values).toEqualTypeOf<string[]>();
+    }
+
+    expectTypeOf(arrayHasMaxElements(values, 1.5)).toEqualTypeOf<boolean>();
+    expectTypeOf(arrayHasMaxElements(values, -1)).toEqualTypeOf<boolean>();
+  });
 });

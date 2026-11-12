@@ -1,5 +1,3 @@
-// Values of known types are passed on purpose, to check the runtime result
-/* eslint-disable ts/no-unnecessary-condition */
 import {isValidDate} from '../../src/predicate/is-valid-date.ts';
 
 describe('predicate/isValidDate', () => {

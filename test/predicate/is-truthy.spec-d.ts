@@ -21,4 +21,18 @@ describe('predicate/isTruthy', () => {
 
     expect(one).toBe(1);
   });
+
+  it('drops wide `string`, `number` and `bigint` types when it returns `false`', () => {
+    const name = '' as string;
+
+    // eslint-disable-next-line ts/no-unnecessary-condition -- the documented `false` branch
+    if (!isTruthy(name)) {
+      expectTypeOf(name).toBeNever();
+    }
+
+    const value = '' as string | undefined;
+    if (!isTruthy(value)) {
+      expectTypeOf(value).toEqualTypeOf<undefined>();
+    }
+  });
 });

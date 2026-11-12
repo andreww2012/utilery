@@ -124,7 +124,6 @@ export function formatDateForFileName(
     dateTimeSeparator = '_',
   } = isDateGiven ? options : dateOrOptions;
   const date = new Date(isDateGiven ? dateOrOptions : Date.now());
-  // eslint-disable-next-line ts/no-unnecessary-condition -- Also rejects an invalid `Date`, which its type can't express
   if (!isValidDate(date)) {
     throw new RangeError('Invalid date');
   }

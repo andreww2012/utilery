@@ -1,5 +1,3 @@
-// Values of known types are passed on purpose, to check the runtime result
-/* eslint-disable ts/no-unnecessary-condition */
 import {isAbortError} from '../../src/predicate/is-abort-error.ts';
 import {isTimeoutError} from '../../src/predicate/is-timeout-error.ts';
 

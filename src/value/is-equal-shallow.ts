@@ -17,6 +17,12 @@ interface IsEqualShallow {
    * Symbol keys are ignored.
    * Other built-in objects, like dates, regular expressions and promises, are
    * compared by their own enumerable keys, so two different dates are equal.
+   *
+   * When it returns `false`, the first value loses the members of its type that
+   * the type of the second one covers, even though they may hold other values:
+   * with a `string | number` and a `string`, it becomes a `number`.
+   * It narrows exactly when the second value has a single literal type, like
+   * `'a'`.
    * @param data - The first value.
    * @param other - The second value.
    * @returns `true` if the values are shallowly equal, otherwise `false`.
@@ -72,6 +78,11 @@ interface IsEqualShallow {
    * Symbol keys are ignored.
    * Other built-in objects, like dates, regular expressions and promises, are
    * compared by their own enumerable keys, so two different dates are equal.
+   *
+   * When the guard returns `false`, its argument loses the members of its type
+   * that the type of `other` covers, even though they may hold other values: with
+   * a `string | number` and a `string`, it becomes a `number`.
+   * It narrows exactly when `other` has a single literal type, like `'a'`.
    * @param other - The value to compare with.
    * @returns A type guard for values shallowly equal to `other`.
    * @example

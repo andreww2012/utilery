@@ -14,4 +14,17 @@ describe('array/arrayHasMinElements', () => {
 
     expectTypeOf(arrayHasMinElements([1, 2, 3], minimum)).toEqualTypeOf<boolean>();
   });
+
+  it('returns a plain boolean for a minimum that is not a single non-negative integer', () => {
+    const pair = ['a', 'b'] as [string, ...string[]];
+    const minimum = 3 as 1 | 3;
+
+    expectTypeOf(arrayHasMinElements(pair, minimum)).toEqualTypeOf<boolean>();
+    if (!arrayHasMinElements(pair, minimum)) {
+      expectTypeOf(pair).toEqualTypeOf<[string, ...string[]]>();
+    }
+
+    expectTypeOf(arrayHasMinElements(pair, 1.5)).toEqualTypeOf<boolean>();
+    expectTypeOf(arrayHasMinElements(pair, -1)).toEqualTypeOf<boolean>();
+  });
 });
