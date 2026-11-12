@@ -1,5 +1,49 @@
 import type {TupleOf} from '../types/tuple-of.ts';
 
+// A separate generator, so that invalid arguments throw on the call, not on the first iteration
+function* generateWindows<T>(
+  iterable: Iterable<T>,
+  size: number,
+  step: number,
+  shouldYieldPartialWindows: boolean,
+): Generator<T[], void, unknown> {
+  const buffer: T[] = [];
+  let skip = 0;
+
+  for (const item of iterable) {
+    if (skip > 0) {
+      skip--;
+      continue;
+    }
+
+    buffer.push(item);
+
+    if (buffer.length !== size) {
+      continue;
+    }
+
+    yield buffer.slice();
+
+    if (step >= size) {
+      buffer.length = 0;
+      skip = step - size;
+    } else {
+      buffer.splice(0, step);
+    }
+  }
+
+  if (!shouldYieldPartialWindows || buffer.length === 0) {
+    return;
+  }
+
+  yield buffer.slice();
+
+  while (buffer.length > step) {
+    buffer.splice(0, step);
+    yield buffer.slice();
+  }
+}
+
 /**
  * Lazily yields fixed-size sliding windows over any `Iterable`: arrays, `Map`s,
  * `Set`s, generators, and custom iterators.
@@ -91,7 +135,7 @@ export function slidingWindow<T>(
   step?: number,
   options?: {partialWindows?: boolean | undefined},
 ): Generator<T[], void, unknown>;
-export function* slidingWindow<T>(
+export function slidingWindow<T>(
   iterable: Iterable<T>,
   size: number,
   step = 1,
@@ -105,39 +149,5 @@ export function* slidingWindow<T>(
     throw new Error('`step` must be a positive integer.');
   }
 
-  const buffer: T[] = [];
-  let skip = 0;
-
-  for (const item of iterable) {
-    if (skip > 0) {
-      skip--;
-      continue;
-    }
-
-    buffer.push(item);
-
-    if (buffer.length !== size) {
-      continue;
-    }
-
-    yield buffer.slice();
-
-    if (step >= size) {
-      buffer.length = 0;
-      skip = step - size;
-    } else {
-      buffer.splice(0, step);
-    }
-  }
-
-  if (!partialWindows || buffer.length === 0) {
-    return;
-  }
-
-  yield buffer.slice();
-
-  while (buffer.length > step) {
-    buffer.splice(0, step);
-    yield buffer.slice();
-  }
+  return generateWindows(iterable, size, step, partialWindows);
 }

@@ -209,5 +209,10 @@ describe('iterable/slidingWindow', () => {
         '`step` must be a positive integer.',
       );
     });
+
+    it('throws on the call, before the iteration starts', () => {
+      expect(() => slidingWindow([1, 2, 3], 0)).toThrow('`size` must be a positive integer.');
+      expect(() => slidingWindow([1, 2, 3], 2, 0)).toThrow('`step` must be a positive integer.');
+    });
   });
 });
