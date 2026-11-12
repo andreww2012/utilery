@@ -69,11 +69,9 @@ export function reduce<T, A>(
     accumulator = first.value as unknown as A;
   }
 
-  let step = iterator.next();
-
-  while (!step.done) {
-    accumulator = reducer(accumulator, step.value);
-    step = iterator.next();
+  // Unlike manual `next()` calls, `for...of` closes the iterator when the reducer throws
+  for (const value of {[Symbol.iterator]: () => iterator}) {
+    accumulator = reducer(accumulator, value);
   }
 
   return accumulator;

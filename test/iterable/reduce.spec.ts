@@ -6,6 +6,14 @@ function* oneToThree(): Generator<number> {
   yield 3;
 }
 
+const failOnTwo = (acc: number, value: number) => {
+  if (value === 2) {
+    throw new Error('failed');
+  }
+
+  return acc + value;
+};
+
 describe('iterable/reduce', () => {
   describe('with an initial value', () => {
     it('reduces with the provided initial accumulator', () => {
@@ -67,4 +75,23 @@ describe('iterable/reduce', () => {
       expect(reduce(oneToThree(), (acc, value) => acc * value)).toBe(6);
     });
   });
+
+  it.each([false, true])(
+    'closes the iterator when the reducer throws (initial value: %s)',
+    (hasInitialValue) => {
+      let isClosed = false;
+      function* generate() {
+        try {
+          yield* [1, 2, 3];
+        } finally {
+          isClosed = true;
+        }
+      }
+
+      expect(() =>
+        hasInitialValue ? reduce(generate(), failOnTwo, 0) : reduce(generate(), failOnTwo),
+      ).toThrow('failed');
+      expect(isClosed).toBe(true);
+    },
+  );
 });
