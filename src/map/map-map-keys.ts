@@ -16,5 +16,8 @@ export const mapMapKeys: {
    * mapMapKeys(stock, (count, name) => name.toUpperCase());
    * // Map {'APPLES' => 1, 'PEARS' => 2}
    */
-  <K, V>(map: Map<K, V>, getNewKey: (value: V, key: K, map: Map<K, V>) => K): Map<K, V>;
+  <K, V>(
+    map: ReadonlyMap<K, V>,
+    getNewKey: (value: V, key: K, map: ReadonlyMap<K, V>) => K,
+  ): Map<K, V>;
 } = mapKeys;

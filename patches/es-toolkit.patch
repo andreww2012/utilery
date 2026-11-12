@@ -27,6 +27,10 @@ command is not found. Without it, `exec` rejects with the error of `spawn` and l
 without a handler. In Bun, the reads then fail, so the process crashes with an unhandled
 rejection, even though the caller caught the error of `exec`.
 
+Makes the `Map` and `Set` utilities that only read the collection, like `map/every` and
+`set/filter`, accept a `ReadonlyMap` or a `ReadonlySet`, which they also pass to the callbacks.
+Their types require a mutable `Map` or `Set`, though they only iterate it.
+
 The latest release (1.53.0) still has these bugs.
 
 diff --git a/dist/_internal/assignOwnValues.js b/dist/_internal/assignOwnValues.js
@@ -559,6 +563,246 @@ index 2fa0c567217e73c7ffca32437f4b85ad67e4f126..3f08f0e6bd20ee086c15f29f78472640
  	try {
  		delete parent[lastKey];
  		return true;
+diff --git a/dist/map/every.d.mts b/dist/map/every.d.mts
+index d1d055d0b2505b194ecb97a38c489a302ae22566..b2a06466c61060dc631bd9004b6b261e08bcdda1 100644
+--- a/dist/map/every.d.mts
++++ b/dist/map/every.d.mts
+@@ -23,4 +23,4 @@
+  * const result2 = every(map, (value) => value > 15);
+  * // result2 will be: false
+  */
+-export declare function every<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): boolean;
+\ No newline at end of file
++export declare function every<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): boolean;
+\ No newline at end of file
+diff --git a/dist/map/every.d.ts b/dist/map/every.d.ts
+index d1d055d0b2505b194ecb97a38c489a302ae22566..b2a06466c61060dc631bd9004b6b261e08bcdda1 100644
+--- a/dist/map/every.d.ts
++++ b/dist/map/every.d.ts
+@@ -23,4 +23,4 @@
+  * const result2 = every(map, (value) => value > 15);
+  * // result2 will be: false
+  */
+-export declare function every<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): boolean;
+\ No newline at end of file
++export declare function every<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): boolean;
+\ No newline at end of file
+diff --git a/dist/map/filter.d.mts b/dist/map/filter.d.mts
+index 1dbd3df2ddeb69cf49b241e151d61468be5660b9..edc49bde939035a5d53f63ea8edb9c2b74aa9a3a 100644
+--- a/dist/map/filter.d.mts
++++ b/dist/map/filter.d.mts
+@@ -24,4 +24,4 @@
+  * //   'd' => 4
+  * // }
+  */
+-export declare function filter<K, V>(map: Map<K, V>, callback: (value: V, key: K, map: Map<K, V>) => boolean): Map<K, V>;
+\ No newline at end of file
++export declare function filter<K, V>(map: ReadonlyMap<K, V>, callback: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): Map<K, V>;
+\ No newline at end of file
+diff --git a/dist/map/filter.d.ts b/dist/map/filter.d.ts
+index 1dbd3df2ddeb69cf49b241e151d61468be5660b9..edc49bde939035a5d53f63ea8edb9c2b74aa9a3a 100644
+--- a/dist/map/filter.d.ts
++++ b/dist/map/filter.d.ts
+@@ -24,4 +24,4 @@
+  * //   'd' => 4
+  * // }
+  */
+-export declare function filter<K, V>(map: Map<K, V>, callback: (value: V, key: K, map: Map<K, V>) => boolean): Map<K, V>;
+\ No newline at end of file
++export declare function filter<K, V>(map: ReadonlyMap<K, V>, callback: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): Map<K, V>;
+\ No newline at end of file
+diff --git a/dist/map/findKey.d.mts b/dist/map/findKey.d.mts
+index 8730a24ec96d5b089a5ecb1b166ece361d0b6850..7cefa5a7fea7eec02be4d99486faa18d0ee5c50f 100644
+--- a/dist/map/findKey.d.mts
++++ b/dist/map/findKey.d.mts
+@@ -20,4 +20,4 @@
+  * const result = findKey(map, (value) => value.quantity > 10);
+  * // result will be: 'grape'
+  */
+-export declare function findKey<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): K | undefined;
+\ No newline at end of file
++export declare function findKey<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): K | undefined;
+\ No newline at end of file
+diff --git a/dist/map/findKey.d.ts b/dist/map/findKey.d.ts
+index 8730a24ec96d5b089a5ecb1b166ece361d0b6850..7cefa5a7fea7eec02be4d99486faa18d0ee5c50f 100644
+--- a/dist/map/findKey.d.ts
++++ b/dist/map/findKey.d.ts
+@@ -20,4 +20,4 @@
+  * const result = findKey(map, (value) => value.quantity > 10);
+  * // result will be: 'grape'
+  */
+-export declare function findKey<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): K | undefined;
+\ No newline at end of file
++export declare function findKey<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): K | undefined;
+\ No newline at end of file
+diff --git a/dist/map/findValue.d.mts b/dist/map/findValue.d.mts
+index a3dbe748e9e4f7e9c54173f94dd0b7ce6684b86a..6492c885766df7bf79d7cb7ee747c4daef589fab 100644
+--- a/dist/map/findValue.d.mts
++++ b/dist/map/findValue.d.mts
+@@ -20,4 +20,4 @@
+  * const result = findValue(map, (value) => value.quantity > 10);
+  * // result will be: { color: 'purple', quantity: 15 }
+  */
+-export declare function findValue<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): V | undefined;
+\ No newline at end of file
++export declare function findValue<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): V | undefined;
+\ No newline at end of file
+diff --git a/dist/map/findValue.d.ts b/dist/map/findValue.d.ts
+index a3dbe748e9e4f7e9c54173f94dd0b7ce6684b86a..6492c885766df7bf79d7cb7ee747c4daef589fab 100644
+--- a/dist/map/findValue.d.ts
++++ b/dist/map/findValue.d.ts
+@@ -20,4 +20,4 @@
+  * const result = findValue(map, (value) => value.quantity > 10);
+  * // result will be: { color: 'purple', quantity: 15 }
+  */
+-export declare function findValue<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): V | undefined;
+\ No newline at end of file
++export declare function findValue<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): V | undefined;
+\ No newline at end of file
+diff --git a/dist/map/forEach.d.mts b/dist/map/forEach.d.mts
+index 488e7f62fedbbf62ca6203e1a4a87dc88ffb4464..a06c78cb978f6ae37706261f0c277f395dedff7d 100644
+--- a/dist/map/forEach.d.mts
++++ b/dist/map/forEach.d.mts
+@@ -23,4 +23,4 @@
+  * // b: 2
+  * // c: 3
+  */
+-export declare function forEach<K, V>(map: Map<K, V>, callback: (value: V, key: K, map: Map<K, V>) => void): void;
+\ No newline at end of file
++export declare function forEach<K, V>(map: ReadonlyMap<K, V>, callback: (value: V, key: K, map: ReadonlyMap<K, V>) => void): void;
+\ No newline at end of file
+diff --git a/dist/map/forEach.d.ts b/dist/map/forEach.d.ts
+index 488e7f62fedbbf62ca6203e1a4a87dc88ffb4464..a06c78cb978f6ae37706261f0c277f395dedff7d 100644
+--- a/dist/map/forEach.d.ts
++++ b/dist/map/forEach.d.ts
+@@ -23,4 +23,4 @@
+  * // b: 2
+  * // c: 3
+  */
+-export declare function forEach<K, V>(map: Map<K, V>, callback: (value: V, key: K, map: Map<K, V>) => void): void;
+\ No newline at end of file
++export declare function forEach<K, V>(map: ReadonlyMap<K, V>, callback: (value: V, key: K, map: ReadonlyMap<K, V>) => void): void;
+\ No newline at end of file
+diff --git a/dist/map/hasValue.d.mts b/dist/map/hasValue.d.mts
+index 7c28d4c61cc7820224a98d8a07f4aebf667e105c..f728ff94f5151f8b3c6526aa70098464bfb2b814 100644
+--- a/dist/map/hasValue.d.mts
++++ b/dist/map/hasValue.d.mts
+@@ -23,4 +23,4 @@
+  * const result2 = hasValue(map, 5);
+  * // result2 will be: false
+  */
+-export declare function hasValue<K, V>(map: Map<K, V>, searchElement: V): boolean;
+\ No newline at end of file
++export declare function hasValue<K, V>(map: ReadonlyMap<K, V>, searchElement: V): boolean;
+\ No newline at end of file
+diff --git a/dist/map/hasValue.d.ts b/dist/map/hasValue.d.ts
+index 7c28d4c61cc7820224a98d8a07f4aebf667e105c..f728ff94f5151f8b3c6526aa70098464bfb2b814 100644
+--- a/dist/map/hasValue.d.ts
++++ b/dist/map/hasValue.d.ts
+@@ -23,4 +23,4 @@
+  * const result2 = hasValue(map, 5);
+  * // result2 will be: false
+  */
+-export declare function hasValue<K, V>(map: Map<K, V>, searchElement: V): boolean;
+\ No newline at end of file
++export declare function hasValue<K, V>(map: ReadonlyMap<K, V>, searchElement: V): boolean;
+\ No newline at end of file
+diff --git a/dist/map/mapKeys.d.mts b/dist/map/mapKeys.d.mts
+index 96ff21c60237e95a3816aa13609e534ab292b549..fe9c326e2d7330b082d0d873376d8db78a9909d4 100644
+--- a/dist/map/mapKeys.d.mts
++++ b/dist/map/mapKeys.d.mts
+@@ -25,4 +25,4 @@
+  * //   'C' => 3
+  * // }
+  */
+-export declare function mapKeys<K, V>(map: Map<K, V>, getNewKey: (value: V, key: K, object: Map<K, V>) => K): Map<K, V>;
+\ No newline at end of file
++export declare function mapKeys<K, V>(map: ReadonlyMap<K, V>, getNewKey: (value: V, key: K, object: ReadonlyMap<K, V>) => K): Map<K, V>;
+\ No newline at end of file
+diff --git a/dist/map/mapKeys.d.ts b/dist/map/mapKeys.d.ts
+index 96ff21c60237e95a3816aa13609e534ab292b549..fe9c326e2d7330b082d0d873376d8db78a9909d4 100644
+--- a/dist/map/mapKeys.d.ts
++++ b/dist/map/mapKeys.d.ts
+@@ -25,4 +25,4 @@
+  * //   'C' => 3
+  * // }
+  */
+-export declare function mapKeys<K, V>(map: Map<K, V>, getNewKey: (value: V, key: K, object: Map<K, V>) => K): Map<K, V>;
+\ No newline at end of file
++export declare function mapKeys<K, V>(map: ReadonlyMap<K, V>, getNewKey: (value: V, key: K, object: ReadonlyMap<K, V>) => K): Map<K, V>;
+\ No newline at end of file
+diff --git a/dist/map/mapValues.d.mts b/dist/map/mapValues.d.mts
+index 762c21a27111e307de21b768dae93e149c98e778..af171dd264713e974d1f08787fc474be8fb6e9b3 100644
+--- a/dist/map/mapValues.d.mts
++++ b/dist/map/mapValues.d.mts
+@@ -25,4 +25,4 @@
+  * //   'c' => 6
+  * // }
+  */
+-export declare function mapValues<K, V, R>(map: Map<K, V>, getNewValue: (value: V, key: K, object: Map<K, V>) => R): Map<K, R>;
+\ No newline at end of file
++export declare function mapValues<K, V, R>(map: ReadonlyMap<K, V>, getNewValue: (value: V, key: K, object: ReadonlyMap<K, V>) => R): Map<K, R>;
+\ No newline at end of file
+diff --git a/dist/map/mapValues.d.ts b/dist/map/mapValues.d.ts
+index 762c21a27111e307de21b768dae93e149c98e778..af171dd264713e974d1f08787fc474be8fb6e9b3 100644
+--- a/dist/map/mapValues.d.ts
++++ b/dist/map/mapValues.d.ts
+@@ -25,4 +25,4 @@
+  * //   'c' => 6
+  * // }
+  */
+-export declare function mapValues<K, V, R>(map: Map<K, V>, getNewValue: (value: V, key: K, object: Map<K, V>) => R): Map<K, R>;
+\ No newline at end of file
++export declare function mapValues<K, V, R>(map: ReadonlyMap<K, V>, getNewValue: (value: V, key: K, object: ReadonlyMap<K, V>) => R): Map<K, R>;
+\ No newline at end of file
+diff --git a/dist/map/reduce.d.mts b/dist/map/reduce.d.mts
+index e7f476b33ae1d4a9de05adb509a82604f48366e8..8ffc0a4c0814e88397853111fd3d699899698d0f 100644
+--- a/dist/map/reduce.d.mts
++++ b/dist/map/reduce.d.mts
+@@ -30,4 +30,4 @@
+  * const result = reduce(map, (acc, value) => acc + value);
+  * // result will be: 30 (starts with first value 10)
+  */
+-export declare function reduce<K, V, A = V>(map: Map<K, V>, callback: (accumulator: A, value: V, key: K, map: Map<K, V>) => A, initialValue?: A): A;
+\ No newline at end of file
++export declare function reduce<K, V, A = V>(map: ReadonlyMap<K, V>, callback: (accumulator: A, value: V, key: K, map: ReadonlyMap<K, V>) => A, initialValue?: A): A;
+\ No newline at end of file
+diff --git a/dist/map/reduce.d.ts b/dist/map/reduce.d.ts
+index e7f476b33ae1d4a9de05adb509a82604f48366e8..8ffc0a4c0814e88397853111fd3d699899698d0f 100644
+--- a/dist/map/reduce.d.ts
++++ b/dist/map/reduce.d.ts
+@@ -30,4 +30,4 @@
+  * const result = reduce(map, (acc, value) => acc + value);
+  * // result will be: 30 (starts with first value 10)
+  */
+-export declare function reduce<K, V, A = V>(map: Map<K, V>, callback: (accumulator: A, value: V, key: K, map: Map<K, V>) => A, initialValue?: A): A;
+\ No newline at end of file
++export declare function reduce<K, V, A = V>(map: ReadonlyMap<K, V>, callback: (accumulator: A, value: V, key: K, map: ReadonlyMap<K, V>) => A, initialValue?: A): A;
+\ No newline at end of file
+diff --git a/dist/map/some.d.mts b/dist/map/some.d.mts
+index 3769fa82d048618f7bb4fbf6fb3704cb5ad54504..87979dd314d369263fc80d1c71293a94193e65e1 100644
+--- a/dist/map/some.d.mts
++++ b/dist/map/some.d.mts
+@@ -23,4 +23,4 @@
+  * const result2 = some(map, (value) => value > 5);
+  * // result2 will be: false
+  */
+-export declare function some<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): boolean;
+\ No newline at end of file
++export declare function some<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): boolean;
+\ No newline at end of file
+diff --git a/dist/map/some.d.ts b/dist/map/some.d.ts
+index 3769fa82d048618f7bb4fbf6fb3704cb5ad54504..87979dd314d369263fc80d1c71293a94193e65e1 100644
+--- a/dist/map/some.d.ts
++++ b/dist/map/some.d.ts
+@@ -23,4 +23,4 @@
+  * const result2 = some(map, (value) => value > 5);
+  * // result2 will be: false
+  */
+-export declare function some<K, V>(map: Map<K, V>, doesMatch: (value: V, key: K, map: Map<K, V>) => boolean): boolean;
+\ No newline at end of file
++export declare function some<K, V>(map: ReadonlyMap<K, V>, doesMatch: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean): boolean;
+\ No newline at end of file
 diff --git a/dist/object/clone.js b/dist/object/clone.js
 index 5169b2baaee2260f8a6415ce33e717000fbe3f7c..a751d389ffabe52b079136ac76c07427355b4ac7 100644
 --- a/dist/object/clone.js
@@ -1063,6 +1307,54 @@ index 6e53833f54ec9cc77aa84fc999fb1c8822613058..d981734efd195a0607fb1865f7da6f42
  	if ((options.throwOnNonZeroExitCode ?? true) && process.exitCode !== 0) throw new ExecError({
  		pid: process.pid,
  		stdout,
+diff --git a/dist/set/filter.d.mts b/dist/set/filter.d.mts
+index 1393abb51bd34a25944760f96bf475f385880220..a109325b0d8e6dae347461ecbadcd0948f76b0ef 100644
+--- a/dist/set/filter.d.mts
++++ b/dist/set/filter.d.mts
+@@ -15,4 +15,4 @@
+  * // result will be:
+  * // Set(3) { 3, 4, 5 }
+  */
+-export declare function filter<T>(set: Set<T>, callback: (value: T, value2: T, set: Set<T>) => boolean): Set<T>;
+\ No newline at end of file
++export declare function filter<T>(set: ReadonlySet<T>, callback: (value: T, value2: T, set: ReadonlySet<T>) => boolean): Set<T>;
+\ No newline at end of file
+diff --git a/dist/set/filter.d.ts b/dist/set/filter.d.ts
+index 1393abb51bd34a25944760f96bf475f385880220..a109325b0d8e6dae347461ecbadcd0948f76b0ef 100644
+--- a/dist/set/filter.d.ts
++++ b/dist/set/filter.d.ts
+@@ -15,4 +15,4 @@
+  * // result will be:
+  * // Set(3) { 3, 4, 5 }
+  */
+-export declare function filter<T>(set: Set<T>, callback: (value: T, value2: T, set: Set<T>) => boolean): Set<T>;
+\ No newline at end of file
++export declare function filter<T>(set: ReadonlySet<T>, callback: (value: T, value2: T, set: ReadonlySet<T>) => boolean): Set<T>;
+\ No newline at end of file
+diff --git a/dist/set/map.d.mts b/dist/set/map.d.mts
+index ff63857c9d32a443bf19782f1fd1483585b54648..eb9be1e67f2f6e56bc5d3026f854db615fdbeb6a 100644
+--- a/dist/set/map.d.mts
++++ b/dist/set/map.d.mts
+@@ -16,4 +16,4 @@
+  * // result will be:
+  * // Set(3) { 2, 4, 6 }
+  */
+-export declare function map<T, U>(set: Set<T>, getNewValue: (value: T, value2: T, set: Set<T>) => U): Set<U>;
+\ No newline at end of file
++export declare function map<T, U>(set: ReadonlySet<T>, getNewValue: (value: T, value2: T, set: ReadonlySet<T>) => U): Set<U>;
+\ No newline at end of file
+diff --git a/dist/set/map.d.ts b/dist/set/map.d.ts
+index ff63857c9d32a443bf19782f1fd1483585b54648..eb9be1e67f2f6e56bc5d3026f854db615fdbeb6a 100644
+--- a/dist/set/map.d.ts
++++ b/dist/set/map.d.ts
+@@ -16,4 +16,4 @@
+  * // result will be:
+  * // Set(3) { 2, 4, 6 }
+  */
+-export declare function map<T, U>(set: Set<T>, getNewValue: (value: T, value2: T, set: Set<T>) => U): Set<U>;
+\ No newline at end of file
++export declare function map<T, U>(set: ReadonlySet<T>, getNewValue: (value: T, value2: T, set: ReadonlySet<T>) => U): Set<U>;
+\ No newline at end of file
 diff --git a/dist/util/serialize/serializeString.js b/dist/util/serialize/serializeString.js
 index a1e6840b956bc19b35c31faf0de5dec497dc3a81..ce3913fd851422fea8ef96b1ab29ba0b2bda1152 100644
 --- a/dist/util/serialize/serializeString.js

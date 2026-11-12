@@ -17,5 +17,5 @@ export const mapHasValue: {
    * mapHasValue(stock, 5);
    * // false
    */
-  <K, V>(map: Map<K, V>, value: V): boolean;
+  <K, V>(map: ReadonlyMap<K, V>, value: V): boolean;
 } = hasValue;

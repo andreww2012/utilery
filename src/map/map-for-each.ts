@@ -12,5 +12,8 @@ export const mapForEach: {
    * mapForEach(stock, (count, name) => console.log(`${name}: ${count}`));
    * // logs 'apples: 1', then 'pears: 2'
    */
-  <K, V>(map: Map<K, V>, callback: (value: V, key: K, map: Map<K, V>) => void): void;
+  <K, V>(
+    map: ReadonlyMap<K, V>,
+    callback: (value: V, key: K, map: ReadonlyMap<K, V>) => void,
+  ): void;
 } = forEach;

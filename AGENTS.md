@@ -90,6 +90,7 @@ All with zero dependencies, because all external dependencies are bundled.
     Otherwise, don't use the native feature (like `Math.sumPrecise`, which rounds differently than `sum` and is slower).
   - Check for the native feature inside the function: bundlers keep top-level reads like `Promise.try` even when the module is unused.
   - Test both paths with `describeWithAndWithoutNative` from `test/describe-with-and-without-native.ts`.
+- Utilities which only read `Set` or `Map`, should also accept `Readonly{Set,Map}`.
 - Separate the reason from tool directives which doesn't require a separator, like `@ts-expect-error`, with a space only, with no `:`, `-` or any other made-up delimiter.
 - Wrap technical names in backticks in all comments and docs.
 

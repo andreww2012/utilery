@@ -6,4 +6,10 @@ describe('set/setFilter', () => {
 
     expect([...result]).toStrictEqual([2, 4]);
   });
+
+  it('accepts a `ReadonlySet`', () => {
+    const sample: ReadonlySet<number> = new Set([1, 2, 3]);
+
+    expect([...setFilter(sample, (value) => value > 1)]).toStrictEqual([2, 3]);
+  });
 });

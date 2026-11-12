@@ -17,5 +17,5 @@ export const setMapValues: {
    * setMapValues(new Set(['a', 'A', 'b']), (value) => value.toLowerCase());
    * // Set {'a', 'b'}
    */
-  <T, U>(set: Set<T>, getNewValue: (value: T, value2: T, set: Set<T>) => U): Set<U>;
+  <T, U>(set: ReadonlySet<T>, getNewValue: (value: T, value2: T, set: ReadonlySet<T>) => U): Set<U>;
 } = map;

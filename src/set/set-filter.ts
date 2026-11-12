@@ -14,5 +14,8 @@ export const setFilter: {
    * setFilter(new Set([1, 2, 3, 4, 5]), (value) => value > 2);
    * // Set {3, 4, 5}
    */
-  <T>(set: Set<T>, predicate: (value: T, value2: T, set: Set<T>) => boolean): Set<T>;
+  <T>(
+    set: ReadonlySet<T>,
+    predicate: (value: T, value2: T, set: ReadonlySet<T>) => boolean,
+  ): Set<T>;
 } = filter;

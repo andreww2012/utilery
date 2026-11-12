@@ -15,5 +15,8 @@ export const mapMapValues: {
    * mapMapValues(stock, (count) => count * 10);
    * // Map {'apples' => 10, 'pears' => 20}
    */
-  <K, V, R>(map: Map<K, V>, getNewValue: (value: V, key: K, map: Map<K, V>) => R): Map<K, R>;
+  <K, V, R>(
+    map: ReadonlyMap<K, V>,
+    getNewValue: (value: V, key: K, map: ReadonlyMap<K, V>) => R,
+  ): Map<K, R>;
 } = mapValues;

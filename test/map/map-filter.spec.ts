@@ -14,4 +14,13 @@ describe('map/mapFilter', () => {
       ['c', 3],
     ]);
   });
+
+  it('accepts a `ReadonlyMap`', () => {
+    const sample: ReadonlyMap<string, number> = new Map([
+      ['a', 1],
+      ['b', 2],
+    ]);
+
+    expect([...mapFilter(sample, (value) => value > 1)]).toStrictEqual([['b', 2]]);
+  });
 });

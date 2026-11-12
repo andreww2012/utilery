@@ -14,5 +14,8 @@ export const mapFindValue: {
    * mapFindValue(users, (user) => user.isAdmin);
    * // {name: 'Bob', isAdmin: true}
    */
-  <K, V>(map: Map<K, V>, predicate: (value: V, key: K, map: Map<K, V>) => boolean): V | undefined;
+  <K, V>(
+    map: ReadonlyMap<K, V>,
+    predicate: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean,
+  ): V | undefined;
 } = findValue;

@@ -30,8 +30,8 @@ export const mapReduce: {
    * // 30
    */
   <K, V, A = V>(
-    map: Map<K, V>,
-    callback: (accumulator: A, value: V, key: K, map: Map<K, V>) => A,
+    map: ReadonlyMap<K, V>,
+    callback: (accumulator: A, value: V, key: K, map: ReadonlyMap<K, V>) => A,
     initialValue?: A,
   ): A;
 } = reduce;

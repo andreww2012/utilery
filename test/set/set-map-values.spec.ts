@@ -6,4 +6,10 @@ describe('set/setMapValues', () => {
 
     expect([...result]).toStrictEqual([10, 20, 30]);
   });
+
+  it('accepts a `ReadonlySet`', () => {
+    const sample: ReadonlySet<number> = new Set([1, 2, 3]);
+
+    expect([...setMapValues(sample, (value) => value * 2)]).toStrictEqual([2, 4, 6]);
+  });
 });

@@ -10,4 +10,13 @@ describe('map/mapHasValue', () => {
     expect(mapHasValue(sample, 2)).toBe(true);
     expect(mapHasValue(sample, 99)).toBe(false);
   });
+
+  it('accepts a `ReadonlyMap`', () => {
+    const sample: ReadonlyMap<string, number> = new Map([
+      ['a', 1],
+      ['b', 2],
+    ]);
+
+    expect(mapHasValue(sample, 2)).toBe(true);
+  });
 });

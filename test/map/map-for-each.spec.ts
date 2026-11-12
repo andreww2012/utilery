@@ -19,4 +19,18 @@ describe('map/mapForEach', () => {
       ['b', 2],
     ]);
   });
+
+  it('accepts a `ReadonlyMap`', () => {
+    const sample: ReadonlyMap<string, number> = new Map([
+      ['a', 1],
+      ['b', 2],
+    ]);
+
+    const seen: number[] = [];
+    mapForEach(sample, (value) => {
+      seen.push(value);
+    });
+
+    expect(seen).toStrictEqual([1, 2]);
+  });
 });

@@ -11,4 +11,13 @@ describe('map/mapFindValue', () => {
     expect(mapFindValue(sample, (value) => value > 1)).toBe(2);
     expect(mapFindValue(sample, (value) => value > 10)).toBeUndefined();
   });
+
+  it('accepts a `ReadonlyMap`', () => {
+    const sample: ReadonlyMap<string, number> = new Map([
+      ['a', 1],
+      ['b', 2],
+    ]);
+
+    expect(mapFindValue(sample, (value) => value > 1)).toBe(2);
+  });
 });

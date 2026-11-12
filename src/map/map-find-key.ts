@@ -14,5 +14,8 @@ export const mapFindKey: {
    * mapFindKey(stock, (count) => count < 10);
    * // 'pears'
    */
-  <K, V>(map: Map<K, V>, predicate: (value: V, key: K, map: Map<K, V>) => boolean): K | undefined;
+  <K, V>(
+    map: ReadonlyMap<K, V>,
+    predicate: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean,
+  ): K | undefined;
 } = findKey;

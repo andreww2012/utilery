@@ -10,4 +10,13 @@ describe('map/mapReduce', () => {
 
     expect(mapReduce(sample, (acc, value) => acc + value, 0)).toBe(6);
   });
+
+  it('accepts a `ReadonlyMap`', () => {
+    const sample: ReadonlyMap<string, number> = new Map([
+      ['a', 1],
+      ['b', 2],
+    ]);
+
+    expect(mapReduce(sample, (acc, value) => acc + value, 0)).toBe(3);
+  });
 });

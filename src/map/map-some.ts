@@ -18,5 +18,8 @@ export const mapSome: {
    * mapSome(stock, (count) => count > 25);
    * // false
    */
-  <K, V>(map: Map<K, V>, predicate: (value: V, key: K, map: Map<K, V>) => boolean): boolean;
+  <K, V>(
+    map: ReadonlyMap<K, V>,
+    predicate: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean,
+  ): boolean;
 } = some;

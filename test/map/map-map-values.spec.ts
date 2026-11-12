@@ -15,4 +15,16 @@ describe('map/mapMapValues', () => {
       ['b', 20],
     ]);
   });
+
+  it('accepts a `ReadonlyMap`', () => {
+    const sample: ReadonlyMap<string, number> = new Map([
+      ['a', 1],
+      ['b', 2],
+    ]);
+
+    expect([...mapMapValues(sample, (value) => value * 10)]).toStrictEqual([
+      ['a', 10],
+      ['b', 20],
+    ]);
+  });
 });

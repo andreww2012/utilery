@@ -15,5 +15,8 @@ export const mapFilter: {
    * mapFilter(stock, (count) => count > 1);
    * // Map {'pears' => 2, 'plums' => 3}
    */
-  <K, V>(map: Map<K, V>, predicate: (value: V, key: K, map: Map<K, V>) => boolean): Map<K, V>;
+  <K, V>(
+    map: ReadonlyMap<K, V>,
+    predicate: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean,
+  ): Map<K, V>;
 } = filter;
