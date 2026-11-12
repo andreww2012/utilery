@@ -4,45 +4,55 @@ Together they take ~14 ms, which every import of `utilery` and `utilery/string` 
 regex literals while parsing the file, so a literal costs as much even inside a function that never runs.
 
 diff --git a/index.js b/index.js
-index dd2a7cd83783dd1bc209832f99a3299fc7dc2174..47e194e38be8a774a5f6c353c5a0c2d3f6fb1faf 100644
+index 195c869..3511176 100644
 --- a/index.js
 +++ b/index.js
-@@ -13,15 +13,17 @@ Logic:
- 	5. Otherwise use East Asian Width of the cluster's first visible code point, and add widths for trailing spacing marks and Halfwidth/Fullwidth Forms within the same cluster (e.g., dakuten/handakuten/prolonged sound mark).
+@@ -14,7 +14,8 @@ Logic:
+ 	6. Spacing prepended concatenation marks (e.g., ARABIC NUMBER SIGN before digits) are one column each, unless the following glyph is wide (East Asian Wide or emoji, but not in VS15 text style), which takes them into its own cell.
  */
  
 -const segmenter = new Intl.Segmenter();
 +// Created on first use: creating it takes ~5 ms, which every import would pay
 +let segmenter;
+ const nonAsciiOrControlRegex = /[^\u{20}-\u{7E}]/v;
  
- // Matches a visible (printing) character. Used to find the base scalar of a cluster (skipping leading Prepend/Format/Marks) and to detect whole-cluster zero-width.
- // Intentionally a single negated class without a quantifier: a repeated pattern like `^(?:…|…)+$` backtracks exponentially on overlapping properties, and even `^[…]+$` overflows V8's backtrack stack (RangeError) on clusters with millions of marks.
- const visibleCharacterRegex = /[^\p{Default_Ignorable_Code_Point}\p{Control}\p{Format}\p{Nonspacing_Mark}\p{Enclosing_Mark}\p{Surrogate}]/v;
- const spacingMarkRegex = /\p{Spacing_Mark}/v;
+ // Spacing Prepended_Concatenation_Mark format characters (e.g., ARABIC NUMBER SIGN) that are visible signs spanning the following characters. Excludes the zero-width U+070F SYRIAC ABBREVIATION MARK.
+@@ -28,7 +29,10 @@ const visibleCharacterRegex = new RegExp(String.raw`[^\p{Default_Ignorable_Code_
  
--// RGI emoji sequences
--const rgiEmojiRegex = /^\p{RGI_Emoji}$/v;
-+// RGI emoji sequences. Created on first use with the constructor: V8 checks regex literals while
-+// parsing the file, which takes ~8 ms for `\p{RGI_Emoji}`, even if the code never runs
-+let rgiEmojiRegex;
+ // Clusters starting with an RGI emoji sequence. Not anchored at the end, so trailing extenders (ZWJ, marks, variation selectors) in the same cluster do not hide the emoji.
+ // Regional indicators that do not form a valid flag (alone, or an unknown pair) are also shown as one wide symbol, and so is a digit, number sign, or asterisk with VS16 (an emoji presentation sequence that is not RGI on its own).
+-const emojiPrefixRegex = /^(?:\p{RGI_Emoji}|\p{Regional_Indicator}{1,2}|[\d#*]\u{FE0F})/v;
++// Created on first use with the constructor: V8 checks regex literals while parsing the file, which
++// takes ~8 ms for `\p{RGI_Emoji}`, even if the code never runs
++let emojiPrefixRegex;
++const getEmojiPrefixRegex = () => emojiPrefixRegex ??= new RegExp(String.raw`^(?:\p{RGI_Emoji}|\p{Regional_Indicator}{1,2}|[\d#*]\u{FE0F})`, 'v');
  
- // Detect minimally-qualified/unqualified emoji sequences (missing VS16 but still render as double-width)
- const unqualifiedKeycapRegex = /^[\d#*]\u20E3$/;
-@@ -172,7 +174,7 @@ export default function stringWidth(input, options = {}) {
- 	let width = 0;
+ // A wide BMP emoji followed by VS15 asks for its narrow text style. Every BMP Emoji_Presentation character has a standardized text variation sequence.
+ // Limitation: astral emoji (e.g., 👍︎) keep their width, because only some of them have a text variation sequence and terminals disagree.
+@@ -102,7 +106,7 @@ function clusterWidth(segment, eastAsianWidthOptions) {
+ 		const visibleRest = baseVisible(rest);
+ 		const isWideGlyph = restWidth >= 2 && (
+ 			eastAsianWidth(visibleRest.codePointAt(0), eastAsianWidthOptions) === 2
+-			|| emojiPrefixRegex.test(visibleRest)
++			|| getEmojiPrefixRegex().test(visibleRest)
+ 			|| emojiZwjSequenceRegex.test(visibleRest)
+ 		);
+ 		return isWideGlyph ? restWidth : [...marks[0]].length + restWidth;
+@@ -124,7 +128,7 @@ function clusterWidth(segment, eastAsianWidthOptions) {
+ 	}
+ 
+ 	// Emoji width logic. Uses the visible part, so leading invisible characters do not hide the emoji.
+-	const emoji = emojiPrefixRegex.exec(visibleSegment);
++	const emoji = getEmojiPrefixRegex().exec(visibleSegment);
+ 	if (emoji) {
+ 		return 2 + (strayEmojiModifierCount(visibleSegment, emoji[0].length) * 2);
+ 	}
+@@ -174,7 +178,7 @@ function unicodeWidth(string, ambiguousIsNarrow) {
+ 
  	const eastAsianWidthOptions = {ambiguousAsWide: !ambiguousIsNarrow};
  
 -	for (const {segment} of segmenter.segment(string)) {
 +	for (const {segment} of (segmenter ??= new Intl.Segmenter()).segment(string)) {
- 		// Zero-width / non-printing clusters
- 		const visibleSegment = baseVisible(segment);
- 		if (visibleSegment === undefined) {
-@@ -180,7 +182,7 @@ export default function stringWidth(input, options = {}) {
- 		}
- 
- 		// Emoji width logic
--		if (rgiEmojiRegex.test(segment) || isDoubleWidthNonRgiEmojiSequence(segment)) {
-+		if ((rgiEmojiRegex ??= new RegExp(String.raw`^\p{RGI_Emoji}$`, 'v')).test(segment) || isDoubleWidthNonRgiEmojiSequence(segment)) {
- 			width += 2;
- 			continue;
- 		}
+ 		// Fast path: a single visible UTF-16 code unit has its East Asian Width under every rule above (a single-code-point RGI emoji is East Asian Wide, and a Hangul cluster uses the width of its first code point).
+ 		if (segment.length === 1) {
+ 			if (visibleCharacterRegex.test(segment)) {

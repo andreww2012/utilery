@@ -10,6 +10,28 @@ describe('string/getStringWidth', () => {
     expect(getStringWidth('')).toBe(0);
   });
 
+  it('counts every visible character of a cluster', () => {
+    expect(getStringWidth('นำ')).toBe(2);
+    expect(getStringWidth('क्ष')).toBe(2);
+    expect(getStringWidth('😀\u{1F3FB}')).toBe(4);
+  });
+
+  it('counts a Hangul syllable written as separate letters as one block', () => {
+    expect(getStringWidth('\u{1112}\u{1161}\u{11AB}')).toBe(2);
+    expect(getStringWidth('\u{1100}\u{1100}\u{1161}')).toBe(2);
+  });
+
+  it('counts a lone surrogate as the replacement character', () => {
+    expect(getStringWidth('a\u{D83D}b')).toBe(3);
+  });
+
+  it('counts a symbol that has two styles by the chosen one: 1 column as text, 2 as emoji', () => {
+    expect(getStringWidth('\u{231A}')).toBe(2);
+    expect(getStringWidth('\u{231A}\u{FE0E}')).toBe(1);
+    expect(getStringWidth('1\u{FE0F}\u{20E3}')).toBe(2);
+    expect(getStringWidth('1\u{20E3}')).toBe(1);
+  });
+
   it('ignores ANSI escape codes unless asked to count them', () => {
     expect(getStringWidth('\u{1B}[1mbold\u{1B}[22m')).toBe(4);
     expect(getStringWidth('\u{1B}[1mbold\u{1B}[22m', {countAnsiEscapeCodes: true})).toBeGreaterThan(

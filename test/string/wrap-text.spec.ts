@@ -1,4 +1,5 @@
-// cspell:ignore nifragili nstic supercal
+// cspell:ignore nifragili nstic supercal นำนำ นำนำนำ
+import {getStringWidth} from '../../src/string/get-string-width.ts';
 import {stripAnsi} from '../../src/string/strip-ansi.ts';
 import {wrapText} from '../../src/string/wrap-text.ts';
 
@@ -32,6 +33,12 @@ describe('string/wrapText', () => {
     expect(wrapText('古池や 蛙飛び込む', 6)).toBe('古池や\n蛙飛び込む');
     expect(wrapText('古池や 蛙飛び込む', 6, {hard: true})).toBe('古池や\n蛙飛び\n込む');
     expect(wrapText('👨‍👩‍👧👨‍👩‍👧👨‍👩‍👧', 4, {hard: true})).toBe('👨‍👩‍👧👨‍👩‍👧\n👨‍👩‍👧');
+  });
+
+  it('measures text the same way as `getStringWidth`', () => {
+    expect(getStringWidth('นำนำนำ')).toBe(6);
+    expect(wrapText('นำนำนำ', 4, {hard: true})).toBe('นำนำ\nนำ');
+    expect(wrapText('นำ นำ นำ', 5)).toBe('นำ นำ\nนำ');
   });
 
   it('fills every line up to the width, breaking words anywhere, without `wordWrap`', () => {

@@ -8271,6 +8271,11 @@ function ansiRegex({ onlyFirst = false } = {}) {
 // vendor/strip-ansi/index.mjs
 ansiRegex();
 
+// vendor/string-width/index.mjs
+const prependedConcatenationMarks = String.raw`\u{600}-\u{605}\u{6DD}\u{890}\u{891}\u{8E2}\u{110BD}\u{110CD}`;
+new RegExp(`^[${prependedConcatenationMarks}]+`, "v");
+new RegExp(String.raw`[^\p{Default_Ignorable_Code_Point}\p{Control}\p{Enclosing_Mark}\p{Nonspacing_Mark}[\p{Format}--[${prependedConcatenationMarks}]]]`, "v");
+
 // vendor/split-string/index.mjs
 var require_split_string = __commonJSMin(((exports, module) => {
 	module.exports = (input, options = {}, fn) => {
