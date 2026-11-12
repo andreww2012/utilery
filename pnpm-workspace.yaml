@@ -30,7 +30,7 @@ catalogs:
     ms-ts: 1.2.0
     nanoid: 6.0.2
     negotiator: 1.1.0
-    neotraverse: 1.0.1
+    neotraverse: 1.0.2
     p-memoize: 9.0.0
     parse-package-name: 1.0.0
     path-type: 6.0.0

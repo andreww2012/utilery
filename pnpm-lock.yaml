@@ -245,8 +245,8 @@ catalogs:
       specifier: 1.1.0
       version: 1.1.0
     neotraverse:
-      specifier: 1.0.1
-      version: 1.0.1
+      specifier: 1.0.2
+      version: 1.0.2
     p-memoize:
       specifier: 9.0.0
       version: 9.0.0
@@ -687,7 +687,7 @@ importers:
         version: 1.1.0
       neotraverse:
         specifier: catalog:bundled
-        version: 1.0.1
+        version: 1.0.2
       npm-check-updates:
         specifier: 'catalog:'
         version: 23.1.1
@@ -5186,8 +5186,8 @@ packages:
     resolution: {integrity: sha512-NMPBRMJgiQHjbd8phG3Vebdx4kZ1H121rbl5IkMqeOsahptB9BKo/d7oJ3zTXqTgagn2bWlNSXkh0QUGM31RYg==}
     engines: {node: '>=18'}
 
-  neotraverse@1.0.1:
-    resolution: {integrity: sha512-WmmLty1YWwJl9yZi77v2dVIV6X2kuYV8YYBI/G3LWGKdGHmHUvL1z7FW0iDvEvGAwNEoc5x1tOOOyDnf5jJw/w==}
+  neotraverse@1.0.2:
+    resolution: {integrity: sha512-DLMUFnyCrRAncRJhDC2yNbSTcpEukp+nczID/na3XdIHQFokPveK69xel642cQHgUGszctsOSeCePqPpY25W6Q==}
     engines: {node: '>= 10'}
 
   node-gyp@12.4.0:
@@ -10629,7 +10629,7 @@ snapshots:
     dependencies:
       content-type: 2.1.0
 
-  neotraverse@1.0.1: {}
+  neotraverse@1.0.2: {}
 
   node-gyp@12.4.0:
     dependencies:

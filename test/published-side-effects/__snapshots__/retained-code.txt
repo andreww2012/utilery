@@ -8598,7 +8598,7 @@ new Set(ansiStyles.codes.values()).delete(ANSI_SGR_RESET);
 new RegExp(`[${ESCAPE_CHARACTERS}]`, "g");
 new RegExp(`[\\n${ESCAPE_CHARACTERS}]`, "g");
 
-// vendor/neotraverse/dist/path-Bxt08XGL.mjs
+// vendor/neotraverse/dist/path-Bg_QReYn.mjs
 Array.isArray;
 
 // vendor/imurmurhash/imurmurhash.mjs
