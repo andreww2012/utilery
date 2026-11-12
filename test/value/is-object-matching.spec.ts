@@ -21,4 +21,10 @@ describe('value/isObjectMatching', () => {
 
     expect(isMatching).toBe(true);
   });
+
+  it('accepts a customizer that may be `undefined`', () => {
+    [undefined, () => undefined].forEach((customizer) => {
+      expect(isObjectMatching({a: 1, b: 2}, {a: 1}, customizer)).toBe(true);
+    });
+  });
 });

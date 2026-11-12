@@ -39,8 +39,5 @@ type CloneShallowCustomizer<T> = (
  * });
  * // [2, 4, 6]
  */
-export function cloneShallow<T>(value: T, cloneValue: CloneShallowCustomizer<T>): T;
-export function cloneShallow<T>(value: T): T;
-export function cloneShallow<T>(value: T, cloneValue?: CloneShallowCustomizer<T>): T {
-  return cloneValue ? (cloneWith(value, cloneValue) as T) : clone(value);
-}
+export const cloneShallow = <T>(value: T, cloneValue?: CloneShallowCustomizer<T>): T =>
+  cloneValue ? (cloneWith(value, cloneValue) as T) : clone(value);

@@ -24,4 +24,10 @@ describe('value/cloneShallow', () => {
     expectOwnProtoKey(cloneShallow(parseUntrusted()));
     expectOwnProtoKey(cloneShallow(parseUntrusted(), () => undefined));
   });
+
+  it('accepts a customizer that may be `undefined`', () => {
+    [undefined, () => undefined].forEach((customizer) => {
+      expect(cloneShallow({a: 1}, customizer)).toStrictEqual({a: 1});
+    });
+  });
 });

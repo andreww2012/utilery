@@ -116,4 +116,10 @@ describe('value/cloneDeep', () => {
     expectOwnProtoKey(cloneDeep(parseUntrusted('{"a": {"__proto__": {"isAdmin": true}}}')).a);
     expectOwnProtoKey(cloneDeep(parseUntrusted(), () => undefined));
   });
+
+  it('accepts a customizer that may be `undefined`', () => {
+    [undefined, () => undefined].forEach((customizer) => {
+      expect(cloneDeep({a: {b: 1}}, customizer)).toStrictEqual({a: {b: 1}});
+    });
+  });
 });

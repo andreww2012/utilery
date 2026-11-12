@@ -41,8 +41,5 @@ type IsEqualCustomizer = (
  * });
  * // true
  */
-export function isEqual(a: unknown, b: unknown, customizer: IsEqualCustomizer): boolean;
-export function isEqual(a: unknown, b: unknown): boolean;
-export function isEqual(a: unknown, b: unknown, customizer?: IsEqualCustomizer): boolean {
-  return customizer ? isEqualWith(a, b, customizer) : isEqualFromEsToolkit(a, b);
-}
+export const isEqual = (a: unknown, b: unknown, customizer?: IsEqualCustomizer): boolean =>
+  customizer ? isEqualWith(a, b, customizer) : isEqualFromEsToolkit(a, b);

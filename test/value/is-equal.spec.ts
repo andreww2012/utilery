@@ -47,4 +47,10 @@ describe('value/isEqual', () => {
       expect(areEqual).toBe(false);
     });
   });
+
+  it('accepts a customizer that may be `undefined`', () => {
+    [undefined, () => undefined].forEach((customizer) => {
+      expect(isEqual({a: 1}, {a: 1}, customizer)).toBe(true);
+    });
+  });
 });

@@ -41,16 +41,8 @@ type IsObjectMatchingCustomizer = (
  * });
  * // true
  */
-export function isObjectMatching(
-  object: object,
-  pattern: object,
-  customizer: IsObjectMatchingCustomizer,
-): boolean;
-export function isObjectMatching(object: object, pattern: object): boolean;
-export function isObjectMatching(
+export const isObjectMatching = (
   object: object,
   pattern: object,
   customizer?: IsObjectMatchingCustomizer,
-): boolean {
-  return customizer ? isMatchWith(object, pattern, customizer) : isMatch(object, pattern);
-}
+): boolean => (customizer ? isMatchWith(object, pattern, customizer) : isMatch(object, pattern));
