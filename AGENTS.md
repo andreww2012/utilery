@@ -96,6 +96,7 @@ All with zero dependencies, because all external dependencies are bundled.
 - Utilities which only read `Set` or `Map`, should also accept `Readonly{Set,Map}`.
 - Separate the reason from tool directives which doesn't require a separator, like `@ts-expect-error`, with a space only, with no `:`, `-` or any other made-up delimiter.
 - Wrap technical names in backticks in all comments and docs.
+- Outside code examples, write a type or value that depends on an argument with a placeholder: `` `${string}<searched string>${string}` ``, not `` `${string}test${string}` ``.
 
 ## Domain description
 
