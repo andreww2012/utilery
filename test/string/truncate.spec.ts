@@ -12,6 +12,25 @@ describe('string/truncate', () => {
     expect(truncate('ABC', {length: 2})).toBe('...');
   });
 
+  it('cuts before the last match of the separator within the limit', () => {
+    expect(truncate('aa, bb, cc, dd', {length: 12, separator: ', '})).toBe('aa, bb...');
+    expect(truncate('aa, bb, cc, dd', {length: 12, separator: /,? +/})).toBe('aa, bb...');
+    // Of the adjacent matches, the last one counts
+    expect(truncate('aa, bb, cc, dd', {length: 12, separator: /\W/})).toBe('aa, bb,...');
+    // cspell:disable-next-line
+    expect(truncate('один два три четыре', {length: 13, separator: ' '})).toBe('один два...');
+    expect(truncate('一二，三四，五六，七八', {length: 7, separator: '，'})).toBe('一二...');
+    expect(truncate('no-spaces-in-this-text', {length: 12, separator: ' '})).toBe('no-spaces...');
+  });
+
+  it('cuts right at the limit when a match of the separator starts there', () => {
+    expect(truncate('a b c d e f g', {length: 8, separator: ' '})).toBe('a b c...');
+    expect(truncate('a b c d e f g', {length: 8, separator: /\s/})).toBe('a b c...');
+    expect(truncate('a b c d e f g', {length: 5, separator: ' ', omission: ''})).toBe('a b c');
+    expect(truncate('😀 😀 😀 😀', {length: 4, separator: ' ', omission: '~'})).toBe('😀 😀~');
+    expect(truncate('一二，三四，五六，七八', {length: 8, separator: '，'})).toBe('一二，三四...');
+  });
+
   it('truncates the start', () => {
     expect(
       truncate('/home/user/projects/utilery/src/index.ts', {

@@ -20,7 +20,7 @@ catalogs:
     destr: 2.0.5
     devalue: 6.0.3
     env-paths: 4.0.0
-    es-toolkit: 1.53.0
+    es-toolkit: 1.53.2
     find-up-simple: 1.0.1
     htmlescape: 1.1.1
     http-link-header: 1.1.4

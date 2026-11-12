@@ -26,7 +26,11 @@ export type TruncateOptions = Prettify<
        * Defaults to `'end'`
        */
       position?: 'end';
-      /** Cuts at the last match of this pattern before the limit, to keep words whole */
+
+      /**
+       * Cuts before the last match of this pattern within the limit, or right at
+       * the limit when a match starts there, to keep words whole
+       */
       separator?: string | RegExp;
     })
   | (BaseTruncateOptions & {position: 'start' | 'middle'; separator?: never})
@@ -43,6 +47,7 @@ export type TruncateOptions = Prettify<
  * a file name with its extension).
  * With the default `'end'` position, a `separator` makes the cut happen before
  * its last match within the limit, to avoid cutting a word in half.
+ * When a match starts right at the limit, the string is cut there.
  * When `length` is shorter than the omission, a string that doesn't fit becomes
  * the omission alone, which is longer than `length`.
  * @param text - The string to truncate.

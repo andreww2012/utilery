@@ -25,6 +25,17 @@ describe('value/cloneShallow', () => {
     expectOwnProtoKey(cloneShallow(parseUntrusted(), () => undefined));
   });
 
+  it('makes the clone of a `DataView` view the same bytes of a copied buffer', () => {
+    const view = new DataView(new Uint8Array([1, 2, 3, 4, 5, 6]).buffer, 2, 3);
+
+    [cloneShallow(view), cloneShallow(view, () => undefined)].forEach((cloned) => {
+      expect(cloned).not.toBe(view);
+      expect(cloned.buffer).not.toBe(view.buffer);
+      expect(cloned.byteLength).toBe(3);
+      expect([cloned.getUint8(0), cloned.getUint8(2)]).toStrictEqual([3, 5]);
+    });
+  });
+
   it('accepts a customizer that may be `undefined`', () => {
     [undefined, () => undefined].forEach((customizer) => {
       expect(cloneShallow({a: 1}, customizer)).toStrictEqual({a: 1});
