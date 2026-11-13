@@ -424,7 +424,7 @@ var require_scan = __commonJSMin(((exports, module) => {
 		return code === CHAR_FORWARD_SLASH || code === CHAR_BACKWARD_SLASH;
 	};
 	const depth = (token) => {
-		if (token.isPrefix !== true) token.depth = token.isGlobstar ? Infinity : 1;
+		if (token.isPrefix !== true) token.depth = token.isGlobstar ? 1e400 : 1;
 	};
 	const scan = (input, options) => {
 		const opts = options || {};
@@ -3329,7 +3329,7 @@ var require_safe_stable_stringify = __commonJSMin(((exports, module) => {
 			if (!Number.isInteger(value)) throw new TypeError(`The "${key}" argument must be an integer`);
 			if (value < 1) throw new RangeError(`The "${key}" argument must be >= 1`);
 		}
-		return value === void 0 ? Infinity : value;
+		return value === void 0 ? 1e400 : value;
 	}
 	function getItemCount(number) {
 		if (number === 1) return "1 item";
@@ -8863,6 +8863,7 @@ require_cjs();
 
 // vendor/write-file-atomic/lib/index.mjs
 var require_lib$1 = __commonJSMin(((exports, module) => {
+	var __filename = import.meta.filename;
 	module.exports = writeFile;
 	module.exports.sync = writeFileSync;
 	module.exports._getTmpname = getTmpname;
