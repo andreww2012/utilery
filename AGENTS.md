@@ -32,6 +32,7 @@ All with zero dependencies, because all external dependencies are bundled.
   Refer to our utilities and groups by their bare names: `getErrorMessage`, `bitwise`.
   Start a changeset with what was done, in the past tense: "Added a new `foo` option to `bar`", not "`bar` gets a `foo` option".
   Every item in it must read as a change: "It now returns `false` for `null`" or "Fixed the result type of a tuple", not "It returns `false` for `null`".
+  Keep one bump changeset per package for a release: when a pending changeset already bumps the package, extend it to the new version.
   In a bump changeset, list every affected symbol and nest under it how it was affected *on the part of our package's users*.
   A symbol is affected when the upstream diff changes its behavior or types for calls our types allow, directly or through other utilities (name a whole group instead when the diff reaches most of it).
   Using the package is not enough: check each symbol against the diff, and leave out `, which affected:` when nothing is affected.

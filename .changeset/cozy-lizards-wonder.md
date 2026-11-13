@@ -2,7 +2,7 @@
 'utilery': minor
 ---
 
-Updated [`remeda` from v2.55.0 to v2.59.0](https://github.com/remeda/remeda/compare/v2.55.0...v2.59.0), which affected:
+Updated [`remeda` from v2.54.1 to v2.60.0](https://github.com/remeda/remeda/compare/v2.54.1...v2.60.0), which affected:
 
 - `arrayDropFirstBy`:
   - **BREAKING:** the same change as in `arrayReverse`, for a `count` of 0 or less
