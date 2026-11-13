@@ -1,5 +1,207 @@
 # utilery
 
+## 0.4.0
+
+### Minor Changes
+
+- [`711ce3d`](https://github.com/andreww2012/utilery/commit/711ce3dfe9ded593dc3acbc72869a825d8dc525e) - **BREAKING:** Turned `stringIncludes` into a type guard: it now narrows a `string` to `` `${string}<searched string>${string}` `` and a union of string literals to the members that contain the searched string, and no longer computes a `true` or `false` type for literal arguments
+
+- [`942381b`](https://github.com/andreww2012/utilery/commit/942381bbabec32a4600326f5949c3df043dcc042) - Fixed the types of `isPlainObject`, `isJsonArray`, `isJsonObject` and `isJsonValue`, which dropped other objects and arrays, like a `Date` or an `unknown[]`, from the type of the value when they returned `false`:
+  
+  - **BREAKING:** they narrow to `Record<PropertyKey, unknown>`, `JsonArray`, `JsonObject` and `JsonValue` instead of types with `any`
+  - they no longer narrow a value that already has such a type, which became `never` when they returned `false`
+
+- [`2a11d6d`](https://github.com/andreww2012/utilery/commit/2a11d6ddee7bfadb692c9ee1c1480acb785b06aa) - Added a new `onlySyntaxCharacters` option to `regexEscape` that escapes only `^$\.*+?()[]{}|/` with a backslash, so that people can read the result or type it by hand: `My$Button` becomes `My\$Button` instead of `\x4dy\$Button`
+
+- [`f8d61b1`](https://github.com/andreww2012/utilery/commit/f8d61b131e97d4516b5195a758261411a22554af) - Updated [`string-ts` from v2.3.1 to v2.4.0](https://github.com/gustavoguichard/string-ts/compare/v2.3.1...v2.4.0), which affected:
+  
+  - `padEnd` and `padStart`:
+    - **BREAKING:** the result type is now `` `<original string>${string}` `` for `padEnd` and `` `${string}<original string>` `` for `padStart`, instead of the padded literal, when more than 45 characters are added
+  - `stringRepeat`:
+    - **BREAKING:** the result type is now `string` instead of the repeated literal for a count above 45
+    - Big counts no longer fail with the "Type instantiation is excessively deep" error
+
+- [`5c93b00`](https://github.com/andreww2012/utilery/commit/5c93b005547dc6f264405833e1f1f4970b4e19ac) - Updated [`remeda` from v2.54.1 to v2.60.0](https://github.com/remeda/remeda/compare/v2.54.1...v2.60.0), which affected:
+  
+  - `arrayDropFirstBy`:
+    - **BREAKING:** the same change as in `arrayReverse`, for a `count` of 0 or less
+  - `arrayNthBy`
+  - `arrayReverse`:
+    - **BREAKING:** the result keeps the empty slots of a sparse array instead of making them `undefined`, and is an instance of the same class for an instance of an `Array` subclass
+  - `arraySort`:
+    - **BREAKING:** the same change as in `arrayReverse`
+  - `arraySplit`:
+    - **BREAKING:** the same change as in `arrayReverse`, for the first part when the predicate matches nothing
+  - `arraySwapIndexes`:
+    - **BREAKING:** the same change as in `arrayReverse`
+  - `arrayTakeFirstBy`:
+    - **BREAKING:** the same change as in `arrayReverse`, for a `count` of the array length or more
+  - `objectFromKeys`:
+    - **BREAKING:** the empty slots of a sparse array are skipped instead of adding an `undefined` key
+  - `setByPathImmutable`:
+    - **BREAKING:** the same change as in `arrayReverse`, for the copies of the arrays on the path
+
+- [`bf33bb4`](https://github.com/andreww2012/utilery/commit/bf33bb42f00f480a6af605b9039872bb86c5ffc0) - Added Bun `>=1.4.0` to the supported runtimes, also in `engines`, and a new `isBun` utility that checks whether the code runs in Bun. `isNode` returns `true` in Bun too, which its docs now say
+
+- [`1112011`](https://github.com/andreww2012/utilery/commit/111201172da271f9260f7fd7dd9f1c3ee36d5dec) - Updated [`ansi-regex` from v6.4.0 to v6.6.0](https://github.com/chalk/ansi-regex/compare/v6.4.0...v6.6.0), which affected:
+  
+  - `stripAnsi`:
+    - **BREAKING:** escape codes are now matched by their standard form, which changes what is removed:
+      - Whole control strings (device control strings, application program commands, privacy messages and similar) are now removed together with their content
+      - Control sequences with any standard parameter, intermediate and final bytes, like `\u001B[2 q` or `\u001B[>1u`, are now removed whole, instead of leaving their tail in the text
+      - An escape code that ends with a digit, like `\u001B7`, no longer takes the next character with it
+      - Text that only looks like an escape code, like a control string that has no end, is now kept as is
+  - `getStringWidth`:
+    - **BREAKING:** the same change as in `stripAnsi`, for the escape codes that the width leaves out
+  - `wrapText`:
+    - **BREAKING:** control sequences with intermediate bytes or unusual final bytes, like `\u001B[2 q`, no longer add to the width of a line
+
+- [`5048956`](https://github.com/andreww2012/utilery/commit/50489566740f46f8eb2fa1e794774c8d62be93a9) - Fixed the types of `setHas` and `arrayIncludes`:
+  
+  - **BREAKING:** when they return `true`, they keep `null` and `undefined` that the set or array may hold, instead of narrowing them away. When they return `false`, a union value now loses them too, like the other members that the element type covers
+  - they no longer narrow a value that already has the element type, which became `never` when they returned `false`
+
+- [`a66dabb`](https://github.com/andreww2012/utilery/commit/a66dabb69348805950ab2f822f2898cedce53e16) - Typed the windows of `slidingWindow` as tuples when `size` is a number literal and `partialWindows` is not `true`
+
+- [`970d750`](https://github.com/andreww2012/utilery/commit/970d75027968c8e1068b77d6f2050b10c2a4a12e) - Updated [`safe-stable-stringify` from v3.0.0 to v3.0.1](https://github.com/BridgeAR/safe-stable-stringify/compare/v3.0.0...v3.0.1), which affected:
+  
+  - `jsonStringifyStable`:
+    - **BREAKING:** a function created with `jsonStringifyStable.configure` now treats the elements of a `BigInt64Array` or a `BigUint64Array` like other bigints, instead of always writing them as numbers: it leaves them out when the `bigint` option is `false`, and throws with the `strict` option, unless `bigint` is set
+    - **BREAKING:** with both the `strict` and `safe` options, the error message is now written in place of each typed array element that has no exact JSON form, instead of replacing the whole result
+    - With the `safe` option, the error message of a getter that throws is now escaped, so the result is valid JSON when the message has quotes
+
+- [`942381b`](https://github.com/andreww2012/utilery/commit/942381bbabec32a4600326f5949c3df043dcc042) - **BREAKING:** Made `isInteger`, `isSafeInteger` and `isFiniteNumber` return a `boolean` instead of narrowing number literal types: `isInteger` and `isSafeInteger` narrowed a `number` to `never` when they returned `true`, and `isFiniteNumber` when it returned `false`
+
+- [`4ad1d03`](https://github.com/andreww2012/utilery/commit/4ad1d03a927f476460c374792d0f669fdeacb73d) - **BREAKING:** Renamed the `timeout` option of `exec` to `timeoutMs`, so that its name says the unit
+
+- [`8d739da`](https://github.com/andreww2012/utilery/commit/8d739dae93e10235a60b2e1e91393dea656511eb) - Updated [`es-toolkit` from v1.53.0 to v1.53.2](https://github.com/toss/es-toolkit/compare/v1.53.0...v1.53.2), which affected:
+  
+  - `cloneShallow`:
+    - The clone of a `DataView` made without a customizer now views the same part of the buffer as the original, instead of the whole buffer
+  - `reduceAsync`:
+    - **BREAKING:** an explicit `undefined` or `null` is now used as the initial value, instead of starting from the first item
+  - `truncate`:
+    - **BREAKING:** with the `separator` option, the string is now cut right at the limit when a match of the separator starts there, instead of before the previous match: `truncate('a b c d e f g', {length: 8, separator: ' '})` is now `'a b c...'` instead of `'a b...'`
+    - **BREAKING:** of the adjacent matches of a regex `separator`, the string is now cut before the last one instead of the first one
+
+- [`3bc5aa5`](https://github.com/andreww2012/utilery/commit/3bc5aa59734a8fa5d5d54a20c68c929c056881bb) - Updated [`ts-extras` from v1.3.0 to v2.0.0](https://github.com/sindresorhus/ts-extras/compare/v1.3.0...v2.0.0), which affected:
+  
+  - `arrayConcat`:
+    - A single tuple now keeps its shape: `arrayConcat(['x', 1] as const)` is typed as `['x', 1]` instead of `('x' | 1)[]`
+    - Primitives are now accepted after the first array and added as elements: `arrayConcat(['a'], 1)`
+    - The result type now includes the elements of arrays passed as a spread of unknown length
+  - `arrayFirst`:
+    - The result now has no `undefined` for a tuple that ends with a required element, like `[...string[], number]`
+  - `arrayJoin`:
+    - The delimiter is now optional and defaults to a comma
+    - Elements with no literal form, like objects, are now accepted and give a `string`
+  - `arrayLast`:
+    - The result now has no `undefined` for a tuple that starts with a required element, like `[string, ...number[]]`
+  - `isIn`:
+    - **BREAKING:** it now returns `false` for `null` and `undefined`, and looks up a primitive on its wrapper object, instead of throwing a `TypeError`
+    - It now returns `false` instead of throwing for a proxy that is revoked or whose trap throws
+  - `isKeyIn`:
+    - It now returns `false` instead of throwing for a proxy that is revoked or whose trap throws
+  - `isPropertyDefined` and `isPropertyNotNullish`:
+    - A property that the type of the value doesn't declare is now narrowed to `{} | null` and `{}` instead of `unknown`
+    - They now return `false` instead of throwing for a proxy that is revoked or whose trap throws
+  - `negatePredicate`:
+    - An `unknown` value is now narrowed to every type but the one of the original guard instead of staying `unknown`, and is no longer `never` when the new guard returns `false`
+  - `objectAssign`:
+    - A key that is optional in both the target and a source now stays optional in the result type instead of becoming required
+    - A source typed as a union of objects now adds the keys of all its members to the result type instead of making it `object`
+    - A `__proto__` key of a source is now left out of the result type
+  - `objectFromEntriesUnsafe`:
+    - **BREAKING:** all the keys of the result are now optional when a pair of a tuple has a union or non-literal key, like `[condition ? 'a' : 'b', 1]`
+  - `objectHasOwn`:
+    - **BREAKING:** it now returns `false` for `null` and `undefined` instead of throwing a `TypeError`
+    - It now returns `false` instead of throwing for a proxy that is revoked or whose trap throws
+  - `stringSplit`:
+    - A regular expression delimiter and a `limit` are now accepted and give `string[]`
+
+- [`e91a7ed`](https://github.com/andreww2012/utilery/commit/e91a7ed5b1d6393a9bbda6ecd798e6c3505024db) - Updated [`string-width` from v8.3.0 to v9.0.0](https://github.com/sindresorhus/string-width/compare/v8.3.0...v9.0.0), which affected:
+  
+  - `getStringWidth`:
+    - **BREAKING:** the width of some text changed: Thai, Lao and Indic clusters with several visible characters, Hangul syllables written as separate letters, some emoji and flag sequences, and lone surrogates. For example, `getStringWidth('นำ')` gives `2` instead of `1`
+  - `wrapText`:
+    - **BREAKING:** it breaks lines of such text at other places, as it measures the text with the same widths
+
+- [`942381b`](https://github.com/andreww2012/utilery/commit/942381bbabec32a4600326f5949c3df043dcc042) - Made `isIncludedIn` also narrow a value when the element type covers none of the members of its type, like `unknown` with a `string[]`
+
+- [`3aa25b7`](https://github.com/andreww2012/utilery/commit/3aa25b71f29f339d16077de2dff55cc65ab9def0) - Updated [`@sindresorhus/slugify` from v3.0.1 to v4.0.1](https://github.com/sindresorhus/slugify/compare/v3.0.1...v4.0.1) and [`@sindresorhus/transliterate` from v2.3.1 to v3.0.0](https://github.com/sindresorhus/transliterate/compare/v2.3.1...v3.0.0), which affected:
+  
+  - `slugify` and `createUniqueSlugify`:
+    - **BREAKING:** some slugs changed: many characters are transliterated differently, and camelCase words are split before the transliteration instead of after it
+    - **BREAKING:** they throw a `RangeError` for text with more than 100 combining marks in a row
+    - **BREAKING:** each Chinese character and Korean syllable became a word of its own, also next to Latin letters and digits and with `decamelize: false`, so `你好2` gives `ni-hao-2` instead of `ni-hao2`
+    - Fixed slugs with characters outside ASCII for a `locale` that has its own lowercase rules: `slugify('I', {locale: 'tr'})` gave `ı`
+
+- [`c53c29b`](https://github.com/andreww2012/utilery/commit/c53c29b544cdc994c1411b404b7067ad0e3d2959) - **BREAKING:** Turned `startsWith` and `endsWith` into type guards: they now narrow a `string` to `` `<prefix>${string}` `` and `` `${string}<suffix>` ``, and a union of string literals to the matching members, and no longer compute a `true` or `false` type for literal arguments
+
+- [`22694c0`](https://github.com/andreww2012/utilery/commit/22694c0a1a62230a2a631068ff35cef820b2cb86) - **BREAKING:** Fixed `arrayIntersection` with a key function, which kept only the first element of `firstArray` with each key: it now keeps all of them, like it does with a comparator or without a third argument
+
+- [`27fbc09`](https://github.com/andreww2012/utilery/commit/27fbc092e4780f95ae6b6b60ad03abc79a19385b) - Added `arrayIndexOf`, `arrayLastIndexOf` and `mapHas`, typed versions of `Array.prototype.indexOf`, `Array.prototype.lastIndexOf` and `Map.prototype.has`. The first two accept a value of a type wider than the element type, and `mapHas` is a type guard that narrows the key to the key type of the map
+
+### Patch Changes
+
+- [`5bd3543`](https://github.com/andreww2012/utilery/commit/5bd3543959f2ca0820b9ba4c792d1243f5d2ea1d) - Made the utilities that only read a `Map` or a `Set` accept a `ReadonlyMap` or a `ReadonlySet`, which they also pass to the callbacks:
+  
+  - `mapEvery`
+  - `mapFilter`
+  - `mapFindKey`
+  - `mapFindValue`
+  - `mapForEach`
+  - `mapHasValue`
+  - `mapMapKeys`
+  - `mapMapValues`
+  - `mapReduce`
+  - `mapSome`
+  - `setFilter`
+  - `setMapValues`
+
+- [`c06e1e4`](https://github.com/andreww2012/utilery/commit/c06e1e4a7a199e3077f067de865526c09b7f6de7) - Fixed `reduce` not closing the iterator when the reducer throws, so the `finally` blocks of a generator didn't run
+
+- [`1fa0393`](https://github.com/andreww2012/utilery/commit/1fa0393642b4c6defe6e0e0d8518d78018dfeab7) - Fixed the types of `readFileSafe`, which rejected an `asBinary` flag of the `boolean` type
+
+- [`ab68f2c`](https://github.com/andreww2012/utilery/commit/ab68f2c23a5533e35790739f8a6a10547feba2b5) - Moved the bundled packages from `dist/node_modules/.pnpm/<store directory>/node_modules/<package>/` to `dist/vendor/<package>/`. This change helps Windows tools that fail on paths longer than 260 characters, and other bundles show shorter paths in their comments
+
+- [`b7b3886`](https://github.com/andreww2012/utilery/commit/b7b388643244406315687a3702d9e5468e25f7bf) - Fixed `TupleOf` for lengths of 10 000 or more, where TypeScript failed with "Type produces a tuple type that is too large to represent": it now gives an array type, like it does for the wide `number` type
+
+- [`93e39f0`](https://github.com/andreww2012/utilery/commit/93e39f04234e75a8c897203d68edd8d0bcf2b5b2) - Fixed the `NumberLossless` type, the `options` parameter of `jsonParseLossless` and the `numberStringifiers` parameter of `jsonStringifyLossless`, which were typed as `any`. Without `skipLibCheck`, TypeScript also reported that it can't find the `lossless-json` module
+
+- [`c68dca0`](https://github.com/andreww2012/utilery/commit/c68dca0a31766c79cbc205eb3fe0cc6e8c8b3b33) - Updated [`neotraverse` from v1.0.1 to v1.0.2](https://github.com/PuruVJ/neotraverse/compare/neotraverse@1.0.1...neotraverse@1.0.2)
+
+- [`bbfe323`](https://github.com/andreww2012/utilery/commit/bbfe323476822edcb872a6c0cbb3e395f1767b38) - Made `slidingWindow` throw for an invalid `size` or `step` when it is called, not on the first iteration
+
+- [`d8cdd33`](https://github.com/andreww2012/utilery/commit/d8cdd336023f4726741119cde122a017bda159ee) - Fixed `truncate` with `position: 'start'` or `'middle'` for a `length` with a decimal part or `NaN`, which kept one character too many or the whole string: it now ignores the decimal part and keeps nothing for `NaN`, like the default `'end'` position
+
+- [`942381b`](https://github.com/andreww2012/utilery/commit/942381bbabec32a4600326f5949c3df043dcc042) - Fixed type guards whose branches dropped values that can still reach them:
+  
+  - `isValidDate` and `isJson` narrowed a `Date` or a `string` to `never` when they returned `false`. They no longer narrow it
+  - `objectHasOwn`, `isIn` and `isKeyIn` narrowed the object or the key to `never` when they returned `false` and the object type already had the key, like a `Record<string, number>` with a `string` key. They no longer narrow it. `isKeyIn` also no longer narrows the key to `__proto__` or `constructor`, for which it always returns `false`
+  - `isAbortError` and `isTimeoutError` narrowed an `Error` to `never` when they returned `false`. They now narrow to an error with their `name`
+  - `isNodeError` narrowed a system error to `never` when it returned `false` for codes of a wide type, like `string[]`. It no longer narrows such an error
+  - `arrayHasMinElements` narrowed an array to `never` when it returned `false` for a union of lengths, like `1 | 3`, and `arrayHasMaxElements` kept too few lengths when it returned `true`. They now narrow only for a single non-negative integer, so `arrayHasMinElements` no longer fails with "Type instantiation is excessively deep" for a length like `1.5` or `-1`
+  - `arrayPartition` and `iterablePartition` typed the unmatched elements as `never` when they already had the narrowed type. They now keep their type
+  
+  Also documented which values `isTruthy`, `isPropertyDefined`, `isPropertyNotNullish`, `isEqualShallow`, `negatePredicate`, `isIn`, `isNodeError` and the data-last form of `isIncludedIn` still drop from a branch
+
+- [`c4455f1`](https://github.com/andreww2012/utilery/commit/c4455f1d6eb68f40b6eea2bba581852c6287a914) - Fixed the types of `flow` and `flowAsync`, which made the composed function accept only `never` arguments: it now takes the parameters of the function that runs first and gives the result of the one that runs last
+
+- [`2b89a94`](https://github.com/andreww2012/utilery/commit/2b89a94c3527ed84be8eacf3cf7c6fb890415d6e) - Made importing `utilery` ~25% faster and `utilery/string` ~3 times faster by creating `Intl.Segmenter`s and big regexes on the first call instead of on import
+
+- [`02e4440`](https://github.com/andreww2012/utilery/commit/02e4440d739fa76627029f1e5a0730ac6297c09e) - Fixed the types of `interopDefault`:
+  
+  - in generic code, a module typed as `T | {default: T}` resolves to `T`, where the result couldn't be assigned to `T` before
+  - a module whose `default` export may be `null` or `undefined` resolves to the default export or the module itself, without an intersection with `{default: undefined}`
+  - a union of modules resolves each module of the union
+
+- [`60ef5e6`](https://github.com/andreww2012/utilery/commit/60ef5e65ab123ae76640145e6412b0f13a0fd0e7) - Fixed `exec` on Windows, where it failed with `ENOENT` for `.cmd` and `.bat` launchers (like `npm` and `pnpm`) and scripts with a shebang. It still rejects with `ENOENT` for a missing command. Also made `exec` accept a readonly array of arguments
+
+- [`09e32e0`](https://github.com/andreww2012/utilery/commit/09e32e00689b861b0dbc3273cfb2a2ac32ca22bc) - Fixed the types of `isEqual`, `isObjectMatching`, `cloneDeep` and `cloneShallow`, which rejected a customizer that may be `undefined`
+
+- [`e0ba881`](https://github.com/andreww2012/utilery/commit/e0ba8817a1b240990698e37f4d93b149bc3be451) - Fixed `isTruthy` narrowing an `unknown` value to `never` when it returns `false`: it now stays `unknown` there, and is narrowed to the truthy types when it returns `true`
+
 ## 0.3.0
 
 ### Minor Changes
