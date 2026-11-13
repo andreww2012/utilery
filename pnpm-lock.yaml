@@ -272,8 +272,8 @@ catalogs:
       specifier: 1.3.0
       version: 1.3.0
     remeda:
-      specifier: 2.59.0
-      version: 2.59.0
+      specifier: 2.60.0
+      version: 2.60.0
     safe-stable-stringify:
       specifier: 3.0.1
       version: 3.0.1
@@ -482,7 +482,7 @@ patchedDependencies:
   ipaddr.js: 6c866811128d4c45ef05db08412691ffd17ee1ffd8a0acadbc5e929b9299dc0c
   lossless-json: 74268c58614454512b394fb02c1050682ea0649feeddaa999b63bc5962bbc53d
   nanoid@6: 833f6745caeb3fd0d3fcb8cedb6a9f88153b3cd19b4ebf5aaebad75a5a25239c
-  remeda: 8c4a80d28c4e6f0aa5d5233dc34b655b589f3033db0e7caff30d15fcfe816332
+  remeda: 188de72075b736bb4dd94043de875856a2a926c0d9fafea5c7d6e4ff46721b2a
   safe-stable-stringify: f24c66eab86be307cfee3cdb8b85974faac20c94840548ed38d41d4f5b517053
   signal-exit: 74c93c26d11975f4d785694e2608fc85999fae978e198b58759d702839089ead
   string-ts: 45e1a5d8e16e40e5d43d1408d493a0aee728e2001c3f7ca297c59d01dfdc5ffe
@@ -723,7 +723,7 @@ importers:
         version: 1.3.0
       remeda:
         specifier: catalog:bundled
-        version: 2.59.0(patch_hash=8c4a80d28c4e6f0aa5d5233dc34b655b589f3033db0e7caff30d15fcfe816332)
+        version: 2.60.0(patch_hash=188de72075b736bb4dd94043de875856a2a926c0d9fafea5c7d6e4ff46721b2a)
       rolldown:
         specifier: 'catalog:'
         version: 1.3.2
@@ -5583,8 +5583,8 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
-  remeda@2.59.0:
-    resolution: {integrity: sha512-iDQVjRfBXmsSjU6MQILkPdRtLjUqmMLeOQP8T1/jzZSwkCeALDKIKUYpMR2DuOYlNs+DTR8GiXsl/r4+eDCObw==}
+  remeda@2.60.0:
+    resolution: {integrity: sha512-GdqZvbKL9ZuNeI1h+P6qH3w/Cc/H1/WasO6nuBmXG38qJEuf56aZCXBtybVUesgZCgWsroaBi+EHlps5FgLXvg==}
     engines: {node: '>=18.0.0'}
 
   require-from-string@2.0.2:
@@ -11092,7 +11092,7 @@ snapshots:
       mdast-util-to-markdown: 2.2.3
       unified: 11.0.5
 
-  remeda@2.59.0(patch_hash=8c4a80d28c4e6f0aa5d5233dc34b655b589f3033db0e7caff30d15fcfe816332): {}
+  remeda@2.60.0(patch_hash=188de72075b736bb4dd94043de875856a2a926c0d9fafea5c7d6e4ff46721b2a): {}
 
   require-from-string@2.0.2: {}
 

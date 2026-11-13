@@ -6,24 +6,23 @@ the array copy that `setPath` makes for a `__proto__` segment. `fromKeys` itself
 that is strictly equal to `__proto__` as an own property, but assigns a key that only converts to
 `__proto__`, like `["__proto__"]` from JSON: it now converts the key like a property access does
 before the check. `setPath` assigns the segment with no check: it now converts the segment the
-same way and defines `__proto__` as an own property. The latest release (2.59.0) still has both
+same way and defines `__proto__` as an own property. The latest release (2.60.0) still has both
 bugs.
 
 diff --git a/dist/fromKeys.cjs b/dist/fromKeys.cjs
-index 2698747cfee72f18219b3e7615554a7a08e2ee49..f76d11b8e13ada2045cadea2c57453173f0b828c 100644
+index 1bb3ab6589dad2f345e92cf1878d4a6ca6bc223b..44dbff2a2110fe52ab018b4e69ea1292a6b06f13 100644
 --- a/dist/fromKeys.cjs
 +++ b/dist/fromKeys.cjs
-@@ -1,6 +1,11 @@
+@@ -1,5 +1,10 @@
  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
- const require_purry = require("./purry.cjs");
  // src/fromKeys.ts
 +// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
 +// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
 +function toPropertyKey(key) {
 +	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
 +}
- function fromKeys(...args) {
- 	return require_purry.purry(fromKeysImplementation, 2, args);
+ function fromKeys(dataOrMapper, mapper) {
+ 	return typeof dataOrMapper === "function" ? dataLast(dataOrMapper) : fromKeysImplementation(dataOrMapper, mapper);
  }
 @@ -8,13 +13,14 @@ function fromKeysImplementation(data, mapper) {
  	const result = {};
@@ -43,19 +42,18 @@ index 2698747cfee72f18219b3e7615554a7a08e2ee49..f76d11b8e13ada2045cadea2c5745317
  	return result;
  }
 diff --git a/dist/fromKeys.js b/dist/fromKeys.js
-index 6df9153463c4a03ce462de8b30fa32f58c607ecd..325090ca443ef437733d890e12a2a01c19c293c6 100644
+index a767e4ac667c82fd4ee1edbe8315e61443ff4b67..c8d6e3e28c2cad16e54ca80b0f1c0ae879267ca3 100644
 --- a/dist/fromKeys.js
 +++ b/dist/fromKeys.js
-@@ -1,5 +1,10 @@
- import { purry } from "./purry.js";
+@@ -1,4 +1,9 @@
  // src/fromKeys.ts
 +// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
 +// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
 +function toPropertyKey(key) {
 +	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
 +}
- function fromKeys(...args) {
- 	return purry(fromKeysImplementation, 2, args);
+ function fromKeys(dataOrMapper, mapper) {
+ 	return typeof dataOrMapper === "function" ? dataLast(dataOrMapper) : fromKeysImplementation(dataOrMapper, mapper);
  }
 @@ -7,13 +12,14 @@ function fromKeysImplementation(data, mapper) {
  	const result = {};
@@ -75,46 +73,46 @@ index 6df9153463c4a03ce462de8b30fa32f58c607ecd..325090ca443ef437733d890e12a2a01c
  	return result;
  }
 diff --git a/dist/index.d.cts b/dist/index.d.cts
-index 594520735503e262ec4554ce968bb9ce7a736b57..7f842219caff29c8c77fe7dd4596f814fd26bec4 100644
+index a06b8073ca4d9fa8c268a317e3ad0c3346d47d87..7ef2a5c4c5f4e2b7d968d7209e95c8471ce84a7d 100644
 --- a/dist/index.d.cts
 +++ b/dist/index.d.cts
-@@ -12566,4 +12566,5 @@ export declare function zipWith<T1 extends IterableContainer, T2 extends Iterabl
+@@ -12599,4 +12599,5 @@ export declare function zipWith<T extends IterableContainer, S extends IterableC
   * @category Array
   */
- export declare function zipWith<T1 extends IterableContainer, T2 extends IterableContainer, Value>(first: T1, second: T2, fn: ZippingFunction<T1, T2, Value>): Value[];
+ export declare function zipWith<T extends IterableContainer, S extends IterableContainer, Value>(data: T, other: S, fn: ZippingFunction<T, S, Value>): Value[];
 -export { BRAND_EMPTYISH, BRAND_HAS_SUB_OBJECT, RemedaErrorSymbol, emptyObjectSymbol, tag };
 \ No newline at end of file
 +export { BRAND_EMPTYISH, BRAND_HAS_SUB_OBJECT, RemedaErrorSymbol, emptyObjectSymbol, tag };
 +export type { ArrayRequiredPrefix, Evolved, Evolver, FilteredArray, FirstBy, FromKeys, Mapped, MergeAll, NonRefinedFilteredArray, OrderRule, Paths, RandomInteger, ReorderedArray, StringToPath, SwappedIndices, SwappedProps, TitleCase, TitleCaseOptions, UpsertProp, ValueAtPath };
 \ No newline at end of file
 diff --git a/dist/index.d.ts b/dist/index.d.ts
-index 594520735503e262ec4554ce968bb9ce7a736b57..7f842219caff29c8c77fe7dd4596f814fd26bec4 100644
+index a06b8073ca4d9fa8c268a317e3ad0c3346d47d87..7ef2a5c4c5f4e2b7d968d7209e95c8471ce84a7d 100644
 --- a/dist/index.d.ts
 +++ b/dist/index.d.ts
-@@ -12566,4 +12566,5 @@ export declare function zipWith<T1 extends IterableContainer, T2 extends Iterabl
+@@ -12599,4 +12599,5 @@ export declare function zipWith<T extends IterableContainer, S extends IterableC
   * @category Array
   */
- export declare function zipWith<T1 extends IterableContainer, T2 extends IterableContainer, Value>(first: T1, second: T2, fn: ZippingFunction<T1, T2, Value>): Value[];
+ export declare function zipWith<T extends IterableContainer, S extends IterableContainer, Value>(data: T, other: S, fn: ZippingFunction<T, S, Value>): Value[];
 -export { BRAND_EMPTYISH, BRAND_HAS_SUB_OBJECT, RemedaErrorSymbol, emptyObjectSymbol, tag };
 \ No newline at end of file
 +export { BRAND_EMPTYISH, BRAND_HAS_SUB_OBJECT, RemedaErrorSymbol, emptyObjectSymbol, tag };
 +export type { ArrayRequiredPrefix, Evolved, Evolver, FilteredArray, FirstBy, FromKeys, Mapped, MergeAll, NonRefinedFilteredArray, OrderRule, Paths, RandomInteger, ReorderedArray, StringToPath, SwappedIndices, SwappedProps, TitleCase, TitleCaseOptions, UpsertProp, ValueAtPath };
 \ No newline at end of file
 diff --git a/dist/setPath.cjs b/dist/setPath.cjs
-index a6ecc87ecad50776ed0948cdbb109be19d6ef804..8f4acc1a0bc1a41c2fe7f6306897c45d8b107afb 100644
+index f0bed0679de4cbe180b2e2fa24c8e70553421782..ee46b1a03cd64d124de1c93b471e1c8703d9aaa6 100644
 --- a/dist/setPath.cjs
 +++ b/dist/setPath.cjs
 @@ -1,6 +1,11 @@
  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
- const require_purry = require("./purry.cjs");
+ const require_purryByArity = require("./purryByArity-DAcpeqFP.cjs");
  // src/setPath.ts
 +// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
 +// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
 +function toPropertyKey(key) {
 +	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
 +}
- function setPath(...args) {
- 	return require_purry.purry(setPathImplementation, 3, args);
+ function setPath(dataOrPath, pathOrValue, value) {
+ 	return require_purryByArity.purry3(setPathImplementation, arguments.length, dataOrPath, pathOrValue, value);
  }
 @@ -9,7 +14,16 @@ function setPathImplementation(data, path, value) {
  	if (pivot === void 0) return value;
@@ -135,19 +133,19 @@ index a6ecc87ecad50776ed0948cdbb109be19d6ef804..8f4acc1a0bc1a41c2fe7f6306897c45d
  	}
  	const { [pivot]: currentValue, ...remaining } = data;
 diff --git a/dist/setPath.js b/dist/setPath.js
-index 030cc5997a467fcb9417462dae4885b3526babc9..9b573edccabee1ef6eacf21fa87b3902c25b2d83 100644
+index 3a9e5cd62dd3fc6728db751d4b87765719753ca2..38af77dd6fbd6ad61461b613df3128e73d8c6ab4 100644
 --- a/dist/setPath.js
 +++ b/dist/setPath.js
 @@ -1,5 +1,10 @@
- import { purry } from "./purry.js";
+ import { r as purry3 } from "./purryByArity-Cy9fRh2p.js";
  // src/setPath.ts
 +// Converts `key` like a property access does, so that the `__proto__` check sees the key the access
 +// gets: `["__proto__"]` or `new String("__proto__")` access `__proto__` too
 +function toPropertyKey(key) {
 +	return typeof key === "object" && key !== null || typeof key === "function" ? Reflect.ownKeys({ [key]: void 0 })[0] : key;
 +}
- function setPath(...args) {
- 	return purry(setPathImplementation, 3, args);
+ function setPath(dataOrPath, pathOrValue, value) {
+ 	return purry3(setPathImplementation, arguments.length, dataOrPath, pathOrValue, value);
  }
 @@ -8,7 +13,16 @@ function setPathImplementation(data, path, value) {
  	if (pivot === void 0) return value;
