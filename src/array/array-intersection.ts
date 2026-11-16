@@ -10,14 +10,25 @@ import {intersectionWith} from 'es-toolkit/array';
  * @param firstArray - The array whose elements may appear in the result.
  * Not mutated.
  * @param secondArray - The array of elements to intersect with.
+ * Its elements may be of any type: the result gets its type from `firstArray`
+ * alone.
  * @returns A new array containing the elements from `firstArray` that also appear in `secondArray`.
  * @example
  * arrayIntersection([1, 2, 3, 4, 5], [2, 4, 6]);
  * // [2, 4]
  * arrayIntersection([1, 2, 2, 3], [2]);
  * // [2, 2]
+ * @example
+ * // A wider second array keeps the element type of the first one
+ * const SIZES = ['s', 'm', 'l'] as const;
+ * declare const requested: string[];
+ * arrayIntersection(SIZES, requested);
+ * // ('s' | 'm' | 'l')[]
  */
-export function arrayIntersection<T>(firstArray: readonly T[], secondArray: readonly T[]): T[];
+export function arrayIntersection<T>(
+  firstArray: readonly T[],
+  secondArray: readonly unknown[],
+): T[];
 
 /**
  * Returns the elements from `firstArray` that are also present in
@@ -54,6 +65,8 @@ export function arrayIntersection<T, U>(
  * Not mutated.
  * @param secondArray - The array of elements to intersect with.
  * @param mapper - Maps an element of either array to the key to compare.
+ * Declare the type of its parameter when the arrays have different element types:
+ * TypeScript infers it from `firstArray` only.
  * @returns A new array containing the elements from `firstArray` whose keys also appear among the
  * keys of `secondArray`.
  * @example
@@ -68,7 +81,7 @@ export function arrayIntersection<T, U>(
  * arrayIntersection(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [2, 4],
- *   (item) => (typeof item === 'object' ? item.id : item),
+ *   (item: {id: number} | number) => (typeof item === 'object' ? item.id : item),
  * );
  * // [{id: 2}]
  */

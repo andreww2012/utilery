@@ -7,6 +7,7 @@ import {isSubsetWith} from 'es-toolkit/array';
  * argument.
  *
  * An empty `subset` is always a subset (returns `true`).
+ * The two arrays may have elements of different types.
  * @param superset - The array that may contain all elements of `subset`.
  * @param subset - The array to check against `superset`.
  * @returns `true` if every element of `subset` is present in `superset`, otherwise `false`.
@@ -14,7 +15,7 @@ import {isSubsetWith} from 'es-toolkit/array';
  * arrayIsSubset([1, 2, 3, 4, 5], [2, 4]);
  * // true
  */
-export function arrayIsSubset<T>(superset: readonly T[], subset: readonly T[]): boolean;
+export function arrayIsSubset(superset: readonly unknown[], subset: readonly unknown[]): boolean;
 
 /**
  * Checks whether every element of `subset` is also present in `superset`,
@@ -48,6 +49,8 @@ export function arrayIsSubset<T, U>(
  * @param superset - The array that may contain all elements of `subset`.
  * @param subset - The array to check against `superset`.
  * @param mapper - Maps an element of either array to the key to compare.
+ * Declare the type of its parameter when the arrays have different element types:
+ * TypeScript infers it from `superset` only.
  * @returns `true` if the key of every element of `subset` is among the keys of `superset`,
  * otherwise `false`.
  * @example
@@ -62,7 +65,7 @@ export function arrayIsSubset<T, U>(
  * arrayIsSubset(
  *   [{id: 1}, {id: 2}, {id: 3}],
  *   [2],
- *   (item) => (typeof item === 'object' ? item.id : item),
+ *   (item: {id: number} | number) => (typeof item === 'object' ? item.id : item),
  * );
  * // true
  */

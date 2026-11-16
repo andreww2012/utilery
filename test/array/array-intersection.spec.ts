@@ -26,6 +26,10 @@ describe('array/arrayIntersection', () => {
       expect(arrayIntersection(['a', 'b', 'c'], ['b', 'd'])).toStrictEqual(['b']);
     });
 
+    it('works with arrays of different element types', () => {
+      expect(arrayIntersection([1, 'a', null], ['a', undefined, '1'])).toStrictEqual(['a']);
+    });
+
     it('preserves order from the first array', () => {
       expect(arrayIntersection([5, 3, 1, 4, 2], [3, 4])).toStrictEqual([3, 4]);
     });

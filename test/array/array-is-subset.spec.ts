@@ -31,6 +31,11 @@ describe('array/arrayIsSubset', () => {
       expect(arrayIsSubset(['a', 'b', 'c'], ['d'])).toBe(false);
     });
 
+    it('works with arrays of different element types', () => {
+      expect(arrayIsSubset([1, 'a', null], ['a', null])).toBe(true);
+      expect(arrayIsSubset([1, 'a', null], ['1'])).toBe(false);
+    });
+
     it('ignores duplicate elements in subset', () => {
       expect(arrayIsSubset([1, 2, 3], [2, 2, 2])).toBe(true);
     });

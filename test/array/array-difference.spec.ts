@@ -22,6 +22,10 @@ describe('array/arrayDifference', () => {
       expect(arrayDifference(['a', 'b', 'c'], ['b'])).toStrictEqual(['a', 'c']);
     });
 
+    it('works with arrays of different element types', () => {
+      expect(arrayDifference([1, 'a', null], ['a', undefined, '1'])).toStrictEqual([1, null]);
+    });
+
     it('preserves order', () => {
       expect(arrayDifference([5, 3, 1, 4, 2], [3, 4])).toStrictEqual([5, 1, 2]);
     });
