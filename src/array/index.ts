@@ -16,6 +16,7 @@ export {arrayHasMinElements} from './array-has-min-elements.ts';
 export {arrayIncludes} from './array-includes.ts';
 export {arrayIndexOf} from './array-index-of.ts';
 export {arrayIntersection} from './array-intersection.ts';
+export {arrayIsEqualUnordered} from './array-is-equal-unordered.ts';
 export {arrayIsSubset} from './array-is-subset.ts';
 export {arrayIsUnique} from './array-is-unique.ts';
 export {arrayJoin} from './array-join.ts';
