@@ -1,5 +1,17 @@
 # utilery
 
+## 0.5.0
+
+### Minor Changes
+
+- [`13da768`](https://github.com/andreww2012/utilery/commit/13da7687a08e5d689111303dc548425b9be81aea) - Added `arrayIsEqualUnordered`, which checks whether two arrays have the same elements the same number of times, in any order
+
+- [`a5cf3fc`](https://github.com/andreww2012/utilery/commit/a5cf3fc831d50a25c563bd666b32c2e183b51b55) - Added `isSemverRangeSubset`, which checks whether every version that satisfies one npm-style range also satisfies another, and `minSemverInRange`, which finds the lowest version that satisfies a range
+
+### Patch Changes
+
+- [`8a30799`](https://github.com/andreww2012/utilery/commit/8a3079983cefa341d52cc1e668d5a66411d35159) - Fixed the types of `arrayDifference`, `arrayIntersection` and `arrayIsSubset` called without a comparator or a key function: the second array may now hold elements of any type, and the result gets its element type from the first array alone. For example, `arrayIntersection(['s', 'm'] as const, strings)` now gives `('s' | 'm')[]` instead of `string[]`
+
 ## 0.4.0
 
 ### Minor Changes
