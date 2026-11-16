@@ -58,7 +58,14 @@ export default defineConfig({
   ],
   unbundle: true,
   dts: true,
-  outputOptions: shortenBundledFileNames,
+  outputOptions: (options) => ({
+    ...shortenBundledFileNames(options),
+    comments: {
+      // The docs are in the declaration files anyway, and in the code they only make the package
+      // bigger
+      jsdoc: false,
+    },
+  }),
   attw: {level: 'error'},
   publint: {strict: true},
   // Writes `exports` and `inlinedDependencies`
